@@ -13,19 +13,24 @@ interface Stat {
 interface Props {
   statement: string;
   bio: string;
-  stats: Stat[];
+  /** Omit until the numbers are real. An empty row is better than a wrong one. */
+  stats?: Stat[];
 }
 
-const { statement, bio, stats } = Astro.props;
+const { statement, bio, stats = [] } = Astro.props;
 ---
 
 <section class="hero">
   <div class="container">
     <h1 class="hero__statement t-display-lg">{statement}</h1>
     <p class="hero__bio t-body-lg">{bio}</p>
-    <div class="hero__stats">
-      <StatRow stats={stats} />
-    </div>
+    {
+      stats.length > 0 && (
+        <div class="hero__stats">
+          <StatRow stats={stats} />
+        </div>
+      )
+    }
   </div>
 </section>
 
