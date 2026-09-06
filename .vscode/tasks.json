@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "astro: dev",
+      "detail": "Local dev server at http://localhost:4321 with hot reload. This is the Astro equivalent of Live Server.",
+      "type": "shell",
+      "command": "npm run dev",
+      "group": { "kind": "build", "isDefault": true },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "astro: build + preview",
+      "detail": "Build to dist/, then serve the real build output. Run this before every push (SPEC §10).",
+      "type": "shell",
+      "command": "npm run build; if ($?) { npm run preview }",
+      "group": "test",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    }
+  ]
+}

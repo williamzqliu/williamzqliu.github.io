@@ -243,13 +243,14 @@ Every component reads CSS variables. No hardcoded colors.
 
 ## 7. Content model
 
-`src/content/config.ts`:
+`src/content.config.ts`:
 
 ```ts
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const projects = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     year: z.number(),
@@ -261,8 +262,8 @@ const projects = defineCollection({
     draft: z.boolean().default(false),
     stack: z.array(z.string()).default([]),
     links: z.object({
-      demo: z.string().url().optional(),
-      code: z.string().url().optional(),
+      demo: z.url().optional(),
+      code: z.url().optional(),
       paper: z.string().optional(),
       poster: z.string().optional(),
     }).default({}),
@@ -280,6 +281,9 @@ const projects = defineCollection({
 
 export const collections = { projects };
 ```
+
+Astro 7 API. Entries are addressed by `id`, not `slug`: `getEntry('projects', id)`,
+and `entry.filePath` for the source filename.
 
 ### Rules
 
