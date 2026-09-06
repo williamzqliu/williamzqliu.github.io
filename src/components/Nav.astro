@@ -1,0 +1,152 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  current?: string;
+}
+
+const { current = '/' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Design' },
+  { href: '/engineering', label: 'Engineering' },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+];
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__name" href="/">William Liu</a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <ul class="nav__list">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                class="nav__link"
+                href={link.href}
+                aria-current={link.href === current ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="nav__toggle">
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Full-bleed hairline: the nav is page chrome, so its rule spans the
+     viewport rather than the content column. */
+  .nav {
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+
+  .nav__inner {
+    display: grid;
+    grid-template-areas:
+      'name toggle'
+      'links links';
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: var(--sp-16);
+    row-gap: var(--sp-12);
+    padding-block: var(--sp-12) 0;
+  }
+
+  .nav__name {
+    grid-area: name;
+    font-size: var(--fs-body-lg);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.015em;
+    color: var(--text);
+  }
+
+  .nav__links {
+    grid-area: links;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(var(--pad) * -1);
+    padding-inline: var(--pad);
+  }
+
+  .nav__links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-24);
+    white-space: nowrap;
+  }
+
+  /* Body face, sentence case. Never mono. */
+  .nav__link {
+    display: inline-block;
+    font-size: var(--fs-small);
+    color: var(--text-2);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid transparent;
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .nav__link[aria-current='page'] {
+    color: var(--text);
+    border-bottom-color: var(--rule-strong);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav__link:hover {
+      color: var(--text);
+      border-bottom-color: var(--rule);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .nav__link[aria-current='page']:hover {
+      border-bottom-color: var(--rule-strong);
+    }
+  }
+
+  .nav__link:active {
+    transition: none;
+    color: var(--text);
+  }
+
+  .nav__toggle {
+    grid-area: toggle;
+    justify-self: end;
+  }
+
+  @media (min-width: 640px) {
+    .nav__inner {
+      grid-template-areas: 'name links toggle';
+      grid-template-columns: auto 1fr auto;
+      column-gap: var(--sp-32);
+      row-gap: 0;
+      padding-block: var(--sp-8);
+    }
+
+    .nav__links {
+      overflow-x: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+
+    .nav__list {
+      justify-content: flex-end;
+    }
+
+    .nav__link {
+      padding-block: var(--sp-16);
+    }
+  }
+</style>

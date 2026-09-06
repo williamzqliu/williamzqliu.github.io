@@ -1,0 +1,69 @@
+---
+import StatRow from './StatRow.astro';
+
+// SPEC §6 — left-aligned statement, one-line bio, stat row, no animation.
+// The statement uses the *body* face at display size: the condensed display
+// face is reserved for project titles.
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  statement: string;
+  bio: string;
+  stats: Stat[];
+}
+
+const { statement, bio, stats } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <h1 class="hero__statement t-display-lg">{statement}</h1>
+    <p class="hero__bio t-body-lg">{bio}</p>
+    <div class="hero__stats">
+      <StatRow stats={stats} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--sp-48) var(--sp-32);
+  }
+
+  .hero__statement {
+    max-width: 26ch;
+    color: var(--text);
+  }
+
+  .hero__bio {
+    margin-top: var(--sp-24);
+    max-width: 58ch;
+    color: var(--text-2);
+  }
+
+  .hero__stats {
+    margin-top: var(--sp-32);
+    padding-top: var(--sp-24);
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  @media (min-width: 640px) {
+    .hero {
+      padding-block: var(--sp-64) var(--sp-48);
+    }
+
+    .hero__stats {
+      margin-top: var(--sp-48);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      padding-block: var(--sp-96) var(--sp-64);
+    }
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+// SPEC §6 — availability line + links.
+// TODO: email address and resume URL are placeholders (`#`) until confirmed.
+const links = [
+  { label: 'Email', href: '#' },
+  { label: 'GitHub', href: 'https://github.com/williw7' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/william-zqliu' },
+  { label: 'Resume', href: '#' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__availability">
+      Finishing the MFA in December 2026 and looking for data visualization design and engineering
+      work from January 2027.
+    </p>
+
+    <ul class="footer__links">
+      {
+        links.map((link) => {
+          const external = link.href.startsWith('http');
+          return (
+            <li>
+              <a
+                class="footer__link"
+                href={link.href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+              >
+                {link.label}
+                {external && (
+                  <>
+                    <svg
+                      class="footer__ext"
+                      viewBox="0 0 12 12"
+                      width="10"
+                      height="10"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M4.5 1.5H10.5V7.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <path d="M10.5 1.5L4 8" fill="none" stroke="currentColor" stroke-width="1.4" />
+                      <path
+                        d="M8.5 10.5H1.5V3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                    </svg>
+                    <span class="vh">(opens in a new tab)</span>
+                  </>
+                )}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <p class="footer__colophon">
+      <span>&#169; {year} William Liu</span>
+      <span>Set in Archivo, Instrument Sans and Martian Mono</span>
+    </p>
+  </div>
+</footer>
+
+<style>
+  /* Section boundary — the only place a 2px rule is used on this page. */
+  .footer {
+    border-top: var(--rule-heavy) solid var(--rule-strong);
+    margin-top: var(--sp-64);
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: var(--sp-32);
+    padding-block: var(--sp-32) var(--sp-48);
+  }
+
+  .footer__availability {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--text);
+    max-width: 46ch;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-24);
+  }
+
+  .footer__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .footer__ext {
+    flex: none;
+    opacity: 0.75;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer__link:hover {
+      color: var(--text);
+      border-bottom-color: var(--rule-strong);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .footer__link:active {
+    transition: none;
+    color: var(--text);
+  }
+
+  .footer__colophon {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+    padding-top: var(--sp-24);
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  @media (min-width: 1024px) {
+    .footer__inner {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      column-gap: var(--sp-48);
+      padding-block: var(--sp-48) var(--sp-64);
+    }
+
+    .footer__links {
+      justify-content: flex-start;
+    }
+
+    .footer__colophon {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      gap: var(--sp-32);
+      margin-top: var(--sp-16);
+    }
+  }
+</style>

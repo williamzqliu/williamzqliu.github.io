@@ -1,0 +1,175 @@
+/* ============================================================
+   tokens.css — SPEC §2 (visual system) + §3 (motion)
+   Every component reads these. No hardcoded colors anywhere else.
+   ============================================================ */
+
+/* ---------- Color: light ---------- */
+
+:root {
+  --bg:            #FBFAF7;
+  --surface:       #F2F0EA;
+  --text:          #14140F;
+  --text-2:        #5C5C54;
+  --text-3:        #8E8E84;
+  --rule:          #DCDAD1;
+  --rule-strong:   #14140F;
+  --accent:        #F04A18;   /* logo orange */
+  --accent-2:      #FFC400;   /* logo yellow */
+
+  color-scheme: light;
+}
+
+/* ---------- Color: dark ---------- */
+
+/* Explicit choice (set by the inline theme script). */
+:root[data-theme='dark'] {
+  --bg:            #121210;
+  --surface:       #1C1C19;
+  --text:          #F0EEE7;
+  --text-2:        #9C9C93;
+  --text-3:        #6A6A62;
+  --rule:          #2C2C28;
+  --rule-strong:   #F0EEE7;
+  --accent:        #FF5C2B;
+  --accent-2:      #FFD24A;
+
+  color-scheme: dark;
+}
+
+/* No JS: fall back to the OS preference. The inline script always writes
+   data-theme, so this only ever applies when scripting is off. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg:            #121210;
+    --surface:       #1C1C19;
+    --text:          #F0EEE7;
+    --text-2:        #9C9C93;
+    --text-3:        #6A6A62;
+    --rule:          #2C2C28;
+    --rule-strong:   #F0EEE7;
+    --accent:        #FF5C2B;
+    --accent-2:      #FFD24A;
+
+    color-scheme: dark;
+  }
+}
+
+/* ---------- Cover tone plates (SPEC §8) ----------
+   Locked constants. These do NOT follow the theme: a dark network graphic
+   stays on a dark plate in light mode. */
+
+:root {
+  --tone-dark:    #14140F;
+  --tone-light:   #F2F0EA;
+  --tone-neutral: #8E8E84;
+
+  --tone-dark-ink:    #6A6A62;
+  --tone-light-ink:   #8E8E84;
+  --tone-neutral-ink: #F2F0EA;
+}
+
+/* ---------- Type ---------- */
+
+:root {
+  /* Display — condensed grotesque. Project titles only, never body.
+     Archivo carries a wdth axis; 75% is the condensed instance. */
+  --font-display: 'Archivo', 'Archivo Narrow', 'Arial Narrow', system-ui, sans-serif;
+  /* Body — prose, navigation, labels, everything conversational. */
+  --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Technical — stack lists, data values, code. Nothing else. */
+  --font-mono: 'Martian Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --wdth-display: 75%;
+  --wdth-mono: 87.5%;
+
+  /* Scale, 1.25 ratio. rem so browser font-size settings still work;
+     px equivalents at a 16px root are the spec values. */
+  --fs-display-lg: 2.5rem;    /* 40px */
+  --lh-display-lg: 1.05;
+  --fs-display:    1.75rem;   /* 28px */
+  --lh-display:    1.15;
+  --fs-title:      1.25rem;   /* 20px */
+  --lh-title:      1.25;
+  --fs-body-lg:    1.0625rem; /* 17px */
+  --lh-body-lg:    1.6;
+  --fs-body:       0.9375rem; /* 15px */
+  --lh-body:       1.65;
+  --fs-small:      0.8125rem; /* 13px */
+  --lh-small:      1.5;
+  --fs-micro:      0.6875rem; /* 11px — mono only */
+  --lh-micro:      1.4;
+
+  --fw-display: 500;
+  --fw-medium:  500;
+  --fw-regular: 400;
+
+  /* Prose never fills the container. */
+  --measure: 66ch;
+}
+
+/* ---------- Shape ---------- */
+
+:root {
+  --radius: 0;              /* everywhere, no exceptions */
+  --rule-hair: 1px;
+  --rule-heavy: 2px;        /* section boundaries only */
+}
+
+/* ---------- Spacing (4px base) ---------- */
+
+:root {
+  --sp-4:  0.25rem;
+  --sp-8:  0.5rem;
+  --sp-12: 0.75rem;
+  --sp-16: 1rem;
+  --sp-24: 1.5rem;
+  --sp-32: 2rem;
+  --sp-48: 3rem;
+  --sp-64: 4rem;
+  --sp-96: 6rem;
+}
+
+/* ---------- Layout (SPEC §5) ---------- */
+
+:root {
+  --container: 1200px;
+  --pad: 16px;              /* mobile */
+  --row-bleed: 12px;
+  --tap: 44px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --pad: 32px;            /* tablet */
+    --row-bleed: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --pad: 48px;            /* desktop */
+    --row-bleed: 24px;
+  }
+}
+
+/* ---------- Motion (SPEC §3) ---------- */
+
+:root {
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   120ms;
+  --dur-base:   240ms;
+  --dur-slow:   420ms;
+
+  /* Hover: 120ms in, 180ms out. */
+  --dur-hover-in:  120ms;
+  --dur-hover-out: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

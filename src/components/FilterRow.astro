@@ -1,0 +1,111 @@
+---
+// SPEC §6 — horizontal scroll on mobile, no wrap; active = orange underline.
+// This is the one place the orange accent is spent on the landing page.
+//
+// Filter *logic* is deliberately not wired yet (Task 2). The markup is the
+// progressive-enhancement baseline: with JS off, every project stays visible.
+
+interface Props {
+  tags: string[];
+  active?: string;
+}
+
+const { tags, active = 'all' } = Astro.props;
+const options = ['all', ...tags];
+---
+
+<div class="filterrow" role="group" aria-label="Filter projects">
+  <ul class="filterrow__list">
+    {
+      options.map((tag) => (
+        <li>
+          <button
+            type="button"
+            class="filterrow__chip"
+            data-filter={tag}
+            aria-pressed={tag === active ? 'true' : 'false'}
+          >
+            {tag}
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .filterrow {
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Bleeds to the viewport edge on mobile so chips can scroll past it. */
+    margin-inline: calc(var(--pad) * -1);
+    padding-inline: var(--pad);
+  }
+
+  .filterrow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filterrow__list {
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: var(--sp-24);
+  }
+
+  .filterrow__chip {
+    position: relative;
+    display: block;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    /* Reaches the 44px minimum tap target even though the type is small. */
+    padding-block: var(--sp-12);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .filterrow__chip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    height: var(--rule-heavy);
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-hover-out) var(--ease-out);
+  }
+
+  .filterrow__chip[aria-pressed='true'] {
+    color: var(--text);
+  }
+
+  .filterrow__chip[aria-pressed='true']::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .filterrow__chip:hover {
+      color: var(--text);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* Filter state must read as instant — 0ms, no easing. */
+  .filterrow__chip:active,
+  .filterrow__chip:active::after {
+    transition: none;
+  }
+
+  .filterrow__chip:active {
+    color: var(--text);
+    transform: scale(0.995);
+  }
+
+  @media (hover: none) {
+    .filterrow__chip:active {
+      transform: scale(0.97);
+    }
+  }
+</style>

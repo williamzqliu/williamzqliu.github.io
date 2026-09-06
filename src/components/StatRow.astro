@@ -1,0 +1,84 @@
+---
+// SPEC §6 — 4 cells divided by vertical rules; values in mono.
+// Mono here is legitimate: these are data values, not decoration.
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<dl class="statrow">
+  {
+    stats.map((stat) => (
+      <div class="statrow__cell">
+        <dt class="statrow__value">{stat.value}</dt>
+        <dd class="statrow__label">{stat.label}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .statrow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-16);
+    row-gap: var(--sp-24);
+  }
+
+  .statrow__cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    padding-left: var(--sp-16);
+    border-left: var(--rule-hair) solid var(--rule);
+  }
+
+  /* Dividers sit *between* cells, so the first of each row has none. */
+  .statrow__cell:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .statrow__value {
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+
+  .statrow__label {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+    max-width: 22ch;
+  }
+
+  @media (min-width: 640px) {
+    .statrow {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: var(--sp-24);
+    }
+
+    .statrow__cell:nth-child(odd) {
+      padding-left: var(--sp-24);
+      border-left: var(--rule-hair) solid var(--rule);
+    }
+
+    .statrow__cell:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+</style>
