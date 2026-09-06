@@ -443,4 +443,4 @@ Include an `## Adding a project` section with the frontmatter template. Six mont
 - Record cover loops and walkthroughs for Inside the Institution and PolyGraphs
 - Export square covers for mobile
 - Confirm project naming and public display permission with Brian Ball
-- GitHub username currently `williw7`; domain and LinkedIn use `williamzqliu` / `william-zqliu`. Unify, and update the demo URLs if renamed.
+- GitHub username is now `williamzqliu` (renamed from `williw7`). Use it for the demo and repo URLs when they land — the project links are still `#`.
