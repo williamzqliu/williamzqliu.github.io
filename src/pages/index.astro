@@ -3,51 +3,12 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import FilterRow from '../components/FilterRow.astro';
 import ProjectRow from '../components/ProjectRow.astro';
+import { featuredProjects, deriveTags, projectLinks } from '../lib/projects';
 
-// Hardcoded for Task 1. This shape mirrors the content-collection schema in
-// SPEC §7, so moving to `src/content/projects/*.md` is a swap, not a rewrite.
-const projects = [
-  {
-    slug: 'inside-the-institution',
-    title: 'Inside the Institution',
-    year: 2025,
-    blurb: "A print-scale visual essay on how an institution's structure shapes what it can see.",
-    tags: ['narrative', 'print'],
-    stack: ['D3.js', 'Python', 'Illustrator'],
-    tone: 'dark' as const,
-    links: [
-      // TODO: real URLs once the demo and repo are public.
-      { label: 'Live demo', href: '#' },
-      { label: 'Source', href: '#' },
-    ],
-  },
-  {
-    slug: 'polygraphs',
-    title: 'PolyGraphs',
-    year: 2026,
-    blurb: 'An interactive simulation of how belief moves through networks of agents sharing evidence.',
-    tags: ['networks', 'interactive'],
-    stack: ['TypeScript', 'D3.js', 'Svelte', 'Python'],
-    tone: 'light' as const,
-    links: [
-      { label: 'Live demo', href: '#' },
-      { label: 'Source', href: '#' },
-    ],
-  },
-];
-
-// SPEC §7 — filter categories are derived from the data, never hardcoded.
-const TAG_ORDER = ['networks', 'interactive', 'narrative', 'print'];
-const tags = [...new Set(projects.flatMap((p) => p.tags))].sort(
-  (a, b) => TAG_ORDER.indexOf(a) - TAG_ORDER.indexOf(b)
-);
-
-const stats = [
-  { value: '2,737', label: 'nodes in the largest graph I have shipped' },
-  { value: '2', label: 'papers at NetSci and EMNLP 2026' },
-  { value: 'Dec 2026', label: 'MFA Information Design, Northeastern' },
-  { value: 'Boston', label: 'open to remote and hybrid' },
-];
+// SPEC §9 — the design-track landing page. Adding a project is one markdown
+// file in src/content/projects/; nothing on this page needs to change.
+const projects = await featuredProjects('design');
+const tags = deriveTags(projects);
 ---
 
 <Base
@@ -58,7 +19,6 @@ const stats = [
   <Hero
     statement="I build interactive tools for network and relational data."
     bio="Designer and developer. Computer science at Tongji, then an MFA in Information Design and Data Visualization at Northeastern."
-    stats={stats}
   />
 
   <section class="work rule-heavy-top" aria-labelledby="work-heading">
@@ -73,13 +33,13 @@ const stats = [
           projects.map((project, i) => (
             <ProjectRow
               index={i + 1}
-              title={project.title}
-              year={project.year}
-              blurb={project.blurb}
-              stack={project.stack}
-              /* TODO: pass href once /work/[slug] exists (Task 2+). */
-              tone={project.tone}
-              links={project.links}
+              title={project.data.title}
+              year={project.data.year}
+              blurb={project.data.blurb}
+              stack={project.data.stack}
+              /* TODO: pass href once /work/[slug] exists. */
+              tone={project.data.cover.tone}
+              links={projectLinks(project)}
             />
           ))
         }
