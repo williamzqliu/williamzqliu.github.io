@@ -5,20 +5,20 @@ import FilterRow from '../components/FilterRow.astro';
 import ProjectRow from '../components/ProjectRow.astro';
 import { featuredProjects, deriveTags, projectLinks, caseStudyHref } from '../lib/projects';
 
-// SPEC §9 — the design-track landing page. Adding a project is one markdown
-// file in src/content/projects/; nothing on this page needs to change.
-const projects = await featuredProjects('design');
+// SPEC §9 — same structure as `/`, different hero line and project set.
+// One source, two curations: this reads `tracks: [engineering]`.
+const projects = await featuredProjects('engineering');
 const tags = deriveTags(projects);
 ---
 
 <Base
-  title="Zhuoqi Liu — Designer and developer"
-  description="Designer and developer building interactive tools for network and relational data."
-  current="/"
+  title="Zhuoqi Liu — Data visualization engineer"
+  description="Engineer building interactive tools for network and relational data."
+  current="/engineering"
 >
   <Hero
-    statement="I build interactive tools for network and relational data."
-    bio="Designer and developer. Computer science at Tongji, then an MFA in Information Design and Data Visualization at Northeastern."
+    statement="I ship interactive graph tools that stay fast at scale."
+    bio="Frontend and data visualization. Computer science at Tongji, embedded C++ at Axis, now an MFA in Information Design and Data Visualization at Northeastern."
   />
 
   <section class="work rule-heavy-top" aria-labelledby="work-heading">
@@ -40,6 +40,7 @@ const tags = deriveTags(projects);
               href={caseStudyHref(project)}
               tone={project.data.cover.tone}
               links={projectLinks(project)}
+              emphasiseStack
             />
           ))
         }
@@ -61,7 +62,6 @@ const tags = deriveTags(projects);
     padding-bottom: var(--sp-16);
   }
 
-  /* Sentence case, body face, quiet. No all-caps eyebrow. */
   .work__heading {
     font-size: var(--fs-small);
     line-height: var(--lh-small);

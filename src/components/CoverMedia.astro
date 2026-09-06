@@ -1,0 +1,72 @@
+---
+// SPEC §6 / §8 — tone-locked cover plate.
+// TODO: render <video>/<img> once the media in `cover.wide` exists. Until then
+// this draws the plate at the right ratio so the layout is already correct.
+
+interface Props {
+  tone: 'dark' | 'light' | 'neutral';
+  /** `responsive` is square on mobile, 16:9 above (SPEC §5). */
+  ratio?: 'responsive' | 'wide';
+  label?: string;
+}
+
+const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
+---
+
+<div class="cover" data-tone={tone} data-ratio={ratio} aria-hidden="true">
+  <div class="cover__placeholder">
+    <span>{label}</span>
+    <span>1600 &#215; 900</span>
+  </div>
+</div>
+
+<style>
+  .cover {
+    border: var(--rule-hair) solid var(--rule);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* Square covers below 640px (SPEC §5). */
+  .cover[data-ratio='responsive'] {
+    aspect-ratio: 1 / 1;
+  }
+
+  .cover[data-ratio='wide'] {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Locked to the declared tone — does not follow the theme (SPEC §8). */
+  .cover[data-tone='dark'] {
+    background: var(--tone-dark);
+    color: var(--tone-dark-ink);
+  }
+
+  .cover[data-tone='light'] {
+    background: var(--tone-light);
+    color: var(--tone-light-ink);
+  }
+
+  .cover[data-tone='neutral'] {
+    background: var(--tone-neutral);
+    color: var(--tone-neutral-ink);
+  }
+
+  .cover__placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--sp-16);
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 640px) {
+    .cover[data-ratio='responsive'] {
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>

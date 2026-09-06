@@ -5,6 +5,8 @@
 // Cover media is a tone-locked placeholder plate until the loops are recorded
 // (SPEC "Open items"). The plate colour does not follow the theme.
 
+import CoverMedia from './CoverMedia.astro';
+
 interface ProjectLink {
   label: string;
   href: string;
@@ -20,9 +22,11 @@ interface Props {
   href?: string;
   tone: 'dark' | 'light' | 'neutral';
   links: ProjectLink[];
+  /** SPEC §9 — the engineering track gives stack lines more prominence. */
+  emphasiseStack?: boolean;
 }
 
-const { index, title, year, blurb, stack, href, tone, links } = Astro.props;
+const { index, title, year, blurb, stack, href, tone, links, emphasiseStack } = Astro.props;
 const figure = String(index).padStart(2, '0');
 
 // `#` is a placeholder, not a destination — do not ship it as a link.
@@ -32,12 +36,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
 <article class="prow" data-linked={href ? 'true' : undefined}>
   <div class="prow__mediacol">
     <span class="prow__index">{figure}</span>
-    <div class="prow__media" data-tone={tone} aria-hidden="true">
-      <div class="prow__placeholder">
-        <span>cover loop</span>
-        <span>1600 &#215; 900</span>
-      </div>
-    </div>
+    <CoverMedia tone={tone} />
   </div>
 
   <div class="prow__body">
@@ -57,7 +56,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
     <p class="prow__blurb">{blurb}</p>
 
-    <p class="prow__stack">{stack.join(', ')}</p>
+    <p class="prow__stack" data-emphasis={emphasiseStack ? 'true' : undefined}>{stack.join(', ')}</p>
 
     {liveLinks.length > 0 && (
     <ul class="prow__links">
@@ -157,42 +156,6 @@ const liveLinks = links.filter((link) => link.href !== '#');
     color: var(--text-3);
   }
 
-  /* Square covers below 640px (SPEC §5). */
-  .prow__media {
-    aspect-ratio: 1 / 1;
-    border: var(--rule-hair) solid var(--rule);
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .prow__media[data-tone='dark'] {
-    background: var(--tone-dark);
-    color: var(--tone-dark-ink);
-  }
-
-  .prow__media[data-tone='light'] {
-    background: var(--tone-light);
-    color: var(--tone-light-ink);
-  }
-
-  .prow__media[data-tone='neutral'] {
-    background: var(--tone-neutral);
-    color: var(--tone-neutral-ink);
-  }
-
-  .prow__placeholder {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--sp-16);
-    font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
-    font-size: var(--fs-micro);
-    line-height: var(--lh-micro);
-    letter-spacing: -0.02em;
-    color: currentColor;
-  }
-
   /* ---- body ---- */
 
   .prow__body {
@@ -263,6 +226,11 @@ const liveLinks = links.filter((link) => link.href !== '#');
     max-width: 46ch;
   }
 
+  .prow__stack[data-emphasis] {
+    font-size: var(--fs-small);
+    color: var(--text-2);
+  }
+
   .prow__links {
     display: flex;
     flex-wrap: wrap;
@@ -329,10 +297,6 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* ---- layout tiers (SPEC §5) ---- */
 
   @media (min-width: 640px) {
-    .prow__media {
-      aspect-ratio: 16 / 9;
-    }
-
     .prow {
       padding-block: var(--sp-48);
       gap: var(--sp-32);

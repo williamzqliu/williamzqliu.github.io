@@ -1,0 +1,64 @@
+---
+// SPEC §6 — rule-separated table: scale, role, stack, shown at.
+// Sits above the prose because most visitors will not read to the end.
+
+interface Fact {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  facts: Fact[];
+}
+
+const { facts } = Astro.props;
+---
+
+<dl class="qf">
+  {
+    facts.map((fact) => (
+      <div class="qf__row">
+        <dt class="qf__label">{fact.label}</dt>
+        <dd class="qf__value">{fact.value}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .qf {
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .qf__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+
+  .qf__label {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  /* Mono: these are data values. */
+  .qf__value {
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  @media (min-width: 640px) {
+    .qf__row {
+      grid-template-columns: 12ch minmax(0, 1fr);
+      gap: var(--sp-24);
+      align-items: baseline;
+    }
+  }
+</style>

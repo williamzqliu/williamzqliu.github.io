@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import FilterRow from '../../components/FilterRow.astro';
+import ProjectRow from '../../components/ProjectRow.astro';
+import { allProjects, deriveTags, projectLinks, caseStudyHref } from '../../lib/projects';
+
+// SPEC §9 — full list, no hero, nothing truncated.
+const projects = await allProjects();
+const tags = deriveTags(projects);
+---
+
+<Base
+  title="Work — Zhuoqi Liu"
+  description="Every published project, newest first."
+  current="/work"
+>
+  <section class="work" aria-labelledby="work-heading">
+    <div class="container">
+      <div class="work__head">
+        <h1 class="work__heading" id="work-heading">Work</h1>
+        <p class="work__count">{projects.length} published projects, newest first.</p>
+        <FilterRow tags={tags} />
+      </div>
+
+      <div class="work__list">
+        {
+          projects.map((project, i) => (
+            <ProjectRow
+              index={i + 1}
+              title={project.data.title}
+              year={project.data.year}
+              blurb={project.data.blurb}
+              stack={project.data.stack}
+              href={caseStudyHref(project)}
+              tone={project.data.cover.tone}
+              links={projectLinks(project)}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .work {
+    padding-top: var(--sp-48);
+  }
+
+  .work__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-16);
+    padding-bottom: var(--sp-16);
+  }
+
+  .work__heading {
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .work__count {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .work__list {
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+</style>
