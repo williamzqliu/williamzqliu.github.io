@@ -7,22 +7,29 @@ interface Props {
 
 const { current = '/' } = Astro.props;
 
+// Flip `ready` as each page lands. Linking to a page that does not exist yet
+// puts a GitHub-branded 404 on the live domain, which is worse than a short nav.
 const links = [
-  { href: '/', label: 'Design' },
-  { href: '/engineering', label: 'Engineering' },
-  { href: '/work', label: 'Work' },
-  { href: '/about', label: 'About' },
+  { href: '/', label: 'Design', ready: true },
+  { href: '/engineering', label: 'Engineering', ready: false },
+  { href: '/work', label: 'Work', ready: false },
+  { href: '/about', label: 'About', ready: false },
 ];
+
+const navLinks = links.filter((link) => link.ready);
+// A single item pointing at the page you are already on is noise, not navigation.
+const showNav = navLinks.length > 1;
 ---
 
 <header class="nav">
-  <div class="container nav__inner">
+  <div class:list={['container', 'nav__inner', !showNav && 'nav__inner--bare']}>
     <a class="nav__name" href="/">William Liu</a>
 
+    {showNav && (
     <nav class="nav__links" aria-label="Primary">
       <ul class="nav__list">
         {
-          links.map((link) => (
+          navLinks.map((link) => (
             <li>
               <a
                 class="nav__link"
@@ -36,6 +43,7 @@ const links = [
         }
       </ul>
     </nav>
+    )}
 
     <div class="nav__toggle">
       <ThemeToggle />
@@ -60,6 +68,14 @@ const links = [
     column-gap: var(--sp-16);
     row-gap: var(--sp-12);
     padding-block: var(--sp-12) 0;
+  }
+
+  /* No link row yet — collapse to a single row and restore the vertical
+     padding the links were providing. */
+  .nav__inner--bare {
+    grid-template-areas: 'name toggle';
+    row-gap: 0;
+    padding-block: var(--sp-12);
   }
 
   .nav__name {
@@ -127,6 +143,10 @@ const links = [
   }
 
   @media (min-width: 640px) {
+    .nav__inner--bare {
+      padding-block: var(--sp-16);
+    }
+
     .nav__inner {
       grid-template-areas: 'name links toggle';
       grid-template-columns: auto 1fr auto;

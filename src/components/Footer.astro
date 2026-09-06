@@ -1,13 +1,15 @@
 ---
 // SPEC §6 — availability line + links.
-// TODO: email address and resume URL are placeholders (`#`) until confirmed.
-const links = [
+// `#` entries are not rendered — they are kept here as the list of what is
+// still missing. TODO: real email address and resume URL.
+const allLinks = [
   { label: 'Email', href: '#' },
   { label: 'GitHub', href: 'https://github.com/williamzqliu' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/william-zqliu' },
   { label: 'Resume', href: '#' },
 ];
 
+const links = allLinks.filter((link) => link.href !== '#');
 const year = new Date().getFullYear();
 ---
 

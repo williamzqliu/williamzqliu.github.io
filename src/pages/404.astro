@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Page not found — William Liu"
+  description="That page is not here."
+  current="/404"
+>
+  <section class="nf">
+    <div class="container">
+      <p class="nf__code">404</p>
+      <h1 class="nf__statement t-display-lg">That page is not here.</h1>
+      <p class="nf__body t-body-lg">
+        The site is being rebuilt, so a link you followed may have moved or may not be
+        published yet.
+      </p>
+      <a class="nf__home" href="/">Back to the homepage</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: var(--sp-64) var(--sp-96);
+  }
+
+  /* Mono: a status code is a data value. */
+  .nf__code {
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+  }
+
+  .nf__statement {
+    margin-top: var(--sp-16);
+    max-width: 20ch;
+    color: var(--text);
+  }
+
+  .nf__body {
+    margin-top: var(--sp-24);
+    max-width: 52ch;
+    color: var(--text-2);
+  }
+
+  .nf__home {
+    display: inline-block;
+    margin-top: var(--sp-32);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nf__home:hover {
+      color: var(--text);
+      border-bottom-color: var(--rule-strong);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .nf__home:active {
+    transition: none;
+    color: var(--text);
+  }
+
+  @media (min-width: 1024px) {
+    .nf {
+      padding-block: var(--sp-96) var(--sp-96);
+    }
+  }
+</style>
