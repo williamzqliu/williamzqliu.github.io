@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import FilterRow from '../components/FilterRow.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+
+// Hardcoded for Task 1. This shape mirrors the content-collection schema in
+// SPEC §7, so moving to `src/content/projects/*.md` is a swap, not a rewrite.
+const projects = [
+  {
+    slug: 'inside-the-institution',
+    title: 'Inside the Institution',
+    year: 2025,
+    blurb: "A print-scale visual essay on how an institution's structure shapes what it can see.",
+    tags: ['narrative', 'print'],
+    stack: ['D3.js', 'Python', 'Illustrator'],
+    tone: 'dark' as const,
+    links: [
+      // TODO: real URLs once the demo and repo are public.
+      { label: 'Live demo', href: '#' },
+      { label: 'Source', href: '#' },
+    ],
+  },
+  {
+    slug: 'polygraphs',
+    title: 'PolyGraphs',
+    year: 2026,
+    blurb: 'An interactive simulation of how belief moves through networks of agents sharing evidence.',
+    tags: ['networks', 'interactive'],
+    stack: ['TypeScript', 'D3.js', 'Svelte', 'Python'],
+    tone: 'light' as const,
+    links: [
+      { label: 'Live demo', href: '#' },
+      { label: 'Source', href: '#' },
+    ],
+  },
+];
+
+// SPEC §7 — filter categories are derived from the data, never hardcoded.
+const TAG_ORDER = ['networks', 'interactive', 'narrative', 'print'];
+const tags = [...new Set(projects.flatMap((p) => p.tags))].sort(
+  (a, b) => TAG_ORDER.indexOf(a) - TAG_ORDER.indexOf(b)
+);
+
+const stats = [
+  { value: '2,737', label: 'nodes in the largest graph I have shipped' },
+  { value: '2', label: 'papers at NetSci and EMNLP 2026' },
+  { value: 'Dec 2026', label: 'MFA Information Design, Northeastern' },
+  { value: 'Boston', label: 'open to remote and hybrid' },
+];
+---
+
+<Base
+  title="William Liu — Designer and developer"
+  description="Designer and developer building interactive tools for network and relational data."
+  current="/"
+>
+  <Hero
+    statement="I build interactive tools for network and relational data."
+    bio="Designer and developer. Computer science at Tongji, then an MFA in Information Design and Data Visualization at Northeastern."
+    stats={stats}
+  />
+
+  <section class="work rule-heavy-top" aria-labelledby="work-heading">
+    <div class="container">
+      <div class="work__head">
+        <h2 class="work__heading" id="work-heading">Selected work</h2>
+        <FilterRow tags={tags} />
+      </div>
+
+      <div class="work__list">
+        {
+          projects.map((project, i) => (
+            <ProjectRow
+              index={i + 1}
+              title={project.title}
+              year={project.year}
+              blurb={project.blurb}
+              stack={project.stack}
+              href={`/work/${project.slug}`}
+              tone={project.tone}
+              links={project.links}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .work {
+    padding-top: var(--sp-32);
+  }
+
+  .work__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-8);
+    padding-bottom: var(--sp-16);
+  }
+
+  /* Sentence case, body face, quiet. No all-caps eyebrow. */
+  .work__heading {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    font-weight: var(--fw-regular);
+    color: var(--text-3);
+  }
+
+  .work__list {
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+
+  @media (min-width: 640px) {
+    .work {
+      padding-top: var(--sp-48);
+    }
+
+    .work__head {
+      gap: var(--sp-16);
+    }
+  }
+</style>

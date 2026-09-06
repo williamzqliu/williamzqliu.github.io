@@ -1,0 +1,146 @@
+---
+// SPEC §6 — light / dark / system, persisted to localStorage.
+// The no-flash inline script lives in Base.astro and runs before paint;
+// this only wires the controls and keeps them in sync.
+---
+
+<div class="theme-toggle" role="group" aria-label="Colour theme">
+  <button type="button" class="theme-toggle__btn" data-theme-set="light" aria-pressed="false">
+    <span class="vh">Light theme</span>
+    <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false">
+      <circle cx="8" cy="8" r="3.1" fill="none" stroke="currentColor" stroke-width="1.3" />
+      <g stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <path d="M8 1.4v1.6M8 13v1.6M14.6 8H13M3 8H1.4" />
+        <path d="M12.7 3.3l-1.1 1.1M4.4 11.6l-1.1 1.1M12.7 12.7l-1.1-1.1M4.4 4.4L3.3 3.3" />
+      </g>
+    </svg>
+  </button>
+
+  <button type="button" class="theme-toggle__btn" data-theme-set="dark" aria-pressed="false">
+    <span class="vh">Dark theme</span>
+    <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false">
+      <path
+        d="M13.4 10.1A5.7 5.7 0 0 1 6 2.6a5.7 5.7 0 1 0 7.4 7.5z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.3"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+
+  <button type="button" class="theme-toggle__btn" data-theme-set="system" aria-pressed="false">
+    <span class="vh">Match system theme</span>
+    <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false">
+      <rect
+        x="1.6"
+        y="2.6"
+        width="12.8"
+        height="9"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.3"
+      />
+      <path d="M5.4 14h5.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    </svg>
+  </button>
+</div>
+
+<style>
+  .theme-toggle {
+    display: flex;
+    border: var(--rule-hair) solid var(--rule);
+  }
+
+  .theme-toggle__btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: 34px;
+    color: var(--text-3);
+    background: transparent;
+    transition:
+      color var(--dur-hover-out) var(--ease-out),
+      background-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Keeps the real tap target at 44 x 44 without a 44px-tall nav control. */
+  .theme-toggle__btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: var(--tap);
+    transform: translateY(-50%);
+  }
+
+  .theme-toggle__btn + .theme-toggle__btn {
+    border-left: var(--rule-hair) solid var(--rule);
+  }
+
+  /* Active state is a surface fill, not orange — the accent budget for this
+     viewport is spent on the filter row. */
+  .theme-toggle__btn[aria-pressed='true'] {
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .theme-toggle__btn:hover {
+      color: var(--text);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .theme-toggle__btn:active {
+    transition: none;
+    background: var(--surface);
+    color: var(--text);
+    transform: scale(0.95);
+  }
+
+  @media (hover: none) {
+    .theme-toggle__btn:active {
+      transform: scale(0.9);
+    }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const buttons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('.theme-toggle__btn[data-theme-set]')
+  );
+
+  type Pref = 'light' | 'dark' | 'system';
+
+  function apply(pref: Pref) {
+    const dark = pref === 'dark' || (pref === 'system' && mq.matches);
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    root.setAttribute('data-theme-pref', pref);
+    for (const button of buttons) {
+      button.setAttribute('aria-pressed', String(button.dataset.themeSet === pref));
+    }
+  }
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const pref = button.dataset.themeSet as Pref;
+      try {
+        localStorage.setItem('theme', pref);
+      } catch {
+        /* private mode — the session still switches, it just will not persist */
+      }
+      apply(pref);
+    });
+  }
+
+  mq.addEventListener('change', () => {
+    if (root.getAttribute('data-theme-pref') === 'system') apply('system');
+  });
+
+  apply((root.getAttribute('data-theme-pref') as Pref) || 'system');
+</script>

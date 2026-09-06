@@ -1,0 +1,331 @@
+---
+// SPEC §6 — cover media, title, blurb, stack, links; the full row is clickable.
+// Cover media is a tone-locked placeholder plate until the loops are recorded
+// (SPEC "Open items"). The plate colour does not follow the theme.
+
+interface ProjectLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  index: number;
+  title: string;
+  year: number;
+  blurb: string;
+  stack: string[];
+  href: string;
+  tone: 'dark' | 'light' | 'neutral';
+  links: ProjectLink[];
+}
+
+const { index, title, year, blurb, stack, href, tone, links } = Astro.props;
+const figure = String(index).padStart(2, '0');
+---
+
+<article class="prow">
+  <div class="prow__mediacol">
+    <span class="prow__index">{figure}</span>
+    <div class="prow__media" data-tone={tone} aria-hidden="true">
+      <div class="prow__placeholder">
+        <span>cover loop</span>
+        <span>1600 &#215; 900</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="prow__body">
+    <p class="prow__year">{year}</p>
+
+    <h3 class="prow__title">
+      <a class="prow__link" href={href}>
+        <span class="prow__titletext">{title}</span>
+      </a>
+    </h3>
+
+    <p class="prow__blurb">{blurb}</p>
+
+    <p class="prow__stack">{stack.join(', ')}</p>
+
+    <ul class="prow__links">
+      {
+        links.map((link) => {
+          const external = link.href.startsWith('http');
+          return (
+            <li>
+              <a
+                class="prow__linkout"
+                href={link.href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+              >
+                {link.label}
+                {external && (
+                  <>
+                    <svg
+                      class="prow__ext"
+                      viewBox="0 0 12 12"
+                      width="10"
+                      height="10"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M4.5 1.5H10.5V7.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <path d="M10.5 1.5L4 8" fill="none" stroke="currentColor" stroke-width="1.4" />
+                      <path
+                        d="M8.5 10.5H1.5V3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                    </svg>
+                    <span class="vh">(opens in a new tab)</span>
+                  </>
+                )}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</article>
+
+<style>
+  .prow {
+    position: relative;
+    display: grid;
+    gap: var(--sp-24);
+    padding-block: var(--sp-32);
+    border-top: var(--rule-hair) solid var(--rule);
+    cursor: pointer;
+  }
+
+  /* Hover surface. Negative z-index keeps it under the row's own hairline
+     and under every child, without a wrapper element. */
+  .prow::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: var(--rule-hair);
+    bottom: 0;
+    left: calc(var(--row-bleed) * -1);
+    right: calc(var(--row-bleed) * -1);
+    background: var(--surface);
+    opacity: 0;
+    transition: opacity var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* ---- media ---- */
+
+  .prow__mediacol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+
+  .prow__index {
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+  }
+
+  /* Square covers below 640px (SPEC §5). */
+  .prow__media {
+    aspect-ratio: 1 / 1;
+    border: var(--rule-hair) solid var(--rule);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .prow__media[data-tone='dark'] {
+    background: var(--tone-dark);
+    color: var(--tone-dark-ink);
+  }
+
+  .prow__media[data-tone='light'] {
+    background: var(--tone-light);
+    color: var(--tone-light-ink);
+  }
+
+  .prow__media[data-tone='neutral'] {
+    background: var(--tone-neutral);
+    color: var(--tone-neutral-ink);
+  }
+
+  .prow__placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--sp-16);
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    letter-spacing: -0.02em;
+    color: currentColor;
+  }
+
+  /* ---- body ---- */
+
+  .prow__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .prow__year {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .prow__title {
+    margin-top: var(--sp-8);
+    font-family: var(--font-display);
+    font-stretch: var(--wdth-display);
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    font-weight: var(--fw-display);
+    letter-spacing: 0;
+    color: var(--text);
+  }
+
+  /* Stretches the link over the whole row (SPEC §4). */
+  .prow__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .prow__titletext {
+    position: relative;
+    display: inline-block;
+  }
+
+  .prow__titletext::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.04em;
+    height: var(--rule-hair);
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-hover-out) var(--ease-out);
+  }
+
+  .prow__blurb {
+    margin-top: var(--sp-12);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--text-2);
+    max-width: 52ch;
+  }
+
+  /* Mono, because a stack list is technical content. */
+  .prow__stack {
+    margin-top: var(--sp-16);
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: var(--text-3);
+    max-width: 46ch;
+  }
+
+  .prow__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-24);
+    margin-top: var(--sp-16);
+  }
+
+  .prow__linkout {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .prow__ext {
+    flex: none;
+    opacity: 0.75;
+  }
+
+  /* ---- states (SPEC §4) ---- */
+
+  @media (hover: hover) and (pointer: fine) {
+    .prow:hover::before {
+      opacity: 1;
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .prow:hover .prow__titletext::after {
+      transform: scaleX(1);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .prow__linkout:hover {
+      color: var(--text);
+      border-bottom-color: var(--rule-strong);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* :active must be instant. */
+  .prow:active {
+    transition: none;
+    transform: scale(0.995);
+  }
+
+  .prow:active::before {
+    transition: none;
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    /* More pronounced on touch: there is no cursor and no physical click. */
+    .prow:active {
+      transform: scale(0.99);
+    }
+  }
+
+  /* ---- layout tiers (SPEC §5) ---- */
+
+  @media (min-width: 640px) {
+    .prow__media {
+      aspect-ratio: 16 / 9;
+    }
+
+    .prow {
+      padding-block: var(--sp-48);
+      gap: var(--sp-32);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .prow {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      column-gap: var(--sp-48);
+      align-items: start;
+    }
+  }
+</style>
