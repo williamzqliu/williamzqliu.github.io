@@ -1,0 +1,296 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CoverMedia from '../../components/CoverMedia.astro';
+import QuickFacts from '../../components/QuickFacts.astro';
+import NextProject from '../../components/NextProject.astro';
+import { projectLinks, hasCaseStudy } from '../../lib/projects';
+
+// SPEC §7 — only projects with body content get a case study page.
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects', ({ data }) => !data.draft)).filter(
+    hasCaseStudy
+  );
+
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props;
+const { Content, headings } = await render(project);
+
+const links = projectLinks(project);
+const sections = headings.filter((heading) => heading.depth === 2);
+---
+
+<Base
+  title={`${project.data.title} — Zhuoqi Liu`}
+  description={project.data.blurb}
+  current="/work"
+>
+  <article class="cs">
+    <div class="container">
+      <nav class="cs__crumb" aria-label="Breadcrumb">
+        <a href="/work">Work</a>
+      </nav>
+
+      <header class="cs__head">
+        <p class="cs__dates">{project.data.dates}</p>
+        <h1 class="cs__title">{project.data.title}</h1>
+        <p class="cs__summary">{project.data.blurb}</p>
+
+        {
+          links.length > 0 && (
+            <ul class="cs__links">
+              {links.map((link) => (
+                <li>
+                  <a class="cs__link" href={link.href} target="_blank" rel="noopener noreferrer">
+                    {link.label}
+                    <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                      <path d="M4.5 1.5H10.5V7.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+                      <path d="M10.5 1.5L4 8" fill="none" stroke="currentColor" stroke-width="1.4" />
+                      <path d="M8.5 10.5H1.5V3.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+                    </svg>
+                    <span class="vh">(opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </header>
+    </div>
+
+    <div class="cs__media">
+      <CoverMedia tone={project.data.cover.tone} ratio="wide" />
+    </div>
+
+    <div class="container">
+      {
+        project.data.quickFacts.length > 0 && (
+          <div class="cs__facts">
+            <QuickFacts facts={project.data.quickFacts} />
+          </div>
+        )
+      }
+
+      <div class="cs__body">
+        {
+          sections.length > 0 && (
+            <nav class="cs__toc" aria-label="Sections">
+              <ol class="cs__toclist">
+                {sections.map((section, i) => (
+                  <li>
+                    <a href={`#${section.slug}`}>
+                      <span class="cs__tocnum">{String(i + 1).padStart(2, '0')}</span>
+                      <span>{section.text}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+
+      <div class="cs__next">
+        <NextProject
+          title={next.data.title}
+          year={next.data.year}
+          href={`/work/${next.id}`}
+        />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .cs__crumb {
+    padding-top: var(--sp-32);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .cs__crumb a {
+    border-bottom: var(--rule-hair) solid var(--rule);
+    padding-bottom: 2px;
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .cs__head {
+    padding-block: var(--sp-32) var(--sp-32);
+  }
+
+  .cs__dates {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .cs__title {
+    margin-top: var(--sp-8);
+    font-family: var(--font-display);
+    font-stretch: var(--wdth-display);
+    font-size: var(--fs-display-lg);
+    line-height: var(--lh-display-lg);
+    font-weight: var(--fw-display);
+    color: var(--text);
+    max-width: 20ch;
+  }
+
+  .cs__summary {
+    margin-top: var(--sp-16);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--text-2);
+    max-width: 52ch;
+  }
+
+  .cs__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-24);
+    margin-top: var(--sp-24);
+  }
+
+  .cs__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Full bleed (SPEC §9). */
+  .cs__media {
+    margin-bottom: var(--sp-32);
+  }
+
+  .cs__facts {
+    max-width: 62ch;
+    margin-bottom: var(--sp-48);
+  }
+
+  .cs__body {
+    display: grid;
+    gap: var(--sp-32);
+  }
+
+  .cs__toc {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+  }
+
+  .cs__toclist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    border-top: var(--rule-hair) solid var(--rule);
+    padding-top: var(--sp-16);
+  }
+
+  .cs__toclist a {
+    display: flex;
+    gap: var(--sp-12);
+    color: var(--text-2);
+    padding-block: var(--sp-4);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .cs__tocnum {
+    flex: none;
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: -0.02em;
+    color: var(--text-3);
+  }
+
+  .cs__next {
+    margin-top: var(--sp-96);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .cs__crumb a:hover,
+    .cs__toclist a:hover {
+      color: var(--text);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .cs__link:hover {
+      color: var(--text);
+      border-bottom-color: var(--rule-strong);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cs__body {
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: var(--sp-48);
+      align-items: start;
+    }
+
+    .cs__toc {
+      position: sticky;
+      top: var(--sp-32);
+    }
+  }
+</style>
+
+<style is:global>
+  /* Numbered headings come from a counter, so the markdown stays plain. */
+  .prose {
+    counter-reset: section;
+    max-width: 66ch;
+  }
+
+  .prose h2 {
+    counter-increment: section;
+    margin-top: var(--sp-64);
+    padding-top: var(--sp-16);
+    border-top: var(--rule-hair) solid var(--rule);
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+  }
+
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+
+  .prose h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    margin-bottom: var(--sp-8);
+    font-family: var(--font-mono);
+    font-stretch: var(--wdth-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: -0.02em;
+    color: var(--text-3);
+  }
+
+  .prose p {
+    margin-top: var(--sp-16);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--text-2);
+  }
+
+  .prose a {
+    color: var(--text);
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+</style>

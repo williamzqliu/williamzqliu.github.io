@@ -48,3 +48,22 @@ export function projectLinks(project: Project): ProjectLink[] {
     return href ? [{ label: LINK_LABELS[key], href }] : [];
   });
 }
+
+/**
+ * SPEC §7 — body content is optional, and a project without one renders as a
+ * row with links but no case study page. So the link only exists when the
+ * page does.
+ */
+export function hasCaseStudy(project: Project): boolean {
+  return (project.body ?? '').trim().length > 0;
+}
+
+export function caseStudyHref(project: Project): string | undefined {
+  return hasCaseStudy(project) ? `/work/${project.id}` : undefined;
+}
+
+/** Everything publishable, newest first. Used by /work. */
+export async function allProjects(): Promise<Project[]> {
+  const entries = await getCollection('projects', ({ data }) => !data.draft);
+  return entries.sort((a, b) => b.data.year - a.data.year);
+}

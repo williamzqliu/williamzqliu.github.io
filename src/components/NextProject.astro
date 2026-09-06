@@ -1,0 +1,100 @@
+---
+// SPEC §6 — bottom of a case study.
+
+interface Props {
+  title: string;
+  href: string;
+  year: number;
+}
+
+const { title, href, year } = Astro.props;
+---
+
+<nav class="next" aria-label="Next project">
+  <a class="next__link" href={href}>
+    <span class="next__label">Next project</span>
+    <span class="next__row">
+      <span class="next__title">{title}</span>
+      <span class="next__year">{year}</span>
+    </span>
+  </a>
+</nav>
+
+<style>
+  .next {
+    border-top: var(--rule-heavy) solid var(--rule-strong);
+  }
+
+  .next__link {
+    position: relative;
+    display: block;
+    padding-block: var(--sp-32);
+    padding-inline: var(--row-bleed);
+    margin-inline: calc(var(--row-bleed) * -1);
+    transition: background-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .next__label {
+    display: block;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .next__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-24);
+    margin-top: var(--sp-8);
+  }
+
+  .next__title {
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-display);
+    font-stretch: var(--wdth-display);
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    font-weight: var(--fw-display);
+    color: var(--text);
+  }
+
+  .next__title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.04em;
+    height: var(--rule-hair);
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-hover-out) var(--ease-out);
+  }
+
+  .next__year {
+    flex: none;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .next__link:hover {
+      background: var(--surface);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .next__link:hover .next__title::after {
+      transform: scaleX(1);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .next__link:active {
+    transition: none;
+    background: var(--surface);
+    transform: scale(0.995);
+  }
+</style>

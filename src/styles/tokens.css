@@ -6,12 +6,14 @@
 /* ---------- Color: light ---------- */
 
 :root {
-  --bg:            #FBFAF7;
-  --surface:       #F2F0EA;
+  /* Warmer and a step darker than SPEC §2's #FBFAF7, which read as glare.
+     Hue and relationships are unchanged; only the lightness moved. */
+  --bg:            #F2EFE7;
+  --surface:       #E7E3D8;
   --text:          #14140F;
-  --text-2:        #5C5C54;
-  --text-3:        #8E8E84;
-  --rule:          #DCDAD1;
+  --text-2:        #56564E;
+  --text-3:        #7B7B71;
+  --rule:          #D4D0C4;
   --rule-strong:   #14140F;
   --accent:        #F04A18;   /* logo orange */
   --accent-2:      #FFC400;   /* logo yellow */
@@ -60,11 +62,13 @@
 
 :root {
   --tone-dark:    #14140F;
-  --tone-light:   #F2F0EA;
+  /* Lighter than --bg on purpose: a light plate has to read as media, not
+     as a hole in the page. */
+  --tone-light:   #FBF9F4;
   --tone-neutral: #8E8E84;
 
   --tone-dark-ink:    #6A6A62;
-  --tone-light-ink:   #8E8E84;
+  --tone-light-ink:   #9A9A90;
   --tone-neutral-ink: #F2F0EA;
 }
 
