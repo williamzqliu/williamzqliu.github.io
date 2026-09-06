@@ -1,5 +1,7 @@
 ---
-// SPEC §6 — cover media, title, blurb, stack, links; the full row is clickable.
+// SPEC §6 — cover media, title, blurb, stack, links; the full row is clickable
+// once there is a case study to click through to. Until then the row renders
+// as plain content: a nav that 404s is worse than a row that does not move.
 // Cover media is a tone-locked placeholder plate until the loops are recorded
 // (SPEC "Open items"). The plate colour does not follow the theme.
 
@@ -14,16 +16,20 @@ interface Props {
   year: number;
   blurb: string;
   stack: string[];
-  href: string;
+  /** Omit until the case study page exists. */
+  href?: string;
   tone: 'dark' | 'light' | 'neutral';
   links: ProjectLink[];
 }
 
 const { index, title, year, blurb, stack, href, tone, links } = Astro.props;
 const figure = String(index).padStart(2, '0');
+
+// `#` is a placeholder, not a destination — do not ship it as a link.
+const liveLinks = links.filter((link) => link.href !== '#');
 ---
 
-<article class="prow">
+<article class="prow" data-linked={href ? 'true' : undefined}>
   <div class="prow__mediacol">
     <span class="prow__index">{figure}</span>
     <div class="prow__media" data-tone={tone} aria-hidden="true">
@@ -38,18 +44,25 @@ const figure = String(index).padStart(2, '0');
     <p class="prow__year">{year}</p>
 
     <h3 class="prow__title">
-      <a class="prow__link" href={href}>
-        <span class="prow__titletext">{title}</span>
-      </a>
+      {
+        href ? (
+          <a class="prow__link" href={href}>
+            <span class="prow__titletext">{title}</span>
+          </a>
+        ) : (
+          <span class="prow__titletext">{title}</span>
+        )
+      }
     </h3>
 
     <p class="prow__blurb">{blurb}</p>
 
     <p class="prow__stack">{stack.join(', ')}</p>
 
+    {liveLinks.length > 0 && (
     <ul class="prow__links">
       {
-        links.map((link) => {
+        liveLinks.map((link) => {
           const external = link.href.startsWith('http');
           return (
             <li>
@@ -93,6 +106,7 @@ const figure = String(index).padStart(2, '0');
         })
       }
     </ul>
+    )}
   </div>
 </article>
 
@@ -103,6 +117,10 @@ const figure = String(index).padStart(2, '0');
     gap: var(--sp-24);
     padding-block: var(--sp-32);
     border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  /* Only a row that leads somewhere behaves like one. */
+  .prow[data-linked] {
     cursor: pointer;
   }
 
@@ -273,12 +291,12 @@ const figure = String(index).padStart(2, '0');
   /* ---- states (SPEC §4) ---- */
 
   @media (hover: hover) and (pointer: fine) {
-    .prow:hover::before {
+    .prow[data-linked]:hover::before {
       opacity: 1;
       transition-duration: var(--dur-hover-in);
     }
 
-    .prow:hover .prow__titletext::after {
+    .prow[data-linked]:hover .prow__titletext::after {
       transform: scaleX(1);
       transition-duration: var(--dur-hover-in);
     }
@@ -291,19 +309,19 @@ const figure = String(index).padStart(2, '0');
   }
 
   /* :active must be instant. */
-  .prow:active {
+  .prow[data-linked]:active {
     transition: none;
     transform: scale(0.995);
   }
 
-  .prow:active::before {
+  .prow[data-linked]:active::before {
     transition: none;
     opacity: 1;
   }
 
   @media (hover: none) {
     /* More pronounced on touch: there is no cursor and no physical click. */
-    .prow:active {
+    .prow[data-linked]:active {
       transform: scale(0.99);
     }
   }
