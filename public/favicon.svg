@@ -1,6 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="William Liu">
-  <!-- Placeholder mark: orange arrow, yellow counterform, square corners. -->
-  <rect width="32" height="32" fill="#14140F"/>
-  <path d="M5 21 16 7 27 21Z" fill="#F04A18"/>
-  <rect x="13" y="17" width="6" height="8" fill="#FFC400"/>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_733)">
+<path d="M15.4431 24.4146V15.9241L24.7827 21.3014V29.792L15.4431 24.4146Z" fill="#FBC900"/>
+<path d="M53.6511 13.0932V4.60266L24.7832 21.3008V29.7913L53.6511 13.0932Z" fill="#F64912"/>
+<path d="M53.6515 13.0942L44.595 18.3302L24.7827 60.7831L34.5478 55.1227L53.6515 13.0942Z" fill="#F64912"/>
+<path d="M15.302 55.2634L24.7831 33.8955L34.6888 39.5559L24.7831 60.7823L15.302 55.2634Z" fill="#FBC900"/>
+</g>
+<defs>
+<clipPath id="clip0_1_733">
+<rect width="64" height="64" fill="white"/>
+</clipPath>
+</defs>
 </svg>

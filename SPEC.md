@@ -42,15 +42,15 @@ Derived from the existing logo wordmark (orange arrow, yellow counterform). Two 
 
 ```css
 /* light */
---bg:            #FBFAF7;
---surface:       #F2F0EA;
+--bg:            #F2EFE7;
+--surface:       #E7E3D8;
 --text:          #14140F;
---text-2:        #5C5C54;
---text-3:        #8E8E84;
---rule:          #DCDAD1;
+--text-2:        #56564E;
+--text-3:        #7B7B71;
+--rule:          #D4D0C4;
 --rule-strong:   #14140F;
---accent:        #F04A18;   /* logo orange */
---accent-2:      #FFC400;   /* logo yellow */
+--accent:        #F64912;   /* logo orange, sampled from the mark */
+--accent-2:      #FBC900;   /* logo yellow, sampled from the mark */
 
 /* dark */
 --bg:            #121210;
@@ -60,8 +60,8 @@ Derived from the existing logo wordmark (orange arrow, yellow counterform). Two 
 --text-3:        #6A6A62;
 --rule:          #2C2C28;
 --rule-strong:   #F0EEE7;
---accent:        #FF5C2B;
---accent-2:      #FFD24A;
+--accent:        #FF5F2B;
+--accent-2:      #FFD44A;
 ```
 
 Backgrounds are warm-neutral, not blue-black. All chromatic color on the page comes from the project media. The two accents are the only exception.

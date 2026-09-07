@@ -15,8 +15,8 @@
   --text-3:        #7B7B71;
   --rule:          #D4D0C4;
   --rule-strong:   #14140F;
-  --accent:        #F04A18;   /* logo orange */
-  --accent-2:      #FFC400;   /* logo yellow */
+  --accent:        #F64912;   /* logo orange, sampled from the mark */
+  --accent-2:      #FBC900;   /* logo yellow, sampled from the mark */
 
   color-scheme: light;
 }
@@ -32,8 +32,8 @@
   --text-3:        #6A6A62;
   --rule:          #2C2C28;
   --rule-strong:   #F0EEE7;
-  --accent:        #FF5C2B;
-  --accent-2:      #FFD24A;
+  --accent:        #FF5F2B;
+  --accent-2:      #FFD44A;
 
   color-scheme: dark;
 }
@@ -49,8 +49,8 @@
     --text-3:        #6A6A62;
     --rule:          #2C2C28;
     --rule-strong:   #F0EEE7;
-    --accent:        #FF5C2B;
-    --accent-2:      #FFD24A;
+    --accent:        #FF5F2B;
+    --accent-2:      #FFD44A;
 
     color-scheme: dark;
   }
