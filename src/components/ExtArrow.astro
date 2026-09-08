@@ -1,0 +1,34 @@
+---
+// The site's only external-link indicator: a northeast arrow set right after
+// the link text. One shared component so the treatment cannot drift between
+// project rows, the footer, the about page and case studies.
+//
+// No box, no second glyph, no independent motion — it inherits `currentColor`,
+// so it changes colour with the text it belongs to and nothing else.
+---
+
+<svg
+  class="extarrow"
+  viewBox="0 0 10 10"
+  width="10"
+  height="10"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M2.4 7.6L7.6 2.4M3.6 2.4h4v4"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
+
+<style>
+  .extarrow {
+    flex: none;
+    /* Sits on the text's optical line rather than its baseline. */
+    margin-top: 0.05em;
+  }
+</style>

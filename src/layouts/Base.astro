@@ -1,8 +1,10 @@
 ---
 import '../styles/tokens.css';
 import '../styles/base.css';
+import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
 
 interface Props {
   title: string;
@@ -12,43 +14,91 @@ interface Props {
 
 const { title, description, current = '/' } = Astro.props;
 
-// Archivo carries a wdth axis (condensed grotesque, display).
-// Instrument Sans is the body face. Martian Mono is the technical face.
+// One tab name across the whole site, sub-pages included. The per-page `title`
+// prop is still used for og:title, where a specific string helps link previews.
+const documentTitle = "Zhuoqi Liu's Portfolio";
+
+// Three registers, one job each.
+// Display  — Bricolage Grotesque: the character. Three axes (opsz 12-96,
+//            wdth 75-100, wght 200-800), so it can be tuned per size rather
+//            than scaled. Wordmark, page titles, section headings.
+//            The opsz range has to be exact: Google's css2 endpoint silently
+//            drops a family whose axis range does not match, and the page then
+//            falls back to system-ui with no error anywhere.
+// Body     — Instrument Sans: deliberately quiet. All reading, including
+//            project titles and the hero.
+// Mono     — IBM Plex Mono: keywords, numbers, notation. Nothing else.
 const fontsHref =
   'https://fonts.googleapis.com/css2' +
-  '?family=Archivo:wdth,wght@75..100,400..700' +
+  '?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800' +
   '&family=Instrument+Sans:wght@400..700' +
-  '&family=Martian+Mono:wdth,wght@75..112.5,300..700' +
+  '&family=IBM+Plex+Mono:wght@400;500' +
   '&display=swap';
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="utf-8" />
 
     {/* Runs before first paint so the theme never flashes. Sets the resolved
-        theme on <html> and remembers the raw preference separately. */}
+        theme on <html> and remembers the raw preference separately.
+
+        It also re-runs on `astro:after-swap`. Client-side navigation replaces
+        the <html> element's attributes with the ones from the incoming
+        document, and the server never renders `data-theme` — so without this
+        the chosen theme was wiped on every navigation and the page snapped
+        back to the system preference. after-swap fires before paint, so there
+        is no flash. */}
     <script is:inline>
       (function () {
-        var pref = null;
-        try {
-          pref = localStorage.getItem('theme');
-        } catch (e) {}
-        if (pref !== 'light' && pref !== 'dark' && pref !== 'system') pref = 'system';
-        var dark =
-          pref === 'dark' ||
-          (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        var root = document.documentElement;
-        root.setAttribute('data-theme', dark ? 'dark' : 'light');
-        root.setAttribute('data-theme-pref', pref);
+        function applyStoredTheme() {
+          var pref = null;
+          try {
+            pref = localStorage.getItem('theme');
+          } catch (e) {}
+          if (pref !== 'light' && pref !== 'dark' && pref !== 'system') pref = 'system';
+          var dark =
+            pref === 'dark' ||
+            (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var root = document.documentElement;
+          root.setAttribute('data-theme', dark ? 'dark' : 'light');
+          root.setAttribute('data-theme-pref', pref);
+        }
+
+        function storedPref() {
+          var pref = null;
+          try {
+            pref = localStorage.getItem('theme');
+          } catch (e) {}
+          return pref === 'light' || pref === 'dark' || pref === 'system' ? pref : 'system';
+        }
+
+        applyStoredTheme();
+
+        // Write the theme onto the *incoming* document, before it replaces the
+        // current one. Doing it only in after-swap left a window where <html>
+        // had no data-theme at all, which in dark mode reads as a light flash.
+        document.addEventListener('astro:before-swap', function (event) {
+          var pref = storedPref();
+          var dark =
+            pref === 'dark' ||
+            (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var incoming = event.newDocument.documentElement;
+          incoming.setAttribute('data-theme', dark ? 'dark' : 'light');
+          incoming.setAttribute('data-theme-pref', pref);
+        });
+
+        // Belt and braces: if a swap ever happens without the event above.
+        document.addEventListener('astro:after-swap', applyStoredTheme);
+
       })();
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{documentTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -61,15 +111,27 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fontsHref} />
+
+    {/* SPEC §3 — page transitions. Without it every nav click is a full
+        document load, which re-runs the webfont swap: the fallback face paints
+        first and every line of text reflows when the real face arrives. With
+        it the fonts stay loaded and the layout holds still. */}
+    <ClientRouter />
   </head>
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <Nav current={current} />
+    {/* Deliberately unnamed. A named group crossfades two snapshots, which
+        means the outgoing page is still painted over the incoming one — on a
+        full-height home page that reads as a ghost of the hero. The fade now
+        happens in plain CSS on the incoming main (see base.css), so the old
+        page is gone before the new one starts. */}
     <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer />
+    <BackToTop />
   </body>
 </html>
 

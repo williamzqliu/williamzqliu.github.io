@@ -1,11 +1,20 @@
 ---
-// SPEC §6 — cover media, title, blurb, stack, links; the full row is clickable
-// once there is a case study to click through to. Until then the row renders
-// as plain content: a nav that 404s is worse than a row that does not move.
+// A project row: text column on the left, cover on the right, one hairline
+// above each row. Text sits in a fixed-width column so every row in the list
+// wraps at the same place — ragged edges that line up read as composed rather
+// than accidental.
+//
+// The hover surface fill is gone on purpose. It could either hug the content
+// (text touching its edge) or bleed past the rules (escaping the grid), and
+// neither looked right; hover now lives on the title and the cover instead.
+//
 // Cover media is a tone-locked placeholder plate until the loops are recorded
-// (SPEC "Open items"). The plate colour does not follow the theme.
+// (SPEC "Open items"). The plate colour does not follow the theme, and while
+// `COVERS_ENABLED` is off the column is not rendered at all.
 
 import CoverMedia from './CoverMedia.astro';
+import { COVERS_ENABLED } from '../lib/media';
+import ExtArrow from './ExtArrow.astro';
 
 interface ProjectLink {
   label: string;
@@ -13,7 +22,8 @@ interface ProjectLink {
 }
 
 interface Props {
-  index: number;
+  /** Omit to render the row without a figure number. */
+  index?: number;
   title: string;
   year: number;
   blurb: string;
@@ -27,20 +37,27 @@ interface Props {
 }
 
 const { index, title, year, blurb, stack, href, tone, links, emphasiseStack } = Astro.props;
-const figure = String(index).padStart(2, '0');
+const figure = index === undefined ? undefined : String(index).padStart(2, '0');
+
+// Three keywords is the point at which a stack list stops being a signal and
+// starts being an inventory. The full list lives in QuickFacts on the case
+// study page.
+const keywords = stack.slice(0, 3);
 
 // `#` is a placeholder, not a destination — do not ship it as a link.
 const liveLinks = links.filter((link) => link.href !== '#');
 ---
 
-<article class="prow" data-linked={href ? 'true' : undefined}>
-  <div class="prow__mediacol">
-    <span class="prow__index">{figure}</span>
-    <CoverMedia tone={tone} />
-  </div>
-
+<article
+  class="prow"
+  data-linked={href ? 'true' : undefined}
+  data-nomedia={COVERS_ENABLED ? undefined : 'true'}
+>
   <div class="prow__body">
-    <p class="prow__year">{year}</p>
+    <p class="prow__meta">
+      {figure && <span class="prow__index">{figure}</span>}
+      <span class="prow__year">{year}</span>
+    </p>
 
     <h3 class="prow__title">
       {
@@ -56,7 +73,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
     <p class="prow__blurb">{blurb}</p>
 
-    <p class="prow__stack" data-emphasis={emphasiseStack ? 'true' : undefined}>{stack.join(', ')}</p>
+    <ul class="prow__kws" data-emphasis={emphasiseStack ? 'true' : undefined}>
+      {keywords.map((keyword) => <li class="prow__kw">{keyword}</li>)}
+    </ul>
 
     {liveLinks.length > 0 && (
     <ul class="prow__links">
@@ -74,28 +93,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
                 {link.label}
                 {external && (
                   <>
-                    <svg
-                      class="prow__ext"
-                      viewBox="0 0 12 12"
-                      width="10"
-                      height="10"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <path
-                        d="M4.5 1.5H10.5V7.5"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.4"
-                      />
-                      <path d="M10.5 1.5L4 8" fill="none" stroke="currentColor" stroke-width="1.4" />
-                      <path
-                        d="M8.5 10.5H1.5V3.5"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.4"
-                      />
-                    </svg>
+                    <ExtArrow />
                     <span class="vh">(opens in a new tab)</span>
                   </>
                 )}
@@ -107,6 +105,13 @@ const liveLinks = links.filter((link) => link.href !== '#');
     </ul>
     )}
   </div>
+
+  {/* Clips the cover so its hover scale stays inside the frame. */}
+  {COVERS_ENABLED && (
+    <div class="prow__mediacol">
+      <CoverMedia tone={tone} />
+    </div>
+  )}
 </article>
 
 <style>
@@ -123,40 +128,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     cursor: pointer;
   }
 
-  /* Hover surface. Negative z-index keeps it under the row's own hairline
-     and under every child, without a wrapper element. */
-  .prow::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: var(--rule-hair);
-    bottom: 0;
-    left: calc(var(--row-bleed) * -1);
-    right: calc(var(--row-bleed) * -1);
-    background: var(--surface);
-    opacity: 0;
-    transition: opacity var(--dur-hover-out) var(--ease-out);
-  }
-
-  /* ---- media ---- */
-
-  .prow__mediacol {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-8);
-  }
-
-  .prow__index {
-    font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
-    font-size: var(--fs-micro);
-    line-height: var(--lh-micro);
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-3);
-  }
-
-  /* ---- body ---- */
+  /* ---- text column ---- */
 
   .prow__body {
     display: flex;
@@ -164,21 +136,40 @@ const liveLinks = links.filter((link) => link.href !== '#');
     align-items: flex-start;
   }
 
+  .prow__meta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-12);
+  }
+
+  .prow__index {
+    font-family: var(--font-mono);
+    font-weight: var(--fw-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+  }
+
   .prow__year {
-    font-size: var(--fs-small);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
 
+  /* Display face: project titles are one of the few places the character of
+     the type is allowed to show. */
   .prow__title {
-    margin-top: var(--sp-8);
+    margin-top: var(--sp-12);
     font-family: var(--font-display);
-    font-stretch: var(--wdth-display);
-    font-size: var(--fs-display);
-    line-height: var(--lh-display);
-    font-weight: var(--fw-display);
-    letter-spacing: 0;
+    font-optical-sizing: auto;
+    font-size: var(--fs-cardtitle);
+    line-height: 1.2;
+    font-weight: var(--fw-strong);
+    letter-spacing: -0.015em;
     color: var(--text);
+    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
   /* Stretches the link over the whole row (SPEC §4). */
@@ -188,113 +179,138 @@ const liveLinks = links.filter((link) => link.href !== '#');
     inset: 0;
   }
 
+  /* Hover highlight, not an underline. The padding is cancelled by an equal
+     negative margin, so the box that appears on hover takes up no space and
+     nothing moves. `box-decoration-break: clone` gives a wrapped title the
+     same padding on both lines. */
   .prow__titletext {
-    position: relative;
-    display: inline-block;
-  }
-
-  .prow__titletext::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.04em;
-    height: var(--rule-hair);
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-hover-out) var(--ease-out);
+    padding: 0.04em 0.16em;
+    margin: -0.04em -0.16em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    background: transparent;
+    transition:
+      background-color var(--dur-hover-out) var(--ease-out),
+      color var(--dur-hover-out) var(--ease-out);
   }
 
   .prow__blurb {
-    margin-top: var(--sp-12);
+    margin-top: var(--sp-16);
+    max-width: 46ch;
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
-    max-width: 52ch;
   }
 
-  /* Mono, because a stack list is technical content. */
-  .prow__stack {
-    margin-top: var(--sp-16);
+  /* Three keywords, as tags rather than a sentence: mono, caps, on a quiet
+     surface. Square corners, no border, no shadow — a tag, not a pill. */
+  .prow__kws {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-8);
+    margin-top: var(--sp-20);
+  }
+
+  .prow__kw {
+    padding: 5px var(--sp-8);
+    background: var(--surface);
     font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
-    font-size: var(--fs-micro);
-    line-height: 1.7;
-    letter-spacing: -0.02em;
-    color: var(--text-3);
-    max-width: 46ch;
-  }
+    /* One step above --fs-micro (11px): mono runs small, and at 11px the caps
+       plus letter-spacing were harder to read than the year beside them. Local
+       rather than a token change, so nothing else in the site moves. */
+    font-size: 0.75rem;
 
-  .prow__stack[data-emphasis] {
-    font-size: var(--fs-small);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--text-2);
   }
 
+  /* The engineering track leans on its stack, so those tags carry the ink. */
+  .prow__kws[data-emphasis] .prow__kw {
+    color: var(--text);
+  }
+
+  /* Slightly larger step than the one above it, and the tap padding on the
+     links themselves adds the rest. */
   .prow__links {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sp-24);
-    margin-top: var(--sp-16);
+    margin-top: var(--sp-12);
   }
 
-  .prow__linkout {
+  /* Above the row-wide link overlay, so these reach their own destinations. */
+  .prow__links li {
     position: relative;
+    z-index: 1;
+  }
+
+  /* Text and arrow change colour together; nothing underlines, nothing moves.
+     The vertical padding is the tap target, not a visual gap. */
+  .prow__linkout {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-2);
     padding-block: var(--sp-12);
-    border-bottom: var(--rule-hair) solid var(--rule);
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
-  .prow__ext {
-    flex: none;
-    opacity: 0.75;
+
+  /* ---- cover ---- */
+
+  .prow__mediacol {
+    overflow: hidden;
+  }
+
+  .prow__mediacol :global(.cover) {
+    transition: transform var(--dur-base) var(--ease-out);
   }
 
   /* ---- states (SPEC §4) ---- */
 
   @media (hover: hover) and (pointer: fine) {
-    .prow[data-linked]:hover::before {
-      opacity: 1;
-      transition-duration: var(--dur-hover-in);
+    .prow[data-linked]:hover .prow__titletext {
+      background: var(--accent);
+      /* Locked light, so the text stays legible on orange in both themes. */
+      color: var(--tone-light);
+      /* Slower than the site's other hovers on purpose: this is a block of
+         colour rather than a colour change on text, and at the standard
+         200ms it arrives as a flash. */
+      transition-duration: calc(var(--dur-hover-in) + 100ms);
     }
 
-    .prow[data-linked]:hover .prow__titletext::after {
-      transform: scaleX(1);
-      transition-duration: var(--dur-hover-in);
+    /* The only motion on the row, and it is contained by the frame. */
+    .prow[data-linked]:hover .prow__mediacol :global(.cover) {
+      transform: scale(1.02);
     }
 
     .prow__linkout:hover {
-      color: var(--text);
-      border-bottom-color: var(--rule-strong);
+      color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
   }
 
-  /* :active must be instant. */
-  .prow[data-linked]:active {
-    transition: none;
-    transform: scale(0.995);
-  }
-
-  .prow[data-linked]:active::before {
-    transition: none;
-    opacity: 1;
-  }
-
-  @media (hover: none) {
-    /* More pronounced on touch: there is no cursor and no physical click. */
-    .prow[data-linked]:active {
-      transform: scale(0.99);
-    }
+  /* Touch has no hover, so the press has to say something. */
+  .prow[data-linked]:active .prow__titletext {
+    background: var(--accent);
+    color: var(--tone-light);
+    transition-duration: var(--dur-press);
   }
 
   /* ---- layout tiers (SPEC §5) ---- */
+
+  @media (max-width: 1023px) {
+    /* Cover leads on narrow screens: it is the fastest read. */
+    .prow__mediacol {
+      order: -1;
+    }
+  }
 
   @media (min-width: 640px) {
     .prow {
@@ -304,10 +320,18 @@ const liveLinks = links.filter((link) => link.href !== '#');
   }
 
   @media (min-width: 1024px) {
-    .prow {
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-      column-gap: var(--sp-48);
+    /* Fixed text column, so every row wraps at the same width and the cover
+       takes whatever is left. */
+    .prow:not([data-nomedia]) {
+      grid-template-columns: 380px minmax(0, 1fr);
+      column-gap: var(--sp-64);
       align-items: start;
     }
+  }
+
+  /* Without a cover the row is one column, so the text needs its own measure
+     — otherwise the title and blurb run the full 1200px. */
+  .prow[data-nomedia] .prow__body {
+    max-width: var(--measure);
   }
 </style>

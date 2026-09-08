@@ -28,8 +28,8 @@ import Base from '../layouts/Base.astro';
   /* Mono: a status code is a data value. */
   .nf__code {
     font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
     font-size: var(--fs-micro);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-micro);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
@@ -53,16 +53,19 @@ import Base from '../layouts/Base.astro';
     margin-top: var(--sp-32);
     font-size: var(--fs-small);
     line-height: var(--lh-small);
-    color: var(--text-2);
+    font-weight: var(--fw-medium);
+    color: var(--accent);
     padding-block: var(--sp-12);
-    border-bottom: var(--rule-hair) solid var(--rule);
-    transition: color var(--dur-hover-out) var(--ease-out);
+    border-bottom: var(--rule-hair) solid transparent;
+    transition:
+      color var(--dur-hover-out) var(--ease-out),
+      border-color var(--dur-hover-out) var(--ease-out);
   }
 
   @media (hover: hover) and (pointer: fine) {
     .nf__home:hover {
       color: var(--text);
-      border-bottom-color: var(--rule-strong);
+      border-bottom-color: currentColor;
       transition-duration: var(--dur-hover-in);
     }
   }

@@ -2,11 +2,26 @@
 import Base from '../../layouts/Base.astro';
 import FilterRow from '../../components/FilterRow.astro';
 import ProjectRow from '../../components/ProjectRow.astro';
-import { allProjects, deriveTags, projectLinks, caseStudyHref } from '../../lib/projects';
+import ArchiveList from '../../components/ArchiveList.astro';
+import {
+  archiveProjects,
+  curatedProjects,
+  deriveTags,
+  projectLinks,
+  caseStudyHref,
+} from '../../lib/projects';
 
-// SPEC §9 — full list, no hero, nothing truncated.
-const projects = await allProjects();
-const tags = deriveTags(projects);
+// Two lists, deliberately separate. The curated one is everything with a
+// `featured` rank, in that order; the archive is the rest — work that is real
+// but whose subject or category is not sharp enough to sit in the main list.
+// `all` therefore means "all curated", not "everything in the repo".
+const projects = await curatedProjects();
+const archive = await archiveProjects();
+
+// Subject filters come from the primary set only, so a tag that exists solely
+// in the archive never shows up as a subject. `archive` is appended as a status
+// filter, not derived.
+const options = ['all', ...deriveTags(projects), 'archive'];
 ---
 
 <Base
@@ -18,15 +33,14 @@ const tags = deriveTags(projects);
     <div class="container">
       <div class="work__head">
         <h1 class="work__heading" id="work-heading">Work</h1>
-        <p class="work__count">{projects.length} published projects, newest first.</p>
-        <FilterRow tags={tags} />
+        <FilterRow options={options} />
       </div>
 
-      <div class="work__list">
+      <div class="work__list" data-filter-list>
         {
-          projects.map((project, i) => (
+          projects.map((project) => (
+            <div class="work__item" data-tags={project.data.tags.join(' ')}>
             <ProjectRow
-              index={i + 1}
               title={project.data.title}
               year={project.data.year}
               blurb={project.data.blurb}
@@ -35,41 +49,179 @@ const tags = deriveTags(projects);
               tone={project.data.cover.tone}
               links={projectLinks(project)}
             />
+            </div>
           ))
         }
       </div>
     </div>
   </section>
+
+  {
+    archive.length > 0 && (
+      <section class="archive" aria-labelledby="archive-heading" data-archive-section>
+        <div class="container">
+          <h2 class="archive__heading section-label" id="archive-heading">
+            Archive
+          </h2>
+          <p class="archive__note">
+            Additional projects that sit outside the main themes above.
+          </p>
+          <ArchiveList projects={archive} />
+        </div>
+      </section>
+    )
+  }
 </Base>
+
+<script>
+  // The filters partition the page: subject filters narrow the primary list,
+  // `archive` swaps to the archive instead. Archive projects never appear
+  // under `all` — that is what makes `archive` a status rather than a tag.
+  //
+  // With JS off none of this runs and everything stays visible, which is the
+  // honest fallback for a page whose whole content is the list.
+  function apply(filter: string) {
+    const items = document.querySelectorAll<HTMLElement>('[data-tags]');
+    const archiveSection = document.querySelector<HTMLElement>('[data-archive-section]');
+    const primaryList = document.querySelector<HTMLElement>('[data-filter-list]');
+    const showingArchive = filter === 'archive';
+
+    for (const item of items) {
+      const tags = (item.dataset.tags ?? '').split(' ');
+      const match = filter === 'all' || tags.includes(filter);
+      item.hidden = showingArchive || !match;
+    }
+
+    // Whichever row ends up first loses its top rule, so the list never opens
+    // with two hairlines a few pixels apart.
+    let first = true;
+    for (const item of items) {
+      if (!item.hidden && first) {
+        item.dataset.first = 'true';
+        first = false;
+      } else {
+        delete item.dataset.first;
+      }
+    }
+
+    if (primaryList) primaryList.hidden = showingArchive;
+    if (archiveSection) archiveSection.hidden = !showingArchive;
+  }
+
+  function bind() {
+    const chips = document.querySelectorAll<HTMLButtonElement>('.filterrow__chip');
+    if (!chips.length) return;
+
+    // Mark the first row on load too, not only after a click.
+    const firstItem = document.querySelector<HTMLElement>('[data-tags]');
+    if (firstItem) firstItem.dataset.first = 'true';
+
+    // The archive lives below the primary list at rest; the first click is what
+    // turns the page into a filtered view.
+    const archiveSection = document.querySelector<HTMLElement>('[data-archive-section]');
+
+    for (const chip of chips) {
+      if (chip.dataset.bound) continue;
+      chip.dataset.bound = 'true';
+      chip.addEventListener('click', () => {
+        for (const other of chips) {
+          other.setAttribute('aria-pressed', String(other === chip));
+        }
+
+        const filter = chip.dataset.filter ?? 'all';
+        const primaryList = document.querySelector<HTMLElement>('[data-filter-list]');
+        const fade = [primaryList, archiveSection].filter(Boolean) as HTMLElement[];
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const commit = () => {
+          if (filter === 'all' && archiveSection) {
+            // `all` is the resting state: primary list plus the archive below.
+            apply('all');
+            archiveSection.hidden = false;
+          } else {
+            apply(filter);
+          }
+          for (const el of fade) delete el.dataset.fading;
+        };
+
+        if (reduced) {
+          commit();
+          return;
+        }
+
+        // Fade out, swap while invisible, fade back in.
+        for (const el of fade) el.dataset.fading = 'true';
+        window.setTimeout(commit, 160);
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', bind);
+  bind();
+</script>
 
 <style>
   .work {
     padding-top: var(--sp-48);
   }
 
+  /* The list's start line lives here, not on the list itself: the list fades
+     when a filter changes and the line must not fade with it. */
   .work__head {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--sp-16);
     padding-bottom: var(--sp-16);
+    border-bottom: var(--rule-hair) solid color-mix(in srgb, var(--rule) 50%, transparent);
   }
 
   .work__heading {
-    font-size: var(--fs-display);
-    line-height: var(--lh-display);
-    font-weight: var(--fw-medium);
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: var(--fs-hello-greet);
+    line-height: 1.05;
+    font-weight: var(--fw-display);
+    letter-spacing: -0.015em;
     color: var(--text);
   }
 
-  .work__count {
-    font-size: var(--fs-small);
-    line-height: var(--lh-small);
-    color: var(--text-3);
+
+  /* Whichever row is first drops its own rule, so it never stacks with the
+     start line above. */
+  .work__item[data-first] :global(.prow) {
+    border-top: 0;
   }
 
-  .work__list {
-    border-bottom: var(--rule-hair) solid var(--rule);
+  /* Switching filters cross-fades the list rather than swapping it in place.
+     Opacity only, so nothing reflows mid-fade. */
+  .work__list,
+  .archive {
+    transition: opacity var(--dur-base) var(--ease-out);
   }
+
+  .work__list[data-fading],
+  .archive[data-fading] {
+    opacity: 0;
+  }
+
+  .archive {
+    padding-block: var(--sp-64) var(--sp-32);
+  }
+
+  .archive__heading {
+    /* The label's own rule is the divider; no second line above it. */
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .archive__note {
+    max-width: 52ch;
+    margin-top: var(--sp-8);
+    margin-bottom: var(--sp-24);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-2);
+  }
+
 </style>

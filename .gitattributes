@@ -1,0 +1,10 @@
+# Git decided the resume PDF was text (its first bytes carry no NUL), so with
+# autocrlf on it was being line-ending converted — which silently corrupts a
+# binary on checkout. Mark the assets explicitly.
+*.pdf binary
+*.webp binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.woff binary
+*.woff2 binary

@@ -1,31 +1,33 @@
 ---
-// SPEC §6 — horizontal scroll on mobile, no wrap; active = orange underline.
-// This is the one place the orange accent is spent on the landing page.
+// Subject filters plus one status filter. Values are the data values
+// (`information-design`), labels are the readable form (`information design`).
 //
-// Filter *logic* is deliberately not wired yet (Task 2). The markup is the
-// progressive-enhancement baseline: with JS off, every project stays visible.
+// Progressive enhancement: with JS off every row stays visible and the chips
+// simply do nothing. The filtering script lives on the page that owns the rows,
+// because only that page knows what it is filtering.
 
 interface Props {
-  tags: string[];
+  /** Data values, in order. `all` and `archive` are handled by the page. */
+  options: string[];
   active?: string;
 }
 
-const { tags, active = 'all' } = Astro.props;
-const options = ['all', ...tags];
+const { options, active = 'all' } = Astro.props;
+const label = (value: string) => value.replace(/-/g, ' ');
 ---
 
 <div class="filterrow" role="group" aria-label="Filter projects">
   <ul class="filterrow__list">
     {
-      options.map((tag) => (
+      options.map((option) => (
         <li>
           <button
             type="button"
             class="filterrow__chip"
-            data-filter={tag}
-            aria-pressed={tag === active ? 'true' : 'false'}
+            data-filter={option}
+            aria-pressed={option === active ? 'true' : 'false'}
           >
-            {tag}
+            {label(option)}
           </button>
         </li>
       ))
@@ -34,29 +36,22 @@ const options = ['all', ...tags];
 </div>
 
 <style>
-  .filterrow {
-    overflow-x: auto;
-    scrollbar-width: none;
-    /* Bleeds to the viewport edge on mobile so chips can scroll past it. */
-    margin-inline: calc(var(--pad) * -1);
-    padding-inline: var(--pad);
-  }
-
-  .filterrow::-webkit-scrollbar {
-    display: none;
-  }
-
+  /* Wraps at every width. SPEC §6 asked for a horizontal scroll on mobile,
+     but with six chips the last one sat half off the screen with no visible
+     scrollbar — a wrapped second row is honest about what is there. */
   .filterrow__list {
     display: flex;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: var(--sp-24);
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-4) var(--sp-24);
   }
 
   .filterrow__chip {
     position: relative;
     display: block;
-    font-size: var(--fs-small);
+    /* The nav's size, not the meta size: this is a control, not a caption. */
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-2);
     /* Reaches the 44px minimum tap target even though the type is small. */
@@ -64,21 +59,24 @@ const options = ['all', ...tags];
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
+  /* Orange underline on the active chip, as wide as the word, opening from
+     the middle out — the same gesture as the nav indicator. */
   .filterrow__chip::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 8px;
+    bottom: var(--sp-8);
     height: var(--rule-heavy);
     background: var(--accent);
     transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-hover-out) var(--ease-out);
+    transform-origin: center;
+    transition: transform var(--dur-draw) var(--ease-out);
   }
 
+  /* Active chip takes the accent, matching its underline. */
   .filterrow__chip[aria-pressed='true'] {
-    color: var(--text);
+    color: var(--accent);
   }
 
   .filterrow__chip[aria-pressed='true']::after {
@@ -90,22 +88,25 @@ const options = ['all', ...tags];
       color: var(--text);
       transition-duration: var(--dur-hover-in);
     }
+
+    .filterrow__chip[aria-pressed='true']:hover {
+      color: var(--accent);
+    }
   }
 
-  /* Filter state must read as instant — 0ms, no easing. */
+  /* Filter press: a quick fade rather than a jump. */
   .filterrow__chip:active,
   .filterrow__chip:active::after {
-    transition: none;
+    transition-duration: var(--dur-press);
   }
 
   .filterrow__chip:active {
     color: var(--text);
-    transform: scale(0.995);
   }
 
-  @media (hover: none) {
-    .filterrow__chip:active {
-      transform: scale(0.97);
+  @media (min-width: 640px) {
+    .filterrow__list {
+      gap: var(--sp-12) var(--sp-32);
     }
   }
 </style>

@@ -1,10 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
+import ExtArrow from '../../components/ExtArrow.astro';
 import Base from '../../layouts/Base.astro';
 import CoverMedia from '../../components/CoverMedia.astro';
 import QuickFacts from '../../components/QuickFacts.astro';
 import NextProject from '../../components/NextProject.astro';
-import { projectLinks, hasCaseStudy } from '../../lib/projects';
+import { projectLinks, hasCaseStudy, nextStep } from '../../lib/projects';
+import { COVERS_ENABLED } from '../../lib/media';
 
 // SPEC §7 — only projects with body content get a case study page.
 export async function getStaticPaths() {
@@ -12,14 +14,19 @@ export async function getStaticPaths() {
     hasCaseStudy
   );
 
-  return projects.map((project, i) => ({
+  // Only the page's own project travels as a prop. What comes next is a
+  // curation decision, so it is resolved from the tiers rather than from this
+  // array's order — see `nextStep`.
+  return projects.map((project) => ({
     params: { slug: project.id },
-    props: { project, next: projects[(i + 1) % projects.length] },
+    props: { project },
   }));
 }
 
-const { project, next } = Astro.props;
+const { project } = Astro.props;
 const { Content, headings } = await render(project);
+
+const next = await nextStep(project);
 
 const links = projectLinks(project);
 const sections = headings.filter((heading) => heading.depth === 2);
@@ -48,11 +55,7 @@ const sections = headings.filter((heading) => heading.depth === 2);
                 <li>
                   <a class="cs__link" href={link.href} target="_blank" rel="noopener noreferrer">
                     {link.label}
-                    <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
-                      <path d="M4.5 1.5H10.5V7.5" fill="none" stroke="currentColor" stroke-width="1.4" />
-                      <path d="M10.5 1.5L4 8" fill="none" stroke="currentColor" stroke-width="1.4" />
-                      <path d="M8.5 10.5H1.5V3.5" fill="none" stroke="currentColor" stroke-width="1.4" />
-                    </svg>
+                    <ExtArrow />
                     <span class="vh">(opens in a new tab)</span>
                   </a>
                 </li>
@@ -63,9 +66,13 @@ const sections = headings.filter((heading) => heading.depth === 2);
       </header>
     </div>
 
-    <div class="cs__media">
-      <CoverMedia tone={project.data.cover.tone} ratio="wide" />
-    </div>
+    {
+      COVERS_ENABLED && (
+        <div class="cs__media">
+          <CoverMedia tone={project.data.cover.tone} ratio="wide" />
+        </div>
+      )
+    }
 
     <div class="container">
       {
@@ -78,33 +85,55 @@ const sections = headings.filter((heading) => heading.depth === 2);
 
       <div class="cs__body">
         {
+          /* One list, two presentations: a sticky column on desktop, and a
+             collapsed disclosure on narrow screens. `open` is in the markup so
+             the list is reachable with no JavaScript; the script closes it
+             below the desktop breakpoint. */
           sections.length > 0 && (
-            <nav class="cs__toc" aria-label="Sections">
-              <ol class="cs__toclist">
-                {sections.map((section, i) => (
-                  <li>
-                    <a href={`#${section.slug}`}>
-                      <span class="cs__tocnum">{String(i + 1).padStart(2, '0')}</span>
-                      <span>{section.text}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
+            <details class="cs__toc" open>
+              <summary class="cs__tocsum">
+                <span class="cs__tocsum-label">Sections</span>
+                <span class="cs__tocsum-now" data-toc-now />
+              </summary>
+
+              <nav aria-label="Sections">
+                <ol class="cs__toclist">
+                  {sections.map((section, i) => (
+                    <li>
+                      <a class="cs__toclink" href={`#${section.slug}`} data-toclink={section.slug}>
+                        <span class="cs__tocnum">{String(i + 1).padStart(2, '0')}</span>
+                        <span class="cs__toctext">{section.text}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            </details>
           )
         }
 
-        <div class="prose">
+        {/* `data-reading` is what the header's progress bar measures: reading
+            ends with the article, not with the footer. */}
+        <div class="prose" data-reading>
           <Content />
         </div>
       </div>
 
       <div class="cs__next">
-        <NextProject
-          title={next.data.title}
-          year={next.data.year}
-          href={`/work/${next.id}`}
-        />
+        {
+          next.kind === 'project' ? (
+            <NextProject
+              label={next.label}
+              title={next.project.data.title}
+              year={next.project.data.year}
+              href={`/work/${next.project.id}`}
+            />
+          ) : (
+            /* End of the curated sequence: out to the full list, not back to
+               the start and not down into the archive. */
+            <NextProject title="Explore all work" href="/work" />
+          )
+        }
       </div>
     </div>
   </article>
@@ -114,6 +143,7 @@ const sections = headings.filter((heading) => heading.depth === 2);
   .cs__crumb {
     padding-top: var(--sp-32);
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
@@ -124,57 +154,63 @@ const sections = headings.filter((heading) => heading.depth === 2);
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
+  /* Title, description, actions, then the article: one continuous opening
+     rather than four separated blocks. */
   .cs__head {
-    padding-block: var(--sp-32) var(--sp-32);
+    padding-block: var(--sp-24) var(--sp-40);
   }
 
   .cs__dates {
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
 
   .cs__title {
     margin-top: var(--sp-8);
+    max-width: var(--measure-display);
     font-family: var(--font-display);
-    font-stretch: var(--wdth-display);
-    font-size: var(--fs-display-lg);
-    line-height: var(--lh-display-lg);
+    font-optical-sizing: auto;
+    font-size: var(--fs-hello-greet);
+    line-height: 1.05;
     font-weight: var(--fw-display);
+    letter-spacing: -0.015em;
     color: var(--text);
-    max-width: 20ch;
   }
 
   .cs__summary {
     margin-top: var(--sp-16);
+    max-width: var(--measure-meta);
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
-    max-width: 52ch;
   }
 
   .cs__links {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sp-24);
-    margin-top: var(--sp-24);
+    margin-top: var(--sp-16);
   }
 
+  /* Same treatment as the project rows: text and arrow change colour together,
+     nothing underlines, nothing moves. */
   .cs__link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-2);
     padding-block: var(--sp-12);
-    border-bottom: var(--rule-hair) solid var(--rule);
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
   /* Full bleed (SPEC §9). */
   .cs__media {
-    margin-bottom: var(--sp-32);
+    margin-bottom: var(--sp-40);
   }
 
   .cs__facts {
@@ -187,34 +223,91 @@ const sections = headings.filter((heading) => heading.depth === 2);
     gap: var(--sp-32);
   }
 
+  /* ---- table of contents ---- */
+
   .cs__toc {
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
+  }
+
+  /* The mobile control. Hidden on desktop, where the list is simply open. */
+  .cs__tocsum {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-12);
+    padding-block: var(--sp-12);
+    cursor: pointer;
+    list-style: none;
+    border-top: var(--rule-hair) solid var(--rule-strong);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .cs__tocsum::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Which section you are in, for the case where the list is closed. */
+  .cs__tocsum-now {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: right;
+    color: var(--accent);
+  }
+
+  .cs__toc[open] .cs__tocsum-now {
+    opacity: 0;
   }
 
   .cs__toclist {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-8);
-    border-top: var(--rule-hair) solid var(--rule);
-    padding-top: var(--sp-16);
+    gap: var(--sp-4);
+    padding-top: var(--sp-12);
   }
 
-  .cs__toclist a {
-    display: flex;
-    gap: var(--sp-12);
+  /* Two columns, fixed on the left: every title starts at the same x whatever
+     the number is, and the two sit on one baseline instead of on two. */
+  .cs__toclink {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: var(--sp-12);
     color: var(--text-2);
     padding-block: var(--sp-4);
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
   .cs__tocnum {
-    flex: none;
     font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
+    font-weight: var(--fw-mono);
     font-size: var(--fs-micro);
+    /* Matches the title's line box, so baseline alignment holds at any size. */
+    line-height: var(--lh-small);
     letter-spacing: -0.02em;
     color: var(--text-3);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* The section being read. One at a time, set by the script from the scroll
+     position — the same source the progress bar reads. */
+  .cs__toclink[aria-current] {
+    color: var(--accent);
+  }
+
+  .cs__toclink[aria-current] .cs__tocnum {
+    color: var(--accent);
   }
 
   .cs__next {
@@ -223,14 +316,18 @@ const sections = headings.filter((heading) => heading.depth === 2);
 
   @media (hover: hover) and (pointer: fine) {
     .cs__crumb a:hover,
-    .cs__toclist a:hover {
+    .cs__toclink:hover {
       color: var(--text);
       transition-duration: var(--dur-hover-in);
     }
 
+    .cs__toclink[aria-current]:hover {
+      color: var(--accent);
+    }
+
+    .cs__tocsum:hover,
     .cs__link:hover {
-      color: var(--text);
-      border-bottom-color: var(--rule-strong);
+      color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
   }
@@ -238,13 +335,34 @@ const sections = headings.filter((heading) => heading.depth === 2);
   @media (min-width: 1024px) {
     .cs__body {
       grid-template-columns: 200px minmax(0, 1fr);
-      gap: var(--sp-48);
+      gap: var(--sp-64);
       align-items: start;
     }
 
+    /* Clears the sticky header, or the first item sits underneath it. The
+       max-height keeps a long list scrollable inside its own column instead of
+       pushing the page. */
     .cs__toc {
       position: sticky;
-      top: var(--sp-32);
+      top: calc(62px + var(--sp-32));
+      max-height: calc(100svh - 62px - var(--sp-64));
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
+    }
+
+    .cs__toc::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cs__tocsum {
+      display: none;
+    }
+
+    .cs__toclist {
+      border-top: var(--rule-hair) solid var(--rule);
+      padding-top: var(--sp-16);
+      gap: var(--sp-8);
     }
   }
 </style>
@@ -253,17 +371,43 @@ const sections = headings.filter((heading) => heading.depth === 2);
   /* Numbered headings come from a counter, so the markdown stays plain. */
   .prose {
     counter-reset: section;
-    max-width: 66ch;
+    /* The measure lives on the text children, so a figure or a table can be
+       wider than the paragraphs without breaking the column. */
+    max-width: none;
   }
 
+  /* 62ch of 17px body copy is about 65 characters a line. */
+  .prose > p,
+  .prose > h2,
+  .prose > h3,
+  .prose > ul,
+  .prose > ol,
+  .prose > blockquote,
+  .prose > details {
+    max-width: var(--measure);
+  }
+
+  /* Media and data can take the whole article column when they need it. */
+  .prose > figure,
+  .prose > table {
+    max-width: 100%;
+  }
+
+  /* A new section is recognisable from the space above it alone: five times
+     the gap between paragraphs. */
   .prose h2 {
     counter-increment: section;
-    margin-top: var(--sp-64);
+    margin-top: var(--sp-80);
     padding-top: var(--sp-16);
-    border-top: var(--rule-hair) solid var(--rule);
-    font-size: var(--fs-title);
-    line-height: var(--lh-title);
-    font-weight: var(--fw-medium);
+    /* Clears the sticky header when the heading is scrolled to by anchor. */
+    scroll-margin-top: calc(62px + var(--sp-32));
+    border-top: var(--rule-hair) solid var(--rule-strong);
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: var(--fs-lead);
+    line-height: 1.15;
+    font-weight: var(--fw-display);
+    letter-spacing: -0.015em;
     color: var(--text);
   }
 
@@ -276,7 +420,7 @@ const sections = headings.filter((heading) => heading.depth === 2);
     display: block;
     margin-bottom: var(--sp-8);
     font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
+    font-weight: var(--fw-mono);
     font-size: var(--fs-micro);
     letter-spacing: -0.02em;
     color: var(--text-3);
@@ -286,11 +430,386 @@ const sections = headings.filter((heading) => heading.depth === 2);
     margin-top: var(--sp-16);
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
+    /* Full contrast. Long-form copy in --text-2 was the thinnest text on the
+       site and the hardest to read. */
+    color: var(--text);
+  }
+
+  /* Editorial emphasis, not highlighting: a weight step and nothing else. No
+     colour change, no rule, no fill — inside a paragraph those all read as UI.
+     The phrases themselves come from the content files. */
+  .prose strong {
+    font-weight: var(--fw-strong);
+    color: var(--text);
+  }
+
+  .prose em {
+    font-style: italic;
+  }
+
+  /* Inline technical values stay in the site's mono rather than the browser's
+     default, and take no background: a pill mid-sentence is documentation
+     styling. */
+  .prose code {
+    font-family: var(--font-mono);
+    font-weight: var(--fw-mono);
+    font-size: 0.88em;
     color: var(--text-2);
   }
 
-  .prose a {
+  .prose ul,
+  .prose ol {
+    margin-top: var(--sp-16);
+  }
+
+  .prose li {
+    position: relative;
+    padding-left: var(--sp-20);
+    margin-top: var(--sp-8);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
     color: var(--text);
+  }
+
+  /* A hairline rather than a bullet, to match the rules the page already
+     uses. */
+  .prose li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: 8px;
+    height: var(--rule-hair);
+    background: var(--rule-strong);
+  }
+
+  /* Figures are part of the article: same left edge, square corners, no panel,
+     no shadow. */
+  .prose figure {
+    margin-top: var(--sp-32);
+  }
+
+  .prose figure img,
+  .prose img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .prose figcaption {
+    margin-top: var(--sp-12);
+    max-width: var(--measure-meta);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .prose figure + p {
+    margin-top: var(--sp-32);
+  }
+
+  /* Data keeps the metadata treatment: mono heads, hairline rows, no fills. */
+  .prose table {
+    width: 100%;
+    margin-top: var(--sp-24);
+    border-collapse: collapse;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+  }
+
+  .prose th {
+    text-align: left;
+    padding: var(--sp-8) var(--sp-16) var(--sp-8) 0;
+    border-bottom: var(--rule-hair) solid var(--rule-strong);
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .prose td {
+    padding: var(--sp-8) var(--sp-16) var(--sp-8) 0;
+    border-bottom: var(--rule-hair) solid var(--rule);
+    vertical-align: baseline;
+    color: var(--text-2);
+  }
+
+  /* Collapsed layers. Eleven case studies use native <details>/<summary> for
+     their engineering notes, so this styles the element rather than adding a
+     component. No JavaScript, and no animation beyond what the browser does
+     on its own. */
+  .prose details {
+    margin-top: var(--sp-32);
+    border-top: var(--rule-hair) solid var(--rule-strong);
     border-bottom: var(--rule-hair) solid var(--rule);
   }
+
+  .prose summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-16);
+    padding-block: var(--sp-16);
+    cursor: pointer;
+    /* Mono earns it here: this is the label on a technical layer. The prose
+       inside stays in the body face — mono paragraphs would be a wall. */
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* The default disclosure triangle is replaced by a sign on the right, so the
+     label starts on the same left edge as the prose. */
+  @media (max-width: 639px) {
+    .prose summary {
+      font-size: 0.75rem;
+    }
+  }
+
+  .prose summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .prose summary {
+    list-style: none;
+  }
+
+  .prose summary::after {
+    content: '+';
+    font-size: var(--fs-small);
+    line-height: 1;
+    color: var(--text-3);
+  }
+
+  .prose details[data-closing] > summary::after {
+    content: '+';
+  }
+
+  .prose details[open]:not([data-closing]) > summary::after {
+    /* The literal character, not a CSS escape: a four-digit escape needs a
+       terminating space to be read as one codepoint, and without it the marker
+       rendered as the digit 2. */
+    content: '−';
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .prose summary:hover {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .prose summary:active {
+    color: var(--accent);
+    transition-duration: var(--dur-press);
+  }
+
+  /* Breathing room for the contents, and a floor under the last paragraph. */
+  .prose details > *:not(summary):last-child {
+    margin-bottom: var(--sp-24);
+  }
+
+  .prose a {
+    color: var(--accent);
+    border-bottom: var(--rule-hair) solid transparent;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .prose a {
+      transition: border-color var(--dur-hover-out) var(--ease-out);
+    }
+
+    .prose a:hover {
+      border-bottom-color: currentColor;
+      transition-duration: var(--dur-hover-in);
+    }
+  }
 </style>
+
+<script>
+  // The table of contents, the header's progress bar and the URL hash all read
+  // from one thing: the window's scroll position. Nothing here keeps its own
+  // idea of where the reader is, so the three cannot drift apart.
+  let listeners: AbortController | undefined;
+
+  function initToc() {
+    listeners?.abort();
+    listeners = undefined;
+
+    const toc = document.querySelector<HTMLDetailsElement>('.cs__toc');
+    if (!toc) return;
+
+    const links = Array.from(toc.querySelectorAll<HTMLAnchorElement>('[data-toclink]'));
+    if (links.length === 0) return;
+    const headings = links.map((link) => document.getElementById(link.dataset.toclink ?? ''));
+    const now = toc.querySelector<HTMLElement>('[data-toc-now]');
+
+    listeners = new AbortController();
+    const { signal } = listeners;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const desktop = window.matchMedia('(min-width: 1024px)');
+
+    // Collapsed on phones and tablets, open in the desktop column. The markup
+    // ships open, so the list survives with no JavaScript.
+    const fitViewport = () => {
+      toc.open = desktop.matches;
+    };
+    fitViewport();
+    desktop.addEventListener('change', fitViewport, { signal });
+
+    // A section counts as current once its heading reaches the upper third of
+    // the viewport, not when it first appears at the bottom edge.
+    let current = -1;
+    let queued = false;
+
+    function paint() {
+      queued = false;
+      const line = window.innerHeight / 3;
+      let index = 0;
+      for (let i = 0; i < headings.length; i += 1) {
+        const heading = headings[i];
+        if (!heading) continue;
+        if (heading.getBoundingClientRect().top <= line) index = i;
+        else break;
+      }
+      if (index === current) return;
+      current = index;
+
+      links.forEach((link, i) => {
+        if (i === index) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+      if (now) now.textContent = links[index].querySelector('.cs__toctext')?.textContent ?? '';
+
+      // Keeps the active row in view when the list is taller than its column.
+      if (toc.scrollHeight > toc.clientHeight + 1) {
+        const box = toc.getBoundingClientRect();
+        const item = links[index].getBoundingClientRect();
+        if (item.top < box.top) toc.scrollTop -= box.top - item.top;
+        else if (item.bottom > box.bottom) toc.scrollTop += item.bottom - box.bottom;
+      }
+    }
+
+    function onScroll() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(paint);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
+    window.addEventListener('resize', onScroll, { passive: true, signal });
+
+    // Smooth to the section, and let the scroll itself update the highlight and
+    // the progress bar on the way — no state is set here, and nothing is
+    // corrected once the scroll settles.
+    toc.addEventListener(
+      'click',
+      (event) => {
+        const link = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>(
+          '[data-toclink]'
+        );
+        if (!link) return;
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+        const slug = link.dataset.toclink ?? '';
+        const target = document.getElementById(slug);
+        if (!target) return;
+        if (!desktop.matches) toc.open = false;
+        // Reduced motion: fall through to the browser's own instant jump.
+        if (reduced.matches) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Keeps the URL honest without a second jump.
+        history.replaceState(null, '', `#${slug}`);
+      },
+      { signal }
+    );
+
+    paint();
+  }
+
+  // ---- disclosure blocks -------------------------------------------------
+  // <details> has no animatable height of its own: the browser shows or hides
+  // its content in one frame. This animates the element's own height around
+  // that switch, so the engineering notes and the mobile section list open and
+  // close instead of jumping. Nothing is animated when the state changes
+  // programmatically (the breakpoint opening the table of contents), and with
+  // reduced motion the native behaviour is left alone.
+  const DISCLOSURE_MS = 320;
+  const DISCLOSURE_EASE = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
+
+  function smoothDisclosures() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const blocks = document.querySelectorAll<HTMLDetailsElement>(
+      '.prose details, details.cs__toc'
+    );
+
+    for (const details of blocks) {
+      const summary = details.querySelector('summary');
+      if (!summary || details.dataset.smooth) continue;
+      details.dataset.smooth = 'true';
+
+      let running: Animation | undefined;
+
+      const settle = () => {
+        details.style.height = '';
+        details.style.overflow = '';
+        delete details.dataset.closing;
+        running = undefined;
+      };
+
+      const glide = (from: number, to: number, done?: () => void) => {
+        details.style.overflow = 'hidden';
+        const animation = details.animate(
+          [{ height: `${from}px` }, { height: `${to}px` }],
+          { duration: DISCLOSURE_MS, easing: DISCLOSURE_EASE }
+        );
+        animation.addEventListener('finish', () => {
+          done?.();
+          settle();
+        });
+        animation.addEventListener('cancel', settle);
+        return animation;
+      };
+
+      summary.addEventListener('click', (event) => {
+        if (reduced.matches) return;
+        event.preventDefault();
+        running?.cancel();
+
+        const box = window.getComputedStyle(details);
+        const borders =
+          parseFloat(box.borderTopWidth || '0') + parseFloat(box.borderBottomWidth || '0');
+        const from = details.offsetHeight;
+
+        if (details.open) {
+          // The marker flips now rather than when the animation lands.
+          details.dataset.closing = 'true';
+          const shut = summary.getBoundingClientRect().height + borders;
+          running = glide(from, shut, () => {
+            details.open = false;
+          });
+        } else {
+          details.open = true;
+          running = glide(from, details.scrollHeight + borders);
+        }
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    initToc();
+    smoothDisclosures();
+  });
+  initToc();
+  smoothDisclosures();
+</script>

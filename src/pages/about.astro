@@ -1,15 +1,19 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Base from '../layouts/Base.astro';
+import IdentityLine from '../components/IdentityLine.astro';
 
-// SPEC §9 — real specifics, no "T-shaped designer", no "passionate about".
-// TODO: placeholder dates and details to be confirmed.
-const allLinks = [
-  { label: 'Email', href: '#' },
-  { label: 'Resume', href: '#' },
-  { label: 'GitHub', href: 'https://github.com/williamzqliu' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/william-zqliu' },
-];
-const links = allLinks.filter((link) => link.href !== '#');
+// The portrait is a file in public/, so its presence is checked at build time
+// rather than assumed: a missing photo leaves a framed placeholder instead of
+// a broken image (SPEC §7 — missing media must not block publishing).
+const PORTRAIT_CANDIDATES = ['/media/about/portrait.webp', '/media/about/portrait.jpg'];
+const portrait = PORTRAIT_CANDIDATES.find((file) =>
+  fs.existsSync(path.join(process.cwd(), 'public', file.replace(/^\//, '')))
+);
+
+// Contact lives in the footer now — one contact point per site, not one per
+// page.
 ---
 
 <Base
@@ -19,45 +23,85 @@ const links = allLinks.filter((link) => link.href !== '#');
 >
   <section class="about">
     <div class="container">
-      <h1 class="about__title">About</h1>
-
-      <div class="about__prose">
-        <p>
-          I am a designer and developer working on interactive tools for network and relational
-          data. I am finishing an MFA in Information Design and Data Visualization at Northeastern
-          in December 2026.
-        </p>
-        <p>
-          Before that I read computer science at Tongji University. I wrote embedded C++ at Axis
-          Communications, and worked on data-driven storytelling at Shanghai Media Group. The two
-          halves are the reason I build rather than specify: the design decisions I care about are
-          usually the ones that only surface once something is running at real scale.
-        </p>
-        <p>
-          Recent work has been presented at NetSci 2026 and EMNLP 2026. Most of it involves graphs
-          that are large enough to be awkward — the interesting problem is rarely the layout
-          algorithm, it is deciding what a reader should be able to do with 2,000 nodes on a screen.
-        </p>
-        <p>TODO: expand. Add what you are looking for and what you will not do.</p>
+      {/* Same composition as the homepage, one size instead of two: on this
+          page the line is a page title, not the opening moment. */}
+      <div class="about__identity">
+        {/* Pronunciation parked for now — it still runs on the homepage, and
+            IdentityLine renders it again the moment `ipa` comes back. */}
+        <IdentityLine as="h1" greeting="Hi, I'm" name="Zhuoqi." />
       </div>
 
-      <ul class="about__links">
-        {
-          links.map((link) => (
-            <li>
-              <a class="about__link" href={link.href} target="_blank" rel="noopener noreferrer">
-                {link.label}
-                <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
-                  <path d="M4.5 1.5H10.5V7.5" fill="none" stroke="currentColor" stroke-width="1.4" />
-                  <path d="M10.5 1.5L4 8" fill="none" stroke="currentColor" stroke-width="1.4" />
-                  <path d="M8.5 10.5H1.5V3.5" fill="none" stroke="currentColor" stroke-width="1.4" />
-                </svg>
-                <span class="vh">(opens in a new tab)</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <div class="about__grid">
+        <div class="about__prose">
+          {/* <strong> carries the emphasis semantically; the styling is weight
+              and ink only — no size change, no italics, no colour accent. */}
+          <p>
+            I am a <strong>designer and developer</strong> working on interactive tools for complex
+            data, especially <strong>networks and relational systems</strong>. I am finishing an{' '}
+            <strong>MFA in Information Design and Data Visualization</strong> at Northeastern
+            University in December 2026.
+          </p>
+          <p>
+            Before that, I studied <strong>computer science</strong> at Tongji University, wrote{' '}
+            <strong>embedded C++</strong> at Axis Communications, and worked in visual design at
+            Shanghai Media Group. That mix of <strong>design and engineering</strong> still shapes
+            how I work. I like building things myself because important design decisions often
+            become clear only when something is actually running.
+          </p>
+          <p>
+            Recent work has been presented at <strong>NetSci 2026</strong> and{' '}
+            <strong>EMNLP 2026</strong>. Much of it involves data that is too large or complex for a
+            simple chart. With a network of <strong>2,000 nodes</strong>, for example, the harder
+            question is often not how to lay it out, but what someone should be able to understand
+            and do with it.
+          </p>
+          <p>
+            I am currently looking for roles in{' '}
+            <strong>data visualization, information design, and design engineering</strong> where I
+            can work across research, design, and implementation. I am especially interested in
+            building tools that help people explore and understand complex information.
+          </p>
+        </div>
+
+        <figure class="about__photo">
+          {
+            portrait ? (
+              <>
+                <img
+                  src={portrait}
+                  alt="Zhuoqi Liu at the opening of the master's thesis exhibition, standing beside the project panels"
+                  width="640"
+                  height="800"
+                  loading="lazy"
+                />
+                <figcaption>Master&#8217;s thesis exhibition, opening day</figcaption>
+              </>
+            ) : (
+              <div class="about__photo-pending">
+                <span>portrait</span>
+                <span>public/media/about/portrait.webp</span>
+              </div>
+            )
+          }
+        </figure>
+      </div>
+
+      {/* Publications block parked for now. Restore by uncommenting; the
+          styles below are still in place.
+      <h2 class="about__pubs-label section-label">Publications</h2>
+      <div class="about__pub">
+        <p class="about__pub-authors">
+          Yixuan Liu, Lin Chen, <strong>Zhuoqi Liu</strong>, Jianglin Lu, Dakota Murray.
+        </p>
+        <p class="about__pub-title">
+          Citing Less Critically: LLMs Reshape the Rhetoric and Reach of Scientific Citation.
+        </p>
+        <p class="about__pub-venue">
+          EMNLP 2026 (Main Conference). <a class="link" href="https://arxiv.org/abs/2609.01432" target="_blank" rel="noopener noreferrer">arXiv:2609.01432</a>
+        </p>
+      </div>
+      */}
+
     </div>
   </section>
 </Base>
@@ -67,60 +111,153 @@ const links = allLinks.filter((link) => link.href !== '#');
     padding-block: var(--sp-48) var(--sp-96);
   }
 
-  .about__title {
-    font-size: var(--fs-display);
-    line-height: var(--lh-display);
-    font-weight: var(--fw-medium);
-    letter-spacing: -0.01em;
-    color: var(--text);
+  /* Greeting and name at the same size here — the step-up belongs to the
+     homepage, where the name is the opening moment. */
+  .about__identity {
+    --idl-greet: var(--fs-hello-greet);
+    /* A step larger, upright. The name stands out on face, colour and size —
+       it does not need the slant as well. */
+    --idl-name: calc(var(--fs-hello-greet) * 1.18);
+    --idl-gap: 10px;
+  }
+
+  .about__grid {
+    display: grid;
+    gap: var(--sp-32);
+    margin-top: var(--sp-32);
   }
 
   .about__prose {
-    margin-top: var(--sp-32);
-    max-width: 62ch;
+    max-width: 68ch;
     display: flex;
     flex-direction: column;
     gap: var(--sp-24);
   }
 
+  /* Portrait ratio, square corners like everything else. The frame belongs to
+     the image, not to the figure — a border around both would turn the photo
+     and its caption into a card. */
+  .about__photo {
+    order: -1;
+    align-self: start;
+  }
+
+  .about__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: var(--rule-hair) solid var(--rule);
+    /* The file is already 4:5, so `cover` crops nothing — it is here so a
+       later replacement at another ratio cannot break the column. */
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .about__photo figcaption {
+    margin-top: var(--sp-8);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  /* Same 4:5 box while the file is missing, so the layout is already right. */
+  .about__photo-pending {
+    border: var(--rule-hair) solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--sp-4);
+    aspect-ratio: 4 / 5;
+    padding: var(--sp-12);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    color: var(--text-3);
+  }
+
+  /* Body copy sits a step back from full ink so the emphasised phrases can
+     come forward without changing size, style or colour. */
   .about__prose p {
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
   }
 
-  .about__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-24);
+  .about__prose strong {
+    font-weight: var(--fw-strong);
+    color: var(--text);
+  }
+
+  /* The rule under the label matches the column it heads, not the container.
+     A full-width rule over a 62ch citation reads as a stray line. */
+  .about__pubs-label {
     margin-top: var(--sp-48);
-    padding-top: var(--sp-24);
-    border-top: var(--rule-hair) solid var(--rule);
+    max-width: var(--measure);
   }
 
-  .about__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: var(--fs-small);
-    line-height: var(--lh-small);
+  .about__pub {
+    margin-top: var(--sp-16);
+    max-width: var(--measure);
+  }
+
+  .about__pub-authors,
+  .about__pub-venue {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
     color: var(--text-2);
-    padding-block: var(--sp-12);
-    border-bottom: var(--rule-hair) solid var(--rule);
-    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .about__link:hover {
-      color: var(--text);
-      border-bottom-color: var(--rule-strong);
-      transition-duration: var(--dur-hover-in);
-    }
+  .about__pub-title {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    font-style: italic;
+    color: var(--text);
   }
+
+
+
 
   @media (min-width: 1024px) {
     .about {
       padding-block: var(--sp-64) var(--sp-96);
+    }
+
+    /* Prose left, portrait right. The photo column is fixed so the prose keeps
+       its measure instead of stretching to fill. */
+    .about__grid {
+      grid-template-columns: minmax(0, 1fr) 440px;
+      column-gap: var(--sp-64);
+      align-items: start;
+    }
+
+    /* Wide enough that the gutter between the columns is the gap and nothing
+       else, and pinned right so both columns meet the page's own edges. */
+    .about__photo {
+      order: 0;
+      justify-self: end;
+      width: 440px;
+      max-width: none;
+    }
+
+    /* The whole block — image plus caption — is 505px, so its bottom lands on
+       the prose's (507). The image takes whatever the caption leaves, which
+       keeps this true if the caption ever wraps. The extra width comes off the
+       top and bottom, biased upward so the crop takes ceiling and floor rather
+       than the face. */
+    .about__photo {
+      display: flex;
+      flex-direction: column;
+      height: 505px;
+    }
+
+    .about__photo img {
+      flex: 1;
+      min-height: 0;
+      aspect-ratio: auto;
+      height: auto;
+      object-position: 50% 30%;
     }
   }
 </style>

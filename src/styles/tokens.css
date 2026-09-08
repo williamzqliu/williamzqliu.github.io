@@ -6,17 +6,19 @@
 /* ---------- Color: light ---------- */
 
 :root {
-  /* Warmer and a step darker than SPEC §2's #FBFAF7, which read as glare.
-     Hue and relationships are unchanged; only the lightness moved. */
-  --bg:            #F2EFE7;
-  --surface:       #E7E3D8;
-  --text:          #14140F;
-  --text-2:        #56564E;
-  --text-3:        #7B7B71;
-  --rule:          #D4D0C4;
-  --rule-strong:   #14140F;
-  --accent:        #F64912;   /* logo orange, sampled from the mark */
-  --accent-2:      #FBC900;   /* logo yellow, sampled from the mark */
+  /* Sampled from Zhuoqi_Liu_Resume.pdf so the site and the resume read as one
+     system: #FDF7E9 is the resume's page fill, #D03B00 its heading orange.
+     Text is a step darker than before — dim body copy was the main reason the
+     page read as thin. */
+  --bg:            #FDF7E9;
+  --surface:       #F4EAD3;
+  --text:          #14120C;
+  --text-2:        #4B463C;
+  --text-3:        #6E685A;
+  --rule:          #E2D7BE;
+  --rule-strong:   #14120C;
+  --accent:        #D03B00;   /* resume orange */
+  --accent-2:      #FBC900;   /* logo yellow */
 
   color-scheme: light;
 }
@@ -25,14 +27,14 @@
 
 /* Explicit choice (set by the inline theme script). */
 :root[data-theme='dark'] {
-  --bg:            #121210;
-  --surface:       #1C1C19;
-  --text:          #F0EEE7;
-  --text-2:        #9C9C93;
-  --text-3:        #6A6A62;
-  --rule:          #2C2C28;
-  --rule-strong:   #F0EEE7;
-  --accent:        #FF5F2B;
+  --bg:            #14120E;
+  --surface:       #1F1C15;
+  --text:          #F9F3E4;
+  --text-2:        #ABA492;
+  --text-3:        #8A8374;
+  --rule:          #332E24;
+  --rule-strong:   #F9F3E4;
+  --accent:        #FF6134;
   --accent-2:      #FFD44A;
 
   color-scheme: dark;
@@ -42,14 +44,14 @@
    data-theme, so this only ever applies when scripting is off. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg:            #121210;
-    --surface:       #1C1C19;
-    --text:          #F0EEE7;
-    --text-2:        #9C9C93;
-    --text-3:        #6A6A62;
-    --rule:          #2C2C28;
-    --rule-strong:   #F0EEE7;
-    --accent:        #FF5F2B;
+    --bg:            #14120E;
+    --surface:       #1F1C15;
+    --text:          #F9F3E4;
+    --text-2:        #ABA492;
+    --text-3:        #8A8374;
+    --rule:          #332E24;
+    --rule-strong:   #F9F3E4;
+    --accent:        #FF6134;
     --accent-2:      #FFD44A;
 
     color-scheme: dark;
@@ -64,7 +66,7 @@
   --tone-dark:    #14140F;
   /* Lighter than --bg on purpose: a light plate has to read as media, not
      as a hole in the page. */
-  --tone-light:   #FBF9F4;
+  --tone-light:   #FFFBF1;
   --tone-neutral: #8E8E84;
 
   --tone-dark-ink:    #6A6A62;
@@ -75,19 +77,30 @@
 /* ---------- Type ---------- */
 
 :root {
-  /* Display — condensed grotesque. Project titles only, never body.
-     Archivo carries a wdth axis; 75% is the condensed instance. */
-  --font-display: 'Archivo', 'Archivo Narrow', 'Arial Narrow', system-ui, sans-serif;
+  /* Display — the anchor. Page titles, section headings, the wordmark. Set
+     bold; never used for anything that has to be read in quantity. Project
+     titles are *not* display: they belong to the sans. */
+  --font-display: 'Bricolage Grotesque', system-ui, 'Segoe UI', sans-serif;
   /* Body — prose, navigation, labels, everything conversational. */
   --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  /* Technical — stack lists, data values, code. Nothing else. */
-  --font-mono: 'Martian Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
-
-  --wdth-display: 75%;
-  --wdth-mono: 87.5%;
+  /* Technical — numbers, keywords, phonetics. Deliberately characterless, and
+     deliberately rare. */
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
 
   /* Scale, 1.25 ratio. rem so browser font-size settings still work;
      px equivalents at a 16px root are the spec values. */
+  /* The identity line. The name runs about 1.18x the greeting: noticeable,
+     not dramatic. */
+  --fs-hello:       clamp(2rem, 3.4vw, 2.75rem);      /* 32px -> 44px */
+  --fs-hello-name:  clamp(2.875rem, 5.2vw, 4.25rem);  /* 46px -> 68px */
+  /* Page titles (about, /work, case studies). */
+  --fs-hello-greet: clamp(1.75rem, 3.4vw, 2.25rem);   /* 28px -> 36px */
+  /* Both work statements, set identically. */
+  --fs-statement:   clamp(1.375rem, 2.1vw, 1.75rem);  /* 22px -> 28px */
+  /* Second tier: the statement, and case study section headings. */
+  --fs-lead:        clamp(1.5rem, 2.6vw, 1.875rem); /* 24px -> 30px */
+  /* Project titles — sans, semibold, one step above body-lg. */
+  --fs-cardtitle:   clamp(1.75rem, 5.2vw, 2.125rem);  /* 28px -> 34px */
   --fs-display-lg: 2.5rem;    /* 40px */
   --lh-display-lg: 1.05;
   --fs-display:    1.75rem;   /* 28px */
@@ -98,17 +111,29 @@
   --lh-body-lg:    1.6;
   --fs-body:       0.9375rem; /* 15px */
   --lh-body:       1.65;
+  --fs-nav:        0.875rem;  /* 14px — navigation only */
   --fs-small:      0.8125rem; /* 13px */
   --lh-small:      1.5;
   --fs-micro:      0.6875rem; /* 11px — mono only */
   --lh-micro:      1.4;
 
-  --fw-display: 500;
+  --fw-display: 700;
+  --fw-strong:  600;
   --fw-medium:  500;
   --fw-regular: 400;
+  /* Martian Mono at 11px / 400 is visibly thinner than the body face beside
+     it, which reads as an accident rather than a technical register. */
+  --fw-mono:    500;
 
-  /* Prose never fills the container. */
-  --measure: 66ch;
+  /* Section labels — the resume's caps-and-rule device. */
+  --ls-label: 0.09em;
+
+  /* One measure scale. Every text block picks one of these, so ragged edges
+     line up across the page instead of each block wrapping at its own width. */
+  --measure-display: 20ch;   /* the name, project titles */
+  --measure-lead: 34ch;      /* the statement */
+  --measure-meta: 46ch;      /* blurbs, one-line bios */
+  --measure: 62ch;           /* long-form prose */
 }
 
 /* ---------- Shape ---------- */
@@ -126,11 +151,16 @@
   --sp-8:  0.5rem;
   --sp-12: 0.75rem;
   --sp-16: 1rem;
+  --sp-20: 1.25rem;
   --sp-24: 1.5rem;
   --sp-32: 2rem;
+  --sp-40: 2.5rem;
   --sp-48: 3rem;
+  --sp-56: 3.5rem;
   --sp-64: 4rem;
+  --sp-80: 5rem;
   --sp-96: 6rem;
+  --sp-120: 7.5rem;
 }
 
 /* ---------- Layout (SPEC §5) ---------- */
@@ -138,21 +168,18 @@
 :root {
   --container: 1200px;
   --pad: 16px;              /* mobile */
-  --row-bleed: 12px;
   --tap: 44px;
 }
 
 @media (min-width: 640px) {
   :root {
     --pad: 32px;            /* tablet */
-    --row-bleed: 20px;
   }
 }
 
 @media (min-width: 1024px) {
   :root {
     --pad: 48px;            /* desktop */
-    --row-bleed: 24px;
   }
 }
 
@@ -165,9 +192,17 @@
   --dur-base:   240ms;
   --dur-slow:   420ms;
 
-  /* Hover: 120ms in, 180ms out. */
-  --dur-hover-in:  120ms;
-  --dur-hover-out: 180ms;
+  /* Hover: 200ms in, 280ms out. A slower exit still reads as more responsive
+     than a symmetric pair. */
+  --dur-hover-in:  200ms;
+  --dur-hover-out: 280ms;
+  /* Entrances that draw themselves: the nav indicator, the filter underline. */
+  --dur-draw:      320ms;
+  /* Press. SPEC §4 asks for 0ms here; a short fade was preferred instead, so
+     nothing on the page changes state by jumping. */
+  --dur-press:      90ms;
+  /* Theme switch, applied only while the class is on <html>. */
+  --dur-theme:     220ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

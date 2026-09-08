@@ -1,0 +1,129 @@
+---
+// Back to top. A plain anchor to `#top` — a fragment browsers resolve to the
+// top of the document even with no element of that id — so it works with
+// scripting off and needs no id added anywhere.
+//
+// The script only adds two things: the smooth scroll (skipped under
+// prefers-reduced-motion) and the visibility, which starts hidden and fades in
+// once there is enough page behind you to want it. Opacity only, never
+// position, so nothing on the page moves when it appears.
+---
+
+<a class="totop" href="#top" data-totop hidden>
+  <svg viewBox="0 0 10 10" width="12" height="12" aria-hidden="true" focusable="false">
+    <path
+      d="M5 8.4V1.9M2 4.9L5 1.9l3 3"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+  {/* The control is an arrow; the name it exposes is still a sentence. */}
+  <span class="vh">Back to top</span>
+</a>
+
+<style>
+  .totop {
+    position: fixed;
+    right: var(--pad);
+    bottom: var(--pad);
+    z-index: 40;
+
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+
+    background: var(--bg);
+    /* --rule is a divider tone and disappears on a control this small; the
+       border here has to read as an edge. */
+    border: var(--rule-hair) solid var(--text-3);
+    color: var(--text-2);
+
+    /* Hidden until the script decides otherwise; `hidden` covers the no-JS
+       case, where a control that cannot be dismissed would just be clutter. */
+    opacity: 0;
+    pointer-events: none;
+    /* Fill, border and icon all fade, so the hover reads at 36px instead of
+       being a colour shift you have to look for. */
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      background-color var(--dur-hover-out) var(--ease-out),
+      color var(--dur-hover-out) var(--ease-out),
+      border-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .totop[data-visible] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Same hover language as the project titles: the accent fills the shape and
+     the mark goes light. No movement, no size change. */
+  @media (hover: hover) and (pointer: fine) {
+    .totop:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--tone-light);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .totop:active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--tone-light);
+    transition-duration: var(--dur-press);
+  }
+
+  @media (min-width: 1024px) {
+    .totop {
+      right: var(--sp-48);
+      bottom: var(--sp-32);
+    }
+  }
+</style>
+
+<script>
+  const REVEAL_AT = 1.05; // viewports of scrolling before it appears
+
+  let queued = false;
+
+  function paint() {
+    queued = false;
+    const link = document.querySelector<HTMLAnchorElement>('[data-totop]');
+    if (!link) return;
+    if (window.scrollY > window.innerHeight * REVEAL_AT) link.dataset.visible = 'true';
+    else delete link.dataset.visible;
+  }
+
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(paint);
+  }
+
+  function bind() {
+    const link = document.querySelector<HTMLAnchorElement>('[data-totop]');
+    if (!link) return;
+    link.hidden = false;
+    paint();
+
+    if (link.dataset.bound) return;
+    link.dataset.bound = 'true';
+    link.addEventListener('click', (event) => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Move focus somewhere sensible for keyboard users, without a second jump.
+      document.querySelector<HTMLElement>('.nav__name')?.focus({ preventScroll: true });
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  document.addEventListener('astro:page-load', bind);
+  bind();
+</script>

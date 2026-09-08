@@ -1,0 +1,107 @@
+{/* Establish the hidden state before the hero is parsed. Replay only on a
+    fresh document, so returning Home through the router stays immediate. */}
+<script is:inline>
+  if (!window.__homeIntroSeen) {
+    window.__homeIntroSeen = true;
+    if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches && scrollY < 8) {
+      document.documentElement.dataset.homeIntro = 'pending';
+      // Fail open if the module or a font cannot load.
+      window.setTimeout(() => delete document.documentElement.dataset.homeIntro, 10000);
+    }
+  }
+</script>
+
+<style is:global>
+  html[data-home-intro] .opening .idl__greet,
+  html[data-home-intro] .opening .idl__name,
+  html[data-home-intro] .opening .idl__say,
+  html[data-home-intro] .opening .hero__statements > *,
+  html[data-home-intro] .opening__teaser,
+  html[data-home-intro] .opening + .work,
+  html[data-home-intro] footer {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html[data-home-intro] .opening *,
+    html[data-home-intro] .opening + .work,
+    html[data-home-intro] footer {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  let cleanup: (() => void) | undefined;
+
+  async function startIntro() {
+    if (document.documentElement.dataset.homeIntro !== 'pending') return;
+    document.documentElement.dataset.homeIntro = 'loading';
+    const opening = document.querySelector<HTMLElement>('.opening');
+    if (!opening) {
+      delete document.documentElement.dataset.homeIntro;
+      return;
+    }
+
+    const animations: Animation[] = [];
+    const listeners = new AbortController();
+    let finished = false;
+    const finish = () => {
+      finished = true;
+      delete document.documentElement.dataset.homeIntro;
+      for (const animation of animations) animation.cancel();
+      listeners.abort();
+      cleanup = undefined;
+    };
+    cleanup = finish;
+    // Never hold up navigation, scrolling, keyboard access, or a resized layout.
+    for (const event of ['pointerdown', 'keydown', 'wheel', 'touchstart']) {
+      window.addEventListener(event, finish, { once: true, passive: true, signal: listeners.signal });
+    }
+    const viewport = { width: innerWidth, height: innerHeight };
+    window.addEventListener('resize', () => {
+      if (innerWidth !== viewport.width || innerHeight !== viewport.height) finish();
+    }, { passive: true, signal: listeners.signal });
+    window.addEventListener('scroll', () => {
+      if (scrollY > 8) finish();
+    }, { passive: true, signal: listeners.signal });
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    reduced.addEventListener('change', finish, { signal: listeners.signal });
+
+    await Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 900))]);
+    if (finished) return;
+    if (window.scrollY > 8 || reduced.matches) return finish();
+
+    const ease = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
+    const reveal = (element: Element | null, delay: number, duration = 480) => {
+      if (!element) return;
+      animations.push(element.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay, duration, easing: ease, fill: 'both',
+      }));
+    };
+
+    // All text stays in place, and the rhythm is unchanged — every interval
+    // is simply shorter: each beat still finishes before the next begins, and
+    // the two holds (after the name, after the second statement) are still
+    // there so the sequence breathes instead of running on.
+    //   300 wait · greet 420 · name+say 420 · hold 200
+    //   statement 420 · statement 420 · hold 200 · teaser + list + footer 420
+    const BEAT = 420;
+    reveal(opening.querySelector('.idl__greet'), 300, BEAT);
+    reveal(opening.querySelector('.idl__name'), 720, BEAT);
+    reveal(opening.querySelector('.idl__say'), 720, BEAT);
+    reveal(opening.querySelector('.hero__statements > :first-child'), 1340, BEAT);
+    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 1760, BEAT);
+    reveal(opening.querySelector('.opening__teaser'), 2380, BEAT);
+    reveal(document.querySelector('.opening + .work'), 2380, BEAT);
+    reveal(document.querySelector('footer'), 2380, BEAT);
+
+    await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
+    if (!finished) finish();
+  }
+
+  document.addEventListener('astro:before-preparation', () => cleanup?.());
+  document.addEventListener('astro:page-load', startIntro);
+  startIntro();
+</script>

@@ -1,9 +1,16 @@
 ---
+import IdentityLine from './IdentityLine.astro';
 import StatRow from './StatRow.astro';
 
-// SPEC §6 — left-aligned statement, one-line bio, stat row, no animation.
-// The statement uses the *body* face at display size: the condensed display
-// face is reserved for project titles.
+// Three tiers, one composition.
+//   1. `Hi, I'm Zhuoqi.` — the personal anchor, whole line in the display face,
+//      the name emphasised inside the sentence rather than lifted out of it.
+//   2. Two work statements, set identically so they read as two related
+//      thoughts rather than a headline and a subtitle.
+//   3. The pronunciation, small, tucked under the name.
+//
+// The dictionary reference is carried by placement and treatment only — no
+// "pronounced", no separator, no part-of-speech labels.
 
 interface Stat {
   value: string;
@@ -11,19 +18,45 @@ interface Stat {
 }
 
 interface Props {
-  statement: string;
-  bio: string;
+  /** Stays in the main text colour, at the smaller of the two display sizes. */
+  greeting?: string;
+  /** A step larger, italic, accent — the emphasised word in the sentence. */
+  name?: string;
+  /** Bare transcription — the slashes are added here so they can stay
+      upright while the transcription itself is italic. */
+  ipa?: string;
+  /** Plain-English respelling, italic, sitting beside the IPA with no separator. */
+  respelling?: string;
+  /** Two lines, styled identically. Authored here, so `<strong>` markup in
+      them is trusted content rather than user input. */
+  statements: string[];
   /** Omit until the numbers are real. An empty row is better than a wrong one. */
   stats?: Stat[];
 }
 
-const { statement, bio, stats = [] } = Astro.props;
+const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
 ---
 
 <section class="hero">
   <div class="container">
-    <h1 class="hero__statement t-display-lg">{statement}</h1>
-    <p class="hero__bio t-body-lg">{bio}</p>
+    {/* Two roles, two columns: who I am on the left, what I do on the right.
+        Stacked below 1024px. */}
+    <div class="hero__grid">
+      {
+        greeting && name && (
+          <IdentityLine greeting={greeting} name={name} ipa={ipa} respelling={respelling} />
+        )
+      }
+
+      <div class="hero__statements">
+        {
+          statements.map((line, i) =>
+            i === 0 ? <h1 set:html={line} /> : <p set:html={line} />
+          )
+        }
+      </div>
+    </div>
+
     {
       stats.length > 0 && (
         <div class="hero__stats">
@@ -35,19 +68,55 @@ const { statement, bio, stats = [] } = Astro.props;
 </section>
 
 <style>
+  /* The opening section, not a strip above the work. Mobile keeps the
+     proportions but not the size. */
   .hero {
-    padding-block: var(--sp-48) var(--sp-32);
+    padding-block: var(--sp-40) var(--sp-56);
   }
 
-  .hero__statement {
-    max-width: 26ch;
-    color: var(--text);
+  /* Baseline-aligned so the two sizes sit on one line, wrapping only when the
+     viewport forces it. */
+  .hero__grid {
+    display: grid;
+    gap: var(--sp-32);
   }
 
-  .hero__bio {
-    margin-top: var(--sp-24);
-    max-width: 58ch;
+
+
+
+
+
+
+
+
+  /* Two statements, one treatment: same face, size, weight, leading, colour. */
+  .hero__statements {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-16);
+    max-width: 60ch;
+  }
+
+  /* The sentence sits a step back from full ink; the phrases that carry the
+     content come forward on weight and colour alone — same face, same size,
+     same leading. */
+  .hero__statements h1,
+  .hero__statements p {
+    font-family: var(--font-body);
+    font-size: var(--fs-statement);
+    line-height: 1.25;
+    font-weight: var(--fw-regular);
+    letter-spacing: -0.015em;
+    text-wrap: pretty;
     color: var(--text-2);
+  }
+
+  /* `:global` is required: the <strong> tags arrive through `set:html`, so
+     they never receive Astro's scoping attribute and a scoped selector would
+     silently miss them — the emphasis would fall back to the browser's bold. */
+  .hero__statements :global(strong) {
+    font-weight: var(--fw-strong);
+    color: var(--text);
   }
 
   .hero__stats {
@@ -58,17 +127,54 @@ const { statement, bio, stats = [] } = Astro.props;
 
   @media (min-width: 640px) {
     .hero {
-      padding-block: var(--sp-64) var(--sp-48);
+      padding-block: var(--sp-64) var(--sp-80);
     }
 
-    .hero__stats {
-      margin-top: var(--sp-48);
+    .hero__grid {
+      gap: var(--sp-48);
+    }
+
+    .hero__statements {
+      gap: var(--sp-24);
     }
   }
 
   @media (min-width: 1024px) {
+    /* Roughly 520-620px of section below the nav, following viewport height
+       rather than filling it: a 100vh hero would push the work off screen,
+       which is the opposite of the point. Slack lands at the bottom because
+       the content is not centred — the composition stays top-weighted. */
+    /* Centred within the padded box rather than sitting at the top. The
+       bottom padding is larger than the top, so the block still lands a little
+       above the true middle. */
     .hero {
-      padding-block: var(--sp-96) var(--sp-64);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: clamp(520px, 62vh, 620px);
+      padding-block: var(--sp-96) var(--sp-120);
+    }
+
+    /* Identity left, work right. The left column is sized to the name rather
+       than to a fraction, so the split does not move when the copy changes. */
+    .hero__grid {
+      grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+      column-gap: var(--sp-64);
+      align-items: start;
+    }
+
+    /* The hero is a flex column now, so the container has to fill it for the
+       grid inside to keep its width. */
+    .hero > .container {
+      width: 100%;
+    }
+
+    /* Cap-height alignment, not line-box alignment: the `Z` of the name and
+       the `I` of the statement sit on the same optical top line. The 7px was
+       measured from real ink metrics (canvas actualBoundingBoxAscent against
+       each element's baseline), not eyeballed. */
+    .hero__statements {
+      margin-top: 7px;
     }
   }
 </style>

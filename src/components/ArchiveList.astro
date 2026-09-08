@@ -1,0 +1,128 @@
+---
+// SPEC §6 — dense rows: title, category, year, one line each. Used for work
+// that is real but not curated: the projects without a `featured` rank.
+//
+// No covers, no blurbs. The point of the archive is that it stays reachable
+// without competing with the curated list above it.
+
+import type { Project } from '../lib/projects';
+import { caseStudyHref } from '../lib/projects';
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<ul class="arch">
+  {
+    projects.map((project) => {
+      const href = caseStudyHref(project);
+      const title = project.data.title;
+      const categories = project.data.tags.join(', ');
+
+      return (
+        <li class="arch__row" data-linked={href ? 'true' : undefined}>
+          <span class="arch__title">
+            {href ? <a class="arch__link" href={href}>{title}</a> : title}
+          </span>
+          <span class="arch__cat">{categories}</span>
+          <span class="arch__year">{project.data.year}</span>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .arch {
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .arch__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'title year'
+      'cat   cat';
+    align-items: baseline;
+    column-gap: var(--sp-16);
+    row-gap: var(--sp-4);
+    padding-block: var(--sp-12);
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+
+  .arch__row[data-linked] {
+    cursor: pointer;
+  }
+
+  .arch__title {
+    grid-area: title;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-small);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Stretches the link across the whole row, like the project rows do. */
+  .arch__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Category and year are metadata: mono, quiet, and out of the way. */
+  .arch__cat,
+  .arch__year {
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .arch__cat {
+    grid-area: cat;
+  }
+
+  .arch__year {
+    grid-area: year;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .arch__row[data-linked]:hover .arch__title {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  .arch__row[data-linked]:active .arch__title {
+    color: var(--accent);
+    transition-duration: var(--dur-press);
+  }
+
+  /* One step up on small screens: 11px caps with letter-spacing is the first
+     thing that becomes unreadable on a phone. */
+  @media (max-width: 639px) {
+    .arch__cat,
+    .arch__year {
+      font-size: 0.75rem;
+    }
+  }
+
+  /* One line each once there is room for three columns. */
+  @media (min-width: 640px) {
+    .arch__row {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 22ch) auto;
+      grid-template-areas: 'title cat year';
+      column-gap: var(--sp-32);
+      row-gap: 0;
+    }
+  }
+</style>
