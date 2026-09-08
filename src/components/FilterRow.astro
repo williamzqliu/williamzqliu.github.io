@@ -94,14 +94,17 @@ const label = (value: string) => value.replace(/-/g, ' ');
     }
   }
 
-  /* Filter press: a quick fade rather than a jump. */
-  .filterrow__chip:active,
-  .filterrow__chip:active::after {
-    transition-duration: var(--dur-press);
-  }
+  /* Filter press: a quick fade rather than a jump. Pointer devices only —
+     touch gets no press state anywhere on the site. */
+  @media (hover: hover) and (pointer: fine) {
+    .filterrow__chip:active,
+    .filterrow__chip:active::after {
+      transition-duration: var(--dur-press);
+    }
 
-  .filterrow__chip:active {
-    color: var(--text);
+    .filterrow__chip:active {
+      color: var(--text);
+    }
   }
 
   @media (min-width: 640px) {

@@ -167,9 +167,11 @@ const updated = stat
     }
   }
 
-  .resume__action:active {
-    color: var(--accent);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .resume__action:active {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
   }
 
   /* The resume is the content of this page, so the frame around it is one

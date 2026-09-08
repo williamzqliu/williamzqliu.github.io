@@ -89,9 +89,11 @@
     }
   }
 
-  .tsw:active {
-    color: var(--text);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .tsw:active {
+      color: var(--text);
+      transition-duration: var(--dur-press);
+    }
   }
 </style>
 

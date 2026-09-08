@@ -197,9 +197,11 @@ const showNav = navLinks.length > 1;
     }
   }
 
-  .nav__link:active {
-    transition-duration: var(--dur-press);
-    color: var(--text);
+  @media (hover: hover) and (pointer: fine) {
+    .nav__link:active {
+      transition-duration: var(--dur-press);
+      color: var(--text);
+    }
   }
 
   /* Hidden until the script says this page is a long-form read. */

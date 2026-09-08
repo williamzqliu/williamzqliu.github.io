@@ -187,6 +187,15 @@ const projects = (await landingProjects()).slice(0, 6);
     opacity: 1;
   }
 
+  /* Phones do not get the arrow: the page scrolls under a thumb without being
+     invited to, and a 12px breathing glyph is the least useful thing on a
+     small screen. */
+  @media (max-width: 639px) {
+    .work__arrow-reveal {
+      display: none;
+    }
+  }
+
   /* One-shot, set by the script when the opening animation hands over: the
      arrow arrives a beat after the label rather than alongside it. */
   .work__jump[data-arrow-late] .work__arrow-reveal {
@@ -220,9 +229,11 @@ const projects = (await landingProjects()).slice(0, 6);
 
   }
 
-  .work__jump:active {
-    color: var(--accent);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .work__jump:active {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
   }
 
   .work {
@@ -301,6 +312,8 @@ const projects = (await landingProjects()).slice(0, 6);
   function startBreathing() {
     const jump = document.querySelector<HTMLElement>('[data-jump]');
     if (!jump) return;
+    // The arrow is `display: none` below 640px; do not animate what is not there.
+    if (window.innerWidth < 640) return;
     // While the opening animation owns visibility, it decides when this starts.
     if (document.documentElement.dataset.homeIntro) return;
     jump.dataset.breathing = 'true';

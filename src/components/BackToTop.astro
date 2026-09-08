@@ -71,11 +71,13 @@
     }
   }
 
-  .totop:active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--tone-light);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .totop:active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--tone-light);
+      transition-duration: var(--dur-press);
+    }
   }
 
   @media (min-width: 1024px) {
