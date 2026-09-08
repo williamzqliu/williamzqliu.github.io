@@ -18,6 +18,11 @@
   --text-3:        #6E685A;
   --rule:          #E2D7BE;
   --rule-strong:   #14120C;
+  /* The scrim a touch device draws under a finger. Named rather than left to
+     the browser: the engine defaults disagree — a grey wash on iOS, the old
+     holo blue on Chromium — so the same tap would look different on two
+     phones. A scrim, not a palette colour. */
+  --tap-press:     rgba(0, 0, 0, 0.18);
   --accent:        #D03B00;   /* resume orange */
   --accent-2:      #FBC900;   /* logo yellow */
 
@@ -33,6 +38,8 @@
   --text:          #F9F3E4;
   --text-2:        #ABA492;
   --text-3:        #8A8374;
+  /* Black on a near-black page is no scrim at all. */
+  --tap-press:     rgba(255, 255, 255, 0.10);
   --rule:          #332E24;
   --rule-strong:   #F9F3E4;
   --accent:        #FF6134;
@@ -50,6 +57,7 @@
     --text:          #F9F3E4;
     --text-2:        #ABA492;
     --text-3:        #8A8374;
+    --tap-press:     rgba(255, 255, 255, 0.10);
     --rule:          #332E24;
     --rule-strong:   #F9F3E4;
     --accent:        #FF6134;
