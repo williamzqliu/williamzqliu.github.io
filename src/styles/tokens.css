@@ -173,7 +173,7 @@
 
 :root {
   --container: 1200px;
-  --pad: 16px;              /* mobile */
+  --pad: 18px;              /* mobile */
   --tap: 44px;
 }
 

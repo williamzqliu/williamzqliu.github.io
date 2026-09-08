@@ -54,22 +54,27 @@ const liveLinks = links.filter((link) => link.href !== '#');
   data-nomedia={COVERS_ENABLED ? undefined : 'true'}
 >
   <div class="prow__body">
-    <p class="prow__meta">
-      {figure && <span class="prow__index">{figure}</span>}
-      <span class="prow__year">{year}</span>
-    </p>
+    {/* The year sits above the title on a wide screen and beside it on a
+        narrow one. Same markup either way — only this wrapper's display
+        changes, so the reading order stays title-then-year. */}
+    <div class="prow__head">
+      <p class="prow__meta">
+        {figure && <span class="prow__index">{figure}</span>}
+        <span class="prow__year">{year}</span>
+      </p>
 
-    <h3 class="prow__title">
-      {
-        href ? (
-          <a class="prow__link" href={href}>
+      <h3 class="prow__title">
+        {
+          href ? (
+            <a class="prow__link" href={href}>
+              <span class="prow__titletext">{title}</span>
+            </a>
+          ) : (
             <span class="prow__titletext">{title}</span>
-          </a>
-        ) : (
-          <span class="prow__titletext">{title}</span>
-        )
-      }
-    </h3>
+          )
+        }
+      </h3>
+    </div>
 
     <p class="prow__blurb">{blurb}</p>
 
@@ -136,10 +141,46 @@ const liveLinks = links.filter((link) => link.href !== '#');
     align-items: flex-start;
   }
 
+  /* Wide: the year is a line of metadata above the title, as before. */
+  .prow__head {
+    align-self: stretch;
+  }
+
   .prow__meta {
     display: flex;
     align-items: baseline;
     gap: var(--sp-12);
+  }
+
+  /* Narrow: title left, year hard right, on one row.
+     
+     `align-items: baseline` is what does the work — a flex item's baseline is
+     its *first* line's baseline, so the year lands level with the lower edge
+     of the title's first line and stays there when the title wraps to two.
+     No per-card offsets, and nothing to keep in sync with the title's size. */
+  @media (max-width: 639px) {
+    .prow__head {
+      display: flex;
+      align-items: baseline;
+      /* Wide enough that a long title and the year cannot meet. */
+      gap: var(--sp-24);
+    }
+
+    .prow__head .prow__title {
+      order: 1;
+      /* Takes the rest of the row and wraps inside it. */
+      flex: 1 1 auto;
+      min-width: 0;
+      /* The gap above the title belongs to the row, not to the title. */
+      margin-top: 0;
+    }
+
+    .prow__head .prow__meta {
+      order: 2;
+      /* Never shrinks, never wraps, never drops below the title. */
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
   }
 
   .prow__index {
@@ -179,13 +220,22 @@ const liveLinks = links.filter((link) => link.href !== '#');
     inset: 0;
   }
 
-  /* Hover highlight, not an underline. The padding is cancelled by an equal
-     negative margin, so the box that appears on hover takes up no space and
-     nothing moves. `box-decoration-break: clone` gives a wrapped title the
-     same padding on both lines. */
+  /* Hover highlight, not an underline. The padding is reserved here, in the
+     default state, and cancelled by an equal negative margin — so the box that
+     appears on hover occupies no space and nothing on the row moves when it
+     arrives. Fixed pixels rather than em, so the inset stays 3/5 at every step
+     of the title's fluid size. `box-decoration-break: clone` gives a wrapped
+     title the same padding on both lines.
+     
+     `position: relative` is what makes the title hoverable at all: the link's
+     stretched ::after covers the whole row, including these words, so without
+     a layer of its own the overlay takes every hit and the title can never
+     tell that the pointer is on it specifically. */
   .prow__titletext {
-    padding: 0.04em 0.16em;
-    margin: -0.04em -0.16em;
+    position: relative;
+    z-index: 1;
+    padding: 3px 5px;
+    margin: -3px -5px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
     background: transparent;
@@ -200,6 +250,14 @@ const liveLinks = links.filter((link) => link.href !== '#');
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
+  }
+
+  /* One step down on a phone, so the card's own copy matches the long-form
+     copy on the case study rather than out-sizing it. */
+  @media (max-width: 639px) {
+    .prow__blurb {
+      font-size: 1rem;
+    }
   }
 
   /* Three keywords, as tags rather than a sentence: mono, caps, on a quiet
@@ -266,42 +324,67 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* ---- cover ---- */
 
+  /* The container is what holds the row's geometry: fixed ratio, clipped, and
+     never transformed itself — only the plate inside it moves. */
   .prow__mediacol {
     overflow: hidden;
   }
 
-  .prow__mediacol :global(.cover) {
-    transition: transform var(--dur-base) var(--ease-out);
+  /* Muted, not treated: saturation comes down a little and nothing else
+     changes. The point is that the project's own colours arrive on hover, not
+     that the site puts its orange over them — so no overlay, no duotone, no
+     grey, no blur, no opacity. At 0.82 a chart or a diagram is still fully
+     readable at rest.
+     
+     360ms, on exactly the two properties that change. */
+  .prow[data-linked] .prow__mediacol :global(.cover) {
+    filter: saturate(0.82);
+    transition:
+      filter 360ms var(--ease-out),
+      transform 360ms var(--ease-out);
+  }
+
+  /* Touch has no hover to restore the colour, so there is nothing to mute. */
+  @media (hover: none) {
+    .prow[data-linked] .prow__mediacol :global(.cover) {
+      filter: none;
+    }
   }
 
   /* ---- states (SPEC §4) ---- */
 
-  /* Two destinations in one row, so two answers. Anywhere on the row means the
-     case study, and the title takes the accent as a block. On one of the
-     outbound links it means somewhere else entirely, so the title only tints —
-     it acknowledges the row without claiming the click. `:has()` is what makes
-     the distinction: the fill is suppressed while a link is the target. Both
-     states use the same two transitioned properties, so either direction
-     fades. */
+  /* Three levels, because the row has more than one thing in it.
+     
+       default            dark title, no fill
+       anywhere on the row   title text takes the accent
+       on the title itself   accent fill, cream text
+     
+     The second says "this row leads somewhere"; the third says "and this is
+     the link". Only `background-color` and `color` move between them, both
+     already transitioned above, so every step fades in either direction and
+     nothing is added or resized on hover. */
   @media (hover: hover) and (pointer: fine) {
-    .prow[data-linked]:hover:not(:has(.prow__linkout:hover)) .prow__titletext {
-      background: var(--accent);
-      /* Locked light, so the text stays legible on orange in both themes. */
-      color: var(--tone-light);
-      /* Slower than the site's other hovers on purpose: this is a block of
-         colour rather than a colour change on text, and at the standard
-         200ms it arrives as a flash. */
-      transition-duration: calc(var(--dur-hover-in) + 100ms);
-    }
-
-    .prow[data-linked]:has(.prow__linkout:hover) .prow__titletext {
+    .prow[data-linked]:hover .prow__titletext {
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
 
-    /* The only motion on the row, and it is contained by the frame. */
+    .prow[data-linked] .prow__titletext:hover {
+      background: var(--accent);
+      /* Locked light, so the text stays legible on orange in both themes. */
+      color: var(--tone-light);
+      /* Slower than the site's other hovers on purpose: this is a block of
+         colour rather than a colour change on text, and at the standard 200ms
+         it arrives as a flash. */
+      transition-duration: calc(var(--dur-hover-in) + 100ms);
+    }
+
+    /* Anywhere on the row, not just on the media: the row is one thing, and
+       the image coming to full colour is the row answering. The zoom is meant
+       to be almost imperceptible — it is the colour that carries the change. */
     .prow[data-linked]:hover .prow__mediacol :global(.cover) {
-      transform: scale(1.02);
+      filter: saturate(1);
+      transform: scale(1.015);
     }
 
     .prow__linkout:hover {
@@ -309,29 +392,37 @@ const liveLinks = links.filter((link) => link.href !== '#');
       transition-duration: var(--dur-hover-in);
     }
 
-    .prow[data-linked]:active:not(:has(.prow__linkout:active)) .prow__titletext {
+    .prow[data-linked] .prow__titletext:active {
       background: var(--accent);
       color: var(--tone-light);
       transition-duration: var(--dur-press);
     }
   }
 
-  /* Touch gets the same two answers, but only on the press — there is no
-     hover to borrow, and a finger needs to know which of the two links it
-     landed on before the page changes. */
-  @media (hover: none) {
-    .prow[data-linked]:active:not(:has(.prow__linkout:active)) .prow__titletext {
-      background: var(--accent);
-      color: var(--tone-light);
-      transition-duration: var(--dur-press);
+  /* The colour change is the point and it stays; the 1.5% of movement does
+     not. */
+  @media (prefers-reduced-motion: reduce) {
+    .prow[data-linked]:hover .prow__mediacol :global(.cover) {
+      transform: none;
     }
+  }
 
-    .prow[data-linked]:has(.prow__linkout:active) .prow__titletext {
+  /* Touch gets one quiet acknowledgement and no fill. `:active` cannot be used
+     for it: the browser keeps that state through a drag, so a press that turns
+     into a scroll leaves the card lit up and, on some devices, still fires the
+     link. `data-pressed` is set on pointerdown and dropped the moment the
+     finger moves far enough to be scrolling — see the script below.
+     
+     No orange background here either: a block of colour on a press that may
+     turn out to be a scroll is too loud a promise. */
+  @media (hover: none) {
+    .prow[data-linked][data-pressed] .prow__titletext {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
 
-    .prow__linkout:active {
+    /* Both conditions: the row is still a tap, and this link is the target. */
+    .prow[data-linked][data-pressed] .prow__linkout:active {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
@@ -369,3 +460,83 @@ const liveLinks = links.filter((link) => link.href !== '#');
     max-width: var(--measure);
   }
 </style>
+
+<script>
+  // Touch only: a press that becomes a vertical scroll must not read as a tap.
+  //
+  // Native links already cancel most of these, but not all of them — the
+  // pressed state survives the drag, and a synthetic click still arrives on
+  // some devices. This watches the gesture instead of trusting `:active`.
+  //
+  // Delegated to the document, so one listener covers every row on the page
+  // and it survives a client-side navigation. Nothing calls preventDefault on
+  // the pointer events, so scrolling stays entirely native.
+  const TAP_SLOP = 10; // px of travel before a press is treated as a scroll
+
+  let gesture: { id: number; x: number; y: number; row: HTMLElement } | null = null;
+  let cancelled = false;
+
+  const rowFrom = (target: EventTarget | null) =>
+    (target as HTMLElement | null)?.closest<HTMLElement>('.prow[data-linked]') ?? null;
+
+  const release = () => {
+    if (gesture) delete gesture.row.dataset.pressed;
+    gesture = null;
+  };
+
+  document.addEventListener(
+    'pointerdown',
+    (event) => {
+      // Mouse and pen keep their hover behaviour untouched.
+      if (event.pointerType === 'mouse' || !window.matchMedia('(hover: none)').matches) return;
+      const row = rowFrom(event.target);
+      if (!row) return;
+      gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, row };
+      cancelled = false;
+      row.dataset.pressed = 'true';
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    'pointermove',
+    (event) => {
+      if (!gesture || event.pointerId !== gesture.id) return;
+      const moved =
+        Math.abs(event.clientY - gesture.y) > TAP_SLOP ||
+        Math.abs(event.clientX - gesture.x) > TAP_SLOP;
+      if (!moved) return;
+      // This is a scroll. Drop the state now, and the click that may follow.
+      cancelled = true;
+      release();
+    },
+    { passive: true }
+  );
+
+  // `pointercancel` is the browser saying it has taken the gesture over for
+  // scrolling, which is the other way this ends.
+  document.addEventListener('pointerup', release, { passive: true });
+  document.addEventListener(
+    'pointercancel',
+    () => {
+      cancelled = true;
+      release();
+    },
+    { passive: true }
+  );
+
+  // Capture, so this runs before the anchor's own default action. Only ever
+  // suppresses a click that a cancelled gesture produced, so a real tap and
+  // every keyboard activation pass straight through.
+  document.addEventListener(
+    'click',
+    (event) => {
+      if (!cancelled) return;
+      cancelled = false;
+      if (!rowFrom(event.target)) return;
+      event.preventDefault();
+      event.stopPropagation();
+    },
+    true
+  );
+</script>

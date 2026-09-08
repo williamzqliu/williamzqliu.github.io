@@ -187,6 +187,12 @@ const sections = headings.filter((heading) => heading.depth === 2);
     color: var(--text-2);
   }
 
+  @media (max-width: 639px) {
+    .cs__summary {
+      font-size: 1rem;
+    }
+  }
+
   .cs__links {
     display: flex;
     flex-wrap: wrap;
@@ -226,9 +232,8 @@ const sections = headings.filter((heading) => heading.depth === 2);
   /* ---- table of contents ---- */
 
   /* Sticky at both sizes, for the same reason: the sections stay reachable
-     from anywhere in the article. On a phone that means the collapsed bar
-     parks under the header once you scroll past it, so it needs a background
-     of its own and a layer below the header's 50. */
+     from anywhere in the article. Layering is explicit — header and progress
+     line at 50, this bar at 30, the article under both. */
   .cs__toc {
     position: sticky;
     top: var(--header-h);
@@ -265,12 +270,58 @@ const sections = headings.filter((heading) => heading.depth === 2);
     display: none;
   }
 
-  /* Parked under the header, the bar's own top rule is the only thing left
-     above it — a bright line hanging under the header with nothing above it to
-     divide. It goes transparent, which shows the bar's background through the
-     1px rather than removing it and moving the text. */
-  .cs__toc[data-stuck] .cs__tocsum {
-    border-top-color: transparent;
+  /* ---- the parked bar (phones) ----
+     
+     Three things make this seam-proof, and none of them is a line:
+     
+     1. The bar starts 2px *inside* the header rather than flush against its
+        bottom edge. The header is 50 and paints over those two pixels, and
+        both surfaces are --bg, so the overlap cannot be seen — where a gap of
+        half a pixel, which is what a fractional header height leaves on a
+        real device, shows a stripe of moving article text.
+     2. The background bleeds to both screen edges. The case study's cover
+        plate above it is full-bleed, so a bar the width of the text column
+        would let the plate slide past through the page gutters.
+     3. Two pixels of the same background sit below the bottom rule, covering
+        the sub-pixel seam a fractional layout height leaves under it.
+     
+     The rules move to the wrapper here so they span the surface rather than
+     stopping short of it at both ends. */
+  @media (max-width: 639px) {
+    .cs__toc {
+      top: calc(var(--header-h) - 2px);
+      margin-inline: calc(var(--pad) * -1);
+      padding-inline: var(--pad);
+      border-top: var(--rule-hair) solid var(--rule-strong);
+      border-bottom: var(--rule-hair) solid var(--rule);
+      transition: border-top-color var(--dur-hover-out) var(--ease-out);
+    }
+
+    .cs__tocsum {
+      border-top: 0;
+      border-bottom: 0;
+    }
+
+    /* Parked, the top rule has nothing above it left to divide, and the orange
+       progress line is already sitting there. Transparent rather than removed,
+       so nothing moves by a pixel. */
+    .cs__toc[data-stuck] {
+      border-top-color: transparent;
+    }
+
+    .cs__toc::after {
+      content: '';
+      position: absolute;
+      /* `top: 100%` is the bottom of the *padding* box, which is above the
+         bottom rule — without the margin this would paint over the divider
+         instead of covering the seam under it. */
+      top: 100%;
+      margin-top: var(--rule-hair);
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--bg);
+    }
   }
 
   /* Which section you are in, for the case where the list is closed. */
@@ -474,12 +525,16 @@ const sections = headings.filter((heading) => heading.depth === 2);
     color: var(--text);
   }
 
-  /* Long-form copy is a step smaller on a phone: 17px over a 335px column
-     gives about 40 characters a line, which reads as large-print. */
+  /* Phone sizes. 17px over a 335px column reads as large-print, and the
+     section headings need the size back to stay ahead of it. */
   @media (max-width: 639px) {
     .prose p,
     .prose li {
-      font-size: var(--fs-body);
+      font-size: 1rem;
+    }
+
+    .prose h2 {
+      font-size: 1.75rem;
     }
   }
 

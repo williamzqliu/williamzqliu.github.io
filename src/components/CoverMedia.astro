@@ -37,11 +37,12 @@ const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
     align-items: flex-end;
   }
 
-  /* Square covers below 640px (SPEC §5). */
-  .cover[data-ratio='responsive'] {
-    aspect-ratio: 1 / 1;
-  }
-
+  /* 16:9 at every width. SPEC §5 asked for square below 640px, but a 1:1
+     plate at full column width took most of a phone screen before the title
+     had been read — the row now shows image, title, year and the start of the
+     blurb together. `responsive` is kept as a name because the wide plate on
+     a case study head is a different, full-bleed thing. */
+  .cover[data-ratio='responsive'],
   .cover[data-ratio='wide'] {
     aspect-ratio: 16 / 9;
   }
@@ -74,9 +75,15 @@ const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
     letter-spacing: -0.02em;
   }
 
-  @media (min-width: 640px) {
-    .cover[data-ratio='responsive'] {
-      aspect-ratio: 16 / 9;
-    }
+  /* Ready for the real media: the plate's ratio is the frame, and the asset
+     fills it rather than setting its own height. `cover.wide` is the asset to
+     use here at every width — the square crop in the schema has no place left
+     to appear. */
+  .cover > :global(img),
+  .cover > :global(video) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>
