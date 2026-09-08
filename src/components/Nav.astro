@@ -8,16 +8,21 @@ interface Props {
 const { current = '/' } = Astro.props;
 
 const navLinks = [
-  { href: '/', label: 'Design' },
-  { href: '/engineering', label: 'Engineering' },
+  { href: '/', label: 'Home' },
+  // The second entry point is not built. SPEC §1: it waits for the software
+  // projects and is not called `engineering` — that word is half-claimed by
+  // Design Engineer titles. Re-enable this line when the first one ships.
+  // { href: '/code', label: 'Code' },
   { href: '/work', label: 'Work' },
   { href: '/about', label: 'About' },
+  { href: '/resume', label: 'Resume' },
 ];
 
 const showNav = navLinks.length > 1;
+
 ---
 
-<header class="nav">
+<header class="nav" transition:name="site-nav" transition:animate="none">
   <div class:list={['container', 'nav__inner', !showNav && 'nav__inner--bare']}>
     <a class="nav__name" href="/">Zhuoqi Liu</a>
 
@@ -31,8 +36,10 @@ const showNav = navLinks.length > 1;
                 class="nav__link"
                 href={link.href}
                 aria-current={link.href === current ? 'page' : undefined}
+                data-astro-prefetch
+                data-nav-link
               >
-                {link.label}
+                <span class="nav__label">{link.label}</span>
               </a>
             </li>
           ))
@@ -45,13 +52,28 @@ const showNav = navLinks.length > 1;
       <ThemeToggle />
     </div>
   </div>
+
+  {/* Reading position, drawn on the header's own hairline. Scale only, so it
+      composites on the GPU and never reflows the page. Shown on case studies
+      only — see the script. */}
+  <div class="nav__progress" aria-hidden="true"></div>
 </header>
 
 <style>
-  /* Full-bleed hairline: the nav is page chrome, so its rule spans the
-     viewport rather than the content column. */
+  /* No rule at rest: at the top of the page the header should read as part of
+     the page, not as a bar on top of it. The divider appears only once content
+     has scrolled underneath, and even then it is the faintest line available. */
   .nav {
-    border-bottom: var(--rule-hair) solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: var(--rule-hair) solid transparent;
+    transition: border-color var(--dur-base) var(--ease-out);
+  }
+
+  .nav[data-scrolled] {
+    border-bottom-color: color-mix(in srgb, var(--rule) 70%, var(--bg));
   }
 
   .nav__inner {
@@ -74,12 +96,29 @@ const showNav = navLinks.length > 1;
     padding-block: var(--sp-12);
   }
 
+  /* Body face. The display face is reserved for the hero identity line,
+     project titles and section headings; a wordmark in it competes with the
+     hero for the same job. */
   .nav__name {
+    position: relative;
     grid-area: name;
-    font-size: var(--fs-body-lg);
-    font-weight: var(--fw-medium);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-strong);
     letter-spacing: -0.015em;
+    /* Ink, not orange: the accent now belongs to the name in the hero, and two
+       oranges in one viewport spend it twice. */
     color: var(--text);
+  }
+
+  /* 44px of touch without a 44px-tall wordmark in the header. */
+  .nav__name::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: var(--tap);
+    transform: translateY(-50%);
   }
 
   .nav__links {
@@ -101,36 +140,82 @@ const showNav = navLinks.length > 1;
     white-space: nowrap;
   }
 
+  @media (min-width: 640px) {
+    .nav__list {
+      gap: var(--sp-32);
+    }
+  }
+
   /* Body face, sentence case. Never mono. */
   .nav__link {
+    position: relative;
     display: inline-block;
-    font-size: var(--fs-small);
-    color: var(--text-2);
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-strong);
+    color: var(--text-3);
     padding-block: var(--sp-12);
-    border-bottom: var(--rule-hair) solid transparent;
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
+  /* Colour, weight, and a 2px rule that is as wide as the word and sits 9px
+     under it. Drawn with ::after rather than a border so the indicator has no
+     effect on the row's height. */
   .nav__link[aria-current='page'] {
     color: var(--text);
-    border-bottom-color: var(--rule-strong);
+    font-weight: var(--fw-strong);
+  }
+
+  /* Measured from the text, not from the link box: the indicator is exactly
+     as wide as the word and sits 9px under it whatever the row padding is. */
+  .nav__label {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Keep the active rule stable across swaps instead of replaying an entrance. */
+  .nav__label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 5px);
+    height: 2px;
+    background: var(--rule-strong);
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  .nav__link[aria-current='page'] .nav__label::after {
+    transform: scaleX(1);
   }
 
   @media (hover: hover) and (pointer: fine) {
+    /* Hover is colour only. The rule belongs to the current page. */
     .nav__link:hover {
       color: var(--text);
-      border-bottom-color: var(--rule);
       transition-duration: var(--dur-hover-in);
-    }
-
-    .nav__link[aria-current='page']:hover {
-      border-bottom-color: var(--rule-strong);
     }
   }
 
   .nav__link:active {
-    transition: none;
+    transition-duration: var(--dur-press);
     color: var(--text);
+  }
+
+  /* Hidden until the script says this page is a long-form read. */
+  .nav__progress[hidden] {
+    display: none;
+  }
+
+  .nav__progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: var(--rule-heavy);
+    background: var(--accent);
+    transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: left center;
   }
 
   .nav__toggle {
@@ -148,7 +233,10 @@ const showNav = navLinks.length > 1;
       grid-template-columns: auto 1fr auto;
       column-gap: var(--sp-32);
       row-gap: 0;
-      padding-block: var(--sp-8);
+      /* Fixed chrome height. Setting it here rather than adding up paddings
+         means the links and the toggle cannot change it. */
+      min-height: 62px;
+      padding-block: 0;
     }
 
     .nav__links {
@@ -161,8 +249,82 @@ const showNav = navLinks.length > 1;
       justify-content: flex-end;
     }
 
+    /* Shorter chrome. The 44px minimum is a touch requirement, and this tier
+       is mouse and trackpad; mobile keeps its taller row. */
     .nav__link {
-      padding-block: var(--sp-16);
+      padding-block: var(--sp-8);
     }
   }
 </style>
+
+<script>
+  // Re-selecting this URL should not restart the page transition.
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('[data-nav-link]') : null;
+    if (!link || link.target || link.hasAttribute('download')) return;
+    const target = new URL(link.href);
+    const normalize = (path: string) => path.replace(/\/+$/, '') || '/';
+    if (target.origin === location.origin && normalize(target.pathname) === normalize(location.pathname) && target.search === location.search && target.hash === location.hash) event.preventDefault();
+  }, { capture: true });
+
+  // Reading position for the sticky header. Listeners are registered once;
+  // the bar is re-queried on paint because client-side navigation replaces it.
+  let queued = false;
+
+  // The divider only exists once something has passed under the header. This
+  // runs outside the rAF throttle: reading scrollY costs nothing and forces no
+  // layout, and the divider should not wait for a frame that a background tab
+  // may never render.
+  function markScrolled() {
+    const header = document.querySelector<HTMLElement>('.nav');
+    if (!header) return;
+    if (window.scrollY > 8) header.dataset.scrolled = 'true';
+    else delete header.dataset.scrolled;
+  }
+
+  function paint() {
+    queued = false;
+
+    const bar = document.querySelector<HTMLElement>('.nav__progress');
+    if (!bar) return;
+
+    // A page can name the element that counts as the read (the case study
+    // marks its article body). Progress is then progress through that, so it
+    // completes with the last paragraph rather than with the footer.
+    const reading = document.querySelector<HTMLElement>('[data-reading]');
+    const end = reading
+      ? reading.getBoundingClientRect().bottom + window.scrollY
+      : document.documentElement.scrollHeight;
+    const max = end - window.innerHeight;
+    const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    bar.style.setProperty('--scroll-progress', String(progress));
+  }
+
+  function onScroll() {
+    markScrolled();
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(paint);
+  }
+
+  // Reading progress is for case studies, not for the index at /work. Kept in
+  // the script rather than in the template so the element exists on every page
+  // and only its visibility changes.
+  function syncProgress() {
+    const path = window.location.pathname.replace(/\/+$/, '') || '/';
+    const bar = document.querySelector<HTMLElement>('.nav__progress');
+    if (bar) bar.hidden = !/^\/work\/.+/.test(path);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  document.addEventListener('astro:page-load', () => {
+    syncProgress();
+    markScrolled();
+    paint();
+  });
+  syncProgress();
+  markScrolled();
+  paint();
+</script>

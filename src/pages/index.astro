@@ -1,14 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import FilterRow from '../components/FilterRow.astro';
+import HomeIntro from '../components/HomeIntro.astro';
 import ProjectRow from '../components/ProjectRow.astro';
-import { featuredProjects, deriveTags, projectLinks, caseStudyHref } from '../lib/projects';
+import { landingProjects, projectLinks, caseStudyHref } from '../lib/projects';
 
 // SPEC §9 — the design-track landing page. Adding a project is one markdown
 // file in src/content/projects/; nothing on this page needs to change.
-const projects = await featuredProjects('design');
-const tags = deriveTags(projects);
+// SPEC §1 and §9: the union of both tracks, sorted by `featured`, sliced to
+// six. The slice has to be explicit — without it the page renders every
+// featured project. Order and membership are set by `featured` in the content
+// files, so this page needs no edit when the curation changes.
+const projects = (await landingProjects()).slice(0, 6);
 ---
 
 <Base
@@ -16,23 +19,67 @@ const tags = deriveTags(projects);
   description="Designer and developer building interactive tools for network and relational data."
   current="/"
 >
-  <Hero
-    statement="I build interactive tools for network and relational data."
-    bio="Designer and developer. Computer science at Tongji, then an MFA in Information Design and Data Visualization at Northeastern."
-  />
+  <HomeIntro />
+  {/* The opening screen: the hero, with the section heading sitting at the
+      bottom edge as a teaser. On desktop the two together are one viewport
+      tall, so the filters and the first project stay below the fold. */}
+  <div class="opening">
+    <Hero
+      greeting="Hi, I'm"
+      name="Zhuoqi."
+      ipa="drɔː tʃiː"
+      respelling={'“Draw-chee”'}
+      statements={[
+        'I design and build <strong>interactive tools</strong> for <strong>complex data</strong>.',
+        'My work brings together <strong>data visualization</strong>, <strong>research</strong>, and <strong>interactive systems</strong>.',
+      ]}
+    />
 
-  <section class="work rule-heavy-top" aria-labelledby="work-heading">
-    <div class="container">
-      <div class="work__head">
-        <h2 class="work__heading" id="work-heading">Selected work</h2>
-        <FilterRow tags={tags} />
+    <div class="opening__teaser">
+      <div class="container">
+        {/* Heading and scroll affordance in one. The link points at its own
+            heading, so `scroll-margin-top` decides where the page lands and
+            the whole thing still works with JS off. */}
+        <h2 class="work__heading section-label" id="selected-work">
+          <a class="work__jump" href="#selected-work" data-jump>
+            <span class="work__label-text">Selected work</span>
+            <span class="work__arrow-reveal" aria-hidden="true">
+            {/* Same geometry as the Download arrow on /resume: one shaft, one
+                head, round caps. Drawn at 90% of its previous 14px, with the
+                stroke scaled to match so the line still lands at 1.47 device
+                px rather than thinning with the box. */}
+            <svg
+              class="work__arrow"
+              viewBox="0 0 10 10"
+              width="12.6"
+              height="12.6"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M5 1.6v6.8M2 5.4l3 3 3-3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.17"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            </span>
+          </a>
+        </h2>
       </div>
+    </div>
+  </div>
 
+  {/* No page-wide rule here: the cream runs straight through from the hero,
+      and the heading's own rule (container width) is the divider. */}
+  <section class="work" aria-labelledby="selected-work">
+    <div class="container">
       <div class="work__list">
         {
-          projects.map((project, i) => (
+          projects.map((project) => (
             <ProjectRow
-              index={i + 1}
               title={project.data.title}
               year={project.data.year}
               blurb={project.data.blurb}
@@ -49,37 +96,264 @@ const tags = deriveTags(projects);
 </Base>
 
 <style>
+  .opening {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Air below the heading's rule. The filter chips carry their own 14px of
+     tap padding above the ink, so this plus that is the visual gap — measured
+     at 30px above and 30px below, which is what makes the row look centred
+     between the two rules. */
+  .opening__teaser {
+    padding-bottom: var(--sp-16);
+  }
+
+  /* Where the page lands when the heading is clicked: about 50px of air under
+     the sticky header, so it reads as arriving at a second chapter rather than
+     as the heading being shoved under the nav. */
+  .work__heading {
+    scroll-margin-top: calc(62px + 36px);
+    /* The anchor inside carries vertical padding for the hit area, so the
+       heading gives some of its own back and the rule stays where it was. */
+    padding-bottom: var(--sp-4);
+  }
+
+  /* The whole label area is the target, not the letters. */
+  .work__jump {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--sp-8);
+    /* A label-sized heading still needs a clickable band. */
+    padding-block: var(--sp-8);
+    color: inherit;
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* The label is 36px tall by design; the touch target is not. */
+  .work__jump::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: var(--tap);
+    transform: translateY(-50%);
+  }
+
+  /* Fade and movement live on separate elements: this one owns opacity, the
+     child owns the motion. Opacity has exactly one driver — the transition
+     below — because an animation would outrank it and hand control back
+     abruptly when it ended. Nudged 2px left of the label's gap. */
+  .work__arrow-reveal {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin-left: -3px;
+    transition: opacity 300ms var(--ease-out);
+  }
+
+  /* The breathing cycle starts and ends at -2px, so that is also the arrow's
+     resting position. Without it the animation's very first frame moved the
+     arrow 2px the instant it started — a snap landing exactly at the end of
+     the fade-in, which is what made the arrow's arrival look broken.
+     
+     `will-change` is permanent for the same reason: promoting the element to
+     its own layer part-way through its appearance is itself a visible blink.
+     It also fixes the stepping this had before — 4px of travel over 1.6s is
+     about 0.17px per frame, and an un-promoted SVG is re-rasterised every
+     frame and snaps to whole pixels, so the motion arrived in jumps. */
+  .work__arrow {
+    display: block;
+    transform: translateY(-2px);
+    will-change: transform;
+  }
+
+  .work__jump[data-breathing] .work__arrow {
+    animation: work-breathe 1600ms cubic-bezier(0.37, 0, 0.63, 1) infinite both;
+  }
+
+  /* The arrow is an invitation to scroll, so it belongs to the top of the
+     page: it fades out as soon as you leave, and fades back in when you come
+     back. `data-at-top` is set by the script below. The `:not()` keeps the
+     opening animation in charge while it runs — without it this rule wins on
+     source order and the arrow rides in with the label. */
+  .work__arrow-reveal {
+    opacity: 0;
+  }
+
+  :global(html[data-at-top]:not([data-home-intro])) .work__arrow-reveal {
+    opacity: 1;
+  }
+
+  /* One-shot, set by the script when the opening animation hands over: the
+     arrow arrives a beat after the label rather than alongside it. */
+  .work__jump[data-arrow-late] .work__arrow-reveal {
+    transition-delay: 150ms;
+  }
+
+
+  /* Equal travel above and below the label centre, with no abrupt resting
+     plateau: each half-cycle gently slows into the next breath. */
+  @keyframes work-breathe {
+    0%, 100% {
+      transform: translateY(-2px);
+    }
+    50% {
+      transform: translateY(2px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work__arrow-reveal,
+    .work__arrow {
+      animation: none;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .work__jump:hover {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+
+  }
+
+  .work__jump:active {
+    color: var(--accent);
+    transition-duration: var(--dur-press);
+  }
+
   .work {
-    padding-top: var(--sp-32);
+    padding-top: 0;
+  }
+
+  /* Each row draws its own top rule, and the section label's rule sits right
+     above the first one — two lines a few pixels apart. Drop the first. */
+  .work__list > :global(.prow:first-child) {
+    border-top: 0;
   }
 
   .work__head {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--sp-8);
     padding-bottom: var(--sp-16);
   }
 
-  /* Sentence case, body face, quiet. No all-caps eyebrow. */
-  .work__heading {
-    font-size: var(--fs-small);
-    line-height: var(--lh-small);
-    font-weight: var(--fw-regular);
-    color: var(--text-3);
-  }
-
-  .work__list {
-    border-bottom: var(--rule-hair) solid var(--rule);
-  }
 
   @media (min-width: 640px) {
     .work {
-      padding-top: var(--sp-48);
+      padding-top: 0;
+    }
+  }
+
+  /* Desktop only: hero plus teaser make one viewport. Below this the content
+     decides the height — forcing a full screen on a phone would only add empty
+     space. `svh` rather than `vh` so mobile browser chrome cannot cut it. */
+  @media (min-width: 1024px) {
+    .opening {
+      min-height: calc(100svh - 62px);
     }
 
-    .work__head {
-      gap: var(--sp-16);
+    .opening :global(.hero) {
+      flex: 1;
+      /* The wrapper owns the height now. */
+      min-height: 0;
+    }
+
+    .opening__teaser {
+      padding-bottom: var(--sp-16);
     }
   }
 </style>
+
+<script>
+  // Native anchor jumping already works; this only adds smoothing, and only
+  // when the visitor has not asked for less motion.
+  function bind() {
+    const jump = document.querySelector<HTMLAnchorElement>('[data-jump]');
+    if (!jump || jump.dataset.bound) return;
+    jump.dataset.bound = 'true';
+    jump.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = document.querySelector('#selected-work');
+      if (!target) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Keep the URL honest without a second jump.
+      history.replaceState(null, '', '#selected-work');
+    });
+  }
+
+  // The arrow's visibility follows the scroll position. rAF-throttled, and the
+  // attribute lives on <html> so the CSS above needs no JS-set styles.
+  const AT_TOP = 8; // px of slack, so a nudge does not count as leaving
+
+  let queued = false;
+
+  // The arrow moves as soon as it is visible. Fading and breathing overlapping
+  // is safe now that the element is permanently on its own layer and its
+  // resting position is the cycle's own start: both properties are composited,
+  // and neither one moves the arrow when it takes over.
+  function startBreathing() {
+    const jump = document.querySelector<HTMLElement>('[data-jump]');
+    if (!jump) return;
+    // While the opening animation owns visibility, it decides when this starts.
+    if (document.documentElement.dataset.homeIntro) return;
+    jump.dataset.breathing = 'true';
+  }
+
+  function stopBreathing() {
+    const jump = document.querySelector<HTMLElement>('[data-jump]');
+    if (jump) delete jump.dataset.breathing;
+  }
+
+  function paintTop() {
+    queued = false;
+    if (window.scrollY <= AT_TOP) {
+      document.documentElement.dataset.atTop = 'true';
+      startBreathing();
+    } else {
+      delete document.documentElement.dataset.atTop;
+      stopBreathing();
+    }
+  }
+
+  // The opening animation removes `data-home-intro` when it finishes; that is
+  // the handover, and the one place the arrow gets the extra delay that
+  // separates its arrival from the label's beat.
+  const LATE = 150; // must match `data-arrow-late`'s transition-delay
+  let lateTimer: number | undefined;
+
+  new MutationObserver(() => {
+    if (document.documentElement.dataset.homeIntro) return;
+    const jump = document.querySelector<HTMLElement>('[data-jump]');
+    if (jump) {
+      jump.dataset.arrowLate = 'true';
+      window.clearTimeout(lateTimer);
+      // Drop the delay once it has been spent, so returning to the top later
+      // brings the arrow back at the plain fade speed.
+      lateTimer = window.setTimeout(() => delete jump.dataset.arrowLate, LATE + 300);
+    }
+    if (window.scrollY <= AT_TOP) startBreathing();
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-home-intro'] });
+
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(paintTop);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  document.addEventListener('astro:page-load', () => {
+    bind();
+    paintTop();
+  });
+  bind();
+  paintTop();
+</script>

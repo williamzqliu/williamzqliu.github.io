@@ -2,6 +2,12 @@
 // SPEC §6 / §8 — tone-locked cover plate.
 // TODO: render <video>/<img> once the media in `cover.wide` exists. Until then
 // this draws the plate at the right ratio so the layout is already correct.
+//
+// Callers decide whether a plate is wanted at all (see lib/media.ts); this
+// component still renders nothing when the switch is off, so no caller can
+// bring the placeholder back by accident.
+
+import { COVERS_ENABLED } from '../lib/media';
 
 interface Props {
   tone: 'dark' | 'light' | 'neutral';
@@ -13,12 +19,16 @@ interface Props {
 const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
 ---
 
-<div class="cover" data-tone={tone} data-ratio={ratio} aria-hidden="true">
-  <div class="cover__placeholder">
-    <span>{label}</span>
-    <span>1600 &#215; 900</span>
-  </div>
-</div>
+{
+  COVERS_ENABLED && (
+    <div class="cover" data-tone={tone} data-ratio={ratio} aria-hidden="true">
+      <div class="cover__placeholder">
+        <span>{label}</span>
+        <span>1600 &#215; 900</span>
+      </div>
+    </div>
+  )
+}
 
 <style>
   .cover {
@@ -58,7 +68,7 @@ const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
     gap: 2px;
     padding: var(--sp-16);
     font-family: var(--font-mono);
-    font-stretch: var(--wdth-mono);
+    font-weight: var(--fw-mono);
     font-size: var(--fs-micro);
     line-height: var(--lh-micro);
     letter-spacing: -0.02em;

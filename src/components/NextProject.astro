@@ -1,21 +1,31 @@
 ---
-// SPEC §6 — bottom of a case study.
+// SPEC §6 — bottom of a case study. One link, not a heading with a link
+// inside it: the whole block is the target, for the mouse and for the keyboard.
+//
+// Which project this points at is decided in lib/projects.ts (`nextStep`), so
+// the component only has to render what it is handed — including the case where
+// there is no next project and the reader is sent to /work instead.
 
 interface Props {
+  /** Omitted for the end of the sequence, where the title is the whole message. */
+  label?: string;
   title: string;
   href: string;
-  year: number;
+  /** Omitted where there is no single project to date. */
+  year?: number;
 }
 
-const { title, href, year } = Astro.props;
+const { label, title, href, year } = Astro.props;
 ---
 
-<nav class="next" aria-label="Next project">
+<nav class="next" aria-label={label ?? 'More work'}>
   <a class="next__link" href={href}>
-    <span class="next__label">Next project</span>
+    {label && <span class="next__label">{label}</span>}
+
     <span class="next__row">
       <span class="next__title">{title}</span>
-      <span class="next__year">{year}</span>
+
+      {year !== undefined && <span class="next__year">{year}</span>}
     </span>
   </a>
 </nav>
@@ -25,76 +35,75 @@ const { title, href, year } = Astro.props;
     border-top: var(--rule-heavy) solid var(--rule-strong);
   }
 
+  /* No surface of its own. The whole block stays clickable, but the hover is
+     scoped to the title's row — the padding above and below it, and the label,
+     do not light the row up from a distance. */
   .next__link {
     position: relative;
     display: block;
     padding-block: var(--sp-32);
-    padding-inline: var(--row-bleed);
-    margin-inline: calc(var(--row-bleed) * -1);
-    transition: background-color var(--dur-hover-out) var(--ease-out);
   }
 
   .next__label {
     display: block;
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
 
   .next__row {
     display: flex;
+    /* The row is exactly as tall as the title: the year is smaller and sits on
+       its baseline, so this box is the hover region. */
     align-items: baseline;
     justify-content: space-between;
     gap: var(--sp-24);
     margin-top: var(--sp-8);
   }
 
+  /* Colour is the only thing that changes here: no weight step, no underline,
+     no movement, no fill. */
   .next__title {
-    position: relative;
-    display: inline-block;
     font-family: var(--font-display);
-    font-stretch: var(--wdth-display);
+    font-optical-sizing: auto;
     font-size: var(--fs-display);
     line-height: var(--lh-display);
     font-weight: var(--fw-display);
+    letter-spacing: -0.015em;
     color: var(--text);
+    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
-  .next__title::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.04em;
-    height: var(--rule-hair);
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-hover-out) var(--ease-out);
-  }
-
+  /* Follows the title rather than staying grey: the row reads as one thing. */
   .next__year {
     flex: none;
     font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Keyboard focus reads the same as hover — focus lands on the link, which
+     has no pointer position to scope it to. */
+  .next__link:focus-visible .next__title,
+  .next__link:focus-visible .next__year {
+    color: var(--accent);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .next__link:hover {
-      background: var(--surface);
-      transition-duration: var(--dur-hover-in);
-    }
-
-    .next__link:hover .next__title::after {
-      transform: scaleX(1);
+    .next__row:hover .next__title,
+    .next__row:hover .next__year {
+      color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
   }
 
-  .next__link:active {
-    transition: none;
-    background: var(--surface);
-    transform: scale(0.995);
+  .next__row:active .next__title,
+  .next__row:active .next__year {
+    color: var(--accent);
+    transition-duration: var(--dur-press);
   }
 </style>

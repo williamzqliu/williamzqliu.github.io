@@ -15,13 +15,29 @@
 }
 
 html {
+  /* The canvas background has to be here, not only on <body>. During a view
+     transition the body is inside the snapshot, and with nothing painted on
+     the root the browser shows its default white for a frame — that was the
+     white flash on every nav click. */
+  background: var(--bg);
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  /* Reserves the scrollbar track on every page. Without it a short page (404,
+     /resume) is 15px wider than a long one, so every navigation nudges the
+     whole layout sideways. */
+  scrollbar-gutter: stable;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
+  /* No I-beam over prose. Selection still works — nothing sets user-select —
+     the pointer just stays an arrow, which reads as a designed page rather
+     than a document. */
+  cursor: default;
+  /* Hides the blinking insertion caret that Chrome's caret browsing (F7) draws
+     in non-editable text. The site has no inputs; add `caret-color: auto` to
+     any field that gets built later or it will look broken. */
+  caret-color: transparent;
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
@@ -72,21 +88,37 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* The arrow is the default, so anything actually clickable has to say so. */
+a,
+button,
+summary,
+label,
+[role='button'] {
+  cursor: pointer;
+}
+
 /* SPEC §4 — :focus-visible, never :focus. Instant, no transition. */
 :focus-visible {
   outline: 2px solid var(--accent-2);
   outline-offset: 2px;
 }
 
+/* The header is sticky, so anything scrolled to by id has to keep clear of it
+   — otherwise the skip link and the case study TOC land under the chrome. */
+:target,
+[id] {
+  scroll-margin-top: calc(62px + var(--sp-24));
+}
+
 /* ---------- Layout primitives ---------- */
 
-/* SPEC §5 — max-width 1200px, sitting left of centre on wide viewports.
-   The 0.32 factor keeps the block asymmetric without stranding it at the
-   very edge. Below ~1300px it collapses to a plain padded container. */
+/* Centred, max-width 1200px.
+   NOTE: this overrides SPEC §5, which asks for the block to sit left of centre
+   ("asymmetry signals authorship"). Centring was chosen deliberately after
+   looking at maxfspencer.com. SPEC §5 now disagrees with the code. */
 .container {
   max-width: calc(var(--container) + var(--pad) * 2);
-  margin-left: max(0px, calc((100% - var(--container) - var(--pad) * 2) * 0.32));
-  margin-right: auto;
+  margin-inline: auto;
   padding-inline: var(--pad);
 }
 
@@ -125,7 +157,7 @@ button {
 /* Display *face* — condensed grotesque, project titles only. */
 .t-face-display {
   font-family: var(--font-display);
-  font-stretch: var(--wdth-display);
+  font-optical-sizing: auto;
   letter-spacing: 0;
 }
 
@@ -141,18 +173,18 @@ button {
 
 .t-mono {
   font-family: var(--font-mono);
-  font-stretch: var(--wdth-mono);
   font-size: var(--fs-micro);
   line-height: var(--lh-micro);
+  font-weight: var(--fw-mono);
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
 .t-mono-sm {
   font-family: var(--font-mono);
-  font-stretch: var(--wdth-mono);
   font-size: var(--fs-small);
   line-height: var(--lh-small);
+  font-weight: var(--fw-mono);
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
@@ -163,6 +195,47 @@ button {
 
 .t-dimmer {
   color: var(--text-3);
+}
+
+/* ---------- Section label ----------
+   The resume's section device: caps, letterspaced, hairline rule under the
+   full column width (PROFILE, SKILLS, SELECTED PROJECTS).
+   NOTE: SPEC §2 bans all-caps eyebrow labels. Overridden deliberately — the
+   resume is the reference now, and these are section headings carrying a rule,
+   not eyebrows floating above a headline. */
+
+.section-label {
+  display: block;
+  padding-bottom: var(--sp-12);
+  border-bottom: var(--rule-hair) solid var(--rule-strong);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  font-weight: var(--fw-strong);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ---------- Links ----------
+   One convention, so underlines stop being the whole visual language:
+   utility and contact links are orange with no standing rule, and the rule
+   only appears on hover. Structural rules (section boundaries, table rows)
+   are the only permanent lines. */
+
+.link {
+  color: var(--accent);
+  border-bottom: var(--rule-hair) solid transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link {
+    transition: border-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .link:hover {
+    border-bottom-color: currentColor;
+    transition-duration: var(--dur-hover-in);
+  }
 }
 
 /* ---------- Utilities ---------- */
@@ -202,4 +275,69 @@ button {
 
 .rule-heavy-top {
   border-top: var(--rule-heavy) solid var(--rule-strong);
+}
+
+/* ---------- Theme switch ----------
+   Only active while the toggle has just been pressed (the class is removed
+   after the fade), so these broad transitions never slow down hover states. */
+
+:root.is-theme-switching,
+:root.is-theme-switching *,
+:root.is-theme-switching *::before,
+:root.is-theme-switching *::after {
+  transition:
+    background-color var(--dur-theme) var(--ease-out),
+    border-color var(--dur-theme) var(--ease-out),
+    color var(--dur-theme) var(--ease-out),
+    fill var(--dur-theme) var(--ease-out),
+    stroke var(--dur-theme) var(--ease-out) !important;
+}
+
+/* The reduced-motion reset lives in tokens.css, which is imported first, so it
+   loses to the !important above on specificity ties. Restate it here. */
+@media (prefers-reduced-motion: reduce) {
+  :root.is-theme-switching,
+  :root.is-theme-switching *,
+  :root.is-theme-switching *::before,
+  :root.is-theme-switching *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Keep navigation interactive while the content snapshots crossfade. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* No snapshot animation at all on the document. Anything that animates here
+   keeps both the old and the new rendering on screen at once, and two pages of
+   different heights overlapping is what produced the visible ghost of the home
+   hero during navigation. The page fade lives on `main` instead: it starts
+   after the swap, so there is only ever one page painted. */
+::view-transition-group(root),
+::view-transition-image-pair(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+}
+
+main {
+  animation: main-in 360ms var(--ease-out) both;
+}
+
+@keyframes main-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

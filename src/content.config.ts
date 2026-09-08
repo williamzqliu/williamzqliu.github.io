@@ -13,9 +13,15 @@ const projects = defineCollection({
     year: z.number(),
     dates: z.string(),
     blurb: z.string().max(120),
-    tags: z.array(z.enum(['networks', 'interactive', 'narrative', 'print'])),
+    /* Subject, not status. `information-design` is stored hyphenated and
+       displayed with a space — a value with a space in it would need quoting
+       in every frontmatter file. */
+    tags: z.array(z.enum(['networks', 'interactive', 'narrative', 'information-design'])),
     tracks: z.array(z.enum(['design', 'engineering'])).min(1),
     featured: z.number().optional(),
+    /* Portfolio status, kept separate from the subject tags: archived work is
+       reachable but never mixed into the primary view. */
+    archive: z.boolean().default(false),
     draft: z.boolean().default(false),
     stack: z.array(z.string()).default([]),
     links: z
@@ -33,6 +39,9 @@ const projects = defineCollection({
       tone: z.enum(['dark', 'light', 'neutral']),
       alt: z.string(),
     }),
+    /* Search metadata only. Never rendered — the day it appears on a page it
+       stops being metadata and starts needing curation. */
+    keywords: z.array(z.string()).optional(),
     quickFacts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
     stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
   }),
