@@ -90,17 +90,23 @@
     // is simply shorter: each beat still finishes before the next begins, and
     // the two holds (after the name, after the second statement) are still
     // there so the sequence breathes instead of running on.
-    //   300 wait · greet 420 · name+say 420 · hold 200
-    //   statement 420 · statement 420 · hold 200 · teaser + list + footer 420
+    //   300 wait · identity line 420 · hold 200
+    //   both statements 420 · hold 200 · teaser + list + footer 420
+    //
+    // Three beats, one per block rather than one per element. `Hi, I'm
+    // Zhuoqi.` is a sentence, so it arrives as a sentence — with the
+    // pronunciation, which belongs to the name. The two statements are one
+    // thought in two sentences and share the next beat. Each merge moved
+    // everything downstream up by the beat it no longer takes.
     const BEAT = 420;
     reveal(opening.querySelector('.idl__greet'), 300, BEAT);
-    reveal(opening.querySelector('.idl__name'), 720, BEAT);
-    reveal(opening.querySelector('.idl__say'), 720, BEAT);
-    reveal(opening.querySelector('.hero__statements > :first-child'), 1340, BEAT);
-    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 1760, BEAT);
-    reveal(opening.querySelector('.opening__teaser'), 2380, BEAT);
-    reveal(document.querySelector('.opening + .work'), 2380, BEAT);
-    reveal(document.querySelector('footer'), 2380, BEAT);
+    reveal(opening.querySelector('.idl__name'), 300, BEAT);
+    reveal(opening.querySelector('.idl__say'), 300, BEAT);
+    reveal(opening.querySelector('.hero__statements > :first-child'), 920, BEAT);
+    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 920, BEAT);
+    reveal(opening.querySelector('.opening__teaser'), 1540, BEAT);
+    reveal(document.querySelector('.opening + .work'), 1540, BEAT);
+    reveal(document.querySelector('footer'), 1540, BEAT);
 
     await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
     if (!finished) finish();
