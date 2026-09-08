@@ -225,7 +225,15 @@ const sections = headings.filter((heading) => heading.depth === 2);
 
   /* ---- table of contents ---- */
 
+  /* Sticky at both sizes, for the same reason: the sections stay reachable
+     from anywhere in the article. On a phone that means the collapsed bar
+     parks under the header once you scroll past it, so it needs a background
+     of its own and a layer below the header's 50. */
   .cs__toc {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 30;
+    background: var(--bg);
     font-size: var(--fs-small);
     font-weight: var(--fw-medium);
     line-height: var(--lh-small);
@@ -248,11 +256,21 @@ const sections = headings.filter((heading) => heading.depth === 2);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-2);
-    transition: color var(--dur-hover-out) var(--ease-out);
+    transition:
+      color var(--dur-hover-out) var(--ease-out),
+      border-top-color var(--dur-hover-out) var(--ease-out);
   }
 
   .cs__tocsum::-webkit-details-marker {
     display: none;
+  }
+
+  /* Parked under the header, the bar's own top rule is the only thing left
+     above it — a bright line hanging under the header with nothing above it to
+     divide. It goes transparent, which shows the bar's background through the
+     1px rather than removing it and moving the text. */
+  .cs__toc[data-stuck] .cs__tocsum {
+    border-top-color: transparent;
   }
 
   /* Which section you are in, for the case where the list is closed. */
@@ -264,6 +282,17 @@ const sections = headings.filter((heading) => heading.depth === 2);
     text-overflow: ellipsis;
     text-align: right;
     color: var(--accent);
+  }
+
+  /* The name changes while the bar is parked at the top of the screen, so it
+     crossfades instead of being replaced between two frames. The script drives
+     the attribute; the swap happens while it is out. */
+  .cs__tocsum-now {
+    transition: opacity 140ms var(--ease-out);
+  }
+
+  .cs__tocsum-now[data-swapping] {
+    opacity: 0;
   }
 
   .cs__toc[open] .cs__tocsum-now {
@@ -343,9 +372,9 @@ const sections = headings.filter((heading) => heading.depth === 2);
        max-height keeps a long list scrollable inside its own column instead of
        pushing the page. */
     .cs__toc {
-      position: sticky;
-      top: calc(62px + var(--sp-32));
-      max-height: calc(100svh - 62px - var(--sp-64));
+      top: calc(var(--header-h) + var(--sp-32));
+      background: none;
+      max-height: calc(100svh - var(--header-h) - var(--sp-64));
       overflow-y: auto;
       overscroll-behavior: contain;
       scrollbar-width: none;
@@ -399,8 +428,10 @@ const sections = headings.filter((heading) => heading.depth === 2);
     counter-increment: section;
     margin-top: var(--sp-80);
     padding-top: var(--sp-16);
-    /* Clears the sticky header when the heading is scrolled to by anchor. */
-    scroll-margin-top: calc(62px + var(--sp-32));
+    /* Clears the sticky header when the heading is scrolled to by anchor. On a
+       phone the collapsed section bar is parked under the header too, so the
+       heading has to clear both. */
+    scroll-margin-top: calc(var(--header-h) + 41px + var(--sp-24));
     border-top: var(--rule-hair) solid var(--rule-strong);
     font-family: var(--font-display);
     font-optical-sizing: auto;
@@ -409,6 +440,14 @@ const sections = headings.filter((heading) => heading.depth === 2);
     font-weight: var(--fw-display);
     letter-spacing: -0.015em;
     color: var(--text);
+  }
+
+  /* No parked section bar in the desktop column: the heading only has to clear
+     the header. */
+  @media (min-width: 1024px) {
+    .prose h2 {
+      scroll-margin-top: calc(var(--header-h) + var(--sp-32));
+    }
   }
 
   .prose h2:first-child {
@@ -433,6 +472,15 @@ const sections = headings.filter((heading) => heading.depth === 2);
     /* Full contrast. Long-form copy in --text-2 was the thinnest text on the
        site and the hardest to read. */
     color: var(--text);
+  }
+
+  /* Long-form copy is a step smaller on a phone: 17px over a 335px column
+     gives about 40 characters a line, which reads as large-print. */
+  @media (max-width: 639px) {
+    .prose p,
+    .prose li {
+      font-size: var(--fs-body);
+    }
   }
 
   /* Editorial emphasis, not highlighting: a weight step and nothing else. No
@@ -671,9 +719,38 @@ const sections = headings.filter((heading) => heading.depth === 2);
     // the viewport, not when it first appears at the bottom edge.
     let current = -1;
     let queued = false;
+    let swap: number | undefined;
+
+    // The collapsed bar sits under the header while you read, so its label
+    // changes under the reader's eye. It fades out, swaps, and fades back in
+    // rather than being replaced between two frames. The first paint has
+    // nothing to fade from.
+    function showCurrent(text: string) {
+      if (!now || now.textContent === text) return;
+      if (!now.textContent || reduced.matches) {
+        now.textContent = text;
+        return;
+      }
+      window.clearTimeout(swap);
+      now.dataset.swapping = 'true';
+      swap = window.setTimeout(() => {
+        now.textContent = text;
+        delete now.dataset.swapping;
+      }, 140); // matches the transition on .cs__tocsum-now
+    }
 
     function paint() {
       queued = false;
+
+      // Its own computed `top` is the sticky offset, so this needs no second
+      // copy of the header's height.
+      const offset = parseFloat(window.getComputedStyle(toc).top) || 0;
+      if (toc.getBoundingClientRect().top <= offset + 0.5) {
+        toc.dataset.stuck = 'true';
+      } else {
+        delete toc.dataset.stuck;
+      }
+
       const line = window.innerHeight / 3;
       let index = 0;
       for (let i = 0; i < headings.length; i += 1) {
@@ -689,7 +766,7 @@ const sections = headings.filter((heading) => heading.depth === 2);
         if (i === index) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
       });
-      if (now) now.textContent = links[index].querySelector('.cs__toctext')?.textContent ?? '';
+      showCurrent(links[index].querySelector('.cs__toctext')?.textContent ?? '');
 
       // Keeps the active row in view when the list is taller than its column.
       if (toc.scrollHeight > toc.clientHeight + 1) {

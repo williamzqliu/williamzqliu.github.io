@@ -276,8 +276,15 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* ---- states (SPEC §4) ---- */
 
+  /* Two destinations in one row, so two answers. Anywhere on the row means the
+     case study, and the title takes the accent as a block. On one of the
+     outbound links it means somewhere else entirely, so the title only tints —
+     it acknowledges the row without claiming the click. `:has()` is what makes
+     the distinction: the fill is suppressed while a link is the target. Both
+     states use the same two transitioned properties, so either direction
+     fades. */
   @media (hover: hover) and (pointer: fine) {
-    .prow[data-linked]:hover .prow__titletext {
+    .prow[data-linked]:hover:not(:has(.prow__linkout:hover)) .prow__titletext {
       background: var(--accent);
       /* Locked light, so the text stays legible on orange in both themes. */
       color: var(--tone-light);
@@ -285,6 +292,11 @@ const liveLinks = links.filter((link) => link.href !== '#');
          colour rather than a colour change on text, and at the standard
          200ms it arrives as a flash. */
       transition-duration: calc(var(--dur-hover-in) + 100ms);
+    }
+
+    .prow[data-linked]:has(.prow__linkout:hover) .prow__titletext {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
     }
 
     /* The only motion on the row, and it is contained by the frame. */
@@ -296,15 +308,31 @@ const liveLinks = links.filter((link) => link.href !== '#');
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
-  }
 
-  /* Pointer devices only. Touch used to get this as a substitute for hover;
-     it now gets nothing — on a phone the tap is followed by a page, and that
-     is the feedback. */
-  @media (hover: hover) and (pointer: fine) {
-    .prow[data-linked]:active .prow__titletext {
+    .prow[data-linked]:active:not(:has(.prow__linkout:active)) .prow__titletext {
       background: var(--accent);
       color: var(--tone-light);
+      transition-duration: var(--dur-press);
+    }
+  }
+
+  /* Touch gets the same two answers, but only on the press — there is no
+     hover to borrow, and a finger needs to know which of the two links it
+     landed on before the page changes. */
+  @media (hover: none) {
+    .prow[data-linked]:active:not(:has(.prow__linkout:active)) .prow__titletext {
+      background: var(--accent);
+      color: var(--tone-light);
+      transition-duration: var(--dur-press);
+    }
+
+    .prow[data-linked]:has(.prow__linkout:active) .prow__titletext {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
+
+    .prow__linkout:active {
+      color: var(--accent);
       transition-duration: var(--dur-press);
     }
   }

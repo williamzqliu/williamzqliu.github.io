@@ -104,10 +104,11 @@ label,
 }
 
 /* The header is sticky, so anything scrolled to by id has to keep clear of it
-   — otherwise the skip link and the case study TOC land under the chrome. */
+   — otherwise the skip link and the case study TOC land under the chrome. The
+   header is taller on a phone, which the flat 62px here used to ignore. */
 :target,
 [id] {
-  scroll-margin-top: calc(62px + var(--sp-24));
+  scroll-margin-top: calc(var(--header-h) + var(--sp-24));
 }
 
 /* ---------- Layout primitives ---------- */
