@@ -43,6 +43,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
 
+    {/* Ships the light background and must stay above the script below, which
+        corrects it before first paint when the resolved theme is dark — a
+        querySelector cannot find a meta the parser has not reached yet. */}
+    <meta name="theme-color" content="#FDF7E9" />
+
     {/* Runs before first paint so the theme never flashes. Sets the resolved
         theme on <html> and remembers the raw preference separately.
 
@@ -68,6 +73,25 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           root.setAttribute('data-theme-pref', pref);
         }
 
+        // iOS tints the status bar and the area around the Dynamic Island from
+        // this meta. With no meta, Safari samples the rendered colour at the
+        // top of the page instead, and it does that lazily — which is why that
+        // strip lagged behind every theme switch.
+        //
+        // The two values are written out rather than read from --bg: this runs
+        // before the stylesheet has been applied, so getComputedStyle returns
+        // nothing, and waiting until it does would leave the strip light for
+        // the first frames of every dark-mode load. Keep them equal to --bg in
+        // src/styles/tokens.css.
+        var BG = { light: '#FDF7E9', dark: '#14120E' };
+
+        function paintThemeColor() {
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (!meta) return;
+          var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+          meta.setAttribute('content', dark ? BG.dark : BG.light);
+        }
+
         function storedPref() {
           var pref = null;
           try {
@@ -77,6 +101,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         }
 
         applyStoredTheme();
+        paintThemeColor();
+
+        // Every route into a theme change ends with `data-theme` on <html> —
+        // the toggle, a swap, the OS preference — so watching that attribute
+        // covers all of them from one place.
+        new MutationObserver(paintThemeColor).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['data-theme'],
+        });
 
         // Write the theme onto the *incoming* document, before it replaces the
         // current one. Doing it only in after-swap left a window where <html>
@@ -89,6 +122,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           var incoming = event.newDocument.documentElement;
           incoming.setAttribute('data-theme', dark ? 'dark' : 'light');
           incoming.setAttribute('data-theme-pref', pref);
+
+          // The incoming document ships the light default, and its <head>
+          // replaces ours. Carry the current value across rather than letting
+          // the strip flash light for a frame mid-navigation.
+          var here = document.querySelector('meta[name="theme-color"]');
+          var there = event.newDocument.querySelector('meta[name="theme-color"]');
+          if (here && there) there.setAttribute('content', here.getAttribute('content'));
         });
 
         // Belt and braces: if a swap ever happens without the event above.
