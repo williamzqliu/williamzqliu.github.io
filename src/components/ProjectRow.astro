@@ -237,9 +237,14 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* The title takes the accent while the card is hovered and nothing else —
      no fill, so no padding to reserve, no layer of its own to be hoverable in,
-     no clone rule for a wrapped highlight. One transitioned property. */
+     no clone rule for a wrapped highlight. One transitioned property.
+     
+     360ms, the same as the media's, and the same in both directions: the two
+     are one response, and at the site's usual 200/280 the colour had changed
+     before the eye — which is usually somewhere else on the card when the
+     pointer arrives — had followed it. */
   .prow__titletext {
-    transition: color var(--dur-hover-out) var(--ease-out);
+    transition: color 360ms var(--ease-out);
   }
 
   .prow__blurb {
@@ -360,7 +365,6 @@ const liveLinks = links.filter((link) => link.href !== '#');
   @media (hover: hover) and (pointer: fine) {
     .prow__card[data-linked]:hover .prow__titletext {
       color: var(--accent);
-      transition-duration: var(--dur-hover-in);
     }
 
     /* Anywhere on the row, not just on the media: the row is one thing, and
