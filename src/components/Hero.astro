@@ -71,19 +71,21 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
   /* The opening section, not a strip above the work. Mobile keeps the
      proportions but not the size.
      
-     The bottom value is the gap between the intro and `Selected work`, and it
-     carries the whole chapter break on a phone — there is no viewport-height
-     hero and no arrow down there to mark it. At 56px the two blocks read as
-     one column of text. */
+     Both values are optical rather than scale steps: 75px lands under the
+     header to the greeting's line box, and 92px puts 100px between the last
+     statement and the `Selected work` label — the label's own tap padding
+     contributes the other 8px. The bottom gap carries the whole chapter break
+     on a phone, where there is no viewport-height hero and no arrow to mark
+     it. */
   .hero {
-    padding-block: var(--sp-56) var(--sp-80);
+    padding-block: 75px 92px;
   }
 
   /* Baseline-aligned so the two sizes sit on one line, wrapping only when the
      viewport forces it. */
   .hero__grid {
     display: grid;
-    gap: var(--sp-32);
+    gap: var(--sp-40);
   }
 
 
