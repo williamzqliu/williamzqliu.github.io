@@ -69,9 +69,14 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
 
 <style>
   /* The opening section, not a strip above the work. Mobile keeps the
-     proportions but not the size. */
+     proportions but not the size.
+     
+     The bottom value is the gap between the intro and `Selected work`, and it
+     carries the whole chapter break on a phone — there is no viewport-height
+     hero and no arrow down there to mark it. At 56px the two blocks read as
+     one column of text. */
   .hero {
-    padding-block: var(--sp-40) var(--sp-56);
+    padding-block: var(--sp-56) var(--sp-80);
   }
 
   /* Baseline-aligned so the two sizes sit on one line, wrapping only when the
