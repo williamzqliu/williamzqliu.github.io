@@ -3,7 +3,12 @@
 <script is:inline>
   if (!window.__homeIntroSeen) {
     window.__homeIntroSeen = true;
-    if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches && scrollY < 8) {
+    if (
+      !location.hash &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+      matchMedia('(min-width: 640px)').matches &&
+      scrollY < 8
+    ) {
       document.documentElement.dataset.homeIntro = 'pending';
       // Fail open if the module or a font cannot load.
       window.setTimeout(() => delete document.documentElement.dataset.homeIntro, 10000);

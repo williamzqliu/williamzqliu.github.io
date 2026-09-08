@@ -102,9 +102,11 @@ const { projects } = Astro.props;
     }
   }
 
-  .arch__row[data-linked]:active .arch__title {
-    color: var(--accent);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .arch__row[data-linked]:active .arch__title {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
   }
 
   /* One step up on small screens: 11px caps with letter-spacing is the first

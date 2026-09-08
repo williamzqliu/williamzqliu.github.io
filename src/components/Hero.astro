@@ -119,6 +119,15 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
     color: var(--text);
   }
 
+  /* 22px is the clamp floor, and on a 375px screen two sentences at that size
+     fill the opening. 20px keeps them as the second tier they are. */
+  @media (max-width: 639px) {
+    .hero__statements h1,
+    .hero__statements p {
+      font-size: 1.25rem;
+    }
+  }
+
   .hero__stats {
     margin-top: var(--sp-32);
     padding-top: var(--sp-24);

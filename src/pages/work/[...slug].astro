@@ -607,9 +607,11 @@ const sections = headings.filter((heading) => heading.depth === 2);
     }
   }
 
-  .prose summary:active {
-    color: var(--accent);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .prose summary:active {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
   }
 
   /* Breathing room for the contents, and a floor under the last paragraph. */

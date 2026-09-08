@@ -101,9 +101,11 @@ const { label, title, href, year } = Astro.props;
     }
   }
 
-  .next__row:active .next__title,
-  .next__row:active .next__year {
-    color: var(--accent);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .next__row:active .next__title,
+    .next__row:active .next__year {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
   }
 </style>

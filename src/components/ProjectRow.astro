@@ -207,7 +207,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
   .prow__kws {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sp-8);
+    /* One pixel under --sp-8: three chips read as a set rather than as three
+       separate blocks. Local, so nothing else on the site moves. */
+    gap: 7px;
     margin-top: var(--sp-20);
   }
 
@@ -296,11 +298,15 @@ const liveLinks = links.filter((link) => link.href !== '#');
     }
   }
 
-  /* Touch has no hover, so the press has to say something. */
-  .prow[data-linked]:active .prow__titletext {
-    background: var(--accent);
-    color: var(--tone-light);
-    transition-duration: var(--dur-press);
+  /* Pointer devices only. Touch used to get this as a substitute for hover;
+     it now gets nothing — on a phone the tap is followed by a page, and that
+     is the feedback. */
+  @media (hover: hover) and (pointer: fine) {
+    .prow[data-linked]:active .prow__titletext {
+      background: var(--accent);
+      color: var(--tone-light);
+      transition-duration: var(--dur-press);
+    }
   }
 
   /* ---- layout tiers (SPEC §5) ---- */

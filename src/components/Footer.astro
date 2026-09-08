@@ -118,9 +118,11 @@ const year = new Date().getFullYear();
     }
   }
 
-  .footer__link:active {
-    color: var(--accent);
-    transition-duration: var(--dur-press);
+  @media (hover: hover) and (pointer: fine) {
+    .footer__link:active {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
   }
 
   /* Last line of the page: separated by space, not by another rule. */

@@ -127,4 +127,29 @@ const { greeting, name, ipa, respelling, as: Tag = 'p' } = Astro.props;
   .idl__ipa-r {
     margin-right: 0.12em;
   }
+
+  @media (max-width: 639px) {
+    /* One size for the whole line: the greeting comes up to meet the name
+       instead of sitting a tier below it, and both drop 2px from the 46px
+       clamp floor. Written as each property's fallback, so a caller that sets
+       its own scale (the about page) keeps it. */
+    .idl {
+      font-size: var(--idl-greet, 2.75rem);
+    }
+
+    .idl__name {
+      font-size: var(--idl-name, 2.75rem);
+    }
+
+    /* Respelling and transcription 2px closer. */
+    .idl__say {
+      gap: 14px;
+    }
+
+    /* The extra air after the `r` is a desktop-size correction; at phone size
+       it reads as a gap. */
+    .idl__ipa-r {
+      margin-right: 0;
+    }
+  }
 </style>
