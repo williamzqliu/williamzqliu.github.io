@@ -113,7 +113,7 @@ const projects = (await landingProjects()).slice(0, 6);
      the sticky header, so it reads as arriving at a second chapter rather than
      as the heading being shoved under the nav. */
   .work__heading {
-    scroll-margin-top: calc(62px + 36px);
+    scroll-margin-top: calc(var(--header-h) + 36px);
     /* The anchor inside carries vertical padding for the hit area, so the
        heading gives some of its own back and the rule stays where it was. */
     padding-bottom: var(--sp-4);
@@ -261,7 +261,7 @@ const projects = (await landingProjects()).slice(0, 6);
      space. `svh` rather than `vh` so mobile browser chrome cannot cut it. */
   @media (min-width: 1024px) {
     .opening {
-      min-height: calc(100svh - 62px);
+      min-height: calc(100svh - var(--header-h));
     }
 
     .opening :global(.hero) {

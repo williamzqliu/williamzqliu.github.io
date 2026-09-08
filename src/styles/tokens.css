@@ -140,6 +140,12 @@
 
 :root {
   --radius: 0;              /* everywhere, no exceptions */
+  /* Header height, measured. Two rows on a phone, one from 640px up. Anything
+     that has to clear the sticky header — anchor offsets, a second sticky
+     element — resolves against this rather than repeating a number that was
+     only ever right at one width. */
+  --header-h: 97px;
+
   --rule-hair: 1px;
   --rule-heavy: 2px;        /* section boundaries only */
 }
@@ -203,6 +209,12 @@
   --dur-press:      90ms;
   /* Theme switch, applied only while the class is on <html>. */
   --dur-theme:     220ms;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-h: 63px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

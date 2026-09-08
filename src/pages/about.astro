@@ -185,6 +185,13 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
     color: var(--text-2);
   }
 
+  /* Same step down as the case study prose, for the same reason. */
+  @media (max-width: 639px) {
+    .about__prose p {
+      font-size: var(--fs-body);
+    }
+  }
+
   .about__prose strong {
     font-weight: var(--fw-strong);
     color: var(--text);

@@ -36,9 +36,9 @@ const label = (value: string) => value.replace(/-/g, ' ');
 </div>
 
 <style>
-  /* Wraps at every width. SPEC §6 asked for a horizontal scroll on mobile,
-     but with six chips the last one sat half off the screen with no visible
-     scrollbar — a wrapped second row is honest about what is there. */
+  /* Wraps above 640px, scrolls sideways below it (SPEC §6). The half-visible
+     chip at the right edge is the affordance, so the row is deliberately not
+     padded to hide it. */
   .filterrow__list {
     display: flex;
     flex-wrap: wrap;
@@ -104,6 +104,40 @@ const label = (value: string) => value.replace(/-/g, ' ');
 
     .filterrow__chip:active {
       color: var(--text);
+    }
+  }
+
+  /* One row on a phone, scrolled rather than wrapped. The scroller bleeds to
+     the page edges so the last chip can reach the middle of the screen and
+     keeps its full tap area, and the padding puts the first chip back on the
+     page's own left edge. */
+  @media (max-width: 639px) {
+    .filterrow {
+      /* The row lives in a `align-items: flex-start` column, so without these
+         two it is sized by its own content and pushes the page sideways
+         instead of scrolling inside itself. */
+      align-self: stretch;
+      min-width: 0;
+      margin-inline: calc(var(--pad) * -1);
+      padding-inline: var(--pad);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+
+    .filterrow::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filterrow__list {
+      flex-wrap: nowrap;
+      /* Otherwise the flex line shrinks to the scroller and the chips wrap
+         their own text. */
+      width: max-content;
+    }
+
+    .filterrow__chip {
+      white-space: nowrap;
     }
   }
 
