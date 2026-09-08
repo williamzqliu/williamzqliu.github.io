@@ -58,7 +58,7 @@ Still to settle before the media goes in:
 
 Dyslexia has nothing to do with intelligence and responds well to early intervention. The optimal age to start is around six. Most dyslexic children in China are not identified by then, and the reason is not diagnostic capacity.
 
-## 01 The problem
+## The problem
 
 I started from my own experience. Dense blocks of text have always cost me more than they seem to cost other people, and for a while I suspected I was dyslexic. A follow-up evaluation said I was not. What stayed was the three weeks in between, when I read everything I could find about a condition I thought I had.
 
@@ -66,7 +66,7 @@ The research pointed somewhere I did not expect. Prevalence estimates run from 5
 
 That reframing set the whole project: a design here has to address reading difficulty and social position at the same time, or it addresses neither.
 
-## 02 Approach
+## Approach
 
 **Three interviews, chosen to disagree with each other.** Leif, 22, dyslexic, studying media production in Toronto, could look back on childhood with a self-image already rebuilt. Qun Xiao, 11, dyslexic, was in the middle of it and described memorising a single word forty or fifty times. Mrs. Feng, 43, is Qun Xiao's mother, and what she talked about was neither reading nor self-image but an exam-oriented system in which a score is the only measure of a child, and the most a parent can do is absorb the damage.
 
@@ -76,7 +76,7 @@ The more useful finding was a conflict rather than a ranking. The children wante
 
 **Competitive analysis of three existing products** grouped their shortcomings into functions, forms and experiences: no multi-language support and no personalisation; content aimed at children but not varied enough to hold them; interfaces complex enough that operating the tool becomes its own task.
 
-## 03 What I built
+## What I built
 
 Lumitex is an AR reading aid, and choosing AR over an app was the first real decision. The difficulty happens in contact with real text, on a real page. Another body of text inside a screen replaces the page rather than assisting with it. Overlay keeps the book.
 
@@ -86,7 +86,7 @@ Four modes, split between immediate assistance and long-term intervention.
 
 Training Mode is where the research mattered most. RAVE-O, the intervention model with the strongest evidence base, is a phonological programme built for English. Chinese dyslexia does not work the same way, so the exercises are rebuilt around orthography and stroke order rather than translated.
 
-## 04 Key decisions
+## Key decisions
 
 **Emotional support sits alongside ability training, not underneath it.** The mind map has three branches and they carry equal weight: emotional support, assistive reading, ability training. This follows directly from the stigma finding. Mental Sandbox and Emotion Records exist to make a child's emotional state visible and recordable, not to drive engagement.
 
@@ -105,11 +105,11 @@ Training Mode is where the research mattered most. RAVE-O, the intervention mode
 
 </details>
 
-## 05 Outcome
+## Outcome
 
 Six panels, a full research chain, a four-mode concept with AR prototypes and 3D models built in Reality Composer and Nomad. No validation, no deployment, never exhibited. It was made for a graduate application portfolio.
 
-## 06 Reflection
+## Reflection
 
 The part of this I would keep is the interview structure. Picking three people who were guaranteed to describe different problems, rather than three people in the same position, is what produced the finding the project rests on. Two dyslexic children would have told me the same thing twice.
 

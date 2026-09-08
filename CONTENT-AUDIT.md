@@ -128,6 +128,14 @@ well-formed, no stray/unknown keys other than the two in A2 and C5, no `draft: t
   **Fixed 2026-09-08 on your instruction** (`请修复`): the `NN ` prefixes were
   removed from those seven heading lines. Second content-file text edit.
 
+  Four more files had the same problem and were fixed the same way, also on
+  your instruction: `dui-invisible-bill.md`, `emoease.md`, `lumitex.md` and
+  `not-always-more-for-more.md`, six headings each. Five of the sixteen files
+  carried literal numbers; the other eleven never did. Note that the heading
+  ids changed with the text (`#01-the-problem` became `#the-problem`) — the
+  table of contents is generated from the same headings, so it followed, but
+  any link you saved to an old anchor will no longer resolve.
+
 - **Emphasis coverage is uneven, not fixed.** `.prose strong` is now styled as
   editorial emphasis (weight only, no colour, no fill), and it draws on the
   `**…**` already in the bodies — 113 spans across the sixteen files. Two

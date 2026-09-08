@@ -57,7 +57,7 @@ Before the media goes in:
 
 I made this because social media was getting to me and I wanted to know whether that was just me.
 
-## 01 The problem
+## The problem
 
 The thing worth designing for turned out not to be misinformation. It was not knowing.
 
@@ -69,13 +69,13 @@ So: people rate their own discernment fairly highly and switch it off for exactl
 
 Six interviews filled in why nobody talks about it. Kevin, thirty, put it most directly: people do notice eventually, and they say nothing, because admitting it would embarrass them.
 
-## 02 Approach
+## Approach
 
 That last point ruled out the obvious response. A fact-checking tool, a browser extension, a literacy app: all of them need you to already suspect something and choose to open them. The problem is happening below that threshold.
 
 An installation does not need to be opened. You walk into a room and the room is already responding to you.
 
-## 03 What I built
+## What I built
 
 A dark space, a Kinect, a projector, TouchDesigner in between. Two layers of generated imagery, composited together.
 
@@ -87,7 +87,7 @@ That branching is the part of this I would defend hardest. The research finding 
 
 Using emoji as the display unit for emotion, rather than colour fields or numbers, follows the same logic. Emoji are social media's own emotional vocabulary. Having the room read your face and answer in emoji puts the experience of being interpreted by a platform into the platform's language.
 
-## 04 Key decisions
+## Key decisions
 
 **The subject is awareness, not accuracy.** Everything follows from framing the problem as unnoticed influence rather than false information. It is why this is a space and not a tool, why the output is emotional rather than informational, and why there is no correct or incorrect state to arrive at.
 
@@ -108,11 +108,11 @@ Using emoji as the display unit for emotion, rather than colour fields or number
 
 </details>
 
-## 05 Outcome
+## Outcome
 
 The piece was built and it ran, with people in the room. There is a public video of it. Beyond that: never exhibited publicly, no publication, no evaluation. It was made for a graduate application portfolio.
 
-## 06 Reflection
+## Reflection
 
 The best decision here was letting a research finding dictate an interaction rule rather than a visual. "People who notice don't tell anyone" could easily have become a caption on a wall. Turning it into the condition under which the room responds is the difference between illustrating a finding and building on one.
 
