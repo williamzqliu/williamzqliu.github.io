@@ -16,10 +16,10 @@ cover:
   tone: dark
   alt: A force-directed network of 2,737 faculty, colored by college, with dense clusters in engineering and science and a sparse periphery.
 quickFacts:
-  - { label: Scale, value: "2,737 faculty, 3,650 co-authorship edges, 162 units" }
-  - { label: Role, value: "Design, analysis, implementation, evaluation" }
-  - { label: Stack, value: "Vanilla JS, D3.js, Canvas, Three.js" }
-  - { label: Shown at, value: "NetSci 2026, Boston" }
+  - label: "Role"
+    value: "Visualization Designer & Researcher"
+  - label: "Outcome"
+    value: "Interactive research tool and MFA thesis, presented at NetSci 2026"
 stats:
   - { value: "2,737", label: Scholars }
   - { value: "3,650", label: Collaboration pairs }

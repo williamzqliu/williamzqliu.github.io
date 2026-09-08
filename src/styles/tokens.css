@@ -10,7 +10,6 @@
      system: #FDF7E9 is the resume's page fill, #D03B00 its heading orange.
      Text is a step darker than before — dim body copy was the main reason the
      page read as thin. */
-  /* Mirrored by the theme-color meta in Base.astro — change both. */
   --bg:            #FDF7E9;
   --surface:       #F4EAD3;
   --text:          #14120C;
@@ -110,6 +109,9 @@
   --fs-lead:        clamp(1.5rem, 2.6vw, 1.875rem); /* 24px -> 30px */
   /* Project titles — sans, semibold, one step above body-lg. */
   --fs-cardtitle:   clamp(1.75rem, 5.2vw, 2.125rem);  /* 28px -> 34px */
+  /* One step above the card title, not a different register: a case study is
+     the card opened up, so its title is the same face at the next size. */
+  --fs-casetitle:   clamp(2rem, 4.4vw, 2.75rem);      /* 32px -> 44px */
   --fs-display-lg: 2.5rem;    /* 40px */
   --lh-display-lg: 1.05;
   --fs-display:    1.75rem;   /* 28px */
@@ -216,10 +218,7 @@
   /* Press. SPEC §4 asks for 0ms here; a short fade was preferred instead, so
      nothing on the page changes state by jumping. */
   --dur-press:      90ms;
-  /* Theme switch, applied only while the class is on <html>. Short on
-     purpose: the browser chrome takes its colour from the theme-color meta the
-     moment the theme changes, with no transition available to it, so a slow
-     page fade reads as two separate events rather than one switch. */
+  /* Theme switch, applied only while the class is on <html>. */
   --dur-theme:     150ms;
 }
 

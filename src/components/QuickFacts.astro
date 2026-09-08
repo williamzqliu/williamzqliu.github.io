@@ -1,6 +1,13 @@
 ---
-// SPEC §6 — rule-separated table: scale, role, stack, shown at.
-// Sits above the prose because most visitors will not read to the end.
+// The key facts about a project, directly under its description and above the
+// hero — most visitors will not read to the end, and this is what they came to
+// check.
+//
+// Three fields, the same three on every project — role, timeline, outcome —
+// as label-over-value pairs. Not a table and not a set of cards: no fills, no
+// pills, no boxes, no heavy rules. The label takes the site's mono caps, the
+// value the same supporting size the project cards use, so this reads as the
+// card's metadata expanded rather than as a second system.
 
 interface Fact {
   label: string;
@@ -17,7 +24,7 @@ const { facts } = Astro.props;
 <dl class="qf">
   {
     facts.map((fact) => (
-      <div class="qf__row">
+      <div class="qf__cell">
         <dt class="qf__label">{fact.label}</dt>
         <dd class="qf__value">{fact.value}</dd>
       </div>
@@ -26,40 +33,57 @@ const { facts } = Astro.props;
 </dl>
 
 <style>
+  /* Phone first: one column, each pair reading LABEL over value. The hairline
+     is the one the project rows use, and it is the only rule here. */
   .qf {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-20);
+    padding-top: var(--sp-16);
     border-top: var(--rule-hair) solid var(--rule);
   }
 
-  .qf__row {
+  .qf__cell {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-4);
-    padding-block: var(--sp-12);
-    border-bottom: var(--rule-hair) solid var(--rule);
   }
 
   .qf__label {
-    font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-small);
+    font-family: var(--font-mono);
+    /* One step above --fs-micro, the same step the card's chips take: mono
+       runs small, and at 11px caps plus letter-spacing read as noise. */
+    font-size: 0.75rem;
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--text-3);
   }
 
-  /* Mono: these are data values. */
   .qf__value {
-    font-family: var(--font-mono);
-    font-weight: var(--fw-mono);
-    font-size: var(--fs-small);
+    font-size: var(--fs-body);
     line-height: var(--lh-small);
-    letter-spacing: -0.03em;
+    font-weight: var(--fw-medium);
     color: var(--text);
+    text-wrap: pretty;
   }
 
+  /* Tablet keeps the stack: three fields side by side in 640px of column would
+     break every value onto three lines, and a 2 + 1 row is worse than either.
+     Only the spacing opens up. */
   @media (min-width: 640px) {
-    .qf__row {
-      grid-template-columns: 12ch minmax(0, 1fr);
+    .qf {
       gap: var(--sp-24);
-      align-items: baseline;
+    }
+  }
+
+  /* Desktop: one row, uneven on purpose. A timeline is eight words at most and
+     an outcome is a sentence, so equal thirds would leave a hole in the middle
+     and crowd the end. */
+  @media (min-width: 1024px) {
+    .qf {
+      grid-template-columns: 1.5fr 1fr 2.5fr;
+      gap: var(--sp-40);
     }
   }
 </style>

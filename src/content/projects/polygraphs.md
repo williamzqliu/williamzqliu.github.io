@@ -16,10 +16,10 @@ cover:
   tone: light
   alt: A force-directed network of 534 AI ethics keywords, coloured by thematic community, with dense clusters around technology and philosophy.
 quickFacts:
-  - { label: Scale, value: "534 keywords, 4,474 co-occurrences, 1,201 journals" }
-  - { label: Role, value: "Research assistant, visualization" }
-  - { label: Stack, value: "Svelte 5, Vite, SVG" }
-  - { label: Built for, value: "A research team at Northeastern University London" }
+  - label: "Role"
+    value: "Visualization Research Assistant"
+  - label: "Outcome"
+    value: "Interactive research tool built for a Northeastern University London research team"
 stats:
   - { value: "534", label: Keywords }
   - { value: "4,474", label: Co-occurrences }

@@ -31,8 +31,11 @@ const { label, title, href, year } = Astro.props;
 </nav>
 
 <style>
+  /* A shade off full strength. It still reads as the page's closing boundary,
+     but at full --rule-strong it was the darkest thing on the page and pulled
+     the eye before the project it introduces. */
   .next {
-    border-top: var(--rule-heavy) solid var(--rule-strong);
+    border-top: var(--rule-heavy) solid color-mix(in srgb, var(--rule-strong) 80%, var(--bg));
   }
 
   /* No surface of its own. The whole block stays clickable, but the hover is
@@ -41,14 +44,26 @@ const { label, title, href, year } = Astro.props;
   .next__link {
     position: relative;
     display: block;
-    padding-block: var(--sp-32);
+    /* Two pixels off the top: the block sits a little closer to the rule that
+       introduces it than to the footer below. */
+    padding-block: calc(var(--sp-32) - 2px) var(--sp-32);
   }
 
+  /* The same register as a case study's metadata labels — Role, Timeline,
+     Outcome — because this is the same kind of label: a small word naming what
+     the thing under it is. */
   .next__label {
     display: block;
-    font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-small);
+    /* Nudged up out of the flow rather than by a margin: the title below it
+       stays exactly where it is, and only the label moves. */
+    position: relative;
+    top: -4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--text-3);
   }
 

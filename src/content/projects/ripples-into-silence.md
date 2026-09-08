@@ -15,10 +15,10 @@ cover:
   tone: dark
   alt: The silhouette of Lampedusa in mourning yellow against deep navy, with a dashed 50 kilometre radius drawn around it.
 quickFacts:
-  - { label: Scale, value: "94 incidents, 2014 to 2024, within 50km of Lampedusa" }
-  - { label: Role, value: "Information design and development" }
-  - { label: Stack, value: "D3.js, SVG, Python" }
-  - { label: Source, value: "IOM Missing Migrants Project" }
+  - label: "Role"
+    value: "Information Designer & Developer"
+  - label: "Outcome"
+    value: "Interactive scrollytelling piece built from IOM Missing Migrants data"
 stats:
   - { value: "94", label: Incidents }
   - { value: "703", label: Lives lost }

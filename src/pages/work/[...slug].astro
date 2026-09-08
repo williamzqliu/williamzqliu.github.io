@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import CoverMedia from '../../components/CoverMedia.astro';
 import QuickFacts from '../../components/QuickFacts.astro';
 import NextProject from '../../components/NextProject.astro';
+import KeywordTags from '../../components/KeywordTags.astro';
 import { projectLinks, hasCaseStudy, nextStep } from '../../lib/projects';
 import { COVERS_ENABLED } from '../../lib/media';
 
@@ -30,6 +31,19 @@ const next = await nextStep(project);
 
 const links = projectLinks(project);
 const sections = headings.filter((heading) => heading.depth === 2);
+
+// Three fields, the same three on every project: what I did, when, and what
+// came of it. Read by name rather than by position, so a project missing one
+// simply shows two — and the timeline comes from `dates`, which is already the
+// one place that fact lives.
+const named = (label: string) =>
+  project.data.quickFacts.find((fact) => fact.label === label)?.value;
+
+const facts = [
+  { label: 'Role', value: named('Role') },
+  { label: 'Timeline', value: project.data.dates },
+  { label: 'Outcome', value: named('Outcome') },
+].filter((fact): fact is { label: string; value: string } => Boolean(fact.value));
 ---
 
 <Base
@@ -39,13 +53,19 @@ const sections = headings.filter((heading) => heading.depth === 2);
 >
   <article class="cs">
     <div class="container">
-      {/* No back link here. The header carries Work on every page, and a
-          second one directly above the project's own metadata read as a
-          fourth line of chrome before the article had started. */}
+      {/* Identity, then context, then the picture. No back link — the header
+          carries Work on every page — and no date above the title: the title
+          is the first thing under the header, and the date is one of the facts
+          below it rather than a label in front of it. */}
       <header class="cs__head">
-        <p class="cs__dates">{project.data.dates}</p>
         <h1 class="cs__title">{project.data.title}</h1>
         <p class="cs__summary">{project.data.blurb}</p>
+
+        {/* The card's chips, unabridged: the detail page is where the full
+            stack belongs. */}
+        <div class="cs__stack">
+          <KeywordTags items={project.data.stack} />
+        </div>
 
         {
           links.length > 0 && (
@@ -63,21 +83,21 @@ const sections = headings.filter((heading) => heading.depth === 2);
           )
         }
       </header>
-    </div>
 
-    {
-      COVERS_ENABLED && (
-        <div class="cs__media">
-          <CoverMedia tone={project.data.cover.tone} ratio="wide" />
-        </div>
-      )
-    }
+      <div class="cs__facts">
+        <QuickFacts facts={facts} />
+      </div>
 
-    <div class="container">
       {
-        project.data.quickFacts.length > 0 && (
-          <div class="cs__facts">
-            <QuickFacts facts={project.data.quickFacts} />
+        COVERS_ENABLED && (
+          <div class="cs__media">
+            <CoverMedia
+              tone={project.data.cover.tone}
+              ratio="hero"
+              src={project.data.cover.heroWide}
+              mobileSrc={project.data.cover.heroMobile}
+              alt={project.data.cover.alt}
+            />
           </div>
         )
       }
@@ -139,11 +159,9 @@ const sections = headings.filter((heading) => heading.depth === 2);
 </Base>
 
 <style>
-  /* Date, title, description, actions, then the article: one continuous
-     opening rather than four separated blocks. The top value is the whole
-     distance from the header now that nothing sits above the date — enough
-     that the page starts on purpose, and short of the 76px the back link used
-     to occupy, which would read as the gap it left. */
+  /* The opening is the project card opened up: the same face at the next size,
+     the same description treatment under it, the same metadata register below
+     that. Mobile first — 640 and 1024 are the only two steps. */
   .cs__head {
     padding-block: var(--sp-40);
   }
@@ -154,44 +172,44 @@ const sections = headings.filter((heading) => heading.depth === 2);
     }
   }
 
-  .cs__dates {
-    font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-small);
-    color: var(--text-3);
-  }
-
+  /* Bricolage, one step above the card title. Title case, and no wider than
+     the display measure so a long name breaks where it should. */
   .cs__title {
-    margin-top: var(--sp-8);
     max-width: var(--measure-display);
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    font-size: var(--fs-hello-greet);
+    font-size: var(--fs-casetitle);
     line-height: 1.05;
     font-weight: var(--fw-display);
     letter-spacing: -0.015em;
     color: var(--text);
   }
 
+  /* The card's blurb treatment, on a line length that suits a page rather than
+     a column. Same family, tone and leading. */
   .cs__summary {
     margin-top: var(--sp-16);
-    max-width: var(--measure-meta);
-    font-size: var(--fs-body-lg);
+    max-width: 560px;
+    font-size: 1rem;
     line-height: var(--lh-body-lg);
     color: var(--text-2);
   }
 
-  @media (max-width: 639px) {
+  @media (min-width: 640px) {
     .cs__summary {
-      font-size: 1rem;
+      font-size: var(--fs-body-lg);
     }
+  }
+
+  .cs__stack {
+    margin-top: var(--sp-24);
   }
 
   .cs__links {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sp-24);
-    margin-top: var(--sp-16);
+    margin-top: var(--sp-8);
   }
 
   /* Same treatment as the project rows: text and arrow change colour together,
@@ -208,14 +226,20 @@ const sections = headings.filter((heading) => heading.depth === 2);
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
-  /* Full bleed (SPEC §9). */
+  /* On the content grid rather than full bleed: the hero is the end of the
+     introduction, so it lines up with the title that started it. */
   .cs__media {
-    margin-bottom: var(--sp-40);
+    margin-bottom: var(--sp-56);
   }
 
   .cs__facts {
-    max-width: 62ch;
-    margin-bottom: var(--sp-48);
+    margin-bottom: var(--sp-56);
+  }
+
+  @media (min-width: 640px) {
+    .cs__facts {
+      margin-bottom: var(--sp-64);
+    }
   }
 
   .cs__body {
@@ -276,11 +300,13 @@ const sections = headings.filter((heading) => heading.depth === 2);
      2. The background bleeds to both screen edges. The case study's cover
         plate above it is full-bleed, so a bar the width of the text column
         would let the plate slide past through the page gutters.
-     3. Two pixels of the same background sit below the bottom rule, covering
-        the sub-pixel seam a fractional layout height leaves under it.
-     
      The rules move to the wrapper here so they span the surface rather than
-     stopping short of it at both ends. */
+     stopping short of it at both ends.
+     
+     There is no third trick under the bottom rule. Two pixels of background
+     were masking a seam there, but nothing scrolls between the border and the
+     box — the mask only put a 2px band of page colour between the rule and the
+     first line of text, which reads as a light edge hanging off the bar. */
   @media (max-width: 639px) {
     .cs__toc {
       top: calc(var(--header-h) - 2px);
@@ -301,20 +327,6 @@ const sections = headings.filter((heading) => heading.depth === 2);
        so nothing moves by a pixel. */
     .cs__toc[data-stuck] {
       border-top-color: transparent;
-    }
-
-    .cs__toc::after {
-      content: '';
-      position: absolute;
-      /* `top: 100%` is the bottom of the *padding* box, which is above the
-         bottom rule — without the margin this would paint over the divider
-         instead of covering the seam under it. */
-      top: 100%;
-      margin-top: var(--rule-hair);
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--bg);
     }
   }
 
