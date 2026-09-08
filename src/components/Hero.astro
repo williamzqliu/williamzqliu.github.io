@@ -83,9 +83,12 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
 
   /* Baseline-aligned so the two sizes sit on one line, wrapping only when the
      viewport forces it. */
+  /* Phone: 60px between the pronunciation and the first statement, so the
+     identity and the work read as two blocks rather than one paragraph.
+     Optical, not a scale step. */
   .hero__grid {
     display: grid;
-    gap: var(--sp-40);
+    gap: 60px;
   }
 
 
@@ -96,11 +99,13 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
 
 
 
-  /* Two statements, one treatment: same face, size, weight, leading, colour. */
+  /* Two statements, one treatment: same face, size, weight, leading, colour.
+     The 30px between them is a phone value — enough that two 20px sentences
+     do not run together, still tight enough to read as a pair. */
   .hero__statements {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-16);
+    gap: 30px;
     max-width: 60ch;
   }
 
