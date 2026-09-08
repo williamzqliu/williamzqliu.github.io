@@ -105,9 +105,18 @@ const showNav = navLinks.length > 1;
     font-size: var(--fs-body);
     font-weight: var(--fw-strong);
     letter-spacing: -0.015em;
-    /* Ink, not orange: the accent now belongs to the name in the hero, and two
-       oranges in one viewport spend it twice. */
+    /* Ink at rest, not orange: the accent belongs to the name in the hero,
+       and two oranges in one viewport spend it twice. It is still a link, so
+       it takes the accent under the pointer like every other one. */
     color: var(--text);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav__name:hover {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
   }
 
   /* 44px of touch without a 44px-tall wordmark in the header. */

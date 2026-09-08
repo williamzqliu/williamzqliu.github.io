@@ -9,23 +9,25 @@
 //   --idl-gap    space between them (default: 12px)
 //   --idl-name-style  `italic` where the name should lean (default: normal)
 //
-// The pronunciation is an identity detail, not an instruction: no
-// "pronounced", no separator, no dictionary labels.
+// The pronunciation is a plain-English respelling and nothing else. The IPA
+// that used to sit beside it was dropped — a transcription most readers cannot
+// parse is decoration, not help. The whole line is italic; the lead-in comes
+// in separately so it can sit a weight below the respelling it introduces.
 
 interface Props {
   /** Stays in the main text colour. */
   greeting: string;
   /** Takes the accent — the one orange element in this viewport. */
   name: string;
-  /** Bare transcription; the slashes are added here so they stay upright. */
-  ipa?: string;
-  /** Plain-English respelling, italic, beside the IPA with no separator. */
+  /** Plain-English respelling, italic, under the name. */
   respelling?: string;
+  /** Lead-in for the respelling — a label, so it sits a weight below it. */
+  respellingLabel?: string;
   /** `h1` on a page whose title this is, `p` where a heading already exists. */
   as?: 'h1' | 'h2' | 'p';
 }
 
-const { greeting, name, ipa, respelling, as: Tag = 'p' } = Astro.props;
+const { greeting, name, respelling, respellingLabel, as: Tag = 'p' } = Astro.props;
 ---
 
 <Tag class="idl">
@@ -37,18 +39,14 @@ const { greeting, name, ipa, respelling, as: Tag = 'p' } = Astro.props;
     <span class="idl__name">{name}</span>
 
     {
-      (ipa || respelling) && (
+      respelling && (
         <span class="idl__say">
-          {respelling && <span class="idl__resp">{respelling}</span>}
-          {ipa && (
-            <span class="idl__ipa">
-              /<i>{Array.from(ipa).map((character, index) =>
-                character === 'r' && ipa[index + 1] === 'ɔ'
-                  ? <span class="idl__ipa-r">{character}</span>
-                  : character
-              )}</i>/
-            </span>
+          {respellingLabel && (
+            <>
+              <span class="idl__saylabel">{respellingLabel}</span>{' '}
+            </>
           )}
+          {respelling}
         </span>
       )
     }
@@ -95,37 +93,29 @@ const { greeting, name, ipa, respelling, as: Tag = 'p' } = Astro.props;
   /* A paler tint of the name's orange, so the line reads as belonging to the
      name rather than as a separate note. */
   .idl__say {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 16px;
+    /* One run of text with a word space in it, not two flex items: `pronounced
+       “Draw-chee”` is a phrase and should wrap like one. */
+    display: block;
     margin-top: 7px;
     font-family: var(--font-body);
     font-size: var(--fs-body);
     line-height: var(--lh-small);
+    font-style: italic;
     font-weight: var(--fw-strong);
     letter-spacing: 0;
     color: color-mix(in srgb, var(--accent) 75%, var(--bg));
   }
 
-  .idl__resp {
-    font-style: italic;
-  }
-
-  /* The transcription is italic; the slashes that delimit it are not — they
-     are notation, and a slash already leans. The tracking belongs to the
-     transcription alone: phonetic symbols need the air, the respelling does
-     not. */
-  .idl__ipa {
-    letter-spacing: 0.02em;
-  }
-
-  .idl__ipa i {
-    font-style: italic;
-  }
-
-  .idl__ipa-r {
-    margin-right: 0.12em;
+  /* A step lighter and a shade paler than what it introduces: the label is not
+     the name. Mixing from `currentColor` keeps it relative, so it follows the
+     line's tint in either theme instead of naming a second colour. */
+  .idl__saylabel {
+    /* 4px on top of the word space. The label and the respelling are two
+       registers, so they need a little more air between them than two words
+       of the same sentence would. */
+    margin-right: 4px;
+    font-weight: var(--fw-medium);
+    color: color-mix(in srgb, currentColor 80%, var(--bg));
   }
 
   @media (max-width: 639px) {
@@ -141,15 +131,5 @@ const { greeting, name, ipa, respelling, as: Tag = 'p' } = Astro.props;
       font-size: var(--idl-name, 2.75rem);
     }
 
-    /* Respelling and transcription 2px closer. */
-    .idl__say {
-      gap: 14px;
-    }
-
-    /* The extra air after the `r` is a desktop-size correction; at phone size
-       it reads as a gap. */
-    .idl__ipa-r {
-      margin-right: 0;
-    }
   }
 </style>

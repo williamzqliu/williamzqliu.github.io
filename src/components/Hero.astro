@@ -22,11 +22,10 @@ interface Props {
   greeting?: string;
   /** A step larger, italic, accent — the emphasised word in the sentence. */
   name?: string;
-  /** Bare transcription — the slashes are added here so they can stay
-      upright while the transcription itself is italic. */
-  ipa?: string;
-  /** Plain-English respelling, italic, sitting beside the IPA with no separator. */
+  /** Plain-English respelling, italic, under the name. */
   respelling?: string;
+  /** Lead-in for the respelling — a label, so it sits a weight below it. */
+  respellingLabel?: string;
   /** Two lines, styled identically. Authored here, so `<strong>` markup in
       them is trusted content rather than user input. */
   statements: string[];
@@ -34,7 +33,7 @@ interface Props {
   stats?: Stat[];
 }
 
-const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
+const { greeting, name, respelling, respellingLabel, statements, stats = [] } = Astro.props;
 ---
 
 <section class="hero">
@@ -44,7 +43,12 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
     <div class="hero__grid">
       {
         greeting && name && (
-          <IdentityLine greeting={greeting} name={name} ipa={ipa} respelling={respelling} />
+          <IdentityLine
+            greeting={greeting}
+            name={name}
+            respelling={respelling}
+            respellingLabel={respellingLabel}
+          />
         )
       }
 

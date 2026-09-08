@@ -48,88 +48,103 @@ const keywords = stack.slice(0, 3);
 const liveLinks = links.filter((link) => link.href !== '#');
 ---
 
-<article
-  class="prow"
-  data-linked={href ? 'true' : undefined}
-  data-nomedia={COVERS_ENABLED ? undefined : 'true'}
->
-  <div class="prow__body">
-    {/* The year sits above the title on a wide screen and beside it on a
-        narrow one. Same markup either way — only this wrapper's display
-        changes, so the reading order stays title-then-year. */}
-    <div class="prow__head">
-      <p class="prow__meta">
-        {figure && <span class="prow__index">{figure}</span>}
-        <span class="prow__year">{year}</span>
-      </p>
+{/* Two boxes on purpose. The outer one owns the rhythm — the space between
+    projects and the rule that separates them — and answers to nothing. The
+    inner one is the card: it is the grid, the hover target and the click
+    target, and it is exactly as tall as the row's content. Whitespace above
+    and below stays whitespace. */}
+<article class="prow">
+  <div
+    class="prow__card"
+    data-linked={href ? 'true' : undefined}
+    data-nomedia={COVERS_ENABLED ? undefined : 'true'}
+  >
+    <div class="prow__body">
+      {/* The year sits above the title on a wide screen and beside it on a
+          narrow one. Same markup either way — only this wrapper's display
+          changes, so the reading order stays title-then-year. */}
+      <div class="prow__head">
+        <p class="prow__meta">
+          {figure && <span class="prow__index">{figure}</span>}
+          <span class="prow__year">{year}</span>
+        </p>
 
-      <h3 class="prow__title">
-        {
-          href ? (
-            <a class="prow__link" href={href}>
+        <h3 class="prow__title">
+          {
+            href ? (
+              <a class="prow__link" href={href}>
+                <span class="prow__titletext">{title}</span>
+              </a>
+            ) : (
               <span class="prow__titletext">{title}</span>
-            </a>
-          ) : (
-            <span class="prow__titletext">{title}</span>
-          )
+            )
+          }
+        </h3>
+      </div>
+
+      <p class="prow__blurb">{blurb}</p>
+
+      <ul class="prow__kws" data-emphasis={emphasiseStack ? 'true' : undefined}>
+        {keywords.map((keyword) => <li class="prow__kw">{keyword}</li>)}
+      </ul>
+
+      {liveLinks.length > 0 && (
+      <ul class="prow__links">
+        {
+          liveLinks.map((link) => {
+            const external = link.href.startsWith('http');
+            return (
+              <li>
+                <a
+                  class="prow__linkout"
+                  href={link.href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                >
+                  {link.label}
+                  {external && (
+                    <>
+                      <ExtArrow />
+                      <span class="vh">(opens in a new tab)</span>
+                    </>
+                  )}
+                </a>
+              </li>
+            );
+          })
         }
-      </h3>
+      </ul>
+      )}
     </div>
 
-    <p class="prow__blurb">{blurb}</p>
-
-    <ul class="prow__kws" data-emphasis={emphasiseStack ? 'true' : undefined}>
-      {keywords.map((keyword) => <li class="prow__kw">{keyword}</li>)}
-    </ul>
-
-    {liveLinks.length > 0 && (
-    <ul class="prow__links">
-      {
-        liveLinks.map((link) => {
-          const external = link.href.startsWith('http');
-          return (
-            <li>
-              <a
-                class="prow__linkout"
-                href={link.href}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-              >
-                {link.label}
-                {external && (
-                  <>
-                    <ExtArrow />
-                    <span class="vh">(opens in a new tab)</span>
-                  </>
-                )}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
+    {/* Clips the cover so its hover scale stays inside the frame. */}
+    {COVERS_ENABLED && (
+      <div class="prow__mediacol">
+        <CoverMedia tone={tone} />
+      </div>
     )}
   </div>
-
-  {/* Clips the cover so its hover scale stays inside the frame. */}
-  {COVERS_ENABLED && (
-    <div class="prow__mediacol">
-      <CoverMedia tone={tone} />
-    </div>
-  )}
 </article>
 
 <style>
+  /* Spacing and the divider, nothing else. No hover, no cursor, no click
+     target: the padding here is the gap between two projects, and a gap is
+     not part of either of them. */
   .prow {
-    position: relative;
-    display: grid;
-    gap: var(--sp-24);
     padding-block: var(--sp-32);
     border-top: var(--rule-hair) solid var(--rule);
   }
 
-  /* Only a row that leads somewhere behaves like one. */
-  .prow[data-linked] {
+  /* The card. `position: relative` also scopes the stretched link below, so
+     the click target ends where the content does. */
+  .prow__card {
+    position: relative;
+    display: grid;
+    gap: var(--sp-24);
+  }
+
+  /* Only a card that leads somewhere behaves like one. */
+  .prow__card[data-linked] {
     cursor: pointer;
   }
 
@@ -234,8 +249,12 @@ const liveLinks = links.filter((link) => link.href !== '#');
   .prow__titletext {
     position: relative;
     z-index: 1;
-    padding: 3px 5px;
-    margin: -3px -5px;
+    /* 5/6 rather than 3/5: the hit area was the glyphs plus almost nothing,
+       so the stronger state needed the pointer placed on the letters. Still a
+       compact box around the words — permanent, and cancelled by the margin,
+       so nothing moves when it fills. */
+    padding: 5px 6px;
+    margin: -5px -6px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
     background: transparent;
@@ -337,7 +356,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
      readable at rest.
      
      360ms, on exactly the two properties that change. */
-  .prow[data-linked] .prow__mediacol :global(.cover) {
+  .prow__card[data-linked] .prow__mediacol :global(.cover) {
     filter: saturate(0.82);
     transition:
       filter 360ms var(--ease-out),
@@ -346,7 +365,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* Touch has no hover to restore the colour, so there is nothing to mute. */
   @media (hover: none) {
-    .prow[data-linked] .prow__mediacol :global(.cover) {
+    .prow__card[data-linked] .prow__mediacol :global(.cover) {
       filter: none;
     }
   }
@@ -364,12 +383,12 @@ const liveLinks = links.filter((link) => link.href !== '#');
      already transitioned above, so every step fades in either direction and
      nothing is added or resized on hover. */
   @media (hover: hover) and (pointer: fine) {
-    .prow[data-linked]:hover .prow__titletext {
+    .prow__card[data-linked]:hover .prow__titletext {
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
 
-    .prow[data-linked] .prow__titletext:hover {
+    .prow__card[data-linked] .prow__titletext:hover {
       background: var(--accent);
       /* Locked light, so the text stays legible on orange in both themes. */
       color: var(--tone-light);
@@ -382,7 +401,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     /* Anywhere on the row, not just on the media: the row is one thing, and
        the image coming to full colour is the row answering. The zoom is meant
        to be almost imperceptible — it is the colour that carries the change. */
-    .prow[data-linked]:hover .prow__mediacol :global(.cover) {
+    .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
       filter: saturate(1);
       transform: scale(1.015);
     }
@@ -392,7 +411,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
       transition-duration: var(--dur-hover-in);
     }
 
-    .prow[data-linked] .prow__titletext:active {
+    .prow__card[data-linked] .prow__titletext:active {
       background: var(--accent);
       color: var(--tone-light);
       transition-duration: var(--dur-press);
@@ -402,7 +421,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* The colour change is the point and it stays; the 1.5% of movement does
      not. */
   @media (prefers-reduced-motion: reduce) {
-    .prow[data-linked]:hover .prow__mediacol :global(.cover) {
+    .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
       transform: none;
     }
   }
@@ -416,13 +435,13 @@ const liveLinks = links.filter((link) => link.href !== '#');
      No orange background here either: a block of colour on a press that may
      turn out to be a scroll is too loud a promise. */
   @media (hover: none) {
-    .prow[data-linked][data-pressed] .prow__titletext {
+    .prow__card[data-linked][data-pressed] .prow__titletext {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
 
     /* Both conditions: the row is still a tap, and this link is the target. */
-    .prow[data-linked][data-pressed] .prow__linkout:active {
+    .prow__card[data-linked][data-pressed] .prow__linkout:active {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
@@ -447,8 +466,12 @@ const liveLinks = links.filter((link) => link.href !== '#');
   @media (min-width: 1024px) {
     /* Fixed text column, so every row wraps at the same width and the cover
        takes whatever is left. */
-    .prow:not([data-nomedia]) {
-      grid-template-columns: 380px minmax(0, 1fr);
+    .prow__card:not([data-nomedia]) {
+      /* 42/58 rather than a fixed 380px text column: the media was taking
+         about 66% of the grid and out-weighing the project's own words. This
+         takes ~12% off its width without touching the 16:9 ratio, and being
+         proportional it holds at every width. */
+      grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
       column-gap: var(--sp-64);
       align-items: start;
     }
@@ -456,7 +479,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* Without a cover the row is one column, so the text needs its own measure
      — otherwise the title and blurb run the full 1200px. */
-  .prow[data-nomedia] .prow__body {
+  .prow__card[data-nomedia] .prow__body {
     max-width: var(--measure);
   }
 </style>
@@ -477,7 +500,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
   let cancelled = false;
 
   const rowFrom = (target: EventTarget | null) =>
-    (target as HTMLElement | null)?.closest<HTMLElement>('.prow[data-linked]') ?? null;
+    (target as HTMLElement | null)?.closest<HTMLElement>('.prow__card[data-linked]') ?? null;
 
   const release = () => {
     if (gesture) delete gesture.row.dataset.pressed;

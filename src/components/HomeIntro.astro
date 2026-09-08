@@ -10,27 +10,40 @@
       scrollY < 8
     ) {
       document.documentElement.dataset.homeIntro = 'pending';
-      // Fail open if the module or a font cannot load.
-      window.setTimeout(() => delete document.documentElement.dataset.homeIntro, 10000);
+      // Fail open if the module or a font cannot load — including the page
+      // fade, which must not arrive ten seconds late.
+      window.setTimeout(() => {
+        var main = document.querySelector('main');
+        if (main) main.style.animation = 'none';
+        delete document.documentElement.dataset.homeIntro;
+      }, 10000);
     }
   }
 </script>
 
 <style is:global>
+  /* The footer is deliberately absent: it is below the fold on every screen
+     this runs on, so hiding it bought nothing and gave the sequence a fifth
+     thing to wait for. */
   html[data-home-intro] .opening .idl__greet,
   html[data-home-intro] .opening .idl__name,
   html[data-home-intro] .opening .idl__say,
   html[data-home-intro] .opening .hero__statements > *,
   html[data-home-intro] .opening__teaser,
-  html[data-home-intro] .opening + .work,
-  html[data-home-intro] footer {
+  html[data-home-intro] .opening + .work {
     opacity: 0;
+  }
+
+  /* One entrance at a time. `main-in` (base.css) is the entrance for ordinary
+     navigation; on a first homepage load this sequence is, and the two fading
+     the same pixels at once made the first beat arrive twice. */
+  html[data-home-intro] main {
+    animation: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
     html[data-home-intro] .opening *,
-    html[data-home-intro] .opening + .work,
-    html[data-home-intro] footer {
+    html[data-home-intro] .opening + .work {
       opacity: 1 !important;
       transform: none !important;
     }
@@ -40,11 +53,23 @@
 <script>
   let cleanup: (() => void) | undefined;
 
+  /* `main-in` (base.css) is switched off by the CSS above only while the
+     attribute is set — so the moment it goes, that animation would start from
+     zero and fade the whole page in a second time, immediately after the
+     sequence it was meant to stay out of. Suppressing it on the element keeps
+     it off for the rest of this document; the next navigation brings a new
+     `main` with no inline style, and the page fade is the entrance again. */
+  function sealMainEntrance() {
+    const main = document.querySelector<HTMLElement>('main');
+    if (main) main.style.animation = 'none';
+  }
+
   async function startIntro() {
     if (document.documentElement.dataset.homeIntro !== 'pending') return;
     document.documentElement.dataset.homeIntro = 'loading';
     const opening = document.querySelector<HTMLElement>('.opening');
     if (!opening) {
+      sealMainEntrance();
       delete document.documentElement.dataset.homeIntro;
       return;
     }
@@ -54,6 +79,7 @@
     let finished = false;
     const finish = () => {
       finished = true;
+      sealMainEntrance();
       delete document.documentElement.dataset.homeIntro;
       for (const animation of animations) animation.cancel();
       listeners.abort();
@@ -74,39 +100,54 @@
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     reduced.addEventListener('change', finish, { signal: listeners.signal });
 
-    await Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 900))]);
+    // Only the two faces the first screen renders in, not every font the
+    // document will eventually ask for — and 600ms at the outside, because a
+    // slow font request must not leave the homepage blank for most of a second
+    // before anything moves.
+    const heroFaces = ['500 1rem "Bricolage Grotesque"', '400 1rem "Instrument Sans"'];
+    await Promise.race([
+      Promise.all(heroFaces.map(face => document.fonts.load(face))).catch(() => {}),
+      new Promise(resolve => setTimeout(resolve, 600)),
+    ]);
     if (finished) return;
     if (window.scrollY > 8 || reduced.matches) return finish();
 
-    const ease = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
-    const reveal = (element: Element | null, delay: number, duration = 480) => {
+    // A shade softer than the site's --ease-out. Opacity should arrive rather
+    // than snap: the previous, quicker curve made each fade land before the
+    // eye had finished reading the one before it.
+    const ease = 'cubic-bezier(0.22, 0.7, 0.3, 1)';
+    const reveal = (element: Element | null, delay: number, duration: number) => {
       if (!element) return;
       animations.push(element.animate([{ opacity: 0 }, { opacity: 1 }], {
         delay, duration, easing: ease, fill: 'both',
       }));
     };
 
-    // All text stays in place, and the rhythm is unchanged — every interval
-    // is simply shorter: each beat still finishes before the next begins, and
-    // the two holds (after the name, after the second statement) are still
-    // there so the sequence breathes instead of running on.
-    //   300 wait · identity line 420 · hold 200
-    //   both statements 420 · hold 200 · teaser + list + footer 420
+    // All text stays in place; opacity is the only thing that moves.
     //
-    // Three beats, one per block rather than one per element. `Hi, I'm
-    // Zhuoqi.` is a sentence, so it arrives as a sentence — with the
-    // pronunciation, which belongs to the name. The two statements are one
-    // thought in two sentences and share the next beat. Each merge moved
-    // everything downstream up by the beat it no longer takes.
-    const BEAT = 420;
-    reveal(opening.querySelector('.idl__greet'), 300, BEAT);
-    reveal(opening.querySelector('.idl__name'), 300, BEAT);
-    reveal(opening.querySelector('.idl__say'), 300, BEAT);
-    reveal(opening.querySelector('.hero__statements > :first-child'), 920, BEAT);
-    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 920, BEAT);
-    reveal(opening.querySelector('.opening__teaser'), 1540, BEAT);
-    reveal(document.querySelector('.opening + .work'), 1540, BEAT);
-    reveal(document.querySelector('footer'), 1540, BEAT);
+    // Three semantic beats with a breath between them, not five staggered
+    // elements. Each group is one thought and arrives as one. The sequence
+    // waits 380ms before the first of them — a moment of stillness after the
+    // fonts land reads as composure, where starting on the same frame reads as
+    // the page still assembling itself.
+    //
+    //   identity    380 ->  880    Hi, I'm Zhuoqi. with its pronunciation
+    //     breath
+    //   statements  960 -> 1460    both sentences together, never staggered
+    //     breath
+    //   teaser     1580 -> 2180    Selected work, the longest fade of the
+    //                              three: the last beat should settle rather
+    //                              than land
+    //   projects   1700 -> 2300    120ms behind it, so the handover to the
+    //                              list is continuous rather than a fourth
+    //                              beat of its own
+    reveal(opening.querySelector('.idl__greet'), 380, 500);
+    reveal(opening.querySelector('.idl__name'), 380, 500);
+    reveal(opening.querySelector('.idl__say'), 380, 500);
+    reveal(opening.querySelector('.hero__statements > :first-child'), 960, 500);
+    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 960, 500);
+    reveal(opening.querySelector('.opening__teaser'), 1580, 600);
+    reveal(document.querySelector('.opening + .work'), 1700, 600);
 
     await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
     if (!finished) finish();

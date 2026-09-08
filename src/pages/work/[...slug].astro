@@ -39,10 +39,9 @@ const sections = headings.filter((heading) => heading.depth === 2);
 >
   <article class="cs">
     <div class="container">
-      <nav class="cs__crumb" aria-label="Breadcrumb">
-        <a href="/work">Work</a>
-      </nav>
-
+      {/* No back link here. The header carries Work on every page, and a
+          second one directly above the project's own metadata read as a
+          fourth line of chrome before the article had started. */}
       <header class="cs__head">
         <p class="cs__dates">{project.data.dates}</p>
         <h1 class="cs__title">{project.data.title}</h1>
@@ -140,24 +139,19 @@ const sections = headings.filter((heading) => heading.depth === 2);
 </Base>
 
 <style>
-  .cs__crumb {
-    padding-top: var(--sp-32);
-    font-size: var(--fs-small);
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-small);
-    color: var(--text-3);
-  }
-
-  .cs__crumb a {
-    border-bottom: var(--rule-hair) solid var(--rule);
-    padding-bottom: 2px;
-    transition: color var(--dur-hover-out) var(--ease-out);
-  }
-
-  /* Title, description, actions, then the article: one continuous opening
-     rather than four separated blocks. */
+  /* Date, title, description, actions, then the article: one continuous
+     opening rather than four separated blocks. The top value is the whole
+     distance from the header now that nothing sits above the date — enough
+     that the page starts on purpose, and short of the 76px the back link used
+     to occupy, which would read as the gap it left. */
   .cs__head {
-    padding-block: var(--sp-24) var(--sp-40);
+    padding-block: var(--sp-40);
+  }
+
+  @media (min-width: 640px) {
+    .cs__head {
+      padding-block: var(--sp-56) var(--sp-40);
+    }
   }
 
   .cs__dates {
@@ -395,7 +389,6 @@ const sections = headings.filter((heading) => heading.depth === 2);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .cs__crumb a:hover,
     .cs__toclink:hover {
       color: var(--text);
       transition-duration: var(--dur-hover-in);
