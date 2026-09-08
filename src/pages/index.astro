@@ -176,14 +176,16 @@ const projects = (await landingProjects()).slice(0, 6);
 
   /* The arrow is an invitation to scroll, so it belongs to the top of the
      page: it fades out as soon as you leave, and fades back in when you come
-     back. `data-at-top` is set by the script below. The `:not()` keeps the
-     opening animation in charge while it runs — without it this rule wins on
-     source order and the arrow rides in with the label. */
+     back. `data-at-top` is set by the script below.
+     
+     Nothing holds the arrow back during the opening animation, on purpose: it
+     is already visible when the teaser's own fade begins, so the label and the
+     arrow arrive on the same beat as one element. */
   .work__arrow-reveal {
     opacity: 0;
   }
 
-  :global(html[data-at-top]:not([data-home-intro])) .work__arrow-reveal {
+  :global(html[data-at-top]) .work__arrow-reveal {
     opacity: 1;
   }
 
@@ -194,12 +196,6 @@ const projects = (await landingProjects()).slice(0, 6);
     .work__arrow-reveal {
       display: none;
     }
-  }
-
-  /* One-shot, set by the script when the opening animation hands over: the
-     arrow arrives a beat after the label rather than alongside it. */
-  .work__jump[data-arrow-late] .work__arrow-reveal {
-    transition-delay: 150ms;
   }
 
 
@@ -336,22 +332,12 @@ const projects = (await landingProjects()).slice(0, 6);
   }
 
   // The opening animation removes `data-home-intro` when it finishes; that is
-  // the handover, and the one place the arrow gets the extra delay that
-  // separates its arrival from the label's beat.
-  const LATE = 150; // must match `data-arrow-late`'s transition-delay
-  let lateTimer: number | undefined;
-
+  // the handover: the arrow faded in with the teaser, and this is where it is
+  // allowed to start moving.
   new MutationObserver(() => {
-    if (document.documentElement.dataset.homeIntro) return;
-    const jump = document.querySelector<HTMLElement>('[data-jump]');
-    if (jump) {
-      jump.dataset.arrowLate = 'true';
-      window.clearTimeout(lateTimer);
-      // Drop the delay once it has been spent, so returning to the top later
-      // brings the arrow back at the plain fade speed.
-      lateTimer = window.setTimeout(() => delete jump.dataset.arrowLate, LATE + 300);
+    if (!document.documentElement.dataset.homeIntro && window.scrollY <= AT_TOP) {
+      startBreathing();
     }
-    if (window.scrollY <= AT_TOP) startBreathing();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-home-intro'] });
 
   function onScroll() {

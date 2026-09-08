@@ -71,14 +71,14 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
   /* The opening section, not a strip above the work. Mobile keeps the
      proportions but not the size.
      
-     Both values are optical rather than scale steps: 75px lands under the
-     header to the greeting's line box, and 92px puts 100px between the last
+     Both values are optical rather than scale steps: 150px lands under the
+     header to the greeting's line box, and 142px puts 150px between the last
      statement and the `Selected work` label — the label's own tap padding
      contributes the other 8px. The bottom gap carries the whole chapter break
      on a phone, where there is no viewport-height hero and no arrow to mark
      it. */
   .hero {
-    padding-block: 75px 92px;
+    padding-block: 150px 142px;
   }
 
   /* Baseline-aligned so the two sizes sit on one line, wrapping only when the
@@ -100,12 +100,12 @@ const { greeting, name, ipa, respelling, statements, stats = [] } = Astro.props;
 
 
   /* Two statements, one treatment: same face, size, weight, leading, colour.
-     The 30px between them is a phone value — enough that two 20px sentences
-     do not run together, still tight enough to read as a pair. */
+     The 15px between them is a phone value: tight, so the two sentences read
+     as one pair — the air around the block does the separating. */
   .hero__statements {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
     max-width: 60ch;
   }
 
