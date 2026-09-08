@@ -235,32 +235,11 @@ const liveLinks = links.filter((link) => link.href !== '#');
     inset: 0;
   }
 
-  /* Hover highlight, not an underline. The padding is reserved here, in the
-     default state, and cancelled by an equal negative margin — so the box that
-     appears on hover occupies no space and nothing on the row moves when it
-     arrives. Fixed pixels rather than em, so the inset stays 3/5 at every step
-     of the title's fluid size. `box-decoration-break: clone` gives a wrapped
-     title the same padding on both lines.
-     
-     `position: relative` is what makes the title hoverable at all: the link's
-     stretched ::after covers the whole row, including these words, so without
-     a layer of its own the overlay takes every hit and the title can never
-     tell that the pointer is on it specifically. */
+  /* The title takes the accent while the card is hovered and nothing else —
+     no fill, so no padding to reserve, no layer of its own to be hoverable in,
+     no clone rule for a wrapped highlight. One transitioned property. */
   .prow__titletext {
-    position: relative;
-    z-index: 1;
-    /* 5/6 rather than 3/5: the hit area was the glyphs plus almost nothing,
-       so the stronger state needed the pointer placed on the letters. Still a
-       compact box around the words — permanent, and cancelled by the margin,
-       so nothing moves when it fills. */
-    padding: 5px 6px;
-    margin: -5px -6px;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    background: transparent;
-    transition:
-      background-color var(--dur-hover-out) var(--ease-out),
-      color var(--dur-hover-out) var(--ease-out);
+    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
   .prow__blurb {
@@ -372,30 +351,16 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* ---- states (SPEC §4) ---- */
 
-  /* Three levels, because the row has more than one thing in it.
-     
-       default            dark title, no fill
-       anywhere on the row   title text takes the accent
-       on the title itself   accent fill, cream text
-     
-     The second says "this row leads somewhere"; the third says "and this is
-     the link". Only `background-color` and `color` move between them, both
-     already transitioned above, so every step fades in either direction and
-     nothing is added or resized on hover. */
+  /* One response, not two. Anywhere inside the card and the row answers as a
+     whole: the title takes the accent, the image comes to full colour and
+     lifts by a percent and a half. The pointer being on the title itself used
+     to mean something more; it was a second layer on a row that only ever led
+     to one place. Only colour, filter and transform move — nothing is added,
+     resized or re-weighted. */
   @media (hover: hover) and (pointer: fine) {
     .prow__card[data-linked]:hover .prow__titletext {
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
-    }
-
-    .prow__card[data-linked] .prow__titletext:hover {
-      background: var(--accent);
-      /* Locked light, so the text stays legible on orange in both themes. */
-      color: var(--tone-light);
-      /* Slower than the site's other hovers on purpose: this is a block of
-         colour rather than a colour change on text, and at the standard 200ms
-         it arrives as a flash. */
-      transition-duration: calc(var(--dur-hover-in) + 100ms);
     }
 
     /* Anywhere on the row, not just on the media: the row is one thing, and
@@ -406,15 +371,11 @@ const liveLinks = links.filter((link) => link.href !== '#');
       transform: scale(1.015);
     }
 
+    /* An outbound link is a second destination on the same row, so it answers
+       for itself — and only for itself. */
     .prow__linkout:hover {
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
-    }
-
-    .prow__card[data-linked] .prow__titletext:active {
-      background: var(--accent);
-      color: var(--tone-light);
-      transition-duration: var(--dur-press);
     }
   }
 
@@ -426,22 +387,22 @@ const liveLinks = links.filter((link) => link.href !== '#');
     }
   }
 
-  /* Touch gets one quiet acknowledgement and no fill. `:active` cannot be used
-     for it: the browser keeps that state through a drag, so a press that turns
-     into a scroll leaves the card lit up and, on some devices, still fires the
-     link. `data-pressed` is set on pointerdown and dropped the moment the
-     finger moves far enough to be scrolling — see the script below.
+  /* Touch gets none of that. It gets the scrim the platform draws under a
+     finger — the same one the case study's Sections bar shows, from the same
+     token, so the two feel like one interface.
      
-     No orange background here either: a block of colour on a press that may
-     turn out to be a scroll is too loud a promise. */
-  @media (hover: none) {
-    .prow__card[data-linked][data-pressed] .prow__titletext {
-      color: var(--accent);
-      transition-duration: var(--dur-press);
-    }
+     The browser owns the state: it appears with the touch and the browser
+     itself takes it away the moment the gesture becomes a scroll. That is why
+     the card paints no pressed fill of its own — `:active` lingers through a
+     drag, and anything hand-rolled here is a second implementation of what the
+     platform already does. The stretched ::after belongs to this link, so the
+     scrim covers the card rather than just the title. */
+  .prow__link {
+    -webkit-tap-highlight-color: var(--tap-press);
+  }
 
-    /* Both conditions: the row is still a tap, and this link is the target. */
-    .prow__card[data-linked][data-pressed] .prow__linkout:active {
+  @media (hover: none) {
+    .prow__linkout:active {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
@@ -487,23 +448,22 @@ const liveLinks = links.filter((link) => link.href !== '#');
 <script>
   // Touch only: a press that becomes a vertical scroll must not read as a tap.
   //
-  // Native links already cancel most of these, but not all of them — the
-  // pressed state survives the drag, and a synthetic click still arrives on
-  // some devices. This watches the gesture instead of trusting `:active`.
+  // The visual side belongs to the platform (see --tap-press above). What is
+  // left is the click a cancelled gesture still emits on some devices; this
+  // watches the gesture and swallows that one.
   //
   // Delegated to the document, so one listener covers every row on the page
   // and it survives a client-side navigation. Nothing calls preventDefault on
   // the pointer events, so scrolling stays entirely native.
   const TAP_SLOP = 10; // px of travel before a press is treated as a scroll
 
-  let gesture: { id: number; x: number; y: number; row: HTMLElement } | null = null;
+  let gesture: { id: number; x: number; y: number } | null = null;
   let cancelled = false;
 
   const rowFrom = (target: EventTarget | null) =>
     (target as HTMLElement | null)?.closest<HTMLElement>('.prow__card[data-linked]') ?? null;
 
   const release = () => {
-    if (gesture) delete gesture.row.dataset.pressed;
     gesture = null;
   };
 
@@ -512,11 +472,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
     (event) => {
       // Mouse and pen keep their hover behaviour untouched.
       if (event.pointerType === 'mouse' || !window.matchMedia('(hover: none)').matches) return;
-      const row = rowFrom(event.target);
-      if (!row) return;
-      gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, row };
+      if (!rowFrom(event.target)) return;
+      gesture = { id: event.pointerId, x: event.clientX, y: event.clientY };
       cancelled = false;
-      row.dataset.pressed = 'true';
     },
     { passive: true }
   );

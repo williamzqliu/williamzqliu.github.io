@@ -85,7 +85,18 @@ a {
 a,
 button {
   touch-action: manipulation;
+  /* Off by default: most links on this site are a word in a sentence, and a
+     rectangle flashing around one is louder than the link itself. The places
+     that want it opt back in with --tap-press. */
   -webkit-tap-highlight-color: transparent;
+}
+
+/* A disclosure is a control the size of a bar, so it takes the scrim — this is
+   what the case study's Sections bar has always shown, except that until now
+   the colour was whatever the engine happened to default to. */
+summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: var(--tap-press);
 }
 
 /* The arrow is the default, so anything actually clickable has to say so. */

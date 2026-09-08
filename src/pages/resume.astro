@@ -115,10 +115,13 @@ const updated = stat
     color: var(--text);
   }
 
+  /* Baseline, not centre. The date is mono at 14px with a tight line box and
+     the actions are sans at 15px with 8px of tap padding — centring those
+     boxes puts their text on two different lines. */
   .resume__actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     gap: var(--sp-24);
     margin-top: var(--sp-24);
   }
