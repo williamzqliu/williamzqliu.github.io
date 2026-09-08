@@ -27,7 +27,7 @@ const projects = (await landingProjects()).slice(0, 6);
     <Hero
       greeting="Hi, I'm"
       name="Zhuoqi."
-      ipa="drɔː tʃiː"
+      respellingLabel="pronounced"
       respelling={'“Draw-chee”'}
       statements={[
         'I design and build <strong>interactive tools</strong> for <strong>complex data</strong>.',
@@ -332,12 +332,18 @@ const projects = (await landingProjects()).slice(0, 6);
   }
 
   // The opening animation removes `data-home-intro` when it finishes; that is
-  // the handover: the arrow faded in with the teaser, and this is where it is
-  // allowed to start moving.
+  // the handover. The arrow came in with the teaser, and it rests for a beat
+  // before it starts moving — landing and breathing in the same instant reads
+  // as one continuous animation rather than as an invitation.
+  const REST = 400;
+  let restTimer: number | undefined;
+
   new MutationObserver(() => {
-    if (!document.documentElement.dataset.homeIntro && window.scrollY <= AT_TOP) {
-      startBreathing();
-    }
+    if (document.documentElement.dataset.homeIntro) return;
+    window.clearTimeout(restTimer);
+    restTimer = window.setTimeout(() => {
+      if (window.scrollY <= AT_TOP) startBreathing();
+    }, REST);
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-home-intro'] });
 
   function onScroll() {
