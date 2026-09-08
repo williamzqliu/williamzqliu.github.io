@@ -37,13 +37,13 @@ stats:
 
 Does higher health spending buy longer life? This is one chart, built four times, trying to answer that with 2022 data on population, per capita health spending and life expectancy.
 
-## 01 The problem
+## The problem
 
 The comparison itself is not hard to find. Our World in Data publishes life expectancy against health expenditure as a scatter plot, and the scatter shows the relationship clearly to anyone fluent in scatter plots. The problem was to make the same relationship legible to a reader who is not, and to do it in a single static frame.
 
 That ruled out the encoding that works best statistically. A scatter plot puts both variables on continuous axes and asks the reader to interpret position. A unit chart asks the reader to count. Counting is slower and cannot show a correlation, but it carries something a scatter cannot: the reader can apply the rule themselves. One icon is a million people. Ten dollar signs is a thousand dollars a head. Those are conversions a reader can perform on their own country without being taught how to read the chart.
 
-## 02 Approach
+## Approach
 
 Four versions, and each one changed something different.
 
@@ -55,13 +55,13 @@ Four versions, and each one changed something different.
 
 **The final version.** Three countries out, four in, so the set spans the full range from 74.0 to 84.1 years. The three-band red, yellow and green scale became a single-hue sequential ramp.
 
-## 03 What I built
+## What I built
 
 A single frame. Ten countries left to right in ascending order of life expectancy, from Mexico at 74.0 years to Japan at 84.1. Above the baseline, one icon per million people. Below it, one dollar sign per hundred dollars of per capita spending. Colour lightness tracks life expectancy.
 
 Read left to right, the top half tells you nothing surprising: populations vary. The bottom half is where it lands. The United States column runs to more than a hundred dollar symbols, an order of magnitude past China at nine and Costa Rica at fifteen, and its life expectancy of 78.0 years sits below both of them.
 
-## 04 Key decisions
+## Key decisions
 
 **Sorting by life expectancy, not by spending.** The reader moves along an axis where the outcome rises steadily, and watches the spending underneath fail to follow. Sorted by spending, the United States lands at one end and the finding collapses into a single anomaly the reader can dismiss.
 
@@ -90,11 +90,11 @@ The cost is that nothing binds the instance count to the data. The number of ico
 
 </details>
 
-## 05 Outcome
+## Outcome
 
 A finished chart and four traceable versions of it. No evaluation: no reader testing, no exhibition outside the course, nothing published. The critique it received was formative and internal.
 
-## 06 Reflection
+## Reflection
 
 The version worth keeping in the portfolio alongside the final one is the first, the broken one. It looks fine at a glance and it is wrong in a way that is specific to this technique: fixed row width forces variable symbol size, variable symbol size destroys countability, and countability was the entire reason for choosing unit symbols instead of bars. Getting that wrong once is how I learned that the choice of encoding carries constraints that arrive later, in the layout, when it is expensive to change.
 

@@ -39,7 +39,7 @@ The brief was to redesign an existing piece of information design. I chose an in
 
 The original is *INCOME/OUTCOME*, published by the Marketplace Wealth & Poverty desk. It is reproduced here for the purpose of critique; all rights remain with its publisher.
 
-## 01 The problem
+## The problem
 
 The original compares three income brackets across car ownership, commuting, homeownership, marriage and drinking, then closes on a line about drunk driving. Reading it carefully, four separate problems surface, and they are not the same problem.
 
@@ -53,7 +53,7 @@ The original compares three income brackets across car ownership, commuting, hom
 
 Separating these mattered more than the individual findings. A single verdict of "this is cluttered" would have licensed a cosmetic fix. Four distinct failures pointed at four distinct decisions, and one of them, the broken argument, could not be solved by any amount of layout work.
 
-## 02 Approach
+## Approach
 
 The original intent was worth keeping: use everyday life and spending to reach DUI, and end on a case against it. What needed replacing was the reasoning in between.
 
@@ -67,7 +67,7 @@ I wrote out three strategies before drawing anything.
 
 The strategies were eliminated on data availability, not on which one felt strongest. Two arguments I found more interesting than the one I built could not be sourced, and that settled it.
 
-## 03 What I built
+## What I built
 
 A print infographic in four movements.
 
@@ -79,7 +79,7 @@ A print infographic in four movements.
 
 **End where money stops working as a unit.** In 2022, 1,129 children aged fourteen and under were killed in motor vehicle crashes in the United States. 283 of them, one in four, died in alcohol-impaired crashes. The education comparison says this money could have gone to a child's schooling. The 283 says some children never got as far as needing tuition. Those two sentences are deliberately not combined, because combining them converts a life into a dollar figure.
 
-## 04 Key decisions
+## Key decisions
 
 **Dropping from national scale to a single household is the whole redesign.** $296 billion is a number no one can feel. $2,354 is a month of rent. The arithmetic is trivial; choosing to perform it is the design decision.
 
@@ -104,13 +104,13 @@ A print infographic in four movements.
 
 </details>
 
-## 05 Outcome
+## Outcome
 
 A finished print piece, an initial version and a final version that can be read side by side, and a documented path from three written strategies through concept notes and sketches to delivery.
 
 What it does not have: any evaluation. No reader testing, no exhibition outside the course, no published outcome. The critique it received was formative and internal. I would rather say that plainly than describe a studio review as validation.
 
-## 06 Reflection
+## Reflection
 
 The useful thing I learned here was not about layout. It was that a redesign's hardest constraint is data availability. Two of my three strategies were more interesting than the one I built, and both died because the numbers to support them do not exist in public form. Recognising that early cost a day of writing and saved three weeks of building an argument I could not defend.
 
