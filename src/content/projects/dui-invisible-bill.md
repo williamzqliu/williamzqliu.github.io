@@ -16,14 +16,10 @@ cover:
   tone: "light"
   alt: "Top section of the redesigned infographic: a yellow map of the United States with $296 BILLION set across it in red, beside nine icons for the components of the loss figure."
 quickFacts:
-  - label: "Scale"
-    value: "$296B in losses, 8 sources, 3 weeks"
   - label: "Role"
-    value: "Solo designer"
-  - label: "Stack"
-    value: "Illustrator, Figma"
-  - label: "Shown at"
-    value: "Course studio critique, Northeastern"
+    value: "Solo Information Designer"
+  - label: "Outcome"
+    value: "Shown at a course studio critique, Northeastern"
 stats:
   - value: "$296B"
     label: "in annual losses"

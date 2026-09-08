@@ -14,10 +14,10 @@ cover:
   tone: light
   alt: A printed brain diagram on a board, pins in nine regions, criss-crossed with red, yellow, green and blue rubber bands left by visitors.
 quickFacts:
-  - { label: Team, value: "Four designers, seven weeks" }
-  - { label: Role, value: "Key contributor: concepts, prototypes, visuals, testing" }
-  - { label: Output, value: "Printed exhibit, 12 question cards, physical mechanic" }
-  - { label: Advisor, value: "Sheila Pontis" }
+  - label: "Role"
+    value: "Interaction Designer & Researcher"
+  - label: "Outcome"
+    value: "Physical interactive exhibit developed by a four-person team"
 stats:
   - { value: "4", label: Designers }
   - { value: "7", label: Weeks }

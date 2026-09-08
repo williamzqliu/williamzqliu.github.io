@@ -15,10 +15,10 @@ cover:
   tone: dark
   alt: The Barboard homepage in its fixed dark palette, showing the weekly singles chart above the member directory.
 quickFacts:
-  - { label: Scope, value: "Art direction, information architecture, technical direction" }
-  - { label: Role, value: "Core member, built unpaid on my own initiative" }
-  - { label: Stack, value: "Static HTML, CSS, JS, Python, GitHub Actions" }
-  - { label: Live at, value: "barboard.space" }
+  - label: "Role"
+    value: "Designer & Developer"
+  - label: "Outcome"
+    value: "Live at barboard.space, built unpaid on my own initiative"
 stats:
   - { value: "143", label: Members }
   - { value: "3", label: Months running }

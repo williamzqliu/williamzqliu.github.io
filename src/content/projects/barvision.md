@@ -15,10 +15,10 @@ cover:
   tone: dark
   alt: A televote reveal screen in cyan and teal, showing a cumulative leaderboard of 26 finalists beside the points being awarded.
 quickFacts:
-  - { label: Scope, value: "Visual identity, show design, playout system" }
-  - { label: Role, value: "Art direction and technical direction" }
-  - { label: Shows, value: "3 live broadcasts, Jul to Aug 2026" }
-  - { label: Format, value: "Adapted from the Eurovision Song Contest" }
+  - label: "Role"
+    value: "Art Director & Technical Director"
+  - label: "Outcome"
+    value: "Three live broadcasts, including a 26-song grand final with 242 cued steps"
 stats:
   - { value: "3", label: Live shows }
   - { value: "26", label: Finalists }

@@ -36,6 +36,12 @@ const projects = defineCollection({
       wide: z.string(),
       square: z.string().optional(),
       poster: z.string().optional(),
+      /* Art direction for the case study head, both optional. The listing card
+         always uses `wide`; a hero that needs a different composition — a
+         portrait project, an installation view, a wide arrangement of details
+         — supplies its own, and falls back to `wide` when it does not. */
+      heroWide: z.string().optional(),
+      heroMobile: z.string().optional(),
       tone: z.enum(['dark', 'light', 'neutral']),
       alt: z.string(),
     }),

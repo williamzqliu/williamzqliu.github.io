@@ -17,14 +17,10 @@ cover:
   tone: "dark"
   alt: "Redrawn version of the paper's three-stage framework diagram: one citation slot moving from the human original, through masking, to an LLM-generated replacement."
 quickFacts:
-  - label: "Scale"
-    value: "1,746 papers, 132,913 citation slots"
   - label: "Role"
-    value: "Third author. Figures, matching pipeline, annotation"
-  - label: "Stack"
-    value: "Figma, Python, pandas, OpenAlex"
-  - label: "Published"
-    value: "EMNLP 2026, main conference"
+    value: "Research Contributor & Figure Designer"
+  - label: "Outcome"
+    value: "Third author on a paper published at EMNLP 2026, main conference"
 stats:
   - value: "EMNLP 2026"
     label: "main conference, third author"

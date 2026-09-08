@@ -16,14 +16,10 @@ cover:
   tone: "light"
   alt: "A child wearing AR glasses reading a picture book, with coloured word groups and short captions overlaid on the page."
 quickFacts:
-  - label: "Scale"
-    value: "27 children surveyed, 3 interviews, 4 modes"
   - label: "Role"
-    value: "Solo designer"
-  - label: "Stack"
-    value: "Reality Composer, Nomad, Procreate"
-  - label: "Made for"
-    value: "Master's application portfolio, 2023"
+    value: "Solo Designer"
+  - label: "Outcome"
+    value: "Made for a master's application portfolio, 2023"
 stats:
   - value: "27"
     label: "children surveyed"

@@ -17,14 +17,10 @@ cover:
   tone: "dark"
   alt: "A dark room with a projected wall of emoji faces, a human silhouette picked out in dense yellow particles at the centre."
 quickFacts:
-  - label: "Scale"
-    value: "106 surveyed, 6 interviews, 3 interaction modes"
   - label: "Role"
-    value: "Solo designer and creative technologist"
-  - label: "Stack"
-    value: "TouchDesigner, Kinect, projection"
-  - label: "Made for"
-    value: "Master's application portfolio, 2023"
+    value: "Solo Designer & Creative Technologist"
+  - label: "Outcome"
+    value: "Made for a master's application portfolio, 2023"
 stats:
   - value: "106"
     label: "survey responses"

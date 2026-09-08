@@ -15,6 +15,7 @@
 import CoverMedia from './CoverMedia.astro';
 import { COVERS_ENABLED } from '../lib/media';
 import ExtArrow from './ExtArrow.astro';
+import KeywordTags from './KeywordTags.astro';
 
 interface ProjectLink {
   label: string;
@@ -38,11 +39,6 @@ interface Props {
 
 const { index, title, year, blurb, stack, href, tone, links, emphasiseStack } = Astro.props;
 const figure = index === undefined ? undefined : String(index).padStart(2, '0');
-
-// Three keywords is the point at which a stack list stops being a signal and
-// starts being an inventory. The full list lives in QuickFacts on the case
-// study page.
-const keywords = stack.slice(0, 3);
 
 // `#` is a placeholder, not a destination — do not ship it as a link.
 const liveLinks = links.filter((link) => link.href !== '#');
@@ -84,9 +80,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
       <p class="prow__blurb">{blurb}</p>
 
-      <ul class="prow__kws" data-emphasis={emphasiseStack ? 'true' : undefined}>
-        {keywords.map((keyword) => <li class="prow__kw">{keyword}</li>)}
-      </ul>
+      <div class="prow__kws">
+        <KeywordTags items={stack} limit={3} emphasise={emphasiseStack} />
+      </div>
 
       {liveLinks.length > 0 && (
       <ul class="prow__links">
@@ -263,40 +259,11 @@ const liveLinks = links.filter((link) => link.href !== '#');
     }
   }
 
-  /* Three keywords, as tags rather than a sentence: mono, caps, on a quiet
-     surface. Square corners, no border, no shadow — a tag, not a pill. */
+  /* The chips themselves are KeywordTags; this only places the row. */
   .prow__kws {
-    display: flex;
-    flex-wrap: wrap;
-    /* One pixel under --sp-8: three chips read as a set rather than as three
-       separate blocks. Local, so nothing else on the site moves. */
-    gap: 7px;
     margin-top: var(--sp-20);
   }
 
-  .prow__kw {
-    padding: 5px var(--sp-8);
-    background: var(--surface);
-    font-family: var(--font-mono);
-    /* One step above --fs-micro (11px): mono runs small, and at 11px the caps
-       plus letter-spacing were harder to read than the year beside them. Local
-       rather than a token change, so nothing else in the site moves. */
-    font-size: 0.75rem;
-
-    font-weight: var(--fw-mono);
-    line-height: var(--lh-micro);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-2);
-  }
-
-  /* The engineering track leans on its stack, so those tags carry the ink. */
-  .prow__kws[data-emphasis] .prow__kw {
-    color: var(--text);
-  }
-
-  /* Slightly larger step than the one above it, and the tap padding on the
-     links themselves adds the rest. */
   .prow__links {
     display: flex;
     flex-wrap: wrap;

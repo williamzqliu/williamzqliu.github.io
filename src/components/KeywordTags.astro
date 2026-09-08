@@ -1,0 +1,57 @@
+---
+// The stack, in the mono chips the project rows introduced. Shared so the card
+// and the case study head cannot drift into two treatments of the same list.
+//
+// A row shows three, because past that a stack list stops being a signal and
+// becomes an inventory. A case study is where the inventory belongs, so it
+// passes no limit.
+
+interface Props {
+  items: string[];
+  /** Omit to show everything. */
+  limit?: number;
+  /** SPEC §9 — the engineering track gives stack lines more prominence. */
+  emphasise?: boolean;
+}
+
+const { items, limit, emphasise } = Astro.props;
+const shown = limit === undefined ? items : items.slice(0, limit);
+---
+
+{
+  shown.length > 0 && (
+    <ul class="kws" data-emphasis={emphasise ? 'true' : undefined}>
+      {shown.map((item) => (
+        <li class="kw">{item}</li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .kws {
+    display: flex;
+    flex-wrap: wrap;
+    /* One pixel under --sp-8: the chips read as a set rather than as separate
+       blocks. Local, so nothing else on the site moves. */
+    gap: 7px;
+  }
+
+  .kw {
+    padding: 5px var(--sp-8);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    /* One step above --fs-micro (11px): mono runs small, and at 11px the caps
+       plus letter-spacing were harder to read than the year beside them. */
+    font-size: 0.75rem;
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  .kws[data-emphasis] .kw {
+    color: var(--text);
+  }
+</style>

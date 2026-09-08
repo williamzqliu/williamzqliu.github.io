@@ -16,14 +16,10 @@ cover:
   tone: "light"
   alt: "Detail of the final chart: columns of green person icons above a baseline for population, columns of dollar signs below it for per capita health spending, with Mexico, the United States and China labelled."
 quickFacts:
-  - label: "Scale"
-    value: "10 countries, 3 indicators, 2,000+ symbols"
   - label: "Role"
-    value: "Solo designer"
-  - label: "Stack"
-    value: "Figma, auto layout"
-  - label: "Shown at"
-    value: "Course studio critique, Northeastern"
+    value: "Solo Information Designer"
+  - label: "Outcome"
+    value: "Shown at a course studio critique, Northeastern"
 stats:
   - value: "10"
     label: "countries compared"

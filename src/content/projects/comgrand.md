@@ -14,10 +14,10 @@ cover:
   tone: light
   alt: Two views of a titanium smart ring with an integrated sensor band and a pressable display, annotated with component callouts.
 quickFacts:
-  - { label: Scope, value: "Research, service system, hardware, app" }
-  - { label: Role, value: "Solo designer and researcher" }
-  - { label: Tools, value: "Figma, Balsamiq, Blender" }
-  - { label: Output, value: "12 panels, app prototype, working ring model" }
+  - label: "Role"
+    value: "Solo Designer & Researcher"
+  - label: "Outcome"
+    value: "12 panels, an app prototype, and a working ring model"
 stats:
   - { value: "3", label: Interviews }
   - { value: "6", label: Functions scored }

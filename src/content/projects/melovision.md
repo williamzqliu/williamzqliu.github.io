@@ -15,10 +15,10 @@ cover:
   tone: dark
   alt: A generative sphere in teal and violet, its surface warped and striped by the audio of a single song.
 quickFacts:
-  - { label: Research, value: "105 survey responses, 6 interviews across 3 groups" }
-  - { label: Role, value: "Solo designer and researcher" }
-  - { label: Output, value: "Visual system, app, brand identity, print" }
-  - { label: Duration, value: "Four months" }
+  - label: "Role"
+    value: "Solo Designer & Researcher"
+  - label: "Outcome"
+    value: "Visual system, app, brand identity, and print"
 stats:
   - { value: "105", label: Surveyed }
   - { value: "8", label: Genres encoded }

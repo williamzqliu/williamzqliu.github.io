@@ -144,3 +144,89 @@ well-formed, no stray/unknown keys other than the two in A2 and C5, no `draft: t
   `dui-invisible-bill.md` (20), `not-always-more-for-more.md` (14) and
   `lumitex.md` (13). Adding or thinning emphasis means editing body text, so
   it is left to you.
+
+- **`quickFacts` standardised to two fields, 2026-09-08, on your instruction.**
+  Every case study now carries exactly `Role` and `Outcome`; the third column,
+  `Timeline`, is rendered from `dates` rather than duplicated in frontmatter.
+  The labels that went away were `Scale`, `Scope`, `Stack`, `Tools`,
+  `Published`, `Shown at`, `Made for`, `Built for`, `Shows`, `Format`,
+  `Output`, `Result`, `Source`, `Live at`, `Team`, `Advisor`, `Research` and
+  `Duration`.
+
+  Each `Outcome` was composed from the fact it replaces, or is your own wording
+  where you supplied it:
+
+  | project | Outcome | from |
+  |---|---|---|
+  | barboard | Live at barboard.space | `Live at` |
+  | barvision | Three live broadcasts, including a 26-song grand final with 242 cued steps | yours; `Shows` + the `242 / Cue steps` stat |
+  | citing-less-critically | Published at EMNLP 2026, main conference | yours; `Published` |
+  | comgrand | 12 panels, an app prototype, and a working ring model | `Output` |
+  | dui-invisible-bill | Shown at a course studio critique, Northeastern | `Shown at` |
+  | emoease | Made for a master's application portfolio, 2023 | `Made for` |
+  | inside-the-institution | Interactive research tool and MFA thesis, presented at NetSci 2026 | yours; `Shown at` |
+  | lumitex | Made for a master's application portfolio, 2023 | `Made for` |
+  | melovision | Visual system, app, brand identity, and print | `Output` |
+  | not-always-more-for-more | Shown at a course studio critique, Northeastern | `Shown at` |
+  | polygraphs | Interactive research tool built for a Northeastern University London research team | yours; `Built for` |
+  | ripples-into-silence | Interactive scrollytelling piece built from IOM Missing Migrants data | yours; `Source` + the blurb |
+  | tod-boston | Quincy Center, at an estimated $482M | `Result` |
+  | whats-going-on-in-there | Physical interactive exhibit developed by a four-person team | yours; `Team` |
+
+  **Two things to check.** `inside-the-institution` now says *MFA thesis*; the
+  body says "thesis" and the about page says "MFA thesis exhibition", but the
+  two words have never appeared together in that file. And the `Advisor` fact
+  on `whats-going-on-in-there` — *Sheila Pontis* — is the only value that was
+  dropped without landing anywhere else. If the credit matters, it needs a line
+  in the body.
+
+  **Scale numbers no longer appear in the intro** for barboard, citing-less-
+  critically, comgrand, dui-invisible-bill, emoease, inside-the-institution,
+  lumitex, melovision, not-always-more-for-more, polygraphs,
+  ripples-into-silence and tod-boston. In every case the same figures are still
+  in the blurb, the `stats` row or the body, so nothing is lost from the page —
+  only from the metadata grid.
+
+- **`nightmare-of-moonglade.md` still builds a case study page, and it is
+  empty.** Its body is one HTML comment explaining why it should not have a
+  page, and a comment counts as content to `hasCaseStudy()`. With the new
+  intro it renders a title, a blurb, a `Timeline` cell and a hero above nothing
+  at all. Either the comment should go (leaving the body empty, which drops the
+  page and the row's link) or `hasCaseStudy` should ignore comment-only bodies.
+
+- **`Role` rewritten as a title rather than a task list, 2026-09-08, on your
+  instruction.** Six values are yours verbatim; the other eight follow the same
+  principle and claim no seniority the file does not already support.
+
+  | project | Role | was |
+  |---|---|---|
+  | inside-the-institution | Visualization Designer & Researcher | Design, analysis, implementation, evaluation |
+  | citing-less-critically | Research Contributor & Figure Designer | Third author. Figures, matching pipeline, annotation |
+  | polygraphs | Visualization Research Assistant | Research assistant, visualization |
+  | barvision | Art Director & Technical Director | Art direction and technical direction |
+  | ripples-into-silence | Information Designer & Developer | Information design and development |
+  | whats-going-on-in-there | Interaction Designer & Researcher | Key contributor: concepts, prototypes, visuals, testing |
+  | barboard | Designer & Developer | Core member, built unpaid on my own initiative |
+  | comgrand | Solo Designer & Researcher | Solo designer and researcher |
+  | dui-invisible-bill | Solo Information Designer | Solo designer |
+  | emoease | Solo Designer & Creative Technologist | Solo designer and creative technologist |
+  | lumitex | Solo Designer | Solo designer |
+  | melovision | Solo Designer & Researcher | Solo designer and researcher |
+  | not-always-more-for-more | Solo Information Designer | Solo designer |
+  | tod-boston | Data Analyst | Analysis and modelling |
+
+  Two facts would have left the site with the old wording, so they moved into
+  the Outcome instead of being dropped:
+
+  - `citing-less-critically` — *Third author on a paper published at EMNLP
+    2026, main conference*.
+  - `barboard` — *Live at barboard.space, built unpaid on my own initiative*.
+    Neither "core member" nor "unpaid" appears anywhere in that file's body, so
+    the Role field was their only home.
+
+  **Two judgement calls to check.** `barboard` reads *Designer & Developer*
+  rather than a directing title: the file's old `Scope` line said "art
+  direction, information architecture, technical direction", but its `Role`
+  said "core member", and I did not want to promote one on the strength of the
+  other. And `tod-boston` reads *Data Analyst* with no "solo" — nothing in that
+  file says whether it was solo or a team.

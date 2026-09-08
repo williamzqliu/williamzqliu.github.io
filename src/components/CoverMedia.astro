@@ -1,31 +1,51 @@
 ---
-// SPEC §6 / §8 — tone-locked cover plate.
-// TODO: render <video>/<img> once the media in `cover.wide` exists. Until then
-// this draws the plate at the right ratio so the layout is already correct.
+// SPEC §6 / §8 — tone-locked cover plate, or the real thing once it exists.
 //
 // Callers decide whether a plate is wanted at all (see lib/media.ts); this
 // component still renders nothing when the switch is off, so no caller can
 // bring the placeholder back by accident.
+//
+// When `src` is supplied the plate gives way to the asset. `mobileSrc` is art
+// direction, not a size hint: the case study head wants a different crop on a
+// phone than the wide composition it uses on a desktop, so the two are separate
+// files behind one <picture> rather than one file squeezed into two ratios.
 
 import { COVERS_ENABLED } from '../lib/media';
 
 interface Props {
   tone: 'dark' | 'light' | 'neutral';
-  /** `responsive` is square on mobile, 16:9 above (SPEC §5). */
-  ratio?: 'responsive' | 'wide';
+  /**
+   * `responsive` is the listing card's 16:9. `hero` is the case study head: a
+   * portrait-friendly ratio on a phone, 16:9 on a tablet, a wide banner on a
+   * desktop (SPEC §9 asked for full bleed here; the head now sits on the
+   * content grid instead).
+   */
+  ratio?: 'responsive' | 'hero';
   label?: string;
+  /** Omit to draw the placeholder plate. */
+  src?: string;
+  /** Used below 640px when the wide composition would crop badly. */
+  mobileSrc?: string;
+  alt?: string;
 }
 
-const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
+const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = '' } = Astro.props;
 ---
 
 {
   COVERS_ENABLED && (
-    <div class="cover" data-tone={tone} data-ratio={ratio} aria-hidden="true">
-      <div class="cover__placeholder">
-        <span>{label}</span>
-        <span>1600 &#215; 900</span>
-      </div>
+    <div class="cover" data-tone={tone} data-ratio={ratio} aria-hidden={src ? undefined : 'true'}>
+      {src ? (
+        <picture>
+          {mobileSrc && <source media="(max-width: 639px)" srcset={mobileSrc} />}
+          <img src={src} alt={alt} loading="lazy" decoding="async" />
+        </picture>
+      ) : (
+        <div class="cover__placeholder">
+          <span>{label}</span>
+          <span>1600 &#215; 900</span>
+        </div>
+      )}
     </div>
   )
 }
@@ -35,16 +55,21 @@ const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
     border: var(--rule-hair) solid var(--rule);
     display: flex;
     align-items: flex-end;
+    overflow: hidden;
   }
 
-  /* 16:9 at every width. SPEC §5 asked for square below 640px, but a 1:1
-     plate at full column width took most of a phone screen before the title
-     had been read — the row now shows image, title, year and the start of the
-     blurb together. `responsive` is kept as a name because the wide plate on
-     a case study head is a different, full-bleed thing. */
-  .cover[data-ratio='responsive'],
-  .cover[data-ratio='wide'] {
+  /* 16:9 at every width. SPEC §5 asked for square below 640px, but a 1:1 plate
+     at full column width took most of a phone screen before the title had been
+     read — the row now shows image, title, year and the start of the blurb
+     together. */
+  .cover[data-ratio='responsive'] {
     aspect-ratio: 16 / 9;
+  }
+
+  /* The case study head, phone first: close to the source imagery rather than
+     a shallow crop of it, so a portrait project stays legible. */
+  .cover[data-ratio='hero'] {
+    aspect-ratio: 4 / 3;
   }
 
   /* Locked to the declared tone — does not follow the theme (SPEC §8). */
@@ -75,15 +100,30 @@ const { tone, ratio = 'responsive', label = 'cover loop' } = Astro.props;
     letter-spacing: -0.02em;
   }
 
-  /* Ready for the real media: the plate's ratio is the frame, and the asset
-     fills it rather than setting its own height. `cover.wide` is the asset to
-     use here at every width — the square crop in the schema has no place left
-     to appear. */
-  .cover > :global(img),
-  .cover > :global(video) {
+  /* The plate's ratio is the frame and the asset fills it rather than setting
+     its own height. `cover.wide` is the asset for a listing row at every
+     width — the square crop in the schema has no place left to appear. */
+  .cover picture,
+  .cover img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Tablet: the hero gives up some of its height but is not yet a banner. */
+  @media (min-width: 640px) {
+    .cover[data-ratio='hero'] {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  /* Desktop: a wide editorial banner, capped so it cannot take most of the
+     viewport — past that the cap wins and the box simply stops getting taller. */
+  @media (min-width: 1024px) {
+    .cover[data-ratio='hero'] {
+      aspect-ratio: 2.1 / 1;
+      max-height: 60vh;
+    }
   }
 </style>
