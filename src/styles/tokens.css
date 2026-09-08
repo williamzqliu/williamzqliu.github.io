@@ -10,6 +10,7 @@
      system: #FDF7E9 is the resume's page fill, #D03B00 its heading orange.
      Text is a step darker than before — dim body copy was the main reason the
      page read as thin. */
+  /* Mirrored by the theme-color meta in Base.astro — change both. */
   --bg:            #FDF7E9;
   --surface:       #F4EAD3;
   --text:          #14120C;
@@ -207,8 +208,11 @@
   /* Press. SPEC §4 asks for 0ms here; a short fade was preferred instead, so
      nothing on the page changes state by jumping. */
   --dur-press:      90ms;
-  /* Theme switch, applied only while the class is on <html>. */
-  --dur-theme:     220ms;
+  /* Theme switch, applied only while the class is on <html>. Short on
+     purpose: the browser chrome takes its colour from the theme-color meta the
+     moment the theme changes, with no transition available to it, so a slow
+     page fade reads as two separate events rather than one switch. */
+  --dur-theme:     150ms;
 }
 
 @media (min-width: 640px) {

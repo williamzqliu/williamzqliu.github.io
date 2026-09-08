@@ -126,9 +126,12 @@
     // transitions on permanently would make every other state change laggy.
     root.classList.add('is-theme-switching');
     window.clearTimeout(clearSwitching);
+    // Just past --dur-theme (150ms). While the class is on, its !important
+    // transitions override every hover on the page, so it should not outlive
+    // the fade by much.
     clearSwitching = window.setTimeout(() => {
       root.classList.remove('is-theme-switching');
-    }, 260);
+    }, 190);
 
     root.setAttribute('data-theme', theme);
     root.setAttribute('data-theme-pref', theme);
