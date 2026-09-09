@@ -116,8 +116,8 @@
     opacity: 0;
     transform: scale(0.985);
     transition:
-      opacity 260ms var(--ease-out),
-      transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      opacity 340ms cubic-bezier(0.33, 0, 0.2, 1),
+      transform 340ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .lb[data-shown] .lb__figure {
@@ -133,10 +133,17 @@
     transform: scale(0.995);
   }
 
-  /* Under a finger the picture tracks the finger, so nothing may ease. The
-     attribute is also used for the frame that re-seats the next picture on
-     the far side before it slides in. */
-  .lb__figure[data-dragging] {
+  /* Pinch and pan are direct: the picture is under the fingers, so it may not
+     ease behind them. Off the gesture, the same property eases, which is what
+     lets a zoom settle back to the fitted size in one soft move. */
+  .lb__img,
+  .lb__vid {
+    transform-origin: center center;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .lb__img[data-gesturing],
+  .lb__vid[data-gesturing] {
     transition: none;
   }
 
@@ -237,9 +244,11 @@
     outline: none;
   }
 
-  /* The gesture owns the horizontal; the page behind is already locked. */
+  /* The viewer owns every gesture inside it: swipe, pinch and pan are read
+     here rather than by the browser, and the page behind is already locked.
+     Vertical is still yielded — in the script, by not acting on it. */
   .lb {
-    touch-action: pan-y;
+    touch-action: none;
   }
 
   /* One picture is not a gallery. */
@@ -320,6 +329,17 @@
     const render = () => {
       const source = gallery[index];
 
+      // A new picture arrives at its own size and centred: zoom belongs to the
+      // picture being looked at, never to the viewer. The swap happens under a
+      // fade, so there is nothing to animate back.
+      scale = 1;
+      panX = 0;
+      panY = 0;
+      frame.style.transform = '';
+      clip.style.transform = '';
+      delete frame.dataset.gesturing;
+      delete clip.dataset.gesturing;
+
       if (isClip(source)) {
         frame.hidden = true;
         frame.removeAttribute('src');
@@ -369,13 +389,15 @@
         return;
       }
 
-      // Out, swap, in — the same crossfade the section bar's label uses.
+      // Out, swap, in. One crossfade for every way of changing picture — a
+      // swipe, an arrow and an arrow key all read the same, and at 340ms it
+      // is a change of page rather than a carousel snapping across.
       window.clearTimeout(swap);
       figure.dataset.swapping = 'true';
       swap = window.setTimeout(() => {
         render();
         delete figure.dataset.swapping;
-      }, 260); // matches the opacity transition on .lb__figure
+      }, 340); // matches the opacity transition on .lb__figure
     };
 
     const open = (source: Source) => {
@@ -470,62 +492,114 @@
       { signal }
     );
 
-    /* The phone has no arrows, so the picture itself is the control: drag it
-       and it follows the finger, let go past a fifth of the width and it goes
-       on in that direction while the next one comes in from the other side.
-       Short of that it settles back. Mouse and trackpad keep the arrows —
-       a pointer that cannot throw should not have to. */
+    /* Touch, and only touch. A phone has no arrows, so the gestures are the
+       controls: a short horizontal flick steps, two fingers zoom, and one
+       finger pans once there is something to pan. Mouse and trackpad keep the
+       arrows and the keys exactly as they were.
+
+       The picture does not follow the finger. A swipe here is an input, not a
+       carousel being dragged: nothing moves until the gesture has been read,
+       and a gesture that does not qualify leaves the frame exactly where it
+       was — no travel, no snap back, no flicker. */
+    const SWIPE_MIN = 24; // px: deliberate, but nothing like a full drag
+    const FLICK_MIN = 12; // px, when it is thrown rather than dragged
+    const FLICK_RATE = 0.35; // px per ms
+    const YIELD_AT = 10; // px of vertical before the gesture is theirs, not ours
+    const ZOOM_MAX = 4;
+
+    const touches = new Map<number, { x: number; y: number }>();
     let startX = 0;
     let startY = 0;
-    let dragX = 0;
-    let holding: number | undefined;
-    let sliding = false;
-    let threw = false;
+    let startAt = 0;
+    let reading = false; // a one-finger gesture we might still act on
+    let threw = false; // swallow the click a real gesture ends with
 
-    const release = () => {
-      holding = undefined;
-      delete figure?.dataset.dragging;
+    let scale = 1;
+    let panX = 0;
+    let panY = 0;
+    let fromScale = 1;
+    let fromSpan = 0;
+    let fromPan = { x: 0, y: 0 };
+    let centre = { x: 0, y: 0 };
+    let anchor = { x: 0, y: 0 };
+
+    const shown = (): HTMLElement => (clip.hidden ? frame : clip);
+
+    const paint = () => {
+      shown().style.transform =
+        scale === 1 ? '' : `translate(${panX}px, ${panY}px) scale(${scale})`;
     };
 
-    const settle = (direction: number) => {
-      if (!figure) {
-        show(index + direction);
+    // Never so far that the picture leaves the frame: at 1x there is nothing
+    // to pan, and above it the slack is however much of the picture is now
+    // outside the box it was fitted to.
+    const rein = () => {
+      const media = shown();
+      const slackX = (media.offsetWidth * (scale - 1)) / 2;
+      const slackY = (media.offsetHeight * (scale - 1)) / 2;
+      panX = Math.min(slackX, Math.max(-slackX, panX));
+      panY = Math.min(slackY, Math.max(-slackY, panY));
+    };
+
+    // Every picture opens at its own size. Zoom belongs to the picture being
+    // looked at, not to the viewer.
+    const unzoom = (animate = false) => {
+      const media = shown();
+      scale = 1;
+      panX = 0;
+      panY = 0;
+      if (animate) {
+        media.style.transform = '';
         return;
       }
-      sliding = true;
-      threw = true;
-      window.clearTimeout(swap);
-      figure.dataset.swapping = 'true';
-      // Carries on the way it was thrown rather than stopping where the finger
-      // stopped.
-      figure.style.transform = `translateX(${direction * -18}%)`;
-      swap = window.setTimeout(() => {
-        index = (index + direction + gallery.length) % gallery.length;
-        render();
-        // Re-seated on the far side with the easing off, then let back to
-        // centre in the next frame with it on.
-        figure.dataset.dragging = 'true';
-        figure.style.transform = `translateX(${direction * 18}%)`;
-        requestAnimationFrame(() => {
-          delete figure.dataset.dragging;
-          figure.style.transform = '';
-          delete figure.dataset.swapping;
-          sliding = false;
-        });
-      }, 220);
+      media.dataset.gesturing = 'true';
+      media.style.transform = '';
+      requestAnimationFrame(() => delete media.dataset.gesturing);
+    };
+
+    const span = () => {
+      const [a, b] = [...touches.values()];
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    };
+
+    const middle = () => {
+      const [a, b] = [...touches.values()];
+      return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+    };
+
+    const startPinch = () => {
+      const media = shown();
+      const box = media.getBoundingClientRect();
+      // Where the picture sits with nothing applied: scaling about the centre
+      // does not move the centre, so only the pan has to come back out.
+      centre = { x: (box.left + box.right) / 2 - panX, y: (box.top + box.bottom) / 2 - panY };
+      anchor = middle();
+      fromSpan = span();
+      fromScale = scale;
+      fromPan = { x: panX, y: panY };
+      media.dataset.gesturing = 'true';
+      reading = false;
     };
 
     dialog.addEventListener(
       'pointerdown',
       (event) => {
-        if (event.pointerType === 'mouse' || sliding) return;
-        if (gallery.length < 2 || !figure) return;
+        if (event.pointerType === 'mouse') return;
         if ((event.target as HTMLElement | null)?.closest('[data-lightbox-close]')) return;
-        holding = event.pointerId;
+        touches.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+        if (touches.size === 2) {
+          startPinch();
+          return;
+        }
+        if (touches.size > 2) return;
+
         startX = event.clientX;
         startY = event.clientY;
-        dragX = 0;
-        figure.dataset.dragging = 'true';
+        startAt = event.timeStamp;
+        fromPan = { x: panX, y: panY };
+        reading = true;
+        if (scale > 1) shown().dataset.gesturing = 'true';
       },
       { signal }
     );
@@ -533,41 +607,96 @@
     dialog.addEventListener(
       'pointermove',
       (event) => {
-        if (holding !== event.pointerId || !figure) return;
-        const x = event.clientX - startX;
-        const y = event.clientY - startY;
-        // A gesture that is mostly vertical is not a swipe; hand it back.
-        if (dragX === 0 && Math.abs(y) > Math.abs(x) && Math.abs(y) > 8) {
-          figure.style.transform = '';
-          release();
+        const held = touches.get(event.pointerId);
+        if (!held) return;
+        held.x = event.clientX;
+        held.y = event.clientY;
+
+        if (touches.size >= 2) {
+          if (!fromSpan) return;
+          scale = Math.min(ZOOM_MAX, Math.max(1, (fromScale * span()) / fromSpan));
+          const now = middle();
+          // The point between the fingers stays under them, and the fingers
+          // may travel while they pinch.
+          const drift = 1 - scale / fromScale;
+          panX = fromPan.x + (anchor.x - centre.x - fromPan.x) * drift + (now.x - anchor.x);
+          panY = fromPan.y + (anchor.y - centre.y - fromPan.y) * drift + (now.y - anchor.y);
+          rein();
+          paint();
           return;
         }
-        dragX = x;
-        figure.style.transform = `translateX(${x}px)`;
+
+        if (!reading) return;
+        const x = event.clientX - startX;
+        const y = event.clientY - startY;
+
+        // Zoomed in, one finger moves the picture rather than the gallery.
+        if (scale > 1) {
+          panX = fromPan.x + x;
+          panY = fromPan.y + y;
+          rein();
+          paint();
+          return;
+        }
+
+        // Mostly vertical: not ours. Hand it back rather than half-reading it.
+        if (Math.abs(y) > Math.abs(x) && Math.abs(y) > YIELD_AT) reading = false;
       },
       { signal }
     );
 
-    const drop = (event: PointerEvent) => {
-      if (holding !== event.pointerId || !figure) return;
-      release();
-      const width = dialog.clientWidth || window.innerWidth;
-      const thrown = dragX;
-      dragX = 0;
-      const travelled = Math.abs(thrown) > 6;
-      if (Math.abs(thrown) > Math.min(96, width * 0.2)) {
-        // Dragged left, so the next one is what the drag was reaching for.
-        settle(thrown < 0 ? 1 : -1);
+    const lift = (event: PointerEvent) => {
+      if (!touches.has(event.pointerId)) return;
+      touches.delete(event.pointerId);
+
+      if (touches.size >= 1) {
+        // A finger left mid-pinch. Carry on with the one still down instead of
+        // reading the leftover travel as a swipe.
+        fromSpan = 0;
+        const [only] = [...touches.values()];
+        startX = only.x;
+        startY = only.y;
+        startAt = event.timeStamp;
+        fromPan = { x: panX, y: panY };
+        reading = touches.size === 1 && scale > 1;
         return;
       }
-      // Not far enough: back to centre, and swallow the click if this was a
-      // drag rather than a tap.
-      threw = travelled;
-      figure.style.transform = '';
+
+      const media = shown();
+      delete media.dataset.gesturing;
+      fromSpan = 0;
+
+      if (scale > 1) {
+        // A pan ends where it ends, and it eats the click it came with.
+        threw = reading && (Math.abs(event.clientX - startX) > 6 || Math.abs(event.clientY - startY) > 6);
+        reading = false;
+        return;
+      }
+      // A pinch that came back down to 1x leaves no offset behind.
+      if (panX !== 0 || panY !== 0) unzoom(true);
+
+      if (!reading) return;
+      reading = false;
+
+      const x = event.clientX - startX;
+      const y = event.clientY - startY;
+      const rate = Math.abs(x) / Math.max(1, event.timeStamp - startAt);
+      const sideways = Math.abs(x) > Math.abs(y) * 1.2;
+      const enough = Math.abs(x) >= SWIPE_MIN || (rate >= FLICK_RATE && Math.abs(x) >= FLICK_MIN);
+
+      if (gallery.length > 1 && sideways && enough) {
+        threw = true;
+        // Left means forward: the next picture is the one the hand reached for.
+        show(index + (x < 0 ? 1 : -1));
+        return;
+      }
+      // Not a swipe. Nothing moved, so there is nothing to put back; the only
+      // thing left to decide is whether this was a tap, which closes.
+      threw = Math.abs(x) > 6 || Math.abs(y) > 6;
     };
 
-    dialog.addEventListener('pointerup', drop, { signal });
-    dialog.addEventListener('pointercancel', drop, { signal });
+    dialog.addEventListener('pointerup', lift, { signal });
+    dialog.addEventListener('pointercancel', lift, { signal });
 
     // On the document, not on the dialog. A modal dialog usually holds focus,
     // but not always — open it without a real click, or let the engine hand
