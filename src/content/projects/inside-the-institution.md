@@ -53,7 +53,7 @@ The first dataset contained only four fields per scholar: `internal ID`, `name`,
 prototypes could show density, but not departments, research centers, or meaningful
 comparisons.
 
-<div class="media-mosaic" style="--mosaic-split: 46fr 54fr">
+<div class="media-mosaic" style="--mosaic-split: 46fr 54fr; --mosaic-stack: 64fr 36fr">
   <figure>
     <img
       src="/media/inside-the-institution/initial-dataset-fields.webp"
@@ -72,6 +72,7 @@ comparisons.
       alt="Dense purple co-authorship network rendered in Gephi."
       width="900"
       height="900"
+      data-ground="paper"
       loading="lazy"
       decoding="async"
     />

@@ -140,6 +140,10 @@
     object-fit: contain;
   }
 
+  .lb__img[data-ground='paper'] {
+    background: var(--paper);
+  }
+
   /* The figure's own caption, in the caption treatment the article uses. */
   .lb__cap {
     flex: none;
@@ -272,6 +276,12 @@
       // art-directed phone crop opens the crop the reader is looking at.
       frame.src = source.currentSrc || source.src;
       frame.alt = source.alt;
+
+      // A plate that needs paper under it on the page needs it here too, and
+      // more so: the viewer's ground is the page dimmed, so ink on a
+      // transparent background lands on a near-black wash in dark mode.
+      if (source.dataset.ground) frame.dataset.ground = source.dataset.ground;
+      else delete frame.dataset.ground;
 
       const own = source.closest('figure')?.querySelector('figcaption');
       caption.innerHTML = own ? own.innerHTML : '';
