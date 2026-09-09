@@ -66,7 +66,11 @@
     height: 100dvh;
     max-width: none;
     max-height: none;
-    padding: var(--sp-32);
+    /* Phone: 16, not the 32 the rest of the site keeps off its edges. The
+       viewer is not a page — the bleed here is what the arrows have to live
+       in, and at 32 they could not get out to the edge without leaving the
+       picture. 32 comes back at 640px, where there is room for both. */
+    padding: var(--sp-16);
     border: 0;
     background: color-mix(in srgb, var(--bg) 94%, transparent);
     /* Anywhere that is not an arrow closes it, so the whole surface says so. */
@@ -198,6 +202,27 @@
 
   .lb__step--next {
     right: var(--sp-4);
+  }
+
+  /* Phone: the arrows move out to the edges, off the picture. The button
+     keeps its full 44px on screen — only the glyph inside it slides to the
+     outer end, so the target does not shrink to buy the space. 11px from the
+     edge rather than 26. */
+  @media (max-width: 639px) {
+    .lb__step--prev,
+    .lb__step--next {
+      padding-inline: var(--sp-4);
+    }
+
+    .lb__step--prev {
+      left: 0;
+      justify-content: flex-start;
+    }
+
+    .lb__step--next {
+      right: 0;
+      justify-content: flex-end;
+    }
   }
 
   /* One picture is not a gallery. */
@@ -379,9 +404,14 @@
       { signal }
     );
 
-    dialog.addEventListener(
+    // On the document, not on the dialog. A modal dialog usually holds focus,
+    // but not always — open it without a real click, or let the engine hand
+    // focus back to <body> after a viewport change, and a dialog-scoped
+    // listener never hears the key at all. `dialog.open` is the guard.
+    document.addEventListener(
       'keydown',
       (event) => {
+        if (!dialog.open) return;
         // <dialog> closes itself on Escape, but only if nothing upstream has
         // taken the key first; handling it here makes the behaviour the
         // component's own.
