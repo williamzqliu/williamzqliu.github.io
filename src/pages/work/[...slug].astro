@@ -966,6 +966,127 @@ const facts = [
     margin-top: var(--sp-32);
   }
 
+  /* A drawn metric, set the way the rest of the page's metadata is set: a mono
+     label, the arithmetic in body type, and a hairline. No panel, no fill, no
+     rounded box — the case study has no other boxes and this is not the place
+     to start. The words are the tool's own; the geometry of the rings below is
+     lifted from what the Collaboration Map actually draws. */
+  .formula {
+    margin-top: var(--sp-32);
+    padding-top: var(--sp-16);
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .formula__label,
+  .tier-key__title {
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* Wraps to the next line on a phone rather than scrolling sideways: the
+     three terms are words, not symbols, and a ratio that has to be scrolled
+     is not a ratio anyone reads. */
+  .formula__eq {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-12);
+    margin-top: var(--sp-16);
+    font-size: var(--fs-copy);
+    line-height: var(--lh-body);
+    color: var(--text);
+  }
+
+  /* Two stacked spans and a rule. A two-term ratio needs nothing else, and
+     nothing else keeps the line height of the paragraph around it. */
+  .formula__frac {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .formula__frac span:last-child {
+    margin-top: 3px;
+    padding-top: 3px;
+    border-top: var(--rule-hair) solid var(--rule-strong);
+  }
+
+  /* The operator travels with the term it applies to, so a wrap never leaves a
+     multiplication sign hanging at the end of a line. */
+  .formula__term {
+    white-space: nowrap;
+  }
+
+  .formula__op {
+    color: var(--text-3);
+  }
+
+  .formula__parts {
+    display: grid;
+    gap: var(--sp-8);
+    margin-top: var(--sp-16);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+  }
+
+  .formula__parts b {
+    font-weight: var(--fw-strong);
+    color: var(--text);
+  }
+
+  @media (min-width: 640px) {
+    .formula__parts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--sp-24);
+    }
+  }
+
+  /* The key to the ring, at the size and opacity the map draws it. Four steps,
+     quietest first, so the row reads as one scale rather than four states. */
+  .tier-key {
+    margin-top: var(--sp-32);
+    padding-top: var(--sp-16);
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .tier-key__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-16) var(--sp-12);
+    margin-top: var(--sp-12);
+  }
+
+  @media (min-width: 640px) {
+    .tier-key__row {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--sp-24);
+    }
+  }
+
+  .tier-key__item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-8);
+  }
+
+  .tier-key__item svg {
+    flex: none;
+  }
+
+  .tier-key__item span {
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    letter-spacing: 0.04em;
+    color: var(--text-2);
+  }
+
   /* Data keeps the metadata treatment: mono heads, hairline rows, no fills. */
   .prose table {
     width: 100%;
