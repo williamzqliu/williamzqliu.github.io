@@ -704,6 +704,43 @@
     dialog.addEventListener('pointerup', lift, { signal });
     dialog.addEventListener('pointercancel', lift, { signal });
 
+    /* Mouse and trackpad: the wheel steps the gallery. A wheel is the one
+       input a pointer device has that a swipe would be, and there is nothing
+       to scroll inside the viewer anyway.
+
+       Deltas are accumulated rather than acted on one by one: a trackpad
+       sends dozens of small ones per flick, and a step per event would run
+       the whole gallery past in a second. Past the threshold it steps once
+       and then ignores everything until the crossfade has finished. */
+    const WHEEL_STEP = 60; // px of accumulated delta
+    const WHEEL_REST = 500; // ms of quiet after a step
+    let rolled = 0;
+    let rolledAt = 0;
+    let steppedAt = 0;
+
+    dialog.addEventListener(
+      'wheel',
+      (event) => {
+        if (gallery.length < 2 || scale > 1) return;
+        event.preventDefault();
+
+        const now = event.timeStamp;
+        if (now - steppedAt < WHEEL_REST) return;
+        // A new gesture starts a new count, and so does a change of direction.
+        const push = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+        if (now - rolledAt > 200 || Math.sign(push) !== Math.sign(rolled)) rolled = 0;
+        rolledAt = now;
+        rolled += push;
+
+        if (Math.abs(rolled) < WHEEL_STEP) return;
+        steppedAt = now;
+        rolled = 0;
+        // Down and right go forward, the way a page and a filmstrip do.
+        show(index + (push > 0 ? 1 : -1));
+      },
+      { signal, passive: false }
+    );
+
     // On the document, not on the dialog. A modal dialog usually holds focus,
     // but not always — open it without a real click, or let the engine hand
     // focus back to <body> after a viewport change, and a dialog-scoped
