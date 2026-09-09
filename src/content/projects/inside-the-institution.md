@@ -110,7 +110,7 @@ records, while 18.2% were flagged for manual review.
 
 </details>
 
-## Three views of exploration
+## Three views
 
 The first prototype treated the institution as a single network. As the project
 expanded, it became clear that different questions required different scales of
@@ -146,7 +146,7 @@ exploration.
     preload="metadata"
     aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
   ></video>
-  <figcaption>Research-unit level: collaboration within and between organizational groups.</figcaption>
+  <figcaption>Research-unit level: collaboration across organizational groups.</figcaption>
 </figure>
 
 <figure>
@@ -161,7 +161,7 @@ exploration.
     preload="metadata"
     aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
   ></video>
-  <figcaption>Scholar level: individuals connecting otherwise separate communities.</figcaption>
+  <figcaption>Scholar level: people connecting separate communities.</figcaption>
 </figure>
 
 ## Key decisions
