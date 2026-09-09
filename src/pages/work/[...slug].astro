@@ -32,7 +32,7 @@ const next = await nextStep(project);
 const links = projectLinks(project);
 const sections = headings.filter((heading) => heading.depth === 2);
 
-// Three fields, the same three on every project: what I did, when, and what
+// Three fields, the same three on every project: when, what I did, and what
 // came of it. Read by name rather than by position, so a project missing one
 // simply shows two — and the timeline comes from `dates`, which is already the
 // one place that fact lives.
@@ -40,8 +40,8 @@ const named = (label: string) =>
   project.data.quickFacts.find((fact) => fact.label === label)?.value;
 
 const facts = [
-  { label: 'Role', value: named('Role') },
   { label: 'Timeline', value: project.data.dates },
+  { label: 'Role', value: named('Role') },
   { label: 'Outcome', value: named('Outcome') },
 ].filter((fact): fact is { label: string; value: string } => Boolean(fact.value));
 ---
@@ -111,7 +111,7 @@ const facts = [
           sections.length > 0 && (
             <details class="cs__toc" open>
               <summary class="cs__tocsum">
-                <span class="cs__tocsum-label">Sections</span>
+                <span class="cs__tocsum-label">Section</span>
                 <span class="cs__tocsum-now" data-toc-now />
               </summary>
 

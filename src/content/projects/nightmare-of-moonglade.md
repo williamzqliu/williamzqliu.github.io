@@ -19,19 +19,33 @@ stats: []
 ---
 
 <!--
-Archive row only. No `featured`, no case study body, no media production.
+Archive row only. No case study body, no media production.
+
+`tags: ["interactive"]` is the least wrong of the four enum values rather than
+a good fit. A card game is operable, so it is not `graphic`, but it is not an
+interactive artifact in the sense the other projects under that tag are. The
+tag carries no weight here because the project never appears in a filter row.
 
 Three reasons this does not get a case study:
+
 1. It is off-target for all three job tracks. It shows game systems design,
    not information design, visualisation or front-end work.
 2. It is the most IP-encumbered thing in the archive. The card art, the frame
    system, the trademarks and the entire setting belong to Blizzard. What is
-   mine is the mechanics, the card text and the balance, and none of that is
-   what a viewer would see.
+   mine is the mechanics, the card text, the class pairings and the balance,
+   and none of that is what a viewer would see.
 3. It is the earliest project in the archive, from undergrad, four years
    before the MFA.
 
 Where it is useful: games-adjacent applications, where it evidences genuine
-depth in game systems rather than willingness to work at a games org.
-Mention it and link the video. Do not present it as design work.
+depth in game systems rather than willingness to work at a games
+organisation. Mention it and link the video. Do not present it as design work.
+
+Two things worth being able to say out loud if it comes up. The Awaken keyword
+triggers on the End Turn button first turning green, which turns an interface
+state every player already reads into a game state nobody had used. And the
+130 cards are an exercise in constrained technical writing: each rule text has
+to be unambiguous, decidable, and non-conflicting with existing keywords, in a
+very small space. That second point is the only real connection between this
+project and the work I do now, and it is not a stretch.
 -->
