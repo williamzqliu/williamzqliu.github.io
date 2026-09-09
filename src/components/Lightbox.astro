@@ -188,6 +188,18 @@
     text-wrap: pretty;
   }
 
+  /* Phone: the picture fills the width, so it is not centred in any real
+     sense — it starts at the page's own left edge like everything else, and a
+     centred line under it reads as a stray. The caption takes the picture's
+     width and starts where the picture starts. Above 640 the picture really
+     does sit centred with air around it, and the caption stays centred. */
+  @media (max-width: 639px) {
+    .lb__cap {
+      align-self: stretch;
+      text-align: left;
+    }
+  }
+
   .lb__cap[hidden] {
     display: none;
   }
