@@ -7,7 +7,9 @@ import ExtArrow from './ExtArrow.astro';
 const links = [
   // Email is not another site, so it gets no arrow.
   { label: 'Email', href: 'mailto:williamzq115@gmail.com' },
-  { label: 'GitHub', href: 'https://github.com/williamzqliu' },
+  // GitHub parked for now. Restore by uncommenting — the case studies still
+  // link to their own repositories, so the profile is not the only way in.
+  // { label: 'GitHub', href: 'https://github.com/williamzqliu' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/william-zqliu' },
 ];
 
@@ -26,34 +28,39 @@ const year = new Date().getFullYear();
         </p>
       </div>
 
-      <ul class="footer__links">
-        {
-          links.map((link) => {
-            const external = link.href.startsWith('http');
-            return (
-              <li>
-                <a
-                  class="footer__link"
-                  href={link.href}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
-                >
-                  {link.label}
-                  {external && (
-                    <>
-                      <ExtArrow />
-                      <span class="vh">(opens in a new tab)</span>
-                    </>
-                  )}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-    </div>
+      {/* Links and copyright are one unit, not two rows. The copyright used
+          to sit on its own full-width line under the whole footer, which
+          reserved a band of empty space to the right of it. */}
+      <div class="footer__utility">
+        <ul class="footer__links">
+          {
+            links.map((link) => {
+              const external = link.href.startsWith('http');
+              return (
+                <li>
+                  <a
+                    class="footer__link"
+                    href={link.href}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
+                  >
+                    {link.label}
+                    {external && (
+                      <>
+                        <ExtArrow />
+                        <span class="vh">(opens in a new tab)</span>
+                      </>
+                    )}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
 
-    <p class="footer__colophon">&#169; {year} Zhuoqi Liu</p>
+        <p class="footer__colophon">&#169; {year} Zhuoqi Liu</p>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -65,10 +72,12 @@ const year = new Date().getFullYear();
     margin-top: var(--sp-40);
   }
 
+  /* 16px of gap, not 24: the links carry 8px of tap padding above them, so
+     this reads as 24 between the sentence and the first link. */
   .footer__row {
     display: grid;
-    gap: var(--sp-24);
-    padding-block: var(--sp-48) var(--sp-24);
+    gap: var(--sp-16);
+    padding-block: var(--sp-48) var(--sp-40);
   }
 
   /* Display face, but at a size where it reads as a greeting rather than a
@@ -89,6 +98,14 @@ const year = new Date().getFullYear();
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     color: var(--text-2);
+  }
+
+  /* Same reasoning as the row above: 8px here plus the links' own bottom
+     padding puts 16px of air under them. */
+  .footer__utility {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
   }
 
   .footer__links {
@@ -125,9 +142,9 @@ const year = new Date().getFullYear();
     }
   }
 
-  /* Last line of the page: separated by space, not by another rule. */
+  /* Last line of the page: separated by space, not by another rule, and it
+     belongs to the links above it rather than to the width of the page. */
   .footer__colophon {
-    padding-bottom: var(--sp-48);
     font-size: var(--fs-small);
     line-height: var(--lh-small);
     color: var(--text-3);
@@ -139,16 +156,19 @@ const year = new Date().getFullYear();
       grid-template-columns: minmax(0, 1fr) auto;
       column-gap: var(--sp-64);
       align-items: start;
-      padding-block: var(--sp-56) var(--sp-32);
+      padding-block: var(--sp-48);
+    }
+
+    /* The column ends where the links end, so the three links and the
+       copyright read as one right-hand block rather than as a row and a
+       stray line under it. */
+    .footer__utility {
+      align-items: flex-end;
     }
 
     .footer__links {
       justify-content: flex-end;
       gap: var(--sp-32);
-    }
-
-    .footer__colophon {
-      padding-bottom: var(--sp-56);
     }
   }
 </style>

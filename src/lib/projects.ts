@@ -12,6 +12,17 @@ export interface ProjectLink {
 // order, not a category list — deriving it from the data would be wrong.
 const LINK_ORDER = ['demo', 'code', 'paper', 'poster'] as const;
 
+/**
+ * Repositories are parked until the code is ready to be read. One switch
+ * rather than one edit per project: the hrefs stay in frontmatter, so this
+ * comes back by flipping a boolean.
+ *
+ * It covers the listing rows as well as the case study pages — hiding the
+ * link on the page while leaving it on the card that opens the page would not
+ * hide anything.
+ */
+const CODE_LINKS_ENABLED = false;
+
 const LINK_LABELS: Record<(typeof LINK_ORDER)[number], string> = {
   demo: 'Live demo',
   code: 'Source',
@@ -72,6 +83,7 @@ export function deriveTags(projects: Project[]): string[] {
 /** The schema keys links by kind; the UI wants an ordered list. */
 export function projectLinks(project: Project): ProjectLink[] {
   return LINK_ORDER.flatMap((key) => {
+    if (key === 'code' && !CODE_LINKS_ENABLED) return [];
     const href = project.data.links[key];
     return href ? [{ label: LINK_LABELS[key], href }] : [];
   });
