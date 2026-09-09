@@ -10,7 +10,7 @@ export interface ProjectLink {
 
 // Fixed order, because SPEC §9 wants the demo first. This is presentation
 // order, not a category list — deriving it from the data would be wrong.
-const LINK_ORDER = ['demo', 'code', 'paper', 'poster'] as const;
+const LINK_ORDER = ['demo', 'thesis', 'paper', 'poster', 'spotlight', 'code'] as const;
 
 /**
  * Repositories are parked until the code is ready to be read. One switch
@@ -23,11 +23,15 @@ const LINK_ORDER = ['demo', 'code', 'paper', 'poster'] as const;
  */
 const CODE_LINKS_ENABLED = false;
 
+/** The default name for a kind. Frontmatter overrides it where the link is a
+    named thing rather than an instance of a kind. */
 const LINK_LABELS: Record<(typeof LINK_ORDER)[number], string> = {
-  demo: 'Live demo',
-  code: 'Source',
+  demo: 'Live Demo',
+  thesis: 'Full Thesis',
   paper: 'Paper',
   poster: 'Poster',
+  spotlight: 'Feature',
+  code: 'Source',
 };
 
 /**
@@ -81,12 +85,36 @@ export function deriveTags(projects: Project[]): string[] {
 }
 
 /** The schema keys links by kind; the UI wants an ordered list. */
-export function projectLinks(project: Project): ProjectLink[] {
-  return LINK_ORDER.flatMap((key) => {
+function build(project: Project, kinds: readonly (typeof LINK_ORDER)[number][]): ProjectLink[] {
+  return kinds.flatMap((key) => {
     if (key === 'code' && !CODE_LINKS_ENABLED) return [];
-    const href = project.data.links[key];
-    return href ? [{ label: LINK_LABELS[key], href }] : [];
+    const value = project.data.links[key];
+    if (!value) return [];
+    return typeof value === 'string'
+      ? [{ label: LINK_LABELS[key], href: value }]
+      : [{ label: value.label, href: value.href }];
   });
+}
+
+/** Everything a project points at, in presentation order. The case study. */
+export function projectLinks(project: Project): ProjectLink[] {
+  return build(project, LINK_ORDER);
+}
+
+/**
+ * One destination on a listing row, not a menu of them. Which one is decided
+ * by the same presentation order the case study uses, so a project with a
+ * demo shows the demo and a project whose only artifact is a paper or a
+ * poster still shows that.
+ *
+ * A row is already a link to the case study, and the case study is where
+ * there is room to say what a thesis or a write-up actually is. Four arrows
+ * under a blurb read as a pile and push the next project down the page.
+ *
+ * Same frontmatter either way — this is a slice, not a second list.
+ */
+export function cardLinks(project: Project): ProjectLink[] {
+  return projectLinks(project).slice(0, 1);
 }
 
 /**

@@ -2,29 +2,36 @@
 title: Inside the Institution
 year: 2026
 dates: Jul 2025 – May 2026
-blurb: An interactive tool for exploring co-authorship across 2,737 faculty at one research university.
+blurb: An interactive visualization for exploring how co-authorship connects departments and research centers within a university.
 tags: [networks, interactive]
 tracks: [design, engineering]
 featured: 1
-stack: [Vanilla JS, D3.js, HTML Canvas, Three.js, Figma, Python]
+stack: [D3.js, HTML Canvas, Python, Three.js]
 links:
   demo: https://williamzqliu.com/neu-network-viz/
+  thesis: https://heyzine.com/flip-book/b761227cbf.html
+  poster:
+    href: /media/inside-the-institution/netsci-2026-poster.pdf
+    label: NetSci Poster
+  spotlight:
+    href: https://www.networkscienceinstitute.org/news/a-netsi-co-op-student-maps-the-hidden-architecture-of-academic-collaboration-at-northeastern-university
+    label: NetSI Spotlight
+  # Parked site-wide while the code is being tidied (CODE_LINKS_ENABLED).
   code: https://github.com/williamzqliu/neu-network-viz
 cover:
+  # One 16:9 still for both surfaces — the card and the case study head show
+  # the same frame at different sizes, so a second crop would be a second
+  # thing to keep true. Built from the PNG export in media-src/, which stays
+  # out of public/ so the 6MB original is never served.
   wide: /media/inside-the-institution/cover-wide.webp
-  square: /media/inside-the-institution/cover-square.webp
   tone: dark
-  alt: A force-directed network of 2,737 faculty, colored by college, with dense clusters in engineering and science and a sparse periphery.
+  alt: A highlighted co-authorship network showing collaboration across multiple university research groups.
+  caption: "A detail of Northeastern University’s internal co-authorship network, rendered with a standard D3.js force-directed layout."
 quickFacts:
   - label: "Role"
     value: "Visualization Designer & Researcher"
   - label: "Outcome"
-    value: "Interactive research tool and MFA thesis, presented at NetSci 2026"
-stats:
-  - { value: "2,737", label: Scholars }
-  - { value: "3,650", label: Collaboration pairs }
-  - { value: "157", label: Bridge scholars }
-  - { value: "20", label: Expert participants }
+    value: "Interactive research tool and MFA thesis; poster presented at NetSci 2026"
 ---
 
 ## The gap

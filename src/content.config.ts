@@ -1,6 +1,16 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+/**
+ * A link is normally just its address: the kind supplies the label, so every
+ * demo across the site reads the same way. Some links are named things rather
+ * than kinds of thing — a poster shown at one conference, a feature written by
+ * one institute — and calling those `Poster` and `Spotlight` throws away the
+ * part that matters. Those carry their own label.
+ */
+const link = (address: z.ZodType<string>) =>
+  z.union([address, z.object({ href: address, label: z.string() })]);
+
 // SPEC §7. Adding a project is one markdown file in src/content/projects/ —
 // the schema is validated at build time, so bad frontmatter fails the build
 // rather than shipping.
@@ -12,7 +22,9 @@ const projects = defineCollection({
     title: z.string(),
     year: z.number(),
     dates: z.string(),
-    blurb: z.string().max(120),
+    /* A cap, not a target: the card gives the blurb three lines at its
+       narrowest and this is what fits. */
+    blurb: z.string().max(130),
     /* Subject, not status. `information-design` is stored hyphenated and
        displayed with a space — a value with a space in it would need quoting
        in every frontmatter file. */
@@ -24,12 +36,17 @@ const projects = defineCollection({
     archive: z.boolean().default(false),
     draft: z.boolean().default(false),
     stack: z.array(z.string()).default([]),
+    /* Presentation order lives in lib/projects.ts, not here. `paper`,
+       `poster` and `thesis` take a path as well as a URL, because those are
+       often files in public/ rather than somewhere else on the web. */
     links: z
       .object({
-        demo: z.url().optional(),
-        code: z.url().optional(),
-        paper: z.string().optional(),
-        poster: z.string().optional(),
+        demo: link(z.url()).optional(),
+        thesis: link(z.string()).optional(),
+        paper: link(z.string()).optional(),
+        poster: link(z.string()).optional(),
+        spotlight: link(z.url()).optional(),
+        code: link(z.url()).optional(),
       })
       .default({}),
     cover: z.object({
@@ -44,6 +61,9 @@ const projects = defineCollection({
       heroMobile: z.string().optional(),
       tone: z.enum(['dark', 'light', 'neutral']),
       alt: z.string(),
+      /* Printed under the case study head. `alt` says what the picture is for
+         a reader who cannot see it; this says what it shows to one who can. */
+      caption: z.string().optional(),
     }),
     /* Search metadata only. Never rendered — the day it appears on a page it
        stops being metadata and starts needing curation. */
