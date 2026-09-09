@@ -109,42 +109,61 @@ records, while 18.2% were flagged for manual review.
 
 </details>
 
-## Three views, three scales
+## Three levels of exploration
 
-The tool organizes exploration into three views, each answering a different kind of
-question.
+The first prototype treated the institution as a single network. As the project
+expanded, it became clear that different questions required different scales of
+exploration.
 
-The Collaboration Map shows the institution as one network. Faculty are nodes,
-co-authorship the edges. Color carries college, size carries h-index, a gold outer ring
-marks bridge scholars, edge thickness carries co-authorship weight.
+> The final tool organizes exploration across three levels: university, research unit,
+> and scholar.
 
-The Research Units View shifts from people to structures. Each department and
-research center becomes a hexagonal unit, so collaboration inside and between units
-becomes visible. The form came from board-game tiles as modular containers.
-Departments are flat-topped, research centers pointy-topped. One shape,
-orientation carrying organizational type.
+<!-- MEDIA — waiting on three files. Drop them in public/media/inside-the-institution/
+     and uncomment the two blocks below; nothing here is broken until then.
 
-The Bridging Scholars View focuses on the individuals who connect otherwise
-separate communities. Each bridging scholar sits in a 3D layout where position
-reflects the research areas they span.
+     1. collaboration-map.mp4   — 5-8s loop, one or two interactions, full width
+     2. research-units.webp     — still, selected unit (Art + Design), left of the pair
+     3. bridging-scholars.webp  — still, or .mp4 if the rotation earns it, right
 
-Each view uses its own visual grammar: dots for individuals, hexagons for units,
-planets for bridging scholars. Forcing one grammar across all three would have
-flattened the question each view exists to answer.
+<figure>
+  <video
+    src="/media/inside-the-institution/collaboration-map.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Collaboration Map: selecting a scholar reveals their local network within the university-wide graph."
+  ></video>
+  <figcaption>University level &#8212; clusters, gaps, and cross-unit connections.</figcaption>
+</figure>
 
-The views were not planned up front. They came out of four prototypes across seven
-months and weekly conversations with three meta-scientist advisors. Prototype 1
-covered 379 scholars across three departments and three centers, enough to test
-whether an interactive force-directed view with organizational context supported the
-questions meta-scientists wanted to ask. It did, and it also showed that a single view
-would not be enough. Prototype 2 scaled the Collaboration Map to 1,416
-research-track faculty and required a substantially redesigned encoding system rather
-than a refinement of the old one. Prototype 3 took the dataset to full scale at 2,737
-and scaffolded the two remaining views. Prototype 4 completed them and entered
-evaluation.
+<div class="media-pair">
+  <figure>
+    <img
+      src="/media/inside-the-institution/research-units.webp"
+      alt="The Research Units view with one unit selected, showing collaboration inside it and with other units."
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>
+      Research-unit level &#8212; collaboration within and between organizational groups.
+    </figcaption>
+  </figure>
 
-Iteration here was a process of reformulating the problem, not refining a solution.
-Each round changed what the tool was trying to do.
+  <figure>
+    <img
+      src="/media/inside-the-institution/bridging-scholars.webp"
+      alt="The Bridging Scholars view, with each scholar placed by the research areas they span."
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>
+      Scholar level &#8212; individuals connecting otherwise separate communities.
+    </figcaption>
+  </figure>
+</div>
+-->
 
 ## Key decisions
 
