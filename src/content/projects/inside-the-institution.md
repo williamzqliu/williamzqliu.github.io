@@ -207,20 +207,15 @@ At 379 scholars, a force-directed layout made clusters and cross-unit ties reada
 its own. At 2,737, the same approach became much denser, so the interface needed
 additional encodings to keep structural patterns legible.
 
-<!-- SCALE COMPARISON — waiting on two files. Drop them in
-     public/media/inside-the-institution/ and uncomment; the section reads fine
-     until then.
-
-     1. layout-379-scholars.webp   — the prototype-scale force-directed network
-     2. layout-2737-scholars.webp  — the same layout on the full institution
-
 <p>The same layout at two scales.</p>
 
 <div class="media-pair">
   <figure>
     <img
       src="/media/inside-the-institution/layout-379-scholars.webp"
-      alt="The force-directed layout at prototype scale, with clusters and the ties between them clearly separated."
+      alt="The force-directed layout at prototype scale: separated clusters with the ties between them visible."
+      width="1224"
+      height="1040"
       loading="lazy"
       decoding="async"
     />
@@ -230,14 +225,15 @@ additional encodings to keep structural patterns legible.
   <figure>
     <img
       src="/media/inside-the-institution/layout-2737-scholars.webp"
-      alt="The same layout on the full institutional network, far denser and harder to read."
+      alt="The same layout on the full institutional network: one dense mass with the structure no longer separable."
+      width="1224"
+      height="1040"
       loading="lazy"
       decoding="async"
     />
     <figcaption>2,737 scholars.</figcaption>
   </figure>
 </div>
--->
 
 One response was to encode structural roles that layout alone could no longer make
 obvious. I used network analysis to identify scholars whose collaborations cross
