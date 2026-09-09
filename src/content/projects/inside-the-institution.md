@@ -201,19 +201,51 @@ research centers, and publication records from *OpenAlex* and *ORCID*. The final
 dataset covered **2,737 faculty across 11 colleges, 46 departments, and 64 research
 centers**.
 
-## Analysis before encoding
+## Analysis to design
 
-Before deciding how scholars should look in the interface, I analyzed the network for
-communities, boundary-spanning scholars, and unit-level structure. Those measures
-became inputs to the visual system rather than results added afterward.
+At 379 scholars, a force-directed layout made clusters and cross-unit ties readable on
+its own. At 2,737, the same approach became much denser, so the interface needed
+additional encodings to keep structural patterns legible.
 
-The bridge score, for example, identifies scholars whose collaborators cross
-departmental boundaries while accounting for their overall collaboration volume. In the
-Collaboration Map, that score becomes a tiered outer ring, making structurally
-important connectors visible without replacing affiliation or connectivity encodings.
+<!-- SCALE COMPARISON — waiting on two files. Drop them in
+     public/media/inside-the-institution/ and uncomment; the section reads fine
+     until then.
+
+     1. layout-379-scholars.webp   — the prototype-scale force-directed network
+     2. layout-2737-scholars.webp  — the same layout on the full institution
+
+<p>The same layout at two scales.</p>
+
+<div class="media-pair">
+  <figure>
+    <img
+      src="/media/inside-the-institution/layout-379-scholars.webp"
+      alt="The force-directed layout at prototype scale, with clusters and the ties between them clearly separated."
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>379 scholars.</figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/media/inside-the-institution/layout-2737-scholars.webp"
+      alt="The same layout on the full institutional network, far denser and harder to read."
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>2,737 scholars.</figcaption>
+  </figure>
+</div>
+-->
+
+One response was to encode structural roles that layout alone could no longer make
+obvious. I used network analysis to identify scholars whose collaborations cross
+departmental boundaries, then translated that measure into a bridge halo around their
+nodes.
 
 <div class="tier-key">
-  <p class="tier-key__title">Ring tiers</p>
+  <p class="tier-key__title">Bridge-score tiers</p>
   <div class="tier-key__row">
     <div class="tier-key__item">
       <svg width="44" height="44" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
@@ -265,19 +297,18 @@ important connectors visible without replacing affiliation or connectivity encod
     by the base-ten logarithm of total partners.
   </p>
   <div class="formula__parts">
-    <p><b>Proportion.</b> How much of the collaboration crosses departmental lines.</p>
-    <p><b>Breadth.</b> How many partners in total, log-transformed to compress the skew.</p>
+    <p><b>Proportion:</b> how much of a scholar&#8217;s collaboration crosses departmental
+      boundaries.</p>
+    <p><b>Breadth:</b> how many collaborators they have overall, log-transformed to reduce
+      skew.</p>
   </div>
 </div>
 
-Either term alone ranks the wrong people. A scholar with one cross-department tie and
-nothing else scores 1.0 on the proportion; a prolific scholar who never leaves their own
-department scores high on the breadth. The product asks for both.
+Either term alone produces misleading rankings. Combining them favors scholars who both
+collaborate broadly and cross organizational boundaries.
 
-The ring is drawn for the top 25% of the distribution and thickens in four steps: the
-25th, 5th, 3rd, and 1st percentile. Thresholds come from the distribution in the dataset
-rather than from fixed cutoffs, so they stay meaningful as the data changes. The scholar
-panel names the exact tier, including a top 10% the ring does not draw separately.
+The visible ring treatment steps at the top 25%, 5%, 3%, and 1% of the score
+distribution.
 
 </details>
 
