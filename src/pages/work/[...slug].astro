@@ -247,10 +247,11 @@ const facts = [
      5 splits 3 + 2 — the last two items land in the first two cells of row two
      on their own, so nothing needs placing by hand.
 
-     `row-gap` is 0 on purpose: each link carries 12px of tap padding at both
-     ends, which is what keeps the 44px touch target, and that padding already
-     puts 24px of air between rows. Any row-gap on top of it is added to those
-     24px, not blended into them.
+     `row-gap` is 0 on purpose: the space between rows is the links' own tap
+     padding, doubled, and a row-gap would be added to it rather than blended
+     into it. So the row spacing is set by that padding — 10px here rather
+     than the 12px of the flex row above, which brings the rows from 24px
+     apart to 20px and still leaves a 40px target.
 
      Six or more falls through to the flex row above — no project has that
      many, and inventing a column count for a case that does not exist would
@@ -262,8 +263,22 @@ const facts = [
     .cs__links[data-count='4'],
     .cs__links[data-count='5'] {
       display: grid;
-      column-gap: var(--sp-16);
+      column-gap: var(--sp-12);
       row-gap: 0;
+    }
+
+    /* Two class names, because the rule this narrows sits further down the
+       sheet and would otherwise win on source order alone. */
+    .cs__links .cs__link {
+      padding-block: 10px;
+    }
+
+    /* One gap, used twice. What separates the chips from the links has to
+       equal what separates one row of links from the next, and the row gap is
+       the tap padding doubled — so the margin is that same padding, and both
+       read as 20px. */
+    .cs__links {
+      margin-top: 10px;
     }
 
     .cs__links[data-count='1'] {
