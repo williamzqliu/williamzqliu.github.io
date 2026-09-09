@@ -203,11 +203,13 @@ centers**.
 
 ## Analysis to design
 
-At 379 scholars, a force-directed layout made clusters and cross-unit ties readable on
-its own. At 2,737, the same approach became much denser, so the interface needed
+I first developed the Collaboration Map at a deliberately bounded scale: **379 scholars
+across three departments and three research centers.** At that size, a force-directed
+layout made clusters and cross-unit ties readable on its own. When the network expanded
+to all 2,737 faculty, the same approach became much denser, so the interface needed
 additional encodings to keep structural patterns legible.
 
-<p>The same layout at two scales.</p>
+<p>From a bounded prototype to institutional scale.</p>
 
 <div class="media-pair">
   <figure>
@@ -219,7 +221,7 @@ additional encodings to keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>379 scholars.</figcaption>
+    <figcaption>379 scholars<br />3 departments + 3 research centers</figcaption>
   </figure>
 
   <figure>
@@ -231,7 +233,7 @@ additional encodings to keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>2,737 scholars.</figcaption>
+    <figcaption>2,737 scholars<br />full institution</figcaption>
   </figure>
 </div>
 
