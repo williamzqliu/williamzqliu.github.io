@@ -195,9 +195,17 @@ different extension: `collaboration-map.mp4` is built from
 `media-src/inside-the-institution/collaboration-map.mp4`. `media-src/` is
 git-ignored — it is a local archive, not a backup.
 
-**Formats.** Stills ship as WebP (sharp, quality 80–82, width-only resize, no
+**Formats.** Stills ship as WebP (sharp, quality 80–85, width-only resize, no
 crop). Video ships as H.264 MP4 (`-crf 26–27`, no audio, `+faststart`), width
 1440 for a 720px column at 2×. Never ship the master.
+
+**Size a still for the viewer, not for the slot it sits in.** The lightbox
+enlarges to `min(1600px, 100%)` and a retina screen wants two device pixels per
+CSS pixel, so anything with fine detail — a diagram, a UI capture, a
+multi-panel composition — needs roughly **2400–3200px** on its long edge even
+when it renders inline at 360px. A file exported for the inline size looks
+soft the moment it is opened. Vector sources (PDF) can be rasterised at any
+resolution: `fitz.Matrix(zoom, zoom)` with `zoom = target_width / page.width`.
 
 **Naming.** Semantic, describing what the media contains:
 `side-panel-before.webp`, not `screenshot-04.webp`. A master that produces one

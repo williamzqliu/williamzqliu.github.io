@@ -111,14 +111,13 @@ clusters emerge from the data rather than from a predefined organizational hiera
     <img
       src="/media/inside-the-institution/research-units-concept.webp"
       alt="Three panels: a photograph of hexagonal Sanctuary tiles, hexagon encoding drafts for departments, research centers and colleges, and the final Research Units view."
-      width="1800"
-      height="1165"
+      width="3000"
+      height="1941"
       loading="lazy"
       decoding="async"
     />
     <figcaption>
-      From reference to encoding: hexagonal tiles became the visual grammar for research
-      units.
+      Hexagonal tiles became the visual grammar for research units.
     </figcaption>
   </figure>
 
@@ -126,15 +125,12 @@ clusters emerge from the data rather than from a predefined organizational hiera
     <img
       src="/media/inside-the-institution/bridging-scholars-concept.webp"
       alt="Two panels: planets at different distances from a viewer, and the final Bridging Scholars view with communities on one plane and connectors raised above it."
-      width="1200"
-      height="1553"
+      width="2400"
+      height="3106"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>
-      Concept to implementation: vertical separation distinguishes communities from bridge
-      scholars.
-    </figcaption>
+    <figcaption>University as a Planetary System.</figcaption>
   </figure>
 </div>
 
