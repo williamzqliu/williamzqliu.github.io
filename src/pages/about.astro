@@ -184,16 +184,9 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
   /* Body copy sits a step back from full ink so the emphasised phrases can
      come forward without changing size, style or colour. */
   .about__prose p {
-    font-size: var(--fs-body-lg);
+    font-size: var(--fs-copy);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
-  }
-
-  /* Same step down as the case study prose, for the same reason. */
-  @media (max-width: 639px) {
-    .about__prose p {
-      font-size: 1rem;
-    }
   }
 
   .about__prose strong {

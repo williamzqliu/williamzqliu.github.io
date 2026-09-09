@@ -102,6 +102,12 @@ const showNav = navLinks.length > 1;
   .nav__name {
     position: relative;
     grid-area: name;
+    /* A grid item fills its track unless told otherwise, and on a phone this
+       one sits in a `1fr` column — so the link's box, and the touch layer
+       drawn across it below, ran from the wordmark to the theme toggle. The
+       link is now as wide as the words are. No effect above 640px, where the
+       column is already `auto`. */
+    justify-self: start;
     font-size: var(--fs-body);
     font-weight: var(--fw-strong);
     letter-spacing: -0.015em;

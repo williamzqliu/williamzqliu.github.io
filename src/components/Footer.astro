@@ -119,7 +119,9 @@ const year = new Date().getFullYear();
   .footer__link {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    /* 4px, not 6: the arrow is a mark on the word, not a second item
+       beside it. */
+    gap: 4px;
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     font-weight: var(--fw-medium);
