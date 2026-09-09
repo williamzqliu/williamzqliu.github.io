@@ -573,18 +573,17 @@ const facts = [
     max-width: none;
   }
 
-  /* 62ch of 17px body copy is about 65 characters a line. */
-  .prose > p,
-  .prose > h2,
-  .prose > h3,
-  .prose > ul,
-  .prose > ol,
-  .prose > blockquote,
-  .prose > details {
+  /* The measure is the default, not an opt-in. 62ch of 17px body copy is about
+     65 characters a line, and anything drawn rather than photographed — a
+     formula, an encoding key, a small diagram — belongs on the same left and
+     right edges as the sentences that introduce it. Whatever needs the whole
+     column says so below. */
+  .prose > * {
     max-width: var(--measure);
   }
 
-  /* Media and data can take the whole article column when they need it. */
+  /* Primary media: screenshots, video, comparisons, data. These are the
+     evidence, not an aside, and they take the whole article column. */
   .prose > figure,
   .prose > table {
     max-width: 100%;
@@ -1049,10 +1048,14 @@ const facts = [
 
   /* The key to the ring, at the size and opacity the map draws it. Four steps,
      quietest first, so the row reads as one scale rather than four states. */
+  /* `--measure` is in `ch`, which resolves against this element's own font
+     size, not the paragraphs'. Without the body size here the key came out
+     124px narrower than the prose it sits under. */
   .tier-key {
     margin-top: var(--sp-32);
     padding-top: var(--sp-16);
     border-top: var(--rule-hair) solid var(--rule);
+    font-size: var(--fs-copy);
   }
 
   .tier-key__row {
