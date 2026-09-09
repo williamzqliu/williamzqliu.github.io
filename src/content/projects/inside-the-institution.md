@@ -51,52 +51,50 @@ institution-wide structure, Research Units supports comparison across department
 research centers, and Bridging Scholars surfaces people who connect otherwise separate
 communities.
 
-<div class="media-pair" data-cols="3">
-  <figure>
-    <video
-      src="/media/inside-the-institution/collaboration-map.mp4"
-      width="1440"
-      height="712"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
-    ></video>
-    <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
-  </figure>
+<figure>
+  <video
+    src="/media/inside-the-institution/collaboration-map.mp4"
+    width="1440"
+    height="712"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
+  ></video>
+  <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
+</figure>
 
-  <figure>
-    <video
-      src="/media/inside-the-institution/research-units.mp4"
-      width="1440"
-      height="694"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
-    ></video>
-    <figcaption>Research-unit level: collaboration across organizational groups.</figcaption>
-  </figure>
+<figure>
+  <video
+    src="/media/inside-the-institution/research-units.mp4"
+    width="1440"
+    height="694"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
+  ></video>
+  <figcaption>Research-unit level: collaboration across organizational groups.</figcaption>
+</figure>
 
-  <figure>
-    <video
-      src="/media/inside-the-institution/bridging-scholars.mp4"
-      width="1440"
-      height="712"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
-    ></video>
-    <figcaption>Scholar level: people connecting separate communities.</figcaption>
-  </figure>
-</div>
+<figure>
+  <video
+    src="/media/inside-the-institution/bridging-scholars.mp4"
+    width="1440"
+    height="712"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
+  ></video>
+  <figcaption>Scholar level: people connecting separate communities.</figcaption>
+</figure>
 
 <details>
 <summary>Design concept</summary>

@@ -847,14 +847,6 @@ const facts = [
     .media-pair[data-abreast] {
       gap: var(--sp-24);
     }
-
-    /* Three of equal weight rather than two. Same rule, one more column: a
-       row of views is the same idea as a pair of them, and naming it
-       separately would be a second component for one number. Below 640 it
-       stacks like any other pair — three columns on a phone is 105px each. */
-    .media-pair[data-cols='3'] {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
   }
 
   /* The wrapper carries the space a figure would have carried on its own. */
