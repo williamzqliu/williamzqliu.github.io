@@ -119,52 +119,50 @@ exploration.
 > The final tool organizes exploration across three levels: university, research unit,
 > and scholar.
 
-<!-- MEDIA — waiting on three files. Drop them in public/media/inside-the-institution/
-     and uncomment the two blocks below; nothing here is broken until then.
-
-     1. collaboration-map.mp4   — 5-8s loop, one or two interactions, full width
-     2. research-units.webp     — still, selected unit (Art + Design), left of the pair
-     3. bridging-scholars.webp  — still, or .mp4 if the rotation earns it, right
-
 <figure>
   <video
     src="/media/inside-the-institution/collaboration-map.mp4"
+    width="1440"
+    height="712"
     autoplay
     muted
     loop
     playsinline
     preload="metadata"
-    aria-label="The Collaboration Map: selecting a scholar reveals their local network within the university-wide graph."
+    aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
   ></video>
   <figcaption>University level &#8212; clusters, gaps, and cross-unit connections.</figcaption>
 </figure>
 
-<div class="media-pair">
-  <figure>
-    <img
-      src="/media/inside-the-institution/research-units.webp"
-      alt="The Research Units view with one unit selected, showing collaboration inside it and with other units."
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>
-      Research-unit level &#8212; collaboration within and between organizational groups.
-    </figcaption>
-  </figure>
+<figure>
+  <video
+    src="/media/inside-the-institution/research-units.mp4"
+    width="1440"
+    height="694"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
+  ></video>
+  <figcaption>Research-unit level &#8212; collaboration within and between organizational groups.</figcaption>
+</figure>
 
-  <figure>
-    <img
-      src="/media/inside-the-institution/bridging-scholars.webp"
-      alt="The Bridging Scholars view, with each scholar placed by the research areas they span."
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>
-      Scholar level &#8212; individuals connecting otherwise separate communities.
-    </figcaption>
-  </figure>
-</div>
--->
+<figure>
+  <video
+    src="/media/inside-the-institution/bridging-scholars.mp4"
+    width="1440"
+    height="712"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
+  ></video>
+  <figcaption>Scholar level &#8212; individuals connecting otherwise separate communities.</figcaption>
+</figure>
 
 ## Key decisions
 

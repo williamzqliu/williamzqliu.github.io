@@ -8,3 +8,7 @@ dist/
 Thumbs.db
 CLAUDE.md
 .claude/
+
+# Video masters: multi-GB screen recordings. The compressed web copies in
+# public/ are what the site serves; keep the originals locally.
+media-src/**/*.mp4
