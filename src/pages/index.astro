@@ -41,7 +41,7 @@ const projects = (await landingProjects()).slice(0, 6);
         {/* Heading and scroll affordance in one. The link points at its own
             heading, so `scroll-margin-top` decides where the page lands and
             the whole thing still works with JS off. */}
-        <h2 class="work__heading section-label" id="selected-work">
+        <h2 class="work__heading section-label" id="selected-work" data-totop-from>
           <a class="work__jump" href="#selected-work" data-jump>
             <span class="work__label-text">Selected work</span>
             <span class="work__arrow-reveal" aria-hidden="true">

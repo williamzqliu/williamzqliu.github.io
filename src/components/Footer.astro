@@ -20,46 +20,44 @@ const year = new Date().getFullYear();
     stays put without needing a group of its own. */}
 <footer class="footer">
   <div class="container">
+    {/* Four children, no wrappers: on a desktop the two sides have to share
+        rows, and a row cannot be shared by items that live in different
+        stacks. The order here is the order a phone reads them in; the desktop
+        grid places them explicitly. */}
     <div class="footer__row">
-      <div class="footer__copy">
-        <h2 class="footer__heading">Get in touch</h2>
-        <p class="footer__line">
-          Send me an email or message and I&#8217;ll get back to you soon.
-        </p>
-      </div>
+      <h2 class="footer__heading">Get in touch</h2>
 
-      {/* Links and copyright are one unit, not two rows. The copyright used
-          to sit on its own full-width line under the whole footer, which
-          reserved a band of empty space to the right of it. */}
-      <div class="footer__utility">
-        <ul class="footer__links">
-          {
-            links.map((link) => {
-              const external = link.href.startsWith('http');
-              return (
-                <li>
-                  <a
-                    class="footer__link"
-                    href={link.href}
-                    target={external ? '_blank' : undefined}
-                    rel={external ? 'noopener noreferrer' : undefined}
-                  >
-                    {link.label}
-                    {external && (
-                      <>
-                        <ExtArrow />
-                        <span class="vh">(opens in a new tab)</span>
-                      </>
-                    )}
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
+      <p class="footer__line">
+        Send me an email or message and I&#8217;ll get back to you soon.
+      </p>
 
-        <p class="footer__colophon">&#169; {year} Zhuoqi Liu</p>
-      </div>
+      <ul class="footer__links">
+        {
+          links.map((link) => {
+            const external = link.href.startsWith('http');
+            return (
+              <li>
+                <a
+                  class="footer__link"
+                  href={link.href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                >
+                  {link.label}
+                  {external && (
+                    <>
+                      <ExtArrow />
+                      <span class="vh">(opens in a new tab)</span>
+                    </>
+                  )}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+
+      <p class="footer__colophon">&#169; {year} Zhuoqi Liu</p>
     </div>
   </div>
 </footer>
@@ -72,11 +70,13 @@ const year = new Date().getFullYear();
     margin-top: var(--sp-40);
   }
 
-  /* 16px of gap, not 24: the links carry 8px of tap padding above them, so
-     this reads as 24 between the sentence and the first link. */
+  /* Phone: one column, and the spacing rides on the items rather than on a
+     single gap — the four steps are 8 / 24 / 16, not one number. The links
+     carry 8px of tap padding at each end, so their margins are set 8px short
+     of the space they are meant to read as. */
   .footer__row {
     display: grid;
-    gap: var(--sp-16);
+    gap: 0;
     padding-block: var(--sp-48) var(--sp-40);
   }
 
@@ -100,18 +100,17 @@ const year = new Date().getFullYear();
     color: var(--text-2);
   }
 
-  /* Same reasoning as the row above: 8px here plus the links' own bottom
-     padding puts 16px of air under them. */
-  .footer__utility {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-8);
-  }
-
+  /* `baseline`, not the default `stretch`. It lines the two links up with each
+     other, and — the reason it matters — it is what gives this list a baseline
+     of its own to hand the footer's grid. Stretched, each item's baseline came
+     from its own strut instead of from the words, and the row above read 4.6px
+     high against the greeting beside it. */
   .footer__links {
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     gap: var(--sp-24);
+    margin-top: var(--sp-16);
   }
 
   /* Text links, colour only on hover — no underline, no fill, and the arrow
@@ -147,30 +146,52 @@ const year = new Date().getFullYear();
   /* Last line of the page: separated by space, not by another rule, and it
      belongs to the links above it rather than to the width of the page. */
   .footer__colophon {
+    margin-top: var(--sp-8);
     font-size: var(--fs-small);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
 
   @media (min-width: 1024px) {
-    /* Copy left, destinations right, both on the site's own grid. */
+    /* Two columns and two rows that both sides sit in, rather than two stacks
+       standing next to each other. Stacks drift: each side spaces itself, and
+       the greeting ended up level with nothing in particular.
+
+       `align-items: baseline` is what actually lines the pairs up — the
+       greeting and the links are different faces at different sizes, and the
+       links carry tap padding, so matching their boxes would not match their
+       type. One `row-gap` for both columns, and no margins of their own. */
     .footer__row {
       grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
       column-gap: var(--sp-64);
-      align-items: start;
+      row-gap: var(--sp-8);
+      align-items: baseline;
       padding-block: var(--sp-48);
     }
 
-    /* The column ends where the links end, so the three links and the
-       copyright read as one right-hand block rather than as a row and a
-       stray line under it. */
-    .footer__utility {
-      align-items: flex-end;
+    .footer__heading {
+      grid-area: 1 / 1;
     }
 
     .footer__links {
+      grid-area: 1 / 2;
+      justify-self: end;
       justify-content: flex-end;
       gap: var(--sp-32);
+      margin-top: 0;
+    }
+
+    .footer__line {
+      grid-area: 2 / 1;
+      margin-top: 0;
+    }
+
+    .footer__colophon {
+      grid-area: 2 / 2;
+      justify-self: end;
+      text-align: right;
+      margin-top: 0;
     }
   }
 </style>
