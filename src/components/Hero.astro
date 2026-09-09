@@ -120,7 +120,11 @@ const { greeting, name, respelling, respellingLabel, statements, stats = [] } = 
   .hero__statements p {
     font-family: var(--font-body);
     font-size: var(--fs-statement);
-    line-height: 1.25;
+    /* Looser than the 1.25 a display line usually takes. These two sentences
+       run to three and four lines now, so they are read as paragraphs rather
+       than scanned as a headline, and at 1.25 the lines sat close enough to
+       start reading as a block. */
+    line-height: 1.5;
     font-weight: var(--fw-regular);
     letter-spacing: -0.015em;
     text-wrap: pretty;
@@ -199,7 +203,10 @@ const { greeting, name, respelling, respellingLabel, statements, stats = [] } = 
        measured from real ink metrics (canvas actualBoundingBoxAscent against
        each element's baseline), not eyeballed. */
     .hero__statements {
-      margin-top: 7px;
+      /* Was 7px against a 1.25 line box. Opening the leading to 1.5 puts half
+         the extra 7px above the first line, so the offset gives that back to
+         keep the two caps on the same optical line. */
+      margin-top: 3px;
     }
   }
 </style>
