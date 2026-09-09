@@ -726,7 +726,9 @@ const facts = [
   }
 
   .prose figure img,
-  .prose img {
+  .prose figure video,
+  .prose img,
+  .prose video {
     display: block;
     width: 100%;
     height: auto;
@@ -752,6 +754,35 @@ const facts = [
   .prose figure[data-caption='center'] figcaption {
     max-width: none;
     text-align: center;
+  }
+
+  /* Two figures of equal weight, side by side from 640px up and stacked below
+     it in document order. Nothing is cropped and no frame is shared: whatever
+     ratios the two arrive at, their tops sit on one line and each keeps its
+     own height. */
+  .media-pair {
+    display: grid;
+    gap: var(--sp-24);
+  }
+
+  .media-pair > figure {
+    margin-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .media-pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+
+  .prose > .media-pair {
+    margin-top: var(--sp-32);
+    max-width: 100%;
+  }
+
+  .prose > .media-pair + p {
+    margin-top: var(--sp-32);
   }
 
   /* Several pictures of one moment, tiled into a rectangle instead of a row.
