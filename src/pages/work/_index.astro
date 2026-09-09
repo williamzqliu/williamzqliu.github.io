@@ -37,7 +37,7 @@ const options = ['all', ...deriveTags(projects), 'archive'];
         <FilterRow options={options} />
       </div>
 
-      <div class="work__list" data-filter-list>
+      <div class="work__list" data-filter-list data-totop-from>
         {
           projects.map((project) => (
             <div class="work__item" data-tags={project.data.tags.join(' ')}>
