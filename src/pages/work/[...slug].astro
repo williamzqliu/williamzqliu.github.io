@@ -781,9 +781,12 @@ const facts = [
     background: var(--paper);
   }
 
+  /* As wide as the thing it belongs to, not as wide as a line of prose. A
+     caption capped at the meta measure broke mid-sentence under a full-width
+     picture, which reads as a mistake rather than as a measure. */
   .prose figcaption {
     margin-top: var(--sp-12);
-    max-width: var(--measure-meta);
+    max-width: 100%;
     font-size: var(--fs-small);
     line-height: var(--lh-small);
     color: var(--text-3);

@@ -31,7 +31,7 @@ quickFacts:
   - label: "Role"
     value: "Visualization Designer & Researcher"
   - label: "Outcome"
-    value: "Interactive research tool and MFA thesis; poster presented at NetSci 2026"
+    value: "Interactive research tool and MFA thesis. Poster presented at NetSci 2026"
 ---
 
 ## From analysis to exploration
@@ -110,7 +110,7 @@ records, while 18.2% were flagged for manual review.
 
 </details>
 
-## Three levels of exploration
+## Three views of exploration
 
 The first prototype treated the institution as a single network. As the project
 expanded, it became clear that different questions required different scales of
@@ -131,7 +131,7 @@ exploration.
     preload="metadata"
     aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
   ></video>
-  <figcaption>University level &#8212; clusters, gaps, and cross-unit connections.</figcaption>
+  <figcaption>University level: clusters, gaps, and cross-unit connections.</figcaption>
 </figure>
 
 <figure>
@@ -146,7 +146,7 @@ exploration.
     preload="metadata"
     aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
   ></video>
-  <figcaption>Research-unit level &#8212; collaboration within and between organizational groups.</figcaption>
+  <figcaption>Research-unit level: collaboration within and between organizational groups.</figcaption>
 </figure>
 
 <figure>
@@ -161,7 +161,7 @@ exploration.
     preload="metadata"
     aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
   ></video>
-  <figcaption>Scholar level &#8212; individuals connecting otherwise separate communities.</figcaption>
+  <figcaption>Scholar level: individuals connecting otherwise separate communities.</figcaption>
 </figure>
 
 ## Key decisions

@@ -11,7 +11,7 @@
 // and three buttons.
 ---
 
-<dialog class="lb" data-lightbox aria-label="Image viewer">
+<dialog class="lb" data-lightbox tabindex="-1" aria-label="Image viewer">
   <button class="lb__btn lb__close" type="button" data-lightbox-close aria-label="Close">
     <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
       <path
@@ -52,6 +52,10 @@
 
   <figure class="lb__figure">
     <img class="lb__img" data-lightbox-img alt="" />
+    {/* A clip opens the same way a picture does. No controls here either —
+        the viewer is the same object, only bigger. */}
+    <video class="lb__vid" data-lightbox-vid muted loop playsinline preload="metadata" hidden
+    ></video>
     <figcaption class="lb__cap" data-lightbox-cap hidden></figcaption>
   </figure>
 </dialog>
@@ -66,11 +70,10 @@
     height: 100dvh;
     max-width: none;
     max-height: none;
-    /* Phone: 16, not the 32 the rest of the site keeps off its edges. The
-       viewer is not a page — the bleed here is what the arrows have to live
-       in, and at 32 they could not get out to the edge without leaving the
-       picture. 32 comes back at 640px, where there is room for both. */
-    padding: var(--sp-16);
+    /* The sides are the page's own bleed, so an enlarged picture starts and
+       ends exactly where the article's pictures do. There are no arrows on a
+       phone to leave room for — the gesture is the control. */
+    padding: var(--sp-16) var(--pad);
     border: 0;
     background: color-mix(in srgb, var(--bg) 94%, transparent);
     /* Anywhere that is not an arrow closes it, so the whole surface says so. */
@@ -130,11 +133,19 @@
     transform: scale(0.995);
   }
 
+  /* Under a finger the picture tracks the finger, so nothing may ease. The
+     attribute is also used for the frame that re-seats the next picture on
+     the far side before it slides in. */
+  .lb__figure[data-dragging] {
+    transition: none;
+  }
+
   /* Whole, not filled: `contain` inside a box already smaller than the
      viewport, so a wide screenshot and a square one both land with air around
      them. `min-height: 0` lets the picture give way to the caption rather than
      pushing it off the bottom. */
-  .lb__img {
+  .lb__img,
+  .lb__vid {
     display: block;
     width: auto;
     height: auto;
@@ -142,6 +153,11 @@
     max-width: min(1600px, 100%);
     max-height: 100%;
     object-fit: contain;
+  }
+
+  .lb__vid[hidden],
+  .lb__img[hidden] {
+    display: none;
   }
 
   .lb__img[data-ground='paper'] {
@@ -204,25 +220,26 @@
     right: var(--sp-4);
   }
 
-  /* Phone: the arrows move out to the edges, off the picture. The button
-     keeps its full 44px on screen — only the glyph inside it slides to the
-     outer end, so the target does not shrink to buy the space. 11px from the
-     edge rather than 26. */
+  /* Phone: no arrows. At this width they can only sit on the picture, and a
+     picture you can throw sideways does not need a button to say so. The
+     gesture is in the script; the arrows come back at 640px, where there is
+     margin for them to stand in. */
   @media (max-width: 639px) {
-    .lb__step--prev,
-    .lb__step--next {
-      padding-inline: var(--sp-4);
+    .lb__step {
+      display: none;
     }
+  }
 
-    .lb__step--prev {
-      left: 0;
-      justify-content: flex-start;
-    }
+  /* The shell takes focus when the viewer opens so that no control starts out
+     ringed — it is a container, not a button, and it is never reached by Tab.
+     Every control inside it keeps the site's focus ring. */
+  .lb:focus {
+    outline: none;
+  }
 
-    .lb__step--next {
-      right: 0;
-      justify-content: flex-end;
-    }
+  /* The gesture owns the horizontal; the page behind is already locked. */
+  .lb {
+    touch-action: pan-y;
   }
 
   /* One picture is not a gallery. */
@@ -261,6 +278,7 @@
   /* Only the images that have more to show than the column can print. The
      cursor is the whole affordance — no overlay, no icon, no border. */
   .prose img,
+  .prose video,
   .cs__media img {
     cursor: zoom-in;
   }
@@ -269,7 +287,7 @@
 <script>
   // Opening is delegated from the document, so images that arrive with a new
   // page (ClientRouter swaps the body) need no re-binding of their own.
-  const SOURCES = '.prose img, .cs__media img';
+  const SOURCES = '.prose img, .prose video, .cs__media img';
 
   let listeners: AbortController | undefined;
 
@@ -279,8 +297,9 @@
 
     const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
     const frame = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]');
+    const clip = dialog?.querySelector<HTMLVideoElement>('[data-lightbox-vid]');
     const caption = dialog?.querySelector<HTMLElement>('[data-lightbox-cap]');
-    if (!dialog || !frame || !caption) return;
+    if (!dialog || !frame || !clip || !caption) return;
 
     listeners = new AbortController();
     const { signal } = listeners;
@@ -290,23 +309,50 @@
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const figure = dialog.querySelector<HTMLElement>('.lb__figure');
 
-    let gallery: HTMLImageElement[] = [];
+    type Source = HTMLImageElement | HTMLVideoElement;
+    const isClip = (element: Source): element is HTMLVideoElement => element.tagName === 'VIDEO';
+
+    let gallery: Source[] = [];
     let index = 0;
     let swap: number | undefined;
     let closing: number | undefined;
 
     const render = () => {
       const source = gallery[index];
-      // `currentSrc` is what the browser actually chose, so a <picture> with an
-      // art-directed phone crop opens the crop the reader is looking at.
-      frame.src = source.currentSrc || source.src;
-      frame.alt = source.alt;
 
-      // A plate that needs paper under it on the page needs it here too, and
-      // more so: the viewer's ground is the page dimmed, so ink on a
-      // transparent background lands on a near-black wash in dark mode.
-      if (source.dataset.ground) frame.dataset.ground = source.dataset.ground;
-      else delete frame.dataset.ground;
+      if (isClip(source)) {
+        frame.hidden = true;
+        frame.removeAttribute('src');
+        clip.hidden = false;
+        // Carry on from where the page's copy is rather than restarting: the
+        // clip the reader tapped is the clip they were already watching.
+        const from = source.currentTime;
+        clip.src = source.currentSrc || source.src;
+        clip.setAttribute('aria-label', source.getAttribute('aria-label') ?? '');
+        clip.addEventListener(
+          'loadedmetadata',
+          () => {
+            clip.currentTime = from;
+            void clip.play().catch(() => {});
+          },
+          { once: true }
+        );
+      } else {
+        clip.pause();
+        clip.hidden = true;
+        clip.removeAttribute('src');
+        frame.hidden = false;
+        // `currentSrc` is what the browser actually chose, so a <picture> with
+        // an art-directed phone crop opens the crop the reader is looking at.
+        frame.src = source.currentSrc || source.src;
+        frame.alt = source.alt;
+
+        // A plate that needs paper under it on the page needs it here too, and
+        // more so: the viewer's ground is the page dimmed, so ink on a
+        // transparent background lands on a near-black wash in dark mode.
+        if (source.dataset.ground) frame.dataset.ground = source.dataset.ground;
+        else delete frame.dataset.ground;
+      }
 
       const own = source.closest('figure')?.querySelector('figcaption');
       caption.innerHTML = own ? own.innerHTML : '';
@@ -332,19 +378,29 @@
       }, 260); // matches the opacity transition on .lb__figure
     };
 
-    const open = (source: HTMLImageElement) => {
-      // Reading order taken from the page rather than from the markup: a
-      // mosaic places its figures out of document order on purpose, and the
-      // arrows should follow what the eye sees. Column first, then down it —
-      // in a tile where one picture stands the full height beside two stacked
-      // ones, the two stacked ones are the pair, and stepping across between
-      // them would break it apart. Both keys are rounded into bands so this is
-      // a real ordering rather than a fuzzy comparison that sorts differently
-      // depending on where it starts.
+    const open = (source: Source) => {
+      // Document order between blocks, and inside a mosaic the order the eye
+      // takes: down the left column, then the tall one beside it. A mosaic is
+      // the one place where the markup and the layout disagree on purpose, so
+      // it is the only place that gets re-sorted — sorting the whole page
+      // geometrically put a picture in a mosaic's right column after every
+      // full-width clip further down the article. Both keys are rounded into
+      // bands so this is a real ordering rather than a fuzzy comparison that
+      // sorts differently depending on where it starts.
+      const items = Array.from(document.querySelectorAll<Source>(SOURCES));
+      const tile = (element: Source): Element => element.closest('.media-mosaic') ?? element;
+      const seat = new Map<Element, number>();
+      items.forEach((element, position) => {
+        const group = tile(element);
+        if (!seat.has(group)) seat.set(group, position);
+      });
       const band = (value: number) => Math.round(value / 24);
       const at = (element: Element) => element.getBoundingClientRect();
-      gallery = Array.from(document.querySelectorAll<HTMLImageElement>(SOURCES)).sort(
-        (a, b) => band(at(a).left) - band(at(b).left) || band(at(a).top) - band(at(b).top)
+      gallery = items.sort(
+        (a, b) =>
+          (seat.get(tile(a)) ?? 0) - (seat.get(tile(b)) ?? 0) ||
+          band(at(a).left) - band(at(b).left) ||
+          band(at(a).top) - band(at(b).top)
       );
 
       window.clearTimeout(closing);
@@ -352,6 +408,10 @@
       dialog.toggleAttribute('data-single', gallery.length < 2);
       show(gallery.indexOf(source), false);
       dialog.showModal();
+      // showModal focuses the first control it finds, which drew a focus ring
+      // around the close button on a tap. The shell takes it instead: it is
+      // not a control, it carries no ring, and Tab still lands on the button.
+      dialog.focus({ preventScroll: true });
       // <dialog> makes the page inert but does not stop it scrolling behind.
       document.documentElement.style.overflow = 'hidden';
       // A frame later, so the browser has a state to transition away from.
@@ -392,6 +452,12 @@
     dialog.addEventListener(
       'click',
       (event) => {
+        // A swipe ends in a click. Without this, throwing the picture sideways
+        // would step it and then close the viewer.
+        if (threw) {
+          threw = false;
+          return;
+        }
         const step = (event.target as HTMLElement | null)?.closest<HTMLElement>(
           '[data-lightbox-step]'
         );
@@ -403,6 +469,105 @@
       },
       { signal }
     );
+
+    /* The phone has no arrows, so the picture itself is the control: drag it
+       and it follows the finger, let go past a fifth of the width and it goes
+       on in that direction while the next one comes in from the other side.
+       Short of that it settles back. Mouse and trackpad keep the arrows —
+       a pointer that cannot throw should not have to. */
+    let startX = 0;
+    let startY = 0;
+    let dragX = 0;
+    let holding: number | undefined;
+    let sliding = false;
+    let threw = false;
+
+    const release = () => {
+      holding = undefined;
+      delete figure?.dataset.dragging;
+    };
+
+    const settle = (direction: number) => {
+      if (!figure) {
+        show(index + direction);
+        return;
+      }
+      sliding = true;
+      threw = true;
+      window.clearTimeout(swap);
+      figure.dataset.swapping = 'true';
+      // Carries on the way it was thrown rather than stopping where the finger
+      // stopped.
+      figure.style.transform = `translateX(${direction * -18}%)`;
+      swap = window.setTimeout(() => {
+        index = (index + direction + gallery.length) % gallery.length;
+        render();
+        // Re-seated on the far side with the easing off, then let back to
+        // centre in the next frame with it on.
+        figure.dataset.dragging = 'true';
+        figure.style.transform = `translateX(${direction * 18}%)`;
+        requestAnimationFrame(() => {
+          delete figure.dataset.dragging;
+          figure.style.transform = '';
+          delete figure.dataset.swapping;
+          sliding = false;
+        });
+      }, 220);
+    };
+
+    dialog.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (event.pointerType === 'mouse' || sliding) return;
+        if (gallery.length < 2 || !figure) return;
+        if ((event.target as HTMLElement | null)?.closest('[data-lightbox-close]')) return;
+        holding = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+        dragX = 0;
+        figure.dataset.dragging = 'true';
+      },
+      { signal }
+    );
+
+    dialog.addEventListener(
+      'pointermove',
+      (event) => {
+        if (holding !== event.pointerId || !figure) return;
+        const x = event.clientX - startX;
+        const y = event.clientY - startY;
+        // A gesture that is mostly vertical is not a swipe; hand it back.
+        if (dragX === 0 && Math.abs(y) > Math.abs(x) && Math.abs(y) > 8) {
+          figure.style.transform = '';
+          release();
+          return;
+        }
+        dragX = x;
+        figure.style.transform = `translateX(${x}px)`;
+      },
+      { signal }
+    );
+
+    const drop = (event: PointerEvent) => {
+      if (holding !== event.pointerId || !figure) return;
+      release();
+      const width = dialog.clientWidth || window.innerWidth;
+      const thrown = dragX;
+      dragX = 0;
+      const travelled = Math.abs(thrown) > 6;
+      if (Math.abs(thrown) > Math.min(96, width * 0.2)) {
+        // Dragged left, so the next one is what the drag was reaching for.
+        settle(thrown < 0 ? 1 : -1);
+        return;
+      }
+      // Not far enough: back to centre, and swallow the click if this was a
+      // drag rather than a tap.
+      threw = travelled;
+      figure.style.transform = '';
+    };
+
+    dialog.addEventListener('pointerup', drop, { signal });
+    dialog.addEventListener('pointercancel', drop, { signal });
 
     // On the document, not on the dialog. A modal dialog usually holds focus,
     // but not always — open it without a real click, or let the engine hand
@@ -438,6 +603,8 @@
         document.documentElement.style.overflow = '';
         delete dialog.dataset.shown;
         frame.removeAttribute('src');
+        clip.pause();
+        clip.removeAttribute('src');
       },
       { signal }
     );
