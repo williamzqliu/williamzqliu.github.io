@@ -106,7 +106,7 @@ support.
 **Collaboration Map: emergent structure.** A force-directed layout lets collaboration
 clusters emerge from the data rather than from a predefined organizational hierarchy.
 
-<div class="media-pair">
+<div class="media-pair" style="--pair-split: 2fr 1fr">
   <figure>
     <img
       src="/media/inside-the-institution/research-units-concept.webp"

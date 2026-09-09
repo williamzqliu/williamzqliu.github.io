@@ -92,9 +92,12 @@ mattered; the media shows what changed.
 **Standard.** Equal columns, tops aligned, no crop, no card, no shadow, no
 badges, no arrows, no slider. Each half opens in the lightbox independently.
 
-**Modifier.** Default stacks below 640px. `data-abreast` keeps two columns at
+**Modifiers.** Default stacks below 640px. `data-abreast` keeps two columns at
 every width (12px gutter on a phone, 24px above) for comparisons that mean
-nothing apart — the lightbox covers the lost detail.
+nothing apart — the lightbox covers the lost detail. `--pair-split` (passed as
+an inline style, like the mosaic's) sets the column ratio: give two differently
+shaped pictures the ratio of their own aspects and they come out the same
+height with nothing cropped.
 
 **Don't** put two unrelated images together to save vertical space.
 

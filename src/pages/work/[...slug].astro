@@ -839,8 +839,13 @@ const facts = [
   }
 
   @media (min-width: 640px) {
+    /* Equal columns unless the instance says otherwise. `--pair-split` is for
+       two pictures of different shapes that should come out the same height:
+       give the columns the ratio of the pictures' own aspects and nothing has
+       to be cropped to line their bottoms up. Same mechanism as the mosaic's
+       `--mosaic-split`, passed from the content file. */
     .media-pair {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: var(--pair-split, repeat(2, minmax(0, 1fr)));
       align-items: start;
     }
 
@@ -850,12 +855,12 @@ const facts = [
   }
 
   /* The wrapper carries the space a figure would have carried on its own. */
-  .prose > .media-pair {
+  .prose .media-pair {
     margin-top: var(--sp-32);
     max-width: 100%;
   }
 
-  .prose > .media-pair + p {
+  .prose .media-pair + p {
     margin-top: var(--sp-32);
   }
 
