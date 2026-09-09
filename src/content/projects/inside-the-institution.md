@@ -34,19 +34,17 @@ quickFacts:
     value: "Interactive research tool and MFA thesis. Poster presented at NetSci 2026"
 ---
 
-## From analysis to exploration
+## The exploration gap
 
 Meta-scientists use co-authorship networks to study collaboration within
 universities. Existing tools like *Gephi* can reveal network structure, but make it
 difficult to explore it across departments, research centers, and individual
 scholars.
 
-> **Challenge**
->
-> How might an institutional co-authorship network become something researchers can
-> actually explore?
+**How might an institutional co-authorship network become something researchers can
+actually explore?**
 
-## The data was the problem
+## The data problem
 
 The first dataset contained only four fields per scholar: `internal ID`, `name`,
 `database ID`, and `Northeastern affiliation flag`. My first *Gephi* and *D3.js*
@@ -116,8 +114,8 @@ The first prototype treated the institution as a single network. As the project
 expanded, it became clear that different questions required different scales of
 exploration.
 
-> The final tool organizes exploration across three levels: university, research unit,
-> and scholar.
+The final tool organizes exploration across three levels: **university, research unit,
+and scholar.**
 
 <figure>
   <video
@@ -131,7 +129,7 @@ exploration.
     preload="metadata"
     aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
   ></video>
-  <figcaption>University level: clusters, gaps, and cross-unit connections.</figcaption>
+  <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
 </figure>
 
 <figure>
@@ -164,81 +162,27 @@ exploration.
   <figcaption>Scholar level: people connecting separate communities.</figcaption>
 </figure>
 
-## Key decisions
+## Analysis before encoding
 
-**Canvas rather than SVG.** At 2,737 nodes, giving each one a DOM element makes
-dragging and hovering untenable. The Collaboration Map renders to Canvas with a
-device-pixel-ratio-aware backing store. There is no `append("svg")` anywhere in the
-codebase.
+Before deciding how scholars should look in the interface, I analyzed the network for
+communities, boundary-spanning scholars, and unit-level structure. Those measures
+became inputs to the visual system rather than results added afterward.
 
-**Analysis before encoding.** Bridge scores, Leiden communities, and center-level
-metrics had to be computed before the encodings that depend on them could be
-designed. Two measures came out of that analysis and then drove the visual system.
-
-The bridge score is the share of a scholar's collaborators who sit in a different
-department, multiplied by the log of their total collaborator count. The ratio captures
-boundary-spanning. The log keeps productive but disciplinarily narrow collaborators
-from dominating the top of the distribution. The gold ring tiers in the Collaboration
-Map (top 25%, 10%, 5%, 3%, 1%) come directly from this distribution.
-
-The second measure classifies research centers by internal structure. Superstar
-centers organize around a few highly connected individuals. Team-of-Teams centers
-are densely networked across many small groups. Greenfield centers are sparse but
-disciplinarily broad. Of 64 centers, 4 fit Superstar, 10 Team-of-Teams, and 14
-Greenfield. They carry the same institutional label and are structurally different
-things.
-
-**The side panel as control surface, not second visualization.** Early versions
-embedded a small ego network inside the panel, disconnected from the main canvas.
-Replacing it with a Direct / 1-Hop / 2-Hop toggle turned the panel into a controller
-for the canvas behind it. The panel also moved from fixed to slide-in. A fixed panel
-announces itself as permanent structure; scholar and unit detail is contextual, and the
-panel should behave the way the content actually works.
-
-**3D as something to earn.** Three of the four views stay in 2D. The Bridging
-Scholars View uses 3D only because vertical separation encodes a structural
-distinction the plane could not carry.
-
-**Design in Figma, implementation with AI assistance.** The design work happened
-before any code. Concept sketches in a notebook became a Figma design language
-spec, then wireframes, then a full UI specification. I used Claude Code in the
-implementation stage to translate those specifications into working JavaScript. It was
-most useful for work that was conceptually settled but technically intricate: tuning
-the Three.js scene, the caching layer for force simulation results, the hexagonal tiling
-logic, and the handlers coordinating selection state across the canvas and panel. No
-visual encoding, layout choice, interaction pattern, color palette, or view structure
-came from an AI suggestion. The analytical logic was mine, and I validated the
-outputs of the data pipeline before using them. I document this in the thesis rather
-than leaving it implicit, because what the user study evaluated was a tool whose design
-decisions are mine, implemented through a mix of my coding and AI-accelerated
-coding.
+The bridge score, for example, identifies scholars whose collaborators cross
+departmental boundaries while accounting for their overall collaboration volume. In the
+Collaboration Map, that score becomes a tiered outer ring, making structurally
+important connectors visible without replacing affiliation or connectivity encodings.
 
 <details>
-<summary>Implementation notes</summary>
+<summary>Bridge score details</summary>
 
-No build tooling, no framework, no package manager. D3 v7.8.5 and Three.js r128
-load from CDN. Modules are IIFEs with a single `datastore.js` state source, fields
-annotated with `Used by:` comments.
+The bridge score is the share of a scholar's collaborators who belong to a different
+department, multiplied by the log of their total collaborator count. The ratio captures
+boundary-spanning, while the logarithmic term keeps highly productive but
+disciplinarily narrow scholars from dominating the ranking.
 
-Layout results are cached in a `Map` keyed on the active filter combination, written
-when the force simulation fires `'end'`. After that, two likely next filter states
-(`retired` and `former`) are computed in the background on a 200ms delay, so
-revisiting a filter combination renders immediately. Node initial positions fall back
-through `prev?.x ?? cached?.x ?? random`, which keeps a filter change from
-rearranging the whole graph.
-
-While the simulation is unconverged, the canvas sets `pointerEvents = 'none'` to
-disable hit testing; on a cache hit it re-enables immediately rather than waiting for
-`'end'`. View switches defer the rebuild past layout with nested
-`requestAnimationFrame`.
-
-The 3D view uses `QuadraticBezierCurve3` for edge bundling with `BufferGeometry`
-and `MeshStandardMaterial`.
-
-Two things I would change. Hit testing is a linear scan over 2,737 nodes and 3,650
-edges and should use `d3.quadtree`. And 7.3MB of data loads as nine blocking
-`<script>` tags, which should be fetched with `scholar_detail` deferred until a scholar
-is selected.
+In the Collaboration Map, outer-ring tiers correspond to the top 25%, 10%, 5%, 3%,
+and 1% of the bridge-score distribution.
 
 </details>
 
