@@ -239,8 +239,9 @@ additional encodings to keep structural patterns legible.
 
 One response was to encode structural roles that layout alone could no longer make
 obvious. I used network analysis to identify scholars whose collaborations cross
-departmental boundaries, then translated that measure into a bridge halo around their
-nodes.
+departmental boundaries, then translated that measure into progressively stronger outer
+rings. The visible treatment steps at the top 25%, 5%, 3%, and 1% of the score
+distribution.
 
 <div class="tier-key">
   <p class="tier-key__title">Bridge-score tiers</p>
@@ -277,7 +278,7 @@ nodes.
 </div>
 
 <details>
-<summary>Bridge score details</summary>
+<summary>How the bridge score is calculated</summary>
 
 <div class="formula">
   <p class="formula__eq" aria-hidden="true">
@@ -304,9 +305,6 @@ nodes.
 
 Either term alone produces misleading rankings. Combining them favors scholars who both
 collaborate broadly and cross organizational boundaries.
-
-The visible ring treatment steps at the top 25%, 5%, 3%, and 1% of the score
-distribution.
 
 </details>
 
