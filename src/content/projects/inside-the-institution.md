@@ -148,10 +148,10 @@ Expert testing later showed that the 3D approach also introduced readability cos
 
 ## The data problem
 
-The first dataset contained only four fields per scholar: `internal ID`, `name`,
-`database ID`, and `Northeastern affiliation flag`. My first *Gephi* and *D3.js*
-prototypes could show density, but not departments, research centers, or meaningful
-comparisons.
+I started with a dataset containing only four fields per scholar: `internal ID`,
+`name`, `database ID`, and `Northeastern affiliation flag`. My first *Gephi* and
+*D3.js* prototypes could show network density, but not departments, research centers,
+or meaningful organizational comparisons.
 
 <div class="media-mosaic" style="--mosaic-split: 46fr 54fr; --mosaic-stack: 64fr 36fr">
   <figure>
@@ -194,21 +194,12 @@ comparisons.
   </figure>
 </div>
 
-> The visualization problem was actually a data problem.
+> The visualization attempt exposed a data problem.
 
 I spent three months rebuilding the dataset with faculty affiliations, departments,
 research centers, and publication records from *OpenAlex* and *ORCID*. The final
 dataset covered **2,737 faculty across 11 colleges, 46 departments, and 64 research
 centers**.
-
-<details>
-<summary>Data curation details</summary>
-
-Scholar and publication records came from *OpenAlex* and *ORCID*. *OpenAlex* matched
-90.3% of the faculty roster; of those matches, 76.5% returned high-quality publication
-records, while 18.2% were flagged for manual review.
-
-</details>
 
 ## Analysis before encoding
 
