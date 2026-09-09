@@ -120,6 +120,11 @@
   --lh-title:      1.25;
   --fs-body-lg:    1.0625rem; /* 17px */
   --lh-body-lg:    1.6;
+  /* Long-form copy: the case study's paragraphs and lists, the card's blurb,
+     the case study's own summary, the about page. One value because they are
+     one register — a reader should not be able to tell which of them they are
+     reading from the size. 17px on a phone, 18 from 640 up. */
+  --fs-copy:       1.0625rem; /* 17px */
   --fs-body:       0.9375rem; /* 15px */
   --lh-body:       1.65;
   --fs-nav:        0.875rem;  /* 14px — navigation only */
@@ -225,6 +230,7 @@
 @media (min-width: 640px) {
   :root {
     --header-h: 63px;
+    --fs-copy: 1.125rem; /* 18px */
   }
 }
 

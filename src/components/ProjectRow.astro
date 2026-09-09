@@ -250,17 +250,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
   .prow__blurb {
     margin-top: var(--sp-16);
     max-width: 46ch;
-    font-size: var(--fs-body-lg);
+    font-size: var(--fs-copy);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
-  }
-
-  /* One step down on a phone, so the card's own copy matches the long-form
-     copy on the case study rather than out-sizing it. */
-  @media (max-width: 639px) {
-    .prow__blurb {
-      font-size: 1rem;
-    }
   }
 
   /* The chips themselves are KeywordTags; this only places the row. */
@@ -286,7 +278,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
   .prow__linkout {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    /* 4px, not 6: the arrow is a mark on the word, not a second item
+       beside it. */
+    gap: 4px;
     font-size: var(--fs-small);
     font-weight: var(--fw-medium);
     line-height: var(--lh-small);

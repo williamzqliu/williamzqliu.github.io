@@ -197,15 +197,9 @@ const facts = [
   .cs__summary {
     margin-top: var(--sp-16);
     max-width: 560px;
-    font-size: 1rem;
+    font-size: var(--fs-copy);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
-  }
-
-  @media (min-width: 640px) {
-    .cs__summary {
-      font-size: var(--fs-body-lg);
-    }
   }
 
   /* One row on a phone, and whatever does not fit is simply not shown. The
@@ -245,7 +239,9 @@ const facts = [
   .cs__link {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    /* 4px, not 6: the arrow is a mark on the word, not a second item
+       beside it. */
+    gap: 4px;
     font-size: var(--fs-small);
     font-weight: var(--fw-medium);
     line-height: var(--lh-small);
@@ -280,8 +276,15 @@ const facts = [
     }
   }
 
+  /* `minmax(0, 1fr)`, not the implicit `auto`. An auto track takes its width
+     from its widest item, and the parked bar's current-section label is one
+     unbreakable nowrap line — a long section title pushed the whole column
+     past the container and scrolled the phone sideways. The label already
+     knows how to truncate; it just needed a column that would not grow for
+     it. */
   .cs__body {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-32);
   }
 
@@ -583,24 +586,63 @@ const facts = [
 
   .prose p {
     margin-top: var(--sp-16);
-    font-size: var(--fs-body-lg);
+    font-size: var(--fs-copy);
     line-height: var(--lh-body-lg);
     /* Full contrast. Long-form copy in --text-2 was the thinnest text on the
        site and the hardest to read. */
     color: var(--text);
   }
 
-  /* Phone sizes. 17px over a 335px column reads as large-print, and the
-     section headings need the size back to stay ahead of it. */
+  /* Paragraph and list sizes come from --fs-copy, which steps down on a
+     phone on its own. The headings still need the size back here to stay
+     ahead of the copy. */
   @media (max-width: 639px) {
-    .prose p,
-    .prose li {
-      font-size: 1rem;
-    }
-
     .prose h2 {
       font-size: 1.75rem;
     }
+  }
+
+  /* A blockquote in this article is never a quotation. It is the question a
+     section turns on, and it is set off by a label, a rule and air rather than
+     by size — a sentence three points bigger than the body is not a callout,
+     it is oversized body copy.
+
+     Two paragraphs by convention: the first is the label, the last is the
+     statement. A one-paragraph blockquote is all statement and still reads
+     correctly. */
+  .prose blockquote {
+    margin-block: var(--sp-56);
+    max-width: 720px;
+    padding-left: var(--sp-20);
+    border-left: var(--rule-heavy) solid var(--accent);
+  }
+
+  /* The register the metadata labels use — Role, Timeline, Next project. */
+  .prose blockquote p:first-child:not(:only-child) {
+    margin-top: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* `**Challenge**` is how the label is written in the content file; mono caps
+     already carry the emphasis, so the bold does not also apply. */
+  .prose blockquote p:first-child strong {
+    font-weight: inherit;
+    color: inherit;
+  }
+
+  .prose blockquote p:last-child {
+    margin-top: var(--sp-12);
+    font-size: var(--fs-title);
+    font-weight: var(--fw-medium);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--text);
   }
 
   /* Editorial emphasis, not highlighting: a weight step and nothing else. No
@@ -634,7 +676,7 @@ const facts = [
     position: relative;
     padding-left: var(--sp-20);
     margin-top: var(--sp-8);
-    font-size: var(--fs-body-lg);
+    font-size: var(--fs-copy);
     line-height: var(--lh-body-lg);
     color: var(--text);
   }

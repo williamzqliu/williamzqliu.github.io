@@ -34,22 +34,17 @@ quickFacts:
     value: "Interactive research tool and MFA thesis; poster presented at NetSci 2026"
 ---
 
-## The gap
+## The gap between analysis and exploration
 
-Research universities organize faculty two ways. Departments are built around
-disciplines. Research centers are built to cross them. Meta-scientists, the
-researchers who study how science works, want to know whether centers actually
-change who collaborates with whom. The tools available to them do not answer that
-question well.
+Meta-scientists use co-authorship networks to study collaboration within
+universities. Existing tools like Gephi can reveal network structure, but make it
+difficult to explore it across departments, research centers, and individual
+scholars.
 
-Network software like Gephi renders a co-authorship network as a static image. You
-can analyze the structure, but you cannot move through it. University portals go the
-other way: they let you look up one faculty member at a time and show nothing about
-the pattern the institution forms. Neither operates at the scale where a university
-actually makes decisions about hiring, programs, and investment.
-
-I came to the project as a designer with no background in network science. What I
-had was a co-authorship dataset and a brief to build an interactive exploration tool.
+> **Challenge**
+>
+> How might an institutional co-authorship network become something researchers can
+> actually explore?
 
 ## Building the dataset
 
