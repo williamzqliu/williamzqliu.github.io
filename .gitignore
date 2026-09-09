@@ -11,7 +11,7 @@ CLAUDE.md
 
 # media-src/ is the raw archive: whatever came out of the camera, the screen
 # recorder or the export dialog, named after the file it produces in
-# public/media/. The site is built from public/, so the masters do not need to
-# travel with the repo — and a few of them are tens of megabytes.
-media-src/**/*.mp4
-media-src/**/*.pdf
+# public/media/. The site is built from public/, so the masters never need to
+# travel with the repo — and they are tens of megabytes each. Local only, in
+# every format; the published derivatives are what is versioned.
+media-src/
