@@ -7,7 +7,7 @@ import QuickFacts from '../../components/QuickFacts.astro';
 import NextProject from '../../components/NextProject.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
 import { projectLinks, hasCaseStudy, nextStep } from '../../lib/projects';
-import { COVERS_ENABLED } from '../../lib/media';
+import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
 // SPEC §7 — only projects with body content get a case study page.
 export async function getStaticPaths() {
@@ -30,6 +30,11 @@ const { Content, headings } = await render(project);
 const next = await nextStep(project);
 
 const links = projectLinks(project);
+
+// The head only carries a caption when it is carrying a picture: under a tone
+// plate, a sentence describing the artwork would be describing nothing.
+const heroSrc = shippedMedia(project.data.cover.heroWide ?? project.data.cover.wide);
+const heroCaption = heroSrc ? project.data.cover.caption : undefined;
 const sections = headings.filter((heading) => heading.depth === 2);
 
 // Three fields, the same three on every project: when, what I did, and what
@@ -90,15 +95,17 @@ const facts = [
 
       {
         COVERS_ENABLED && (
-          <div class="cs__media">
+          <figure class="cs__media">
             <CoverMedia
               tone={project.data.cover.tone}
               ratio="hero"
-              src={project.data.cover.heroWide}
-              mobileSrc={project.data.cover.heroMobile}
+              src={heroSrc}
+              mobileSrc={shippedMedia(project.data.cover.heroMobile)}
               alt={project.data.cover.alt}
             />
-          </div>
+
+            {heroCaption && <figcaption class="cs__caption">{heroCaption}</figcaption>}
+          </figure>
         )
       }
 
@@ -223,11 +230,14 @@ const facts = [
     }
   }
 
+  /* 12px, matching the card. The links carry 12px of tap padding of their own,
+     so at 8px the chips above them were closer to the links than to anything
+     else and the two rows read as one block. */
   .cs__links {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sp-24);
-    margin-top: var(--sp-8);
+    margin-top: var(--sp-12);
   }
 
   /* Same treatment as the project rows: text and arrow change colour together,
@@ -248,6 +258,16 @@ const facts = [
      introduction, so it lines up with the title that started it. */
   .cs__media {
     margin-bottom: var(--sp-56);
+  }
+
+  /* The same caption the about page's portrait uses: one step down in size,
+     the quietest of the three text colours, sitting close under the frame it
+     belongs to. */
+  .cs__caption {
+    margin-top: var(--sp-8);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
   }
 
   .cs__facts {

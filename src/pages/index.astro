@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import HomeIntro from '../components/HomeIntro.astro';
 import ProjectRow from '../components/ProjectRow.astro';
-import { landingProjects, projectLinks, caseStudyHref } from '../lib/projects';
+import { landingProjects, cardLinks, caseStudyHref } from '../lib/projects';
+import { shippedMedia } from '../lib/media';
 
 // SPEC §9 — the design-track landing page. Adding a project is one markdown
 // file in src/content/projects/; nothing on this page needs to change.
@@ -86,7 +87,9 @@ const projects = (await landingProjects()).slice(0, 6);
               stack={project.data.stack}
               href={caseStudyHref(project)}
               tone={project.data.cover.tone}
-              links={projectLinks(project)}
+              coverSrc={shippedMedia(project.data.cover.wide)}
+              coverAlt={project.data.cover.alt}
+              links={cardLinks(project)}
             />
           ))
         }

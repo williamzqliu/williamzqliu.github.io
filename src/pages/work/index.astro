@@ -7,9 +7,10 @@ import {
   archiveProjects,
   curatedProjects,
   deriveTags,
-  projectLinks,
+  cardLinks,
   caseStudyHref,
 } from '../../lib/projects';
+import { shippedMedia } from '../../lib/media';
 
 // Two lists, deliberately separate. The curated one is everything with a
 // `featured` rank, in that order; the archive is the rest — work that is real
@@ -47,7 +48,9 @@ const options = ['all', ...deriveTags(projects), 'archive'];
               stack={project.data.stack}
               href={caseStudyHref(project)}
               tone={project.data.cover.tone}
-              links={projectLinks(project)}
+              coverSrc={shippedMedia(project.data.cover.wide)}
+              coverAlt={project.data.cover.alt}
+              links={cardLinks(project)}
             />
             </div>
           ))

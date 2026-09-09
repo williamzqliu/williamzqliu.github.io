@@ -30,12 +30,27 @@ interface Props {
 }
 
 const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = '' } = Astro.props;
+
+/* A loop is a cover that happens to move, not a different kind of thing, so
+   it is the same `src` field and the extension decides the element. It plays
+   on its own from the moment it loads: hover scales the box it sits in and
+   never starts, restarts or swaps it. A GIF needs no branch — that is an
+   <img> either way. */
+const loop = /\.(mp4|webm)$/i.test(src ?? '');
 ---
 
 {
   COVERS_ENABLED && (
-    <div class="cover" data-tone={tone} data-ratio={ratio} aria-hidden={src ? undefined : 'true'}>
-      {src ? (
+    <div
+      class="cover"
+      data-tone={tone}
+      data-ratio={ratio}
+      data-asset={src ? 'true' : undefined}
+      aria-hidden={src ? undefined : 'true'}
+    >
+      {src && loop ? (
+        <video src={src} autoplay muted loop playsinline preload="metadata" aria-label={alt || undefined} />
+      ) : src ? (
         <picture>
           {mobileSrc && <source media="(max-width: 639px)" srcset={mobileSrc} />}
           <img src={src} alt={alt} loading="lazy" decoding="async" />
@@ -52,10 +67,18 @@ const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = 
 
 <style>
   .cover {
-    border: var(--rule-hair) solid var(--rule);
     display: flex;
     align-items: flex-end;
     overflow: hidden;
+  }
+
+  /* The rule belongs to the empty plate, not to the artwork. A tone plate is
+     a rectangle of flat colour and needs an edge to be a rectangle at all —
+     the dark one is nearly the dark theme's own background. A real cover
+     brings its own edges, and a line drawn around it is a frame the picture
+     did not ask for. */
+  .cover:not([data-asset]) {
+    border: var(--rule-hair) solid var(--rule);
   }
 
   /* 16:9 at every width. SPEC §5 asked for square below 640px, but a 1:1 plate
@@ -107,6 +130,7 @@ const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = 
      its own height. `cover.wide` is the asset for a listing row at every
      width — the square crop in the schema has no place left to appear. */
   .cover picture,
+  .cover video,
   .cover img {
     display: block;
     width: 100%;

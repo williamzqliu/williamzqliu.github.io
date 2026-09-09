@@ -32,12 +32,16 @@ interface Props {
   /** Omit until the case study page exists. */
   href?: string;
   tone: 'dark' | 'light' | 'neutral';
+  /** The project's 16:9 cover. Omit while the artwork is still the tone plate. */
+  coverSrc?: string;
+  coverAlt?: string;
   links: ProjectLink[];
   /** SPEC §9 — the engineering track gives stack lines more prominence. */
   emphasiseStack?: boolean;
 }
 
-const { index, title, year, blurb, stack, href, tone, links, emphasiseStack } = Astro.props;
+const { index, title, year, blurb, stack, href, tone, coverSrc, coverAlt, links, emphasiseStack } =
+  Astro.props;
 const figure = index === undefined ? undefined : String(index).padStart(2, '0');
 
 // `#` is a placeholder, not a destination — do not ship it as a link.
@@ -116,7 +120,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     {/* Clips the cover so its hover scale stays inside the frame. */}
     {COVERS_ENABLED && (
       <div class="prow__mediacol">
-        <CoverMedia tone={tone} />
+        <CoverMedia tone={tone} src={coverSrc} alt={coverAlt} />
       </div>
     )}
   </div>
@@ -296,22 +300,35 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* The container is what holds the row's geometry: fixed ratio, clipped, and
      never transformed itself — only the plate inside it moves. */
+  /* The frame carries a fill of its own. At rest the plate does not cover it,
+     and an uncovered frame in the page's own colour is not a frame — it is a
+     hole where the picture should be. One step off --bg, the same step the
+     chips take, so the empty part reads as the space the image is about to
+     grow into. */
   .prow__mediacol {
     overflow: hidden;
+    background: var(--surface);
   }
 
-  /* Muted, not treated: saturation comes down a little and nothing else
-     changes. The point is that the project's own colours arrive on hover, not
-     that the site puts its orange over them — so no overlay, no duotone, no
-     grey, no blur, no opacity. At 0.82 a chart or a diagram is still fully
-     readable at rest.
-     
-     360ms, on exactly the two properties that change. */
+  /* Grey at rest, the project's own colour on hover. Saturation at 0.82 was
+     an 18% change over a picture the eye was not looking at — technically
+     present, practically invisible. Colour arriving across the whole surface
+     at once is a global change, and global changes are the ones peripheral
+     vision picks up; that is why this reads and a crop shift did not.
+
+     It also happens to suit what these covers are. A network coloured by
+     college is grey structure at rest and becomes an argument the moment the
+     colour lands — the hover reveals the encoding rather than just brightening
+     a thumbnail.
+
+     Two properties, two durations. The transform is the slower of the pair and
+     rides its own curve so the image settles rather than snapping; the colour
+     comes in under it. Never `all`. */
   .prow__card[data-linked] .prow__mediacol :global(.cover) {
-    filter: saturate(0.82);
+    filter: grayscale(1);
     transition:
-      filter 360ms var(--ease-out),
-      transform 360ms var(--ease-out);
+      transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      filter 300ms ease;
   }
 
   /* Touch has no hover to restore the colour, so there is nothing to mute. */
@@ -324,10 +341,10 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* ---- states (SPEC §4) ---- */
 
   /* One response, not two. Anywhere inside the card and the row answers as a
-     whole: the title takes the accent, the image comes to full colour and
-     lifts by a percent and a half. The pointer being on the title itself used
-     to mean something more; it was a second layer on a row that only ever led
-     to one place. Only colour, filter and transform move — nothing is added,
+     whole: the title takes the accent and the image steps closer, arriving at
+     its own colour as it does. The pointer being on the title itself used to
+     mean something more; it was a second layer on a row that only ever led to
+     one place. Only colour, filter and transform move — nothing is added,
      resized or re-weighted. */
   @media (hover: hover) and (pointer: fine) {
     .prow__card[data-linked]:hover .prow__titletext {
@@ -335,11 +352,17 @@ const liveLinks = links.filter((link) => link.href !== '#');
     }
 
     /* Anywhere on the row, not just on the media: the row is one thing, and
-       the image coming to full colour is the row answering. The zoom is meant
-       to be almost imperceptible — it is the colour that carries the change. */
+       the colour arriving is the row answering. The zoom is the second voice,
+       and at 10% it is a push rather than a nudge: the frame is fixed and
+       clipped, so all that travels is the crop — the picture comes towards you
+       and the row does not move a pixel.
+
+       The asset never changes. A looping cover keeps looping — hover scales
+       the same frame it was already showing and does not restart, swap or
+       reveal anything. */
     .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
-      filter: saturate(1);
-      transform: scale(1.015);
+      filter: grayscale(0);
+      transform: scale(1.1);
     }
 
     /* An outbound link is a second destination on the same row, so it answers
