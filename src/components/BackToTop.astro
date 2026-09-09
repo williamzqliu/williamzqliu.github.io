@@ -106,7 +106,15 @@
   function revealAt(): number {
     const from = document.querySelector<HTMLElement>('[data-totop-from]');
     if (!from) return window.innerHeight * REVEAL_AT;
-    const margin = parseFloat(window.getComputedStyle(from).scrollMarginTop) || 0;
+    // An anchor already declares how far under the header it wants to land.
+    // A block that is not an anchor gets the header's own height, which is
+    // still a value read off the page rather than one written here twice.
+    const margin =
+      parseFloat(window.getComputedStyle(from).scrollMarginTop) ||
+      parseFloat(
+        window.getComputedStyle(document.documentElement).getPropertyValue('--header-h')
+      ) ||
+      0;
     return from.getBoundingClientRect().top + window.scrollY - margin;
   }
 
