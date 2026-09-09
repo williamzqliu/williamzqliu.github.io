@@ -211,8 +211,8 @@ important connectors visible without replacing affiliation or connectivity encod
 <summary>Bridge score details</summary>
 
 <div class="formula">
-  <p class="formula__label">Bridge score</p>
-  <p class="formula__eq">
+  <p class="formula__eq" aria-hidden="true">
+    <span class="formula__term">Bridge score <span class="formula__op">=</span></span>
     <span class="formula__frac">
       <span>cross&#8209;department partners</span>
       <span>total partners</span>
@@ -220,10 +220,10 @@ important connectors visible without replacing affiliation or connectivity encod
     <span class="formula__term"
       ><span class="formula__op">&#215;</span> log<sub>10</sub>(total partners)</span
     >
-    <span class="vh">
-      equals cross-department partners divided by total partners, multiplied by the
-      base-ten logarithm of total partners.
-    </span>
+  </p>
+  <p class="vh">
+    Bridge score equals cross-department partners divided by total partners, multiplied
+    by the base-ten logarithm of total partners.
   </p>
   <div class="formula__parts">
     <p><b>Proportion.</b> How much of the collaboration crosses departmental lines.</p>
