@@ -13,7 +13,6 @@ links:
   code: "https://github.com/liu-yi-xuan/llm_citation_intent/"
 cover:
   wide: "/media/citing-less-critically/cover-wide.webp"
-  square: "/media/citing-less-critically/cover-square.webp"
   tone: "dark"
   alt: "Redrawn version of the paper's three-stage framework diagram: one citation slot moving from the human original, through masking, to an LLM-generated replacement."
 quickFacts:
@@ -21,15 +20,6 @@ quickFacts:
     value: "Research Contributor & Figure Designer"
   - label: "Outcome"
     value: "Third author on a paper published at EMNLP 2026, main conference"
-stats:
-  - value: "EMNLP 2026"
-    label: "main conference, third author"
-  - value: "132,913"
-    label: "citation slots matched"
-  - value: "86.7%"
-    label: "human-citation match rate"
-  - value: "6"
-    label: "LLMs audited"
 ---
 
 <!--

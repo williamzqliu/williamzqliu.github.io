@@ -11,7 +11,6 @@ links:
   demo: https://barboard.space
 cover:
   wide: /media/barboard/cover-wide.webp
-  square: /media/barboard/cover-square.webp
   tone: dark
   alt: The Barboard homepage in its fixed dark palette, showing the weekly singles chart above the member directory.
 quickFacts:
@@ -19,11 +18,6 @@ quickFacts:
     value: "Designer & Developer"
   - label: "Outcome"
     value: "Launched at barboard.space as a self-initiated community project"
-stats:
-  - { value: "143", label: Members }
-  - { value: "3", label: Months running }
-  - { value: "26", label: Automated updates }
-  - { value: "0", label: Servers }
 ---
 
 ## What this is

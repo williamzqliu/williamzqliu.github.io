@@ -10,7 +10,6 @@ stack: [Figma, Adobe Illustrator, Physical prototyping]
 links: {}
 cover:
   wide: /media/whats-going-on-in-there/cover-wide.webp
-  square: /media/whats-going-on-in-there/cover-square.webp
   tone: light
   alt: A printed brain diagram on a board, pins in nine regions, criss-crossed with red, yellow, green and blue rubber bands left by visitors.
 quickFacts:
@@ -18,11 +17,6 @@ quickFacts:
     value: "Interaction Designer & Researcher"
   - label: "Outcome"
     value: "Physical interactive exhibit developed by a four-person team"
-stats:
-  - { value: "4", label: Designers }
-  - { value: "7", label: Weeks }
-  - { value: "12", label: Question cards }
-  - { value: "9", label: Brain regions }
 ---
 
 ## What it is

@@ -10,7 +10,6 @@ stack: [Figma, Balsamiq, Blender, Service Design]
 links: {}
 cover:
   wide: /media/comgrand/cover-wide.webp
-  square: /media/comgrand/cover-square.webp
   tone: light
   alt: Two views of a titanium smart ring with an integrated sensor band and a pressable display, annotated with component callouts.
 quickFacts:
@@ -18,11 +17,6 @@ quickFacts:
     value: "Solo Designer & Researcher"
   - label: "Outcome"
     value: "12 panels, an app prototype, and a working ring model"
-stats:
-  - { value: "3", label: Interviews }
-  - { value: "6", label: Functions scored }
-  - { value: "9", label: Months }
-  - { value: "12", label: Panels }
 ---
 
 ## Where this started

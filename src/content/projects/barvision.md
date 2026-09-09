@@ -11,7 +11,6 @@ links:
   replay: https://www.bilibili.com/video/BV1eT8s6zEk6/
 cover:
   wide: /media/barvision/cover-wide.webp
-  square: /media/barvision/cover-square.webp
   tone: dark
   alt: A televote reveal screen in cyan and teal, showing a cumulative leaderboard of 26 finalists beside the points being awarded.
 quickFacts:
@@ -19,11 +18,6 @@ quickFacts:
     value: "Art Director & Technical Director"
   - label: "Outcome"
     value: "Three live broadcasts, including a 26-song grand final with 242 cued steps"
-stats:
-  - { value: "3", label: Live shows }
-  - { value: "26", label: Finalists }
-  - { value: "40", label: Jurors }
-  - { value: "242", label: Cue steps }
 ---
 
 ## What this is

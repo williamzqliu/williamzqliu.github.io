@@ -10,10 +10,8 @@ draft: false
 stack: ["TouchDesigner", "Kinect", "Projection"]
 links:
   demo: "https://www.youtube.com/watch?v=1XzRk-Fi_zc"
-  poster: "/media/emoease/panels.pdf"
 cover:
   wide: "/media/emoease/cover-wide.webp"
-  square: "/media/emoease/cover-square.webp"
   tone: "dark"
   alt: "A dark room with a projected wall of emoji faces, a human silhouette picked out in dense yellow particles at the centre."
 quickFacts:
@@ -21,15 +19,6 @@ quickFacts:
     value: "Solo Designer & Creative Technologist"
   - label: "Outcome"
     value: "A working projection installation with three interaction modes"
-stats:
-  - value: "106"
-    label: "survey responses"
-  - value: "85.7%"
-    label: "do not verify trusted sources"
-  - value: "3"
-    label: "interaction modes"
-  - value: "4.5"
-    label: "hours on social media daily"
 ---
 
 <!--

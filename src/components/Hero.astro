@@ -1,6 +1,5 @@
 ---
 import IdentityLine from './IdentityLine.astro';
-import StatRow from './StatRow.astro';
 
 // Three tiers, one composition.
 //   1. `Hi, I'm Zhuoqi.` — the personal anchor, whole line in the display face,
@@ -11,11 +10,6 @@ import StatRow from './StatRow.astro';
 //
 // The dictionary reference is carried by placement and treatment only — no
 // "pronounced", no separator, no part-of-speech labels.
-
-interface Stat {
-  value: string;
-  label: string;
-}
 
 interface Props {
   /** Stays in the main text colour, at the smaller of the two display sizes. */
@@ -30,10 +24,9 @@ interface Props {
       them is trusted content rather than user input. */
   statements: string[];
   /** Omit until the numbers are real. An empty row is better than a wrong one. */
-  stats?: Stat[];
 }
 
-const { greeting, name, respelling, respellingLabel, statements, stats = [] } = Astro.props;
+const { greeting, name, respelling, respellingLabel, statements } = Astro.props;
 ---
 
 <section class="hero">
@@ -60,14 +53,6 @@ const { greeting, name, respelling, respellingLabel, statements, stats = [] } = 
         }
       </div>
     </div>
-
-    {
-      stats.length > 0 && (
-        <div class="hero__stats">
-          <StatRow stats={stats} />
-        </div>
-      )
-    }
   </div>
 </section>
 
@@ -146,12 +131,6 @@ const { greeting, name, respelling, respellingLabel, statements, stats = [] } = 
     .hero__statements p {
       font-size: 1.25rem;
     }
-  }
-
-  .hero__stats {
-    margin-top: var(--sp-32);
-    padding-top: var(--sp-24);
-    border-top: var(--rule-hair) solid var(--rule);
   }
 
   @media (min-width: 640px) {

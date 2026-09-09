@@ -8,11 +8,8 @@ tracks: ["design"]
 archive: true
 draft: false
 stack: ["Reality Composer", "Nomad", "Procreate", "Figma"]
-links:
-  poster: "/media/lumitex/panels.pdf"
 cover:
   wide: "/media/lumitex/cover-wide.webp"
-  square: "/media/lumitex/cover-square.webp"
   tone: "light"
   alt: "A child wearing AR glasses reading a picture book, with coloured word groups and short captions overlaid on the page."
 quickFacts:
@@ -20,15 +17,6 @@ quickFacts:
     value: "Solo Designer"
   - label: "Outcome"
     value: "A functional AR reading-aid prototype"
-stats:
-  - value: "27"
-    label: "children surveyed"
-  - value: "3"
-    label: "interviews across a triad"
-  - value: "4"
-    label: "reading modes"
-  - value: "15M"
-    label: "dyslexic children in China"
 ---
 
 <!--

@@ -8,11 +8,8 @@ tracks: ["design"]
 featured: 11
 draft: false
 stack: ["Adobe Illustrator", "Figma"]
-links:
-  poster: "/media/dui-invisible-bill/poster.pdf"
 cover:
   wide: "/media/dui-invisible-bill/cover-wide.webp"
-  square: "/media/dui-invisible-bill/cover-square.webp"
   tone: "light"
   alt: "Top section of the redesigned infographic: a yellow map of the United States with $296 BILLION set across it in red, beside nine icons for the components of the loss figure."
 quickFacts:
@@ -20,15 +17,6 @@ quickFacts:
     value: "Solo Information Designer"
   - label: "Outcome"
     value: "A completed infographic redesign, rebuilt from eight sources"
-stats:
-  - value: "$296B"
-    label: "in annual losses"
-  - value: "$2,354"
-    label: "per household"
-  - value: "8"
-    label: "public data sources"
-  - value: "3"
-    label: "strategies tested"
 ---
 
 The brief was to redesign an existing piece of information design. I chose an infographic that argued against driving under the influence, and spent three weeks rebuilding both its argument and its data presentation.

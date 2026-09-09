@@ -15,7 +15,6 @@ cover:
   tone: "dark"
   alt: "Title art for a fan-made Hearthstone expansion set in a purple, overgrown forest."
 quickFacts: []
-stats: []
 ---
 
 <!--
