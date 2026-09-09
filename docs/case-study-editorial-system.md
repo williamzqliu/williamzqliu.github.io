@@ -92,11 +92,9 @@ mattered; the media shows what changed.
 **Standard.** Equal columns, tops aligned, no crop, no card, no shadow, no
 badges, no arrows, no slider. Each half opens in the lightbox independently.
 
-**Modifiers.** Default stacks below 640px. `data-abreast` keeps two columns at
+**Modifier.** Default stacks below 640px. `data-abreast` keeps two columns at
 every width (12px gutter on a phone, 24px above) for comparisons that mean
-nothing apart — the lightbox covers the lost detail. `data-cols="3"` makes it a
-row of three from 640px up, for a set of equal views seen together; it stacks on
-a phone like any other pair.
+nothing apart — the lightbox covers the lost detail.
 
 **Don't** put two unrelated images together to save vertical space.
 
