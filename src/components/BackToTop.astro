@@ -89,15 +89,35 @@
 </style>
 
 <script>
-  const REVEAL_AT = 1.05; // viewports of scrolling before it appears
+  const REVEAL_AT = 1.05; // viewports of scrolling, where a page names nothing
 
   let queued = false;
+
+  /**
+   * The scroll position the page comes to rest at when `[data-totop-from]` is
+   * navigated to — the element's own offset less the `scroll-margin-top` the
+   * anchor already declares. The header's height and the air above the section
+   * are read back out of the page rather than restated here, so this stays
+   * right when that spacing changes.
+   *
+   * A page that marks nothing keeps the old heuristic: a viewport and a bit of
+   * scrolling is a reasonable stand-in for "there is page behind you now".
+   */
+  function revealAt(): number {
+    const from = document.querySelector<HTMLElement>('[data-totop-from]');
+    if (!from) return window.innerHeight * REVEAL_AT;
+    const margin = parseFloat(window.getComputedStyle(from).scrollMarginTop) || 0;
+    return from.getBoundingClientRect().top + window.scrollY - margin;
+  }
 
   function paint() {
     queued = false;
     const link = document.querySelector<HTMLAnchorElement>('[data-totop]');
     if (!link) return;
-    if (window.scrollY > window.innerHeight * REVEAL_AT) link.dataset.visible = 'true';
+    // Two pixels of slack: a smooth scroll lands on the target, and landing
+    // half a pixel short of its own threshold would leave the control hidden
+    // at exactly the moment it is meant to be there.
+    if (window.scrollY >= revealAt() - 2) link.dataset.visible = 'true';
     else delete link.dataset.visible;
   }
 
