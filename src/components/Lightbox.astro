@@ -116,8 +116,8 @@
     opacity: 0;
     transform: scale(0.985);
     transition:
-      opacity 340ms cubic-bezier(0.33, 0, 0.2, 1),
-      transform 340ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      opacity 280ms cubic-bezier(0.33, 0, 0.2, 1),
+      transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .lb[data-shown] .lb__figure {
@@ -127,10 +127,16 @@
 
   /* Out on a small drift rather than a straight fade — the picture recedes
      half a percent while it goes, so the change reads as one movement instead
-     of a cut. */
+     of a cut.
+
+     Leaving is quicker than arriving. The two halves run one after the other,
+     never together, so their sum is the wait between two pictures: at 280 each
+     that wait was most of a second, which reads as the viewer thinking. 150
+     out and 280 in keeps the arrival calm and takes a third off the gap. */
   .lb[data-shown] .lb__figure[data-swapping] {
     opacity: 0;
     transform: scale(0.995);
+    transition-duration: 150ms;
   }
 
   /* Pinch and pan are direct: the picture is under the fingers, so it may not
@@ -390,14 +396,14 @@
       }
 
       // Out, swap, in. One crossfade for every way of changing picture — a
-      // swipe, an arrow and an arrow key all read the same, and at 340ms it
-      // is a change of page rather than a carousel snapping across.
+      // swipe, an arrow and an arrow key all read the same: a change of page
+      // rather than a carousel snapping across.
       window.clearTimeout(swap);
       figure.dataset.swapping = 'true';
       swap = window.setTimeout(() => {
         render();
         delete figure.dataset.swapping;
-      }, 340); // matches the opacity transition on .lb__figure
+      }, 150); // matches the fade out on .lb__figure[data-swapping]
     };
 
     const open = (source: Source) => {
