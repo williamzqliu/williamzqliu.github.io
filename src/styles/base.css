@@ -134,17 +134,13 @@ label,
   padding-inline: var(--pad);
 }
 
-.measure {
-  max-width: var(--measure);
-}
-
 /* ---------- Type roles ----------
-   Three faces, three jobs. Mono is stack lists and data values only —
-   not navigation, not years, not section labels. */
+   Only the three the pages actually use. Everything else sizes its own type
+   from the tokens: a utility that nothing calls is a second place to look
+   when the answer is in tokens.css. */
 
 .t-display-lg,
-.t-display,
-.t-title {
+.t-display {
   font-weight: var(--fw-display);
   letter-spacing: -0.01em;
 }
@@ -161,52 +157,9 @@ label,
   line-height: var(--lh-display);
 }
 
-.t-title {
-  font-size: var(--fs-title);
-  line-height: var(--lh-title);
-}
-
-/* Display *face* — condensed grotesque, project titles only. */
-.t-face-display {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  letter-spacing: 0;
-}
-
 .t-body-lg {
   font-size: var(--fs-body-lg);
   line-height: var(--lh-body-lg);
-}
-
-.t-small {
-  font-size: var(--fs-small);
-  line-height: var(--lh-small);
-}
-
-.t-mono {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  line-height: var(--lh-micro);
-  font-weight: var(--fw-mono);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-}
-
-.t-mono-sm {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  line-height: var(--lh-small);
-  font-weight: var(--fw-mono);
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-}
-
-.t-dim {
-  color: var(--text-2);
-}
-
-.t-dimmer {
-  color: var(--text-3);
 }
 
 /* ---------- Section label ----------
@@ -278,15 +231,6 @@ label,
 
 .skip-link:focus {
   transform: translateY(0);
-}
-
-/* Rules carry the structure — never cards, never shadows. */
-.rule-top {
-  border-top: var(--rule-hair) solid var(--rule);
-}
-
-.rule-heavy-top {
-  border-top: var(--rule-heavy) solid var(--rule-strong);
 }
 
 /* ---------- Theme switch ----------

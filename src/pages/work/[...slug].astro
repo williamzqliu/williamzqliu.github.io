@@ -811,16 +811,6 @@ const facts = [
     margin-top: var(--sp-32);
   }
 
-  /* A caption sits under the left edge of its picture, which is right until
-     the picture has no left edge. The network plate is a circle on a
-     transparent ground, so the only edge it really has is its centre — this
-     centres the line under it. Opt-in per figure, because it is wrong for
-     anything that fills its box. */
-  .prose figure[data-caption='center'] figcaption {
-    max-width: none;
-    text-align: center;
-  }
-
   /* Two pictures of one thing, side by side from 640px up and stacked below
      it. No shared frame and no crop: a square and a 16:9 in equal columns
      come to different heights, and levelling them would mean letterboxing one
@@ -876,17 +866,10 @@ const facts = [
     text-align: center;
   }
 
-  /* Several pictures of one moment, tiled into a rectangle instead of a row.
-     Three figures: the first takes the top of the left column, the second the
-     whole right column, the third the bottom of the left. Stacked below 640px
-     in document order, which is also the order the paragraph names them in.
+  /* Several pictures of one moment, tiled into a rectangle instead of a row,
+     and the tile turns with the viewport.
 
-     Nothing is cropped. The column split is what squares the block off — with
-     fixed aspect ratios it is arithmetic, not taste, so each instance passes
-     its own `--mosaic-split` from the content file rather than the stylesheet
-     guessing. Here: a 1.83 over a 1.78 on the left against a 1:1 on the right
-     comes out at roughly 46 / 54. */
-  /* Phone: the same idea one turn rotated. The wide one takes the full width
+     Phone: the same idea one turn rotated. The wide one takes the full width
      and the other two share the row under it, so the block is still a
      rectangle and the reading order is left to right — which is also the
      order the lightbox steps through.
