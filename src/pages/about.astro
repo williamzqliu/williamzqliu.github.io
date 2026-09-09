@@ -107,8 +107,12 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
 </Base>
 
 <style>
+  /* The bottom is shorter than the page's other sections on purpose. The
+     footer brings 40px of its own margin plus its rule, so --sp-96 here left
+     136px of nothing between the last paragraph and the boundary — half again
+     the gap a case study closes on. */
   .about {
-    padding-block: var(--sp-48) var(--sp-96);
+    padding-block: var(--sp-48) var(--sp-56);
   }
 
   /* Greeting and name at the same size here — the step-up belongs to the
@@ -228,7 +232,7 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
 
   @media (min-width: 1024px) {
     .about {
-      padding-block: var(--sp-64) var(--sp-96);
+      padding-block: var(--sp-64) var(--sp-56);
     }
 
     /* Prose left, portrait right. The photo column is fixed so the prose keeps
