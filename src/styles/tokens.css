@@ -24,6 +24,10 @@
   --tap-press:     rgba(0, 0, 0, 0.18);
   --accent:        #D03B00;   /* resume orange */
   --accent-2:      #FBC900;   /* logo yellow */
+  /* Literal values in prose. The accent's own hue taken most of the way to
+     ink: a brown on paper, a light orange on the dark page. It reads as a
+     different kind of word without reading as a link. */
+  --code-ink:      #7A4022;
 
   color-scheme: light;
 }
@@ -43,6 +47,7 @@
   --rule-strong:   #F9F3E4;
   --accent:        #FF6134;
   --accent-2:      #FFD44A;
+  --code-ink:      #FFE0CE;
 
   color-scheme: dark;
 }
@@ -61,6 +66,7 @@
     --rule-strong:   #F9F3E4;
     --accent:        #FF6134;
     --accent-2:      #FFD44A;
+    --code-ink:      #FFE0CE;
 
     color-scheme: dark;
   }

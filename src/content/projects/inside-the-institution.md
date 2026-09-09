@@ -34,10 +34,10 @@ quickFacts:
     value: "Interactive research tool and MFA thesis; poster presented at NetSci 2026"
 ---
 
-## The gap between analysis and exploration
+## From analysis to exploration
 
 Meta-scientists use co-authorship networks to study collaboration within
-universities. Existing tools like Gephi can reveal network structure, but make it
+universities. Existing tools like *Gephi* can reveal network structure, but make it
 difficult to explore it across departments, research centers, and individual
 scholars.
 
@@ -46,29 +46,68 @@ scholars.
 > How might an institutional co-authorship network become something researchers can
 > actually explore?
 
-## Building the dataset
+## The data was the problem
 
-The dataset I was given had four fields per node: an internal ID, a name, a database
-identifier, and a flag for Northeastern affiliation. I tried to build a first
-visualization with it, in Gephi and in D3. Both produced images that conveyed
-density and nothing else. There was no way to filter by department, no way to tell
-which scholars belonged to which research center, no way to compare units. The data
-did not contain what any of those interactions would need.
+The first dataset contained only four fields per scholar: `internal ID`, `name`,
+`database ID`, and `Northeastern affiliation flag`. My first *Gephi* and *D3.js*
+prototypes could show density, but not departments, research centers, or meaningful
+comparisons.
 
-That was not a tooling problem and it was not going to yield to trying harder. The
-useful thing the attempt produced was a decision: before any design work could start,
-the dataset had to be rebuilt. I spent three months curating it, identifying every
-faculty member, mapping each to a primary college and department, and resolving
-affiliations with each of the institution's research centers. Scholar and publication
-records came from OpenAlex and ORCID, covering 1990 through 2025.
+<div class="media-mosaic" style="--mosaic-split: 46fr 54fr">
+  <figure>
+    <img
+      src="/media/inside-the-institution/initial-dataset-fields.webp"
+      alt="Annotated view of the original dataset showing four fields for each scholar node."
+      width="1800"
+      height="982"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Four fields per node, with no organizational structure.</figcaption>
+  </figure>
 
-The final dataset covers 2,737 faculty across 11 colleges, 46 departments, and 64
-research centers, linked by 3,650 co-authored works. OpenAlex matched 90.3% of the
-faculty roster. Of those matches, 76.5% returned high-quality publication records and
-18.2% were flagged for manual review.
+  <figure data-caption="center">
+    <img
+      src="/media/inside-the-institution/coauthorship-network-gephi.webp"
+      alt="Dense purple co-authorship network rendered in Gephi."
+      width="900"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>The same network rendered in <em>Gephi</em>.</figcaption>
+  </figure>
 
-Knowing what the data could not do came from trying to design with it. It would not
-have come from planning.
+  <figure>
+    <img
+      src="/media/inside-the-institution/coauthorship-network-d3.webp"
+      alt="Dense co-authorship network rendered in D3.js with large overlapping nodes and edges."
+      width="1200"
+      height="675"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>
+      Northeastern&#8217;s co-authorship network rendered in <em>D3.js</em>.
+    </figcaption>
+  </figure>
+</div>
+
+> The visualization problem was actually a data problem.
+
+I spent three months rebuilding the dataset with faculty affiliations, departments,
+research centers, and publication records from *OpenAlex* and *ORCID*. The final
+dataset covered **2,737 faculty across 11 colleges, 46 departments, and 64 research
+centers**.
+
+<details>
+<summary>Data curation details</summary>
+
+Scholar and publication records came from *OpenAlex* and *ORCID*. *OpenAlex* matched
+90.3% of the faculty roster; of those matches, 76.5% returned high-quality publication
+records, while 18.2% were flagged for manual review.
+
+</details>
 
 ## Three views, three scales
 
@@ -199,7 +238,7 @@ original framing asked participants to adopt a role, which felt awkward and prod
 less grounded responses, so I replaced it with direct engagement as themselves.
 
 Participants were expert users. All had prior experience with at least one network
-analysis tool: seventeen with Python network libraries, fifteen with Gephi, seven with
+analysis tool: seventeen with Python network libraries, fifteen with *Gephi*, seven with
 D3 or other web visualization. Their feedback reads as expert assessment rather than
 novice impression.
 
