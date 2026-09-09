@@ -34,12 +34,8 @@ const updated = stat
         published ? (
           <>
             <p class="resume__actions">
-              {/* The date sits with the actions rather than in the cell strip:
-                  it is about the file's state, not its format. */}
-              <span class="resume__updated">Updated {updated}</span>
-
               <a class="resume__action" href={PDF_PATH} target="_blank" rel="noopener">
-                View Resume
+                Full Screen
                 <ExtArrow />
               </a>
 
@@ -63,6 +59,11 @@ const updated = stat
                   />
                 </svg>
               </a>
+
+              {/* Last in the row and pushed to the far edge: the two things you
+                  can do with the file come first, and the date is what the row
+                  ends on. It is about the file's state, not its format. */}
+              <span class="resume__updated">Updated {updated}</span>
             </p>
 
             {/* A rendered first page, not the browser's PDF viewer: no toolbar,
@@ -102,6 +103,9 @@ const updated = stat
 
 <style>
   .resume {
+    /* The width of the page itself once there is room for it, shared by the
+       preview and the row of controls above it. */
+    --resume-w: 760px;
     padding-block: var(--sp-48) var(--sp-96);
   }
 
@@ -126,23 +130,32 @@ const updated = stat
     margin-top: var(--sp-24);
   }
 
-  /* On narrow screens the date takes its own line so the two actions can sit
-     together instead of stacking into three rows. */
-  @media (max-width: 639px) {
-    .resume__updated {
-      flex-basis: 100%;
-    }
-  }
+  /* A chip, the same one the project cards use for their stack: mono caps on
+     the surface fill, at the same size and padding. It is the same kind of
+     thing — a small fixed fact about the item, not a link — and the page had
+     no reason to invent a second treatment for it.
 
-  /* The only metadata left on the page, so it reads at the navigation size
-     rather than the caption size. */
+     `margin-left: auto` sends it to the far edge of the row. If the row has to
+     wrap, the auto margin still resolves against the free space on the line it
+     lands on, so it stays right-aligned there too. */
   .resume__updated {
+    margin-left: auto;
+    align-self: center;
+    padding: 5px var(--sp-8);
+    background: var(--surface);
     font-family: var(--font-mono);
-    font-size: var(--fs-nav);
+    font-size: var(--fs-micro);
     font-weight: var(--fw-mono);
     line-height: var(--lh-micro);
-    letter-spacing: 0.04em;
-    color: var(--text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  @media (min-width: 640px) {
+    .resume__updated {
+      font-size: 0.75rem;
+    }
   }
 
   /* Text links. The arrow and the caret inherit the text colour and never move
@@ -213,9 +226,12 @@ const updated = stat
 
   @media (min-width: 1024px) {
     /* Wide enough to read the layout, narrow enough that the page does not
-       turn into a scroll of one image. */
-    .resume__preview img {
-      max-width: 760px;
+       turn into a scroll of one image. The row above it is capped to the same
+       width, so the date chip ends on the page's right edge rather than out
+       at the container's — one column, not two. */
+    .resume__preview img,
+    .resume__actions {
+      max-width: var(--resume-w);
     }
   }
 </style>

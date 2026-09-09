@@ -41,9 +41,11 @@ const shown = limit === undefined ? items : items.slice(0, limit);
     padding: 5px var(--sp-8);
     background: var(--surface);
     font-family: var(--font-mono);
-    /* One step above --fs-micro (11px): mono runs small, and at 11px the caps
-       plus letter-spacing were harder to read than the year beside them. */
-    font-size: 0.75rem;
+    /* 11px on a phone, where a row of chips at 12px reads as a block of noise
+       under the title, and 12px from 640px up — mono runs small, and at the
+       wider sizes 11px caps plus letter-spacing sat below the year beside
+       them. */
+    font-size: var(--fs-micro);
     font-weight: var(--fw-mono);
     line-height: var(--lh-micro);
     letter-spacing: 0.06em;
@@ -53,5 +55,11 @@ const shown = limit === undefined ? items : items.slice(0, limit);
 
   .kws[data-emphasis] .kw {
     color: var(--text);
+  }
+
+  @media (min-width: 640px) {
+    .kw {
+      font-size: 0.75rem;
+    }
   }
 </style>

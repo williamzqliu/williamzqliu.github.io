@@ -66,10 +66,13 @@ const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = 
     aspect-ratio: 16 / 9;
   }
 
-  /* The case study head, phone first: close to the source imagery rather than
-     a shallow crop of it, so a portrait project stays legible. */
+  /* The case study head, phone first. 16:9 rather than something closer to
+     the source imagery: the hero spans the whole content column here, and at
+     4:3 that width bought so much height the title, the facts and the hero
+     filled the screen on their own. Wide and shallow keeps it prominent and
+     still leaves the first paragraphs in view. */
   .cover[data-ratio='hero'] {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
   }
 
   /* Locked to the declared tone — does not follow the theme (SPEC §8). */
@@ -111,12 +114,8 @@ const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = 
     object-fit: cover;
   }
 
-  /* Tablet: the hero gives up some of its height but is not yet a banner. */
-  @media (min-width: 640px) {
-    .cover[data-ratio='hero'] {
-      aspect-ratio: 16 / 9;
-    }
-  }
+  /* Tablet keeps the phone's 16:9 — the ratio only changes once there is
+     enough width for a banner. */
 
   /* Desktop: a wide editorial banner, capped so it cannot take most of the
      viewport — past that the cap wins and the box simply stops getting taller. */
