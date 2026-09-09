@@ -834,10 +834,24 @@ const facts = [
     margin-top: 0;
   }
 
+  /* Opt-in: a pair that has to be read as a pair. Two states of one panel mean
+     nothing apart — stacked, the second is a screen away from the first, and
+     the reader is comparing a picture with a memory. Narrower on a phone is
+     the lesser cost, and either half opens in the viewer. */
+  .media-pair[data-abreast] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--sp-12);
+  }
+
   @media (min-width: 640px) {
     .media-pair {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: start;
+    }
+
+    .media-pair[data-abreast] {
+      gap: var(--sp-24);
     }
   }
 

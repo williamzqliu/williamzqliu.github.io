@@ -254,34 +254,34 @@ inside the side panel, duplicating context from the main visualization. I replac
 with `Direct`, `1-Hop`, and `2-Hop` controls that operate on the main canvas, turning
 the panel from a second visualization into a control surface.
 
-<!-- MEDIA — waiting on two files. Drop them in public/media/inside-the-institution/
-     and uncomment the block below; the section reads fine until then.
-
-     1. side-panel-before.webp  — the earlier panel with its own ego network inside it
-     2. side-panel-after.webp   — the revised panel with Direct / 1-Hop / 2-Hop
-
-<div class="media-pair">
+<div class="media-pair" data-abreast>
   <figure>
     <img
       src="/media/inside-the-institution/side-panel-before.webp"
-      alt="The earlier side panel, showing a small ego network of its own beside the main map."
+      alt="The earlier scholar panel: profile, metrics, collaborators, and a link out to an individual view."
+      width="496"
+      height="1237"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Before: the panel duplicated the network.</figcaption>
+    <figcaption>Before: the panel mainly presented scholar details.</figcaption>
   </figure>
 
   <figure>
     <img
       src="/media/inside-the-institution/side-panel-after.webp"
-      alt="The revised side panel, with Direct, 1-Hop and 2-Hop controls acting on the main canvas."
+      alt="The revised panel for the same scholar, with an ego network section offering Direct, 1-Hop and 2-Hop controls."
+      width="500"
+      height="1932"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>After: the panel became a control surface.</figcaption>
+    <figcaption>
+      After: <code>Direct</code>, <code>1&#8209;Hop</code>, and <code>2&#8209;Hop</code> turned it
+      into a control surface.
+    </figcaption>
   </figure>
 </div>
--->
 
 ## What the study showed
 
