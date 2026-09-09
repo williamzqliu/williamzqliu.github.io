@@ -37,12 +37,88 @@ quickFacts:
 ## The exploration gap
 
 Meta-scientists use co-authorship networks to study collaboration within
-universities. Existing tools like *Gephi* can reveal network structure, but make it
-difficult to explore it across departments, research centers, and individual
-scholars.
+universities. Existing tools can reveal network structure, but make it difficult to
+explore it across departments, research centers, and individual scholars.
 
 **How might an institutional co-authorship network become something researchers can
 actually explore?**
+
+## Three views
+
+The final tool organizes the same institutional network across three scales:
+**university, research unit, and scholar.** The Collaboration Map reveals
+institution-wide structure, Research Units supports comparison across departments and
+research centers, and Bridging Scholars surfaces people who connect otherwise separate
+communities.
+
+<figure>
+  <video
+    src="/media/inside-the-institution/collaboration-map.mp4"
+    width="1440"
+    height="712"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
+  ></video>
+  <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
+</figure>
+
+<div class="media-pair">
+  <figure>
+    <video
+      src="/media/inside-the-institution/research-units.mp4"
+      width="1440"
+      height="694"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
+    ></video>
+    <figcaption>Research-unit level: collaboration across organizational groups.</figcaption>
+  </figure>
+
+  <figure>
+    <video
+      src="/media/inside-the-institution/bridging-scholars.mp4"
+      width="1440"
+      height="712"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
+    ></video>
+    <figcaption>Scholar level: people connecting separate communities.</figcaption>
+  </figure>
+</div>
+
+<details>
+<summary>Design concept</summary>
+
+**Three scales, three spatial models.** Rather than forcing the same visual form onto
+every level, I used a spatial model suited to the question each view needed to
+support.
+
+**Collaboration Map: emergent structure.** A force-directed layout lets collaboration
+clusters emerge from the data rather than from a predefined organizational hierarchy.
+
+**Research Units: tiled structure.** The idea came from arranging hexagonal tiles
+while playing *Sanctuary*. Their geometry suggested a way to represent organizational
+units as distinct but comparable parts of one system.
+
+**Bridging Scholars: vertical structure.** Inspired partly by *150 Years of Nature*, I
+explored depth as an encoding channel. Research communities stay on a shared plane
+while scholars connecting multiple communities are elevated above it.
+
+Expert testing later showed that the 3D approach also introduced readability costs.
+
+</details>
 
 ## The data problem
 
@@ -107,60 +183,6 @@ Scholar and publication records came from *OpenAlex* and *ORCID*. *OpenAlex* mat
 records, while 18.2% were flagged for manual review.
 
 </details>
-
-## Three views
-
-The first prototype treated the institution as a single network. As the project
-expanded, it became clear that different questions required different scales of
-exploration.
-
-The final tool organizes exploration across three levels: **university, research unit,
-and scholar.**
-
-<figure>
-  <video
-    src="/media/inside-the-institution/collaboration-map.mp4"
-    width="1440"
-    height="712"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
-  ></video>
-  <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
-</figure>
-
-<figure>
-  <video
-    src="/media/inside-the-institution/research-units.mp4"
-    width="1440"
-    height="694"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
-  ></video>
-  <figcaption>Research-unit level: collaboration across organizational groups.</figcaption>
-</figure>
-
-<figure>
-  <video
-    src="/media/inside-the-institution/bridging-scholars.mp4"
-    width="1440"
-    height="712"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    aria-label="The Bridging Scholars view, with each scholar placed by the research areas they span."
-  ></video>
-  <figcaption>Scholar level: people connecting separate communities.</figcaption>
-</figure>
 
 ## Analysis before encoding
 
