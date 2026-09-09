@@ -833,7 +833,7 @@ const facts = [
      the reader is comparing a picture with a memory. Narrower on a phone is
      the lesser cost, and either half opens in the viewer. */
   .media-pair[data-abreast] {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: var(--pair-split, repeat(2, minmax(0, 1fr)));
     align-items: start;
     gap: var(--sp-12);
   }
@@ -872,6 +872,14 @@ const facts = [
   .prose figure[data-caption='center'] figcaption {
     max-width: none;
     text-align: center;
+  }
+
+  /* A viewing cue rather than a caption: in a sequence the reader needs to know
+     what changed before looking, so the label sits above its picture. Same
+     type, the margin simply moves to the other side. */
+  .prose figure[data-caption='above'] figcaption {
+    margin-top: 0;
+    margin-bottom: var(--sp-8);
   }
 
   /* Several pictures of one moment, tiled into a rectangle instead of a row,
