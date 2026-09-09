@@ -97,7 +97,7 @@ communities.
 </figure>
 
 <details>
-<summary>Design concept</summary>
+<summary>Design concepts</summary>
 
 **Three scales, three spatial models.** Rather than forcing the same visual form onto
 every level, I used a spatial model suited to the question each view needed to
@@ -105,6 +105,38 @@ support.
 
 **Collaboration Map: emergent structure.** A force-directed layout lets collaboration
 clusters emerge from the data rather than from a predefined organizational hierarchy.
+
+<div class="media-pair">
+  <figure>
+    <img
+      src="/media/inside-the-institution/research-units-concept.webp"
+      alt="Three panels: a photograph of hexagonal Sanctuary tiles, hexagon encoding drafts for departments, research centers and colleges, and the final Research Units view."
+      width="1800"
+      height="1165"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>
+      From reference to encoding: hexagonal tiles became the visual grammar for research
+      units.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/media/inside-the-institution/bridging-scholars-concept.webp"
+      alt="Two panels: planets at different distances from a viewer, and the final Bridging Scholars view with communities on one plane and connectors raised above it."
+      width="1200"
+      height="1553"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>
+      Concept to implementation: vertical separation distinguishes communities from bridge
+      scholars.
+    </figcaption>
+  </figure>
+</div>
 
 **Research Units: tiled structure.** The idea came from arranging hexagonal tiles
 while playing *Sanctuary*. Their geometry suggested a way to represent organizational
