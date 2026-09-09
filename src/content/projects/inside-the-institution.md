@@ -317,23 +317,18 @@ Early versions mixed global navigation with controls that only applied within a 
 view. I flattened the header and moved search, unit tabs, and ego-network controls back
 into the contexts where they operate.
 
-<!-- NAVIGATION EVOLUTION — waiting on one file. Drop a clean export (no layout
-     guides) in public/media/inside-the-institution/ and uncomment; the section
-     reads fine until then.
-
-     navigation-evolution.webp — the four header states in one figure
-
 <p>Navigation evolution: global views separated from local controls.</p>
 
 <figure>
   <img
-    src="/media/inside-the-institution/navigation-evolution.webp"
-    alt="Four header states in sequence: no navigation with search in the sidebar; three top-level buttons with search moved up; sub-navigation mixing global and local controls; and a flat header with view controls returned to their own views."
+    src="/media/inside-the-institution/navigation-iterations.webp"
+    alt="Four header states in sequence: no navigation with the search bar in the sidebar; three buttons in a row with search moved into the header; sub-navigation that mixed global and local controls; and a flat header with the search bar moved into the Collaboration Map."
+    width="2560"
+    height="1240"
     loading="lazy"
     decoding="async"
   />
 </figure>
--->
 
 The side panel evolved for the same reason. It began as a place for scholar details,
 then gradually reused the same structural cues as the visualizations: joint
@@ -342,50 +337,69 @@ carries scholar or unit context beside the active view, while `Direct`, `1-Hop`,
 `2-Hop` controls bring ego-network exploration onto the main canvas. It became a
 contextual hub between the **university, research unit, and scholar** levels.
 
-<!-- SIDE-PANEL EVOLUTION — waiting on three files. Stages 3 and 5 are already
-     published (side-panel-before.webp and side-panel-after.webp); rename them to
-     the stage names below when the rest arrive, then uncomment.
-
-     1. side-panel-stage-1.webp — basic details
-     2. side-panel-stage-2.webp — structural context
-     3. side-panel-stage-3.webp — bridge + data quality   (= side-panel-before.webp)
-     4. side-panel-stage-4.webp — shared encodings
-     5. side-panel-stage-5.webp — network controls        (= side-panel-after.webp)
-
-     Enabling this also needs one rule, the same opt-in the centred caption uses:
-     .prose figure[data-caption='above'] figcaption { margin-top: 0; margin-bottom: var(--sp-8) }
-     and `--pair-split` read by `.media-pair[data-abreast]` so five columns hold
-     on a phone.
-
 <p>Side-panel evolution: from detail display to a contextual hub.</p>
 
 <div class="media-pair" data-abreast style="--pair-split: repeat(5, minmax(0, 1fr))">
   <figure data-caption="above">
     <figcaption>Stage 1: Basic details</figcaption>
-    <img src="/media/inside-the-institution/side-panel-stage-1.webp" alt="The panel showing flat scholar information: metrics and a list of collaborators." loading="lazy" decoding="async" />
+    <img
+      src="/media/inside-the-institution/side-panel-stage-1.webp"
+      alt="The panel showing flat scholar information: metrics, research interests and a list of collaborators."
+      width="498"
+      height="1169"
+      loading="lazy"
+      decoding="async"
+    />
   </figure>
 
   <figure data-caption="above">
     <figcaption>Stage 2: Structural context</figcaption>
-    <img src="/media/inside-the-institution/side-panel-stage-2.webp" alt="The panel with joint appointments and other structural context added." loading="lazy" decoding="async" />
+    <img
+      src="/media/inside-the-institution/side-panel-stage-2.webp"
+      alt="The panel with joint appointments, community membership and an intra-collaboration measure added."
+      width="502"
+      height="1698"
+      loading="lazy"
+      decoding="async"
+    />
   </figure>
 
   <figure data-caption="above">
     <figcaption>Stage 3: Bridge + data quality</figcaption>
-    <img src="/media/inside-the-institution/side-panel-stage-3.webp" alt="The panel carrying a bridge-scholar badge and a data-quality indicator." loading="lazy" decoding="async" />
+    <img
+      src="/media/inside-the-institution/side-panel-stage-3.webp"
+      alt="The panel carrying a bridge-scholar badge and a data-quality indicator."
+      width="496"
+      height="1223"
+      loading="lazy"
+      decoding="async"
+    />
   </figure>
 
   <figure data-caption="above">
     <figcaption>Stage 4: Shared encodings</figcaption>
-    <img src="/media/inside-the-institution/side-panel-stage-4.webp" alt="The panel with affiliation bars in the same colours the main canvas uses." loading="lazy" decoding="async" />
+    <img
+      src="/media/inside-the-institution/side-panel-stage-4.webp"
+      alt="The panel with affiliation bars in the same colours the main canvas uses."
+      width="499"
+      height="1919"
+      loading="lazy"
+      decoding="async"
+    />
   </figure>
 
   <figure data-caption="above">
     <figcaption>Stage 5: Network controls</figcaption>
-    <img src="/media/inside-the-institution/side-panel-stage-5.webp" alt="The panel with Direct, 1-Hop and 2-Hop controls acting on the main canvas." loading="lazy" decoding="async" />
+    <img
+      src="/media/inside-the-institution/side-panel-stage-5.webp"
+      alt="The panel with Direct, 1-Hop and 2-Hop controls acting on the main canvas."
+      width="501"
+      height="1930"
+      loading="lazy"
+      decoding="async"
+    />
   </figure>
 </div>
--->
 
 ## What the study showed
 
