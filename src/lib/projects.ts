@@ -34,6 +34,36 @@ const LINK_LABELS: Record<(typeof LINK_ORDER)[number], string> = {
   code: 'Source',
 };
 
+/* ======================================================================
+ * GFL CUT — TEMPORARY
+ *
+ * A reduced edition of the site for a deadline. Four projects are being
+ * finished; the rest are not ready to be read, so:
+ *
+ *   - the work index is not built at all (the page is parked at
+ *     src/pages/work/_index.astro — Astro ignores `pages/**\/_*`),
+ *   - `Work` is commented out of the header,
+ *   - the landing page shows these four, in this order,
+ *   - the `Next project` chain loops around the four instead of ending at
+ *     /work, which no longer exists.
+ *
+ * Case study pages themselves are untouched: /work/<slug> comes from
+ * [...slug].astro and all sixteen still build.
+ *
+ * TO RESTORE: set GFL_CUT to `undefined`, rename _index.astro back to
+ * index.astro, and uncomment the Work entry in Nav.astro. `grep -rn GFL src/`
+ * lists every place that reads this.
+ * ====================================================================== */
+export const GFL_CUT: readonly string[] | undefined = [
+  'inside-the-institution',
+  'citing-less-critically',
+  'comgrand',
+  'barboard',
+];
+
+/** False while the cut is on, so callers can avoid linking to a dead route. */
+export const WORK_INDEX_ENABLED = GFL_CUT === undefined;
+
 /**
  * Landing page membership (SPEC §1): `tracks` includes design OR engineering,
  * sorted by `featured`. The union is computed from the data rather than kept as
@@ -47,6 +77,13 @@ export async function landingProjects(): Promise<Project[]> {
       data.featured !== undefined &&
       (data.tracks.includes('design') || data.tracks.includes('engineering'))
   );
+
+  // GFL: an explicit run, in the order written above, rather than the ranking.
+  if (GFL_CUT) {
+    const byId = new Map(entries.map((entry) => [entry.id, entry]));
+    return GFL_CUT.map((id) => byId.get(id)).filter((entry): entry is Project => Boolean(entry));
+  }
+
   return entries.sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0));
 }
 
@@ -210,7 +247,7 @@ export async function archiveProjects(): Promise<Project[]> {
  * and the last one leads out of the sequence instead of looping — so this is a
  * list someone decided, not a consequence of dates or file order.
  */
-const FEATURED_SEQUENCE = [
+const FULL_SEQUENCE = [
   'inside-the-institution',
   'citing-less-critically',
   'polygraphs',
@@ -218,6 +255,9 @@ const FEATURED_SEQUENCE = [
   'ripples-into-silence',
   'whats-going-on-in-there',
 ];
+
+// GFL: the cut is its own sequence while it is on.
+const FEATURED_SEQUENCE = GFL_CUT ?? FULL_SEQUENCE;
 
 /**
  * What comes after a case study. `all-work` is the end of the featured
@@ -241,7 +281,13 @@ export async function nextStep(current: Project): Promise<NextStep> {
 
   const seat = FEATURED_SEQUENCE.indexOf(current.id);
   if (seat !== -1) {
-    const following = FEATURED_SEQUENCE.slice(seat + 1)
+    // GFL: the four hand round. Normally the sequence ends and the reader is
+    // handed to /work, but with the index unbuilt there is nowhere to hand
+    // them, and a run of four should close the circle rather than stop.
+    const order = GFL_CUT
+      ? [...FEATURED_SEQUENCE.slice(seat + 1), ...FEATURED_SEQUENCE.slice(0, seat)]
+      : FEATURED_SEQUENCE.slice(seat + 1);
+    const following = order
       .map((id) => byId.get(id))
       .find((entry): entry is Project => entry !== undefined);
     return following

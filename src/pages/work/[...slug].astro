@@ -6,7 +6,8 @@ import CoverMedia from '../../components/CoverMedia.astro';
 import QuickFacts from '../../components/QuickFacts.astro';
 import NextProject from '../../components/NextProject.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
-import { projectLinks, hasCaseStudy, nextStep } from '../../lib/projects';
+import Lightbox from '../../components/Lightbox.astro';
+import { projectLinks, hasCaseStudy, nextStep, WORK_INDEX_ENABLED } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
 // SPEC §7 — only projects with body content get a case study page.
@@ -154,15 +155,21 @@ const facts = [
               year={next.project.data.year}
               href={`/work/${next.project.id}`}
             />
-          ) : (
-            /* End of the curated sequence: out to the full list, not back to
-               the start and not down into the archive. */
+          ) : /* End of the curated sequence: out to the full list, not back
+                  to the start and not down into the archive. GFL: while the
+                  work index is unbuilt there is no list to go to, so the
+                  hand-off is the landing page's own selection. */
+          WORK_INDEX_ENABLED ? (
             <NextProject title="Explore all work" href="/work" />
+          ) : (
+            <NextProject title="Back to selected work" href="/#selected-work" />
           )
         }
       </div>
     </div>
   </article>
+
+  <Lightbox />
 </Base>
 
 <style>
@@ -479,7 +486,10 @@ const facts = [
       background: none;
       max-height: calc(100svh - var(--header-h) - var(--sp-64));
       overflow-y: auto;
-      overscroll-behavior: contain;
+      /* No `overscroll-behavior: contain`. With six sections this column never
+         overflows, so containment had nothing to contain — it only stopped the
+         wheel from reaching the page, and the article froze whenever the
+         pointer came to rest over the list. */
       scrollbar-width: none;
     }
 
@@ -611,7 +621,7 @@ const facts = [
      statement. A one-paragraph blockquote is all statement and still reads
      correctly. */
   .prose blockquote {
-    margin-block: var(--sp-56);
+    margin-block: var(--sp-40);
     max-width: 720px;
     padding-left: var(--sp-20);
     border-left: var(--rule-heavy) solid var(--accent);
@@ -653,18 +663,34 @@ const facts = [
     color: var(--text);
   }
 
+  /* A point down. The italic here is always a product name sitting inside a
+     roman sentence, and at the same size the slant made it look larger than
+     the words around it. Relative, so it holds in a caption as well as in a
+     paragraph. */
   .prose em {
     font-style: italic;
+    font-size: 0.945em;
   }
 
-  /* Inline technical values stay in the site's mono rather than the browser's
-     default, and take no background: a pill mid-sentence is documentation
-     styling. */
+  /* Inline technical values, in the site's mono rather than the browser's.
+     The face alone was not enough to separate them: mono at 0.88em in
+     --text-2 is smaller and paler than the sentence around it, so a field
+     name read as an aside rather than as a literal. It now takes the same
+     surface fill the stack chips use, at full ink — the one fill on the site
+     that means "this is a token, not prose".
+
+     `box-decoration-break` so a value that wraps keeps one continuous fill
+     instead of two half-boxes. No radius: nothing here has one. */
   .prose code {
     font-family: var(--font-mono);
     font-weight: var(--fw-mono);
-    font-size: 0.88em;
-    color: var(--text-2);
+    /* A point under the 0.9em it used to take. Mono sets wider than the body
+       face at the same size, so matching them optically means going below. */
+    font-size: 0.84em;
+    /* Colour instead of a fill: a value in a sentence stops looking like a
+       pill. Its own token, because the two themes want two different hues
+       rather than two lightnesses of one. */
+    color: var(--code-ink);
   }
 
   .prose ul,
@@ -718,6 +744,190 @@ const facts = [
     margin-top: var(--sp-32);
   }
 
+  /* A caption sits under the left edge of its picture, which is right until
+     the picture has no left edge. The network plate is a circle on a
+     transparent ground, so the only edge it really has is its centre — this
+     centres the line under it. Opt-in per figure, because it is wrong for
+     anything that fills its box. */
+  .prose figure[data-caption='center'] figcaption {
+    max-width: none;
+    text-align: center;
+  }
+
+  /* Several pictures of one moment, tiled into a rectangle instead of a row.
+     Three figures: the first takes the top of the left column, the second the
+     whole right column, the third the bottom of the left. Stacked below 640px
+     in document order.
+
+     Nothing in the left column is cropped. The column split squares the block
+     off — with fixed aspect ratios that is arithmetic, not taste, so each
+     instance passes its own `--mosaic-split` from the content file rather than
+     the stylesheet guessing. */
+  .media-mosaic {
+    display: grid;
+    gap: var(--sp-24);
+  }
+
+  .media-mosaic > figure {
+    margin-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .media-mosaic {
+      grid-template-columns: var(--mosaic-split, 1fr 1fr);
+      align-items: start;
+    }
+
+    /* The tall one. It stretches to whatever the left column comes to and its
+       picture fills that box, which is what squares the block off at every
+       width — the alternative is arithmetic that only lands at one viewport,
+       because a caption's height does not scale with its column. The cost is
+       a few per cent off the sides of a centred image, taken from margin. */
+    .media-mosaic > :nth-child(2) {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .media-mosaic > :nth-child(2) img {
+      flex: 1;
+      min-height: 0;
+      object-fit: cover;
+    }
+
+    .media-mosaic > :nth-child(3) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+
+  /* The wrapper carries the space a figure would have carried on its own. */
+  .prose > .media-mosaic {
+    margin-top: var(--sp-32);
+    max-width: 100%;
+  }
+
+  .prose > .media-mosaic + p {
+    margin-top: var(--sp-32);
+  }
+
+  /* A caption sits under the left edge of its picture, which is right until
+     the picture has no left edge. The network plate is a circle on a
+     transparent ground, so the only edge it really has is its centre — this
+     centres the line under it. Opt-in per figure, because it is wrong for
+     anything that fills its box. */
+  .prose figure[data-caption='center'] figcaption {
+    max-width: none;
+    text-align: center;
+  }
+
+  /* Two pictures of one thing, side by side from 640px up and stacked below
+     it. No shared frame and no crop: a square and a 16:9 in equal columns
+     come to different heights, and levelling them would mean letterboxing one
+     or cutting the other. `align-items: start` puts their tops on one line,
+     which is the edge the comparison is read from. */
+  .media-pair {
+    display: grid;
+    gap: var(--sp-24);
+  }
+
+  .media-pair > figure {
+    margin-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .media-pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+
+  /* The wrapper carries the space a figure would have carried on its own. */
+  .prose > .media-pair {
+    margin-top: var(--sp-32);
+    max-width: 100%;
+  }
+
+  .prose > .media-pair + p {
+    margin-top: var(--sp-32);
+  }
+
+  /* A caption sits under the left edge of its picture, which is right until
+     the picture has no left edge. The network plate is a circle on a
+     transparent ground, so the only edge it really has is its centre — this
+     centres the line under it. Opt-in per figure, because it is wrong for
+     anything that fills its box. */
+  .prose figure[data-caption='center'] figcaption {
+    max-width: none;
+    text-align: center;
+  }
+
+  /* Several pictures of one moment, tiled into a rectangle instead of a row.
+     Three figures: the first takes the top of the left column, the second the
+     whole right column, the third the bottom of the left. Stacked below 640px
+     in document order, which is also the order the paragraph names them in.
+
+     Nothing is cropped. The column split is what squares the block off — with
+     fixed aspect ratios it is arithmetic, not taste, so each instance passes
+     its own `--mosaic-split` from the content file rather than the stylesheet
+     guessing. Here: a 1.83 over a 1.78 on the left against a 1:1 on the right
+     comes out at roughly 46 / 54. */
+  .media-mosaic {
+    display: grid;
+    gap: var(--sp-24);
+  }
+
+  .media-mosaic > figure {
+    margin-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .media-mosaic {
+      grid-template-columns: var(--mosaic-split, 1fr 1fr);
+      align-items: start;
+    }
+
+    /* The tall one. It stretches to whatever the left column comes to and its
+       picture fills that box, which is what squares the block off at every
+       width — the alternative is arithmetic that only lands at one viewport,
+       because a caption's height does not scale with its column. The cost is
+       a few per cent off the sides of a centred image, taken from margin. */
+    .media-mosaic > :nth-child(2) {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .media-mosaic > :nth-child(2) img {
+      flex: 1;
+      min-height: 0;
+      object-fit: cover;
+    }
+
+    .media-mosaic > :nth-child(3) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+
+  /* The wrapper carries the space a figure would have carried on its own. */
+  .prose > .media-mosaic {
+    margin-top: var(--sp-32);
+    max-width: 100%;
+  }
+
+  /* Only a paragraph. A callout keeps its own margin on both sides — it is
+     the one block here whose spacing has to read as symmetrical, and taking
+     the top from the figure above it made the gap under it look twice as
+     large. */
+  .prose > .media-mosaic + p {
+    margin-top: var(--sp-32);
+  }
+
   /* Data keeps the metadata treatment: mono heads, hairline rows, no fills. */
   .prose table {
     width: 100%;
@@ -751,13 +961,19 @@ const facts = [
      their engineering notes, so this styles the element rather than adding a
      component. No JavaScript, and no animation beyond what the browser does
      on its own. */
+  /* `--measure` is in `ch`, which resolves against the element's own font
+     size — so a block that inherited a different size than the paragraphs got
+     a different measure, and the rules across this bar stopped short of the
+     text above them. Stating the copy size here makes the two agree. */
   .prose details {
     margin-top: var(--sp-32);
+    font-size: var(--fs-copy);
     border-top: var(--rule-hair) solid var(--rule-strong);
     border-bottom: var(--rule-hair) solid var(--rule);
   }
 
   .prose summary {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -792,22 +1008,49 @@ const facts = [
     list-style: none;
   }
 
+  /* Both signs, stacked in the same place, crossfading. `content` cannot be
+     transitioned — swapping the character is a single frame — so the plus and
+     the minus are two pseudo-elements that trade opacity instead. Absolutely
+     positioned, so neither one takes part in the row's layout and the label
+     stays exactly where it was.
+
+     The body face, not the label's mono: mono draws a plus with arms of
+     different lengths and different weights, which at this size reads as a
+     mistake rather than as a sign. The minus is the literal character rather
+     than a CSS escape — a four-digit escape needs a terminating space to be
+     read as one codepoint, and without it it rendered as the digit 2. */
+  .prose summary::before,
   .prose summary::after {
-    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    font-family: var(--font-body);
     font-size: var(--fs-small);
     line-height: 1;
     color: var(--text-3);
+    transition: opacity var(--dur-base) var(--ease-out);
   }
 
-  .prose details[data-closing] > summary::after {
+  .prose summary::before {
+    content: '−';
+    opacity: 0;
+  }
+
+  .prose summary::after {
     content: '+';
+    opacity: 1;
+  }
+
+  /* `data-closing` is on the element while the height collapses, so the sign
+     turns back at the same moment the panel starts to shut rather than after
+     it has. */
+  .prose details[open]:not([data-closing]) > summary::before {
+    opacity: 1;
   }
 
   .prose details[open]:not([data-closing]) > summary::after {
-    /* The literal character, not a CSS escape: a four-digit escape needs a
-       terminating space to be read as one codepoint, and without it the marker
-       rendered as the digit 2. */
-    content: '−';
+    opacity: 0;
   }
 
   @media (hover: hover) and (pointer: fine) {

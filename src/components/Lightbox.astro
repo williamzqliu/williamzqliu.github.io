@@ -1,0 +1,408 @@
+---
+// Click an image in a case study to see it whole, then walk the rest.
+//
+// Screenshots of a tool are the one kind of media on this site where the
+// column width is genuinely too small: a 2560px capture of an interface has
+// detail in it that a 460px cell cannot show. Everything else here — covers,
+// the portrait — is composed for the size it is printed at.
+//
+// Built on <dialog>, so the browser supplies the top layer, the focus trap and
+// the inert background. What is left is the scrim, the picture, its caption,
+// and three buttons.
+---
+
+<dialog class="lb" data-lightbox aria-label="Image viewer">
+  <button class="lb__btn lb__close" type="button" data-lightbox-close aria-label="Close">
+    <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
+      <path
+        d="M2.5 2.5l9 9M11.5 2.5l-9 9"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
+
+  <button class="lb__btn lb__step lb__step--prev" type="button" data-lightbox-step="-1" aria-label="Previous image">
+    <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
+      <path
+        d="M9 1.5L3.5 7 9 12.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+
+  <button class="lb__btn lb__step lb__step--next" type="button" data-lightbox-step="1" aria-label="Next image">
+    <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
+      <path
+        d="M5 1.5L10.5 7 5 12.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+
+  <figure class="lb__figure">
+    <img class="lb__img" data-lightbox-img alt="" />
+    <figcaption class="lb__cap" data-lightbox-cap hidden></figcaption>
+  </figure>
+</dialog>
+
+<style>
+  /* The scrim is on the dialog rather than on ::backdrop, which has its own
+     inheritance rules for custom properties. Not quite opaque: the page stays
+     faintly there behind it, so this reads as a layer over the article rather
+     than as a different screen. */
+  .lb {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    padding: var(--sp-32);
+    border: 0;
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    /* Anywhere that is not an arrow closes it, so the whole surface says so. */
+    cursor: zoom-out;
+    /* The scrim arrives and leaves; `data-shown` is set a frame after the
+       dialog opens and removed before it closes, so both ends animate. */
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  .lb[data-shown] {
+    opacity: 1;
+  }
+
+  .lb:not([open]) {
+    display: none;
+  }
+
+  .lb[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb::backdrop {
+    background: transparent;
+  }
+
+  /* The picture comes forward rather than appearing: a percent and a half of
+     scale under the scrim's fade. Swapping fades the whole figure, so the
+     caption travels with its image and the change of shape happens while
+     there is nothing to see. */
+  .lb__figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-16);
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0;
+    transform: scale(0.985);
+    transition:
+      opacity 260ms var(--ease-out),
+      transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .lb[data-shown] .lb__figure {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Out on a small drift rather than a straight fade — the picture recedes
+     half a percent while it goes, so the change reads as one movement instead
+     of a cut. */
+  .lb[data-shown] .lb__figure[data-swapping] {
+    opacity: 0;
+    transform: scale(0.995);
+  }
+
+  /* Whole, not filled: `contain` inside a box already smaller than the
+     viewport, so a wide screenshot and a square one both land with air around
+     them. `min-height: 0` lets the picture give way to the caption rather than
+     pushing it off the bottom. */
+  .lb__img {
+    display: block;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    max-width: min(1600px, 100%);
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* The figure's own caption, in the caption treatment the article uses. */
+  .lb__cap {
+    flex: none;
+    max-width: 68ch;
+    text-align: center;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+    text-wrap: pretty;
+  }
+
+  .lb__cap[hidden] {
+    display: none;
+  }
+
+  /* The caption is lifted from the article's own figcaption, so it carries the
+     article's treatment of a product name with it. */
+  .lb__cap em {
+    font-style: italic;
+    font-size: 0.945em;
+  }
+
+  /* Square, no fill, out of the picture's way. */
+  .lb__btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tap);
+    height: var(--tap);
+    border: 0;
+    background: none;
+    color: var(--text-2);
+    cursor: pointer;
+    -webkit-tap-highlight-color: var(--tap-press);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .lb__close {
+    top: var(--sp-16);
+    right: var(--sp-16);
+  }
+
+  .lb__step {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lb__step--prev {
+    left: var(--sp-4);
+  }
+
+  .lb__step--next {
+    right: var(--sp-4);
+  }
+
+  /* One picture is not a gallery. */
+  .lb[data-single] .lb__step {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lb__btn:hover {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .lb {
+      padding: var(--sp-48) var(--sp-80);
+    }
+
+    .lb__close {
+      top: var(--sp-24);
+      right: var(--sp-24);
+    }
+
+    .lb__step--prev {
+      left: var(--sp-16);
+    }
+
+    .lb__step--next {
+      right: var(--sp-16);
+    }
+  }
+</style>
+
+<style is:global>
+  /* Only the images that have more to show than the column can print. The
+     cursor is the whole affordance — no overlay, no icon, no border. */
+  .prose img,
+  .cs__media img {
+    cursor: zoom-in;
+  }
+</style>
+
+<script>
+  // Opening is delegated from the document, so images that arrive with a new
+  // page (ClientRouter swaps the body) need no re-binding of their own.
+  const SOURCES = '.prose img, .cs__media img';
+
+  let listeners: AbortController | undefined;
+
+  function initLightbox() {
+    listeners?.abort();
+    listeners = undefined;
+
+    const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+    const frame = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]');
+    const caption = dialog?.querySelector<HTMLElement>('[data-lightbox-cap]');
+    if (!dialog || !frame || !caption) return;
+
+    listeners = new AbortController();
+    const { signal } = listeners;
+
+    // The gallery is every openable image on the page, in reading order, so
+    // the arrows walk the article rather than one figure's siblings.
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const figure = dialog.querySelector<HTMLElement>('.lb__figure');
+
+    let gallery: HTMLImageElement[] = [];
+    let index = 0;
+    let swap: number | undefined;
+    let closing: number | undefined;
+
+    const render = () => {
+      const source = gallery[index];
+      // `currentSrc` is what the browser actually chose, so a <picture> with an
+      // art-directed phone crop opens the crop the reader is looking at.
+      frame.src = source.currentSrc || source.src;
+      frame.alt = source.alt;
+
+      const own = source.closest('figure')?.querySelector('figcaption');
+      caption.innerHTML = own ? own.innerHTML : '';
+      caption.hidden = !own;
+    };
+
+    const show = (next: number, animate = true) => {
+      if (gallery.length === 0) return;
+      // Wraps, because a viewer with three pictures should not dead-end.
+      index = (next + gallery.length) % gallery.length;
+
+      if (!animate || !figure || reduced.matches) {
+        render();
+        return;
+      }
+
+      // Out, swap, in — the same crossfade the section bar's label uses.
+      window.clearTimeout(swap);
+      figure.dataset.swapping = 'true';
+      swap = window.setTimeout(() => {
+        render();
+        delete figure.dataset.swapping;
+      }, 260); // matches the opacity transition on .lb__figure
+    };
+
+    const open = (source: HTMLImageElement) => {
+      // Reading order taken from the page rather than from the markup: a
+      // mosaic places its figures out of document order on purpose, and the
+      // arrows should follow what the eye sees. Column first, then down it —
+      // in a tile where one picture stands the full height beside two stacked
+      // ones, the two stacked ones are the pair, and stepping across between
+      // them would break it apart. Both keys are rounded into bands so this is
+      // a real ordering rather than a fuzzy comparison that sorts differently
+      // depending on where it starts.
+      const band = (value: number) => Math.round(value / 24);
+      const at = (element: Element) => element.getBoundingClientRect();
+      gallery = Array.from(document.querySelectorAll<HTMLImageElement>(SOURCES)).sort(
+        (a, b) => band(at(a).left) - band(at(b).left) || band(at(a).top) - band(at(b).top)
+      );
+
+      window.clearTimeout(closing);
+      delete dialog.dataset.closing;
+      dialog.toggleAttribute('data-single', gallery.length < 2);
+      show(gallery.indexOf(source), false);
+      dialog.showModal();
+      // <dialog> makes the page inert but does not stop it scrolling behind.
+      document.documentElement.style.overflow = 'hidden';
+      // A frame later, so the browser has a state to transition away from.
+      if (reduced.matches) dialog.dataset.shown = 'true';
+      else requestAnimationFrame(() => requestAnimationFrame(() => (dialog.dataset.shown = 'true')));
+    };
+
+    // `dialog.close()` is instant, so the fade has to finish first.
+    const dismiss = () => {
+      if (!dialog.open || dialog.dataset.closing) return;
+      delete dialog.dataset.shown;
+      if (reduced.matches) {
+        dialog.close();
+        return;
+      }
+      dialog.dataset.closing = 'true';
+      closing = window.setTimeout(() => {
+        delete dialog.dataset.closing;
+        dialog.close();
+      }, 240); // matches --dur-base on the scrim
+    };
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (event.defaultPrevented || (event as MouseEvent).button !== 0) return;
+        const image = (event.target as HTMLElement | null)?.closest<HTMLImageElement>(SOURCES);
+        if (!image) return;
+        // An image inside a link belongs to the link.
+        if (image.closest('a')) return;
+        open(image);
+      },
+      { signal }
+    );
+
+    // Everything closes it except the two arrows — including the picture. A
+    // viewer you have to aim to leave is a viewer you are stuck in.
+    dialog.addEventListener(
+      'click',
+      (event) => {
+        const step = (event.target as HTMLElement | null)?.closest<HTMLElement>(
+          '[data-lightbox-step]'
+        );
+        if (!step) {
+          dismiss();
+          return;
+        }
+        show(index + Number(step.dataset.lightboxStep));
+      },
+      { signal }
+    );
+
+    dialog.addEventListener(
+      'keydown',
+      (event) => {
+        // <dialog> closes itself on Escape, but only if nothing upstream has
+        // taken the key first; handling it here makes the behaviour the
+        // component's own.
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          dismiss();
+          return;
+        }
+        if (dialog.hasAttribute('data-single')) return;
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          show(index - 1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          show(index + 1);
+        }
+      },
+      { signal }
+    );
+
+    dialog.addEventListener(
+      'close',
+      () => {
+        document.documentElement.style.overflow = '';
+        delete dialog.dataset.shown;
+        frame.removeAttribute('src');
+      },
+      { signal }
+    );
+  }
+
+  document.addEventListener('astro:page-load', initLightbox);
+  initLightbox();
+</script>
