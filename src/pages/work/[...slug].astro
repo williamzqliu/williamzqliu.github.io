@@ -201,8 +201,26 @@ const facts = [
     }
   }
 
+  /* One row on a phone, and whatever does not fit is simply not shown. The
+     chips are ordered, so the first row is the useful part of the list; a
+     second and third row of them would push the facts and the hero off the
+     screen to say less than the first row already said. The height is one
+     chip — its line box plus its own vertical padding — so nothing is cut
+     through the middle and no label is truncated.
+
+     The full list is still in the markup for anyone reading it another way,
+     and from 640px up it wraps as before. */
   .cs__stack {
     margin-top: var(--sp-24);
+    overflow: hidden;
+    max-height: calc(var(--fs-micro) * var(--lh-micro) + 10px);
+  }
+
+  @media (min-width: 640px) {
+    .cs__stack {
+      overflow: visible;
+      max-height: none;
+    }
   }
 
   .cs__links {
@@ -320,6 +338,12 @@ const facts = [
     .cs__tocsum {
       border-top: 0;
       border-bottom: 0;
+    }
+
+    /* The list is a panel here, not a column, so it needs a floor: without
+       this the last title sits on the bar's bottom rule. */
+    .cs__toclist {
+      padding-bottom: var(--sp-16);
     }
 
     /* Parked, the top rule has nothing above it left to divide, and the orange
@@ -488,7 +512,11 @@ const facts = [
        phone the collapsed section bar is parked under the header too, so the
        heading has to clear both. */
     scroll-margin-top: calc(var(--header-h) + 41px + var(--sp-24));
-    border-top: var(--rule-hair) solid var(--rule-strong);
+    /* Off full strength. At --rule-strong these lines are the darkest thing in
+       the article and repeat every section, so scrolling reads as a stack of
+       bars with text between them; the space above the heading is what marks a
+       new section, and the rule only has to confirm it. */
+    border-top: var(--rule-hair) solid color-mix(in srgb, var(--rule-strong) 60%, var(--bg));
     font-family: var(--font-display);
     font-optical-sizing: auto;
     font-size: var(--fs-lead);
@@ -508,6 +536,18 @@ const facts = [
 
   .prose h2:first-child {
     margin-top: 0;
+  }
+
+  /* The rule over a heading separates it from the section before it, and the
+     first heading has none — on a phone the section bar sits directly above,
+     closing with a rule of its own, so this one only drew a second line 20px
+     under the first. The desktop column keeps it: there the bar is off to the
+     side and this rule starts the article. */
+  @media (max-width: 639px) {
+    .prose h2:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
   }
 
   .prose h2::before {
@@ -869,6 +909,25 @@ const facts = [
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         // Keeps the URL honest without a second jump.
         history.replaceState(null, '', `#${slug}`);
+      },
+      { signal }
+    );
+
+    // Anywhere else on the page closes it. The open panel covers the top of
+    // the article, and until now the only way out was back to the summary —
+    // which is not where the reader is looking. The close is routed through
+    // the summary's own click so it uses the same glide a tap on the bar
+    // does, rather than snapping shut. Clicks inside the panel are left
+    // alone: choosing a section already closes it, in the handler above.
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (desktop.matches || !toc.open) return;
+        const target = event.target as Node | null;
+        if (target && toc.contains(target)) return;
+        const summary = toc.querySelector<HTMLElement>('summary');
+        if (summary) summary.click();
+        else toc.open = false;
       },
       { signal }
     );

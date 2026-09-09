@@ -198,6 +198,16 @@ const showNav = navLinks.length > 1;
     transform: scaleX(1);
   }
 
+  /* On a phone the header is short and the reading-progress line runs along
+     its bottom edge, so the two rules end up almost touching and read as one
+     thick indicator. The black one moves up rather than the orange one down:
+     the progress line belongs to the header's edge. */
+  @media (max-width: 639px) {
+    .nav__label::after {
+      top: calc(100% + 1px);
+    }
+  }
+
   @media (hover: hover) and (pointer: fine) {
     /* Hover is colour only. The rule belongs to the current page. */
     .nav__link:hover {
