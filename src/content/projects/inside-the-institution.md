@@ -173,16 +173,72 @@ departmental boundaries while accounting for their overall collaboration volume.
 Collaboration Map, that score becomes a tiered outer ring, making structurally
 important connectors visible without replacing affiliation or connectivity encodings.
 
+<div class="tier-key">
+  <p class="tier-key__title">Ring tiers</p>
+  <div class="tier-key__row">
+    <div class="tier-key__item">
+      <svg width="44" height="44" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
+        <circle cx="28" cy="28" r="14" stroke="#A4804A" stroke-width="0.9" fill="none" opacity="0.30" />
+        <circle cx="28" cy="28" r="10" fill="#A4804A" fill-opacity="0.78" />
+      </svg>
+      <span>Top 25%</span>
+    </div>
+    <div class="tier-key__item">
+      <svg width="44" height="44" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
+        <circle cx="28" cy="28" r="15.5" stroke="#A4804A" stroke-width="1.2" fill="none" opacity="0.45" />
+        <circle cx="28" cy="28" r="10" fill="#A4804A" fill-opacity="0.78" />
+      </svg>
+      <span>Top 5%</span>
+    </div>
+    <div class="tier-key__item">
+      <svg width="44" height="44" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
+        <circle cx="28" cy="28" r="17" stroke="#A4804A" stroke-width="1.8" fill="none" opacity="0.60" />
+        <circle cx="28" cy="28" r="10" fill="#A4804A" fill-opacity="0.78" />
+      </svg>
+      <span>Top 3%</span>
+    </div>
+    <div class="tier-key__item">
+      <svg width="44" height="44" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
+        <circle cx="28" cy="28" r="18.5" stroke="#A4804A" stroke-width="2" fill="none" opacity="0.75" />
+        <circle cx="28" cy="28" r="10" fill="#A4804A" fill-opacity="0.78" />
+      </svg>
+      <span>Top 1%</span>
+    </div>
+  </div>
+</div>
+
 <details>
 <summary>Bridge score details</summary>
 
-The bridge score is the share of a scholar's collaborators who belong to a different
-department, multiplied by the log of their total collaborator count. The ratio captures
-boundary-spanning, while the logarithmic term keeps highly productive but
-disciplinarily narrow scholars from dominating the ranking.
+<div class="formula">
+  <p class="formula__label">Bridge score</p>
+  <p class="formula__eq">
+    <span class="formula__frac">
+      <span>cross&#8209;department partners</span>
+      <span>total partners</span>
+    </span>
+    <span class="formula__term"
+      ><span class="formula__op">&#215;</span> log<sub>10</sub>(total partners)</span
+    >
+    <span class="vh">
+      equals cross-department partners divided by total partners, multiplied by the
+      base-ten logarithm of total partners.
+    </span>
+  </p>
+  <div class="formula__parts">
+    <p><b>Proportion.</b> How much of the collaboration crosses departmental lines.</p>
+    <p><b>Breadth.</b> How many partners in total, log-transformed to compress the skew.</p>
+  </div>
+</div>
 
-In the Collaboration Map, outer-ring tiers correspond to the top 25%, 10%, 5%, 3%,
-and 1% of the bridge-score distribution.
+Either term alone ranks the wrong people. A scholar with one cross-department tie and
+nothing else scores 1.0 on the proportion; a prolific scholar who never leaves their own
+department scores high on the breadth. The product asks for both.
+
+The ring is drawn for the top 25% of the distribution and thickens in four steps: the
+25th, 5th, 3rd, and 1st percentile. Thresholds come from the distribution in the dataset
+rather than from fixed cutoffs, so they stay meaningful as the data changes. The scholar
+panel names the exact tier, including a top 10% the ring does not draw separately.
 
 </details>
 
