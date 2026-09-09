@@ -982,6 +982,9 @@ const facts = [
   .tier-key .tier-key__title {
     margin-top: var(--sp-4);
     font-size: var(--fs-small);
+    /* One step up from body copy. At caption size in the quietest ink, regular
+       weight reads as an afterthought rather than as the name of the key. */
+    font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
@@ -1017,6 +1020,19 @@ const facts = [
      multiplication sign hanging at the end of a line. */
   .formula__term {
     white-space: nowrap;
+  }
+
+  /* The name of the metric, not a term of the sum. It carries a word space on
+     one side and an operator on the other, which is not the same distance —
+     2px puts the equals sign where the eye expects it. The 1px lift is optical:
+     the row is centred on the fraction, whose weight sits at its rule, and a
+     line of text centred against that reads a hair low. */
+  .formula__eq > .formula__term:first-child {
+    translate: 0 -1px;
+  }
+
+  .formula__eq > .formula__term:first-child .formula__op {
+    margin-left: 2px;
   }
 
   .formula__op {
