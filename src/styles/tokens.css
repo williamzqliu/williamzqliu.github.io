@@ -28,6 +28,11 @@
      ink: a brown on paper, a light orange on the dark page. It reads as a
      different kind of word without reading as a link. */
   --code-ink:      #7A4022;
+  /* The ground artwork was drawn on. Deliberately not part of either theme:
+     a plate exported as ink on a transparent background needs the paper it
+     was made against, in dark mode too, or the ink lands on ink. Same value
+     as the light page fill, which is where those exports came from. */
+  --paper:         #FDF7E9;
 
   color-scheme: light;
 }

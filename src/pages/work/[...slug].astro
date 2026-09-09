@@ -774,6 +774,13 @@ const facts = [
     height: auto;
   }
 
+  /* Ink on a transparent ground gets the ground it was drawn on, dark theme
+     included — see `--paper` in tokens.css. Opt-in per image: an export with
+     its own background does not need one. */
+  .prose img[data-ground='paper'] {
+    background: var(--paper);
+  }
+
   .prose figcaption {
     margin-top: var(--sp-12);
     max-width: var(--measure-meta);
@@ -783,104 +790,6 @@ const facts = [
   }
 
   .prose figure + p {
-    margin-top: var(--sp-32);
-  }
-
-  /* A caption sits under the left edge of its picture, which is right until
-     the picture has no left edge. The network plate is a circle on a
-     transparent ground, so the only edge it really has is its centre — this
-     centres the line under it. Opt-in per figure, because it is wrong for
-     anything that fills its box. */
-  .prose figure[data-caption='center'] figcaption {
-    max-width: none;
-    text-align: center;
-  }
-
-  /* Two figures of equal weight, side by side from 640px up and stacked below
-     it in document order. Nothing is cropped and no frame is shared: whatever
-     ratios the two arrive at, their tops sit on one line and each keeps its
-     own height. */
-  .media-pair {
-    display: grid;
-    gap: var(--sp-24);
-  }
-
-  .media-pair > figure {
-    margin-top: 0;
-  }
-
-  @media (min-width: 640px) {
-    .media-pair {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: start;
-    }
-  }
-
-  .prose > .media-pair {
-    margin-top: var(--sp-32);
-    max-width: 100%;
-  }
-
-  .prose > .media-pair + p {
-    margin-top: var(--sp-32);
-  }
-
-  /* Several pictures of one moment, tiled into a rectangle instead of a row.
-     Three figures: the first takes the top of the left column, the second the
-     whole right column, the third the bottom of the left. Stacked below 640px
-     in document order.
-
-     Nothing in the left column is cropped. The column split squares the block
-     off — with fixed aspect ratios that is arithmetic, not taste, so each
-     instance passes its own `--mosaic-split` from the content file rather than
-     the stylesheet guessing. */
-  .media-mosaic {
-    display: grid;
-    gap: var(--sp-24);
-  }
-
-  .media-mosaic > figure {
-    margin-top: 0;
-  }
-
-  @media (min-width: 640px) {
-    .media-mosaic {
-      grid-template-columns: var(--mosaic-split, 1fr 1fr);
-      align-items: start;
-    }
-
-    /* The tall one. It stretches to whatever the left column comes to and its
-       picture fills that box, which is what squares the block off at every
-       width — the alternative is arithmetic that only lands at one viewport,
-       because a caption's height does not scale with its column. The cost is
-       a few per cent off the sides of a centred image, taken from margin. */
-    .media-mosaic > :nth-child(2) {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .media-mosaic > :nth-child(2) img {
-      flex: 1;
-      min-height: 0;
-      object-fit: cover;
-    }
-
-    .media-mosaic > :nth-child(3) {
-      grid-column: 1;
-      grid-row: 2;
-    }
-  }
-
-  /* The wrapper carries the space a figure would have carried on its own. */
-  .prose > .media-mosaic {
-    margin-top: var(--sp-32);
-    max-width: 100%;
-  }
-
-  .prose > .media-mosaic + p {
     margin-top: var(--sp-32);
   }
 
@@ -945,19 +854,59 @@ const facts = [
      its own `--mosaic-split` from the content file rather than the stylesheet
      guessing. Here: a 1.83 over a 1.78 on the left against a 1:1 on the right
      comes out at roughly 46 / 54. */
+  /* Phone: the same idea one turn rotated. The wide one takes the full width
+     and the other two share the row under it, so the block is still a
+     rectangle and the reading order is left to right — which is also the
+     order the lightbox steps through.
+
+     The two on the bottom row get columns in the ratio of their own aspects
+     (`--mosaic-stack` from the content file, the same way `--mosaic-split`
+     works above), so their bottoms land on one line with nothing cropped.
+     16px between tiles rather than 24: the tiles are a third the size. */
   .media-mosaic {
     display: grid;
-    gap: var(--sp-24);
+    grid-template-columns: var(--mosaic-stack, 1fr 1fr);
+    gap: var(--sp-16);
   }
 
   .media-mosaic > figure {
     margin-top: 0;
   }
 
+  .media-mosaic > :nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  .media-mosaic > :nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .media-mosaic > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Tiles this size cannot carry a line of text under them without the text
+     becoming the block. The captions are not lost: the lightbox reads them
+     from these same figures, so tapping a tile is what shows them. */
+  @media (max-width: 639px) {
+    .media-mosaic figcaption {
+      display: none;
+    }
+  }
+
   @media (min-width: 640px) {
     .media-mosaic {
       grid-template-columns: var(--mosaic-split, 1fr 1fr);
+      gap: var(--sp-24);
       align-items: start;
+    }
+
+    /* Back to document order in a two-column frame. */
+    .media-mosaic > :nth-child(1) {
+      grid-column: 1;
+      grid-row: 1;
     }
 
     /* The tall one. It stretches to whatever the left column comes to and its
