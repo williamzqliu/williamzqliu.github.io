@@ -286,9 +286,12 @@ const facts = [
       grid-template-columns: minmax(0, 1fr);
     }
 
+    /* The second column opens on the middle of the screen, not on the middle
+       of the list: the first track is half the width less the gutter, so the
+       column edge lands exactly on the centre line. */
     .cs__links[data-count='2'],
     .cs__links[data-count='4'] {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: calc(50% - var(--sp-12)) minmax(0, 1fr);
     }
 
     .cs__links[data-count='3'],

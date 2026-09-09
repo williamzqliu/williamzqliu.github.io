@@ -159,12 +159,13 @@ second device. Only quote when the words are stronger evidence than a
 paraphrase: behaviour, critique, an expert's diagnosis. Never generic praise,
 never a wall of testimonials.
 
-### Stat strip — `components/StatRow.astro`
+### Stat strip — does not exist
 
-Exists, and is currently wired only into `Hero` (which is never given data).
-Fifteen projects carry a `stats` array that nothing renders. Before using it,
-decide whether a case study should show one at all: three or four numbers that
-genuinely help scanning, no icons, no dashboard styling.
+There was a `StatRow` component and a `stats` frontmatter array on fifteen
+projects; nothing ever rendered them, and both were removed in the architecture pass.
+If a project ever earns one, build it then: three or four numbers that
+genuinely help scanning, plain type, no icons, no dashboard styling. Do not
+reintroduce a `stats` field speculatively.
 
 ---
 

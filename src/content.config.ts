@@ -51,8 +51,6 @@ const projects = defineCollection({
       .default({}),
     cover: z.object({
       wide: z.string(),
-      square: z.string().optional(),
-      poster: z.string().optional(),
       /* Art direction for the case study head, both optional. The listing card
          always uses `wide`; a hero that needs a different composition — a
          portrait project, an installation view, a wide arrangement of details
@@ -65,11 +63,7 @@ const projects = defineCollection({
          a reader who cannot see it; this says what it shows to one who can. */
       caption: z.string().optional(),
     }),
-    /* Search metadata only. Never rendered — the day it appears on a page it
-       stops being metadata and starts needing curation. */
-    keywords: z.array(z.string()).optional(),
     quickFacts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
-    stats: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
   }),
 });
 

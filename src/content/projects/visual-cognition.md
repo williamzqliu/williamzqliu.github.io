@@ -14,7 +14,6 @@ cover:
   tone: "light"
   alt: "Detail of a tall poster laid out like a Spotify Wrapped page, in mint green, hot pink and navy, with explanatory diagrams of the stages of visual perception."
 quickFacts: []
-stats: []
 ---
 
 <!--

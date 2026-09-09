@@ -10,7 +10,6 @@ stack: [Python, pandas, Plotly, Folium, geopy]
 links: {}
 cover:
   wide: /media/tod-boston/cover-wide.webp
-  square: /media/tod-boston/cover-square.webp
   tone: light
   alt: A bar chart ranking eight Boston-area communities by TOD suitability score, with Quincy highest at 69.95.
 quickFacts:
@@ -18,11 +17,6 @@ quickFacts:
     value: "Data Analyst"
   - label: "Outcome"
     value: "A recommended station, Quincy Center, at an estimated $482M"
-stats:
-  - { value: "124", label: Stations screened }
-  - { value: "6", label: Datasets }
-  - { value: "9", label: Weighted indicators }
-  - { value: "1", label: Site selected }
 ---
 
 ## The question a policy created

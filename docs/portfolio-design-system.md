@@ -147,7 +147,6 @@ orthogonal and must never be folded into a width query.
 | `ExtArrow` | `components/ExtArrow.astro` | the ↗ mark | four link sites | |
 | `NextProject` | `components/NextProject.astro` | end-of-page hand-off | case study | destination decided by `nextStep()` |
 | `Hero`, `HomeIntro`, `IdentityLine` | `components/` | homepage opening | `pages/index.astro`, `pages/about.astro` | |
-| `StatRow` | `components/StatRow.astro` | four data cells | `Hero` (never passed data today) | see *Known gaps* |
 | `FilterRow`, `ArchiveList` | `components/` | work-index UI | `pages/work/_index.astro` | parked with the index — see *The GFL cut* |
 | `Lightbox` | `components/Lightbox.astro` | the image/video viewer | case study | one implementation, site-wide |
 
@@ -252,10 +251,11 @@ var(--accent-2); outline-offset: 2px }`. Never `:focus`. The only opt-out is
 `.lb:focus`, because the lightbox shell takes focus on open so that no control
 starts out ringed; every control inside it keeps the ring.
 
-**Touch targets.** `--tap: 44px` is the target. Two places sit below it
-deliberately and say so in a comment: the case-study intro links on a phone
-(34.5px, to buy a tighter editorial rhythm) and the lightbox step buttons
-(44px, unchanged).
+**Touch targets.** `--tap: 44px` is the target. One place sits below it
+deliberately and says so in a comment: the case-study intro links on a phone,
+at 34.5px, where the padding that would make the target was spent on the
+editorial rhythm instead. **Open accessibility item — worth revisiting.** The
+lightbox step buttons keep their full 44px.'
 
 **Motion.** `--dur-hover-in` 200ms / `--dur-hover-out` 280ms, `--dur-base`
 240ms, `--dur-press` 90ms, `--dur-draw` 320ms, `--dur-theme` 150ms, easing
@@ -287,16 +287,9 @@ phone while every other pair stacks.
 
 ## Known gaps (found in the audit, deliberately not changed)
 
-- **`stats` frontmatter is dead data.** Fifteen projects declare a `stats`
-  array; `StatRow.astro` exists and is wired only to `Hero`, which is never
-  passed stats. Nothing renders them. Either wire a stat strip into the case
-  study or drop the field — both are visible changes, so neither was made here.
-- **`cover.square` (13 files) and `cover.poster` (5 files) are never read.**
-  The schema comment already says the listing always uses `wide`.
-- **`keywords` is in the schema and in no file.**
-- **Four project links 404**: `poster` in `dui-invisible-bill`, `emoease`,
-  `lumitex`, `not-always-more-for-more` point at PDFs that are not in
-  `public/`. Unlike covers, links have no `shippedMedia()` guard.
+- **Links have no build-time guard.** Covers fall back to a tone plate when
+  the file is missing; a link to a file that is not in `public/` simply 404s.
+  Check link targets by hand when adding a project.
 - **Unused tokens**: `--dur-fast`, `--dur-slow`, `--ease-inout`,
   `--measure-lead`. Kept as vocabulary; say the word and they go.
 - **`--header-h` is a fixed 97px / 63px** rather than measured. It feeds

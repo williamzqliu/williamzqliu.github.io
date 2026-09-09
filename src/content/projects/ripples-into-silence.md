@@ -11,7 +11,6 @@ links:
   demo: https://nu-info-design.github.io/mapping-movement/ripples-into-silence/index.html
 cover:
   wide: /media/ripples-into-silence/cover-wide.webp
-  square: /media/ripples-into-silence/cover-square.webp
   tone: dark
   alt: The silhouette of Lampedusa in mourning yellow against deep navy, with a dashed 50 kilometre radius drawn around it.
 quickFacts:
@@ -19,11 +18,6 @@ quickFacts:
     value: "Information Designer & Developer"
   - label: "Outcome"
     value: "Interactive scrollytelling piece built from IOM Missing Migrants data"
-stats:
-  - { value: "94", label: Incidents }
-  - { value: "703", label: Lives lost }
-  - { value: "50", label: Kilometres }
-  - { value: "11", label: Years }
 ---
 
 ## The version that did not work

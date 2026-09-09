@@ -12,7 +12,6 @@ links:
   code: https://github.com/NU-Center-for-Design/Polygraphs_AI_Ethics_Network
 cover:
   wide: /media/polygraphs/cover-wide.webp
-  square: /media/polygraphs/cover-square.webp
   tone: light
   alt: A force-directed network of 534 AI ethics keywords, coloured by thematic community, with dense clusters around technology and philosophy.
 quickFacts:
@@ -20,11 +19,6 @@ quickFacts:
     value: "Visualization Research Assistant"
   - label: "Outcome"
     value: "Interactive research tool built for a Northeastern University London research team"
-stats:
-  - { value: "534", label: Keywords }
-  - { value: "4,474", label: Co-occurrences }
-  - { value: "1,201", label: Journals }
-  - { value: "7", label: Design explorations }
 ---
 
 ## What this is

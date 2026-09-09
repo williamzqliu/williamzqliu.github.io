@@ -11,7 +11,6 @@ links:
   demo: https://www.youtube.com/watch?v=Pem2er8I3Mc
 cover:
   wide: /media/melovision/cover-wide.webp
-  square: /media/melovision/cover-square.webp
   tone: dark
   alt: A generative sphere in teal and violet, its surface warped and striped by the audio of a single song.
 quickFacts:
@@ -19,11 +18,6 @@ quickFacts:
     value: "Solo Designer & Researcher"
   - label: "Outcome"
     value: "Visual system, app, brand identity, and print"
-stats:
-  - { value: "105", label: Surveyed }
-  - { value: "8", label: Genres encoded }
-  - { value: "9", label: Songs rendered }
-  - { value: "3", label: Stakeholder groups }
 ---
 
 ## The question

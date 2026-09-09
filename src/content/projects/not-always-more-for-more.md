@@ -8,11 +8,8 @@ tracks: ["design"]
 featured: 12
 draft: false
 stack: ["Figma"]
-links:
-  poster: "/media/not-always-more-for-more/poster.pdf"
 cover:
   wide: "/media/not-always-more-for-more/cover-wide.webp"
-  square: "/media/not-always-more-for-more/cover-square.webp"
   tone: "light"
   alt: "Detail of the final chart: columns of green person icons above a baseline for population, columns of dollar signs below it for per capita health spending, with Mexico, the United States and China labelled."
 quickFacts:
@@ -20,15 +17,6 @@ quickFacts:
     value: "Solo Information Designer"
   - label: "Outcome"
     value: "A completed unit chart of more than 2,000 symbols"
-stats:
-  - value: "10"
-    label: "countries compared"
-  - value: "4"
-    label: "encoding versions"
-  - value: "$100"
-    label: "per dollar symbol"
-  - value: "1M"
-    label: "people per person icon"
 ---
 
 Does higher health spending buy longer life? This is one chart, built four times, trying to answer that with 2022 data on population, per capita health spending and life expectancy.
