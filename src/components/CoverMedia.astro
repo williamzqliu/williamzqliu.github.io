@@ -121,6 +121,13 @@ const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = 
      viewport — past that the cap wins and the box simply stops getting taller. */
   @media (min-width: 1024px) {
     .cover[data-ratio='hero'] {
+      /* The width has to be stated, not left to fill. With `width: auto` the
+         cap on the height feeds back through the ratio and takes the width
+         with it, so on a short viewport the plate pulled in from the right
+         and stopped short of the rules under it. A definite width leaves the
+         cap to do only what it says: the box gets shallower than 2.1 : 1 and
+         the image crops. */
+      width: 100%;
       aspect-ratio: 2.1 / 1;
       max-height: 60vh;
     }
