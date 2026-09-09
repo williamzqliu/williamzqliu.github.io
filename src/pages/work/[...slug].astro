@@ -1029,6 +1029,9 @@ const facts = [
      line of text centred against that reads a hair low. */
   .formula__eq > .formula__term:first-child {
     translate: 0 -1px;
+    /* One step up from the terms it introduces: this is the name of the thing,
+       and the arithmetic after it is the definition. */
+    font-weight: var(--fw-medium);
   }
 
   .formula__eq > .formula__term:first-child .formula__op {
