@@ -2,7 +2,7 @@
 title: Inside the Institution
 year: 2026
 dates: Jul 2025 – May 2026
-blurb: An interactive visualization for exploring how co-authorship connects departments and research centers within a university.
+blurb: An interactive research tool for exploring how co-authorship connects scholars, departments, and research centers within a university.
 tags: [networks, interactive]
 tracks: [design, engineering]
 featured: 1
