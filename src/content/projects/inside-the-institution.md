@@ -242,6 +242,47 @@ panel names the exact tier, including a top 10% the ring does not draw separatel
 
 </details>
 
+## Interactive at scale
+
+At full scale, the Collaboration Map contained 2,737 faculty nodes. Rendering each node
+as an SVG / DOM element made hover and drag interactions increasingly expensive, so I
+moved the network rendering to HTML Canvas while keeping *D3.js* for layout and
+interaction logic.
+
+Scale also changed the interaction model. Early versions placed a separate ego network
+inside the side panel, duplicating context from the main visualization. I replaced it
+with `Direct`, `1-Hop`, and `2-Hop` controls that operate on the main canvas, turning
+the panel from a second visualization into a control surface.
+
+<!-- MEDIA — waiting on two files. Drop them in public/media/inside-the-institution/
+     and uncomment the block below; the section reads fine until then.
+
+     1. side-panel-before.webp  — the earlier panel with its own ego network inside it
+     2. side-panel-after.webp   — the revised panel with Direct / 1-Hop / 2-Hop
+
+<div class="media-pair">
+  <figure>
+    <img
+      src="/media/inside-the-institution/side-panel-before.webp"
+      alt="The earlier side panel, showing a small ego network of its own beside the main map."
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Before: the panel duplicated the network.</figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/media/inside-the-institution/side-panel-after.webp"
+      alt="The revised side panel, with Direct, 1-Hop and 2-Hop controls acting on the main canvas."
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>After: the panel became a control surface.</figcaption>
+  </figure>
+</div>
+-->
+
 ## What the study showed
 
 I ran a pilot with two participants, then a formal study with twenty meta-scientists.
