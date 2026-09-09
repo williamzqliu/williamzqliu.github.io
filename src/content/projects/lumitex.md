@@ -19,7 +19,7 @@ quickFacts:
   - label: "Role"
     value: "Solo Designer"
   - label: "Outcome"
-    value: "Made for a master's application portfolio, 2023"
+    value: "A functional AR reading-aid prototype"
 stats:
   - value: "27"
     label: "children surveyed"

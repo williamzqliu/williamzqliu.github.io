@@ -81,9 +81,15 @@ export function projectLinks(project: Project): ProjectLink[] {
  * SPEC §7 — body content is optional, and a project without one renders as a
  * row with links but no case study page. So the link only exists when the
  * page does.
+ *
+ * Comments do not count. The archive-only projects carry their reasons for
+ * having no page as an HTML comment in the body, and a comment is still
+ * characters to `.trim()` — which built each of them an article with a title,
+ * a hero and nothing under it.
  */
 export function hasCaseStudy(project: Project): boolean {
-  return (project.body ?? '').trim().length > 0;
+  const prose = (project.body ?? '').replace(/<!--[\s\S]*?-->/g, '');
+  return prose.trim().length > 0;
 }
 
 export function caseStudyHref(project: Project): string | undefined {

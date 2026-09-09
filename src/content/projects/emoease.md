@@ -20,7 +20,7 @@ quickFacts:
   - label: "Role"
     value: "Solo Designer & Creative Technologist"
   - label: "Outcome"
-    value: "Made for a master's application portfolio, 2023"
+    value: "A working projection installation with three interaction modes"
 stats:
   - value: "106"
     label: "survey responses"

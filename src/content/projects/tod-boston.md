@@ -17,7 +17,7 @@ quickFacts:
   - label: "Role"
     value: "Data Analyst"
   - label: "Outcome"
-    value: "Quincy Center, at an estimated $482M"
+    value: "A recommended station, Quincy Center, at an estimated $482M"
 stats:
   - { value: "124", label: Stations screened }
   - { value: "6", label: Datasets }

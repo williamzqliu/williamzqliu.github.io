@@ -18,7 +18,7 @@ quickFacts:
   - label: "Role"
     value: "Designer & Developer"
   - label: "Outcome"
-    value: "Live at barboard.space, built unpaid on my own initiative"
+    value: "Launched at barboard.space as a self-initiated community project"
 stats:
   - { value: "143", label: Members }
   - { value: "3", label: Months running }

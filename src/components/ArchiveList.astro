@@ -67,6 +67,14 @@ const { projects } = Astro.props;
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
+  /* A row with nowhere to go says so before it is clicked: these are archive
+     entries that have no case study behind them, so the title steps back to
+     the supporting tone rather than sitting at full ink and looking like a
+     link that does not work. */
+  .arch__row:not([data-linked]) .arch__title {
+    color: var(--text-2);
+  }
+
   /* Stretches the link across the whole row, like the project rows do. */
   .arch__link::after {
     content: '';

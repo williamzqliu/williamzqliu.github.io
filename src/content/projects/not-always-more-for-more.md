@@ -19,7 +19,7 @@ quickFacts:
   - label: "Role"
     value: "Solo Information Designer"
   - label: "Outcome"
-    value: "Shown at a course studio critique, Northeastern"
+    value: "A completed unit chart of more than 2,000 symbols"
 stats:
   - value: "10"
     label: "countries compared"

@@ -2,7 +2,7 @@
 title: "Citing Less Critically"
 year: 2026
 dates: "Nov 2025 – Aug 2026"
-blurb: "Figure design and the citation-matching pipeline for an EMNLP 2026 paper auditing how LLMs cite."
+blurb: "A study of whether large language models cite the way scholars do, with my two figures and citation-matching pipeline."
 tags: ["networks"]
 tracks: ["design", "engineering"]
 featured: 2

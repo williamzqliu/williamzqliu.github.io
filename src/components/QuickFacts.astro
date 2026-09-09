@@ -3,7 +3,7 @@
 // hero — most visitors will not read to the end, and this is what they came to
 // check.
 //
-// Three fields, the same three on every project — role, timeline, outcome —
+// Three fields, the same three on every project — timeline, role, outcome —
 // as label-over-value pairs. Not a table and not a set of cards: no fills, no
 // pills, no boxes, no heavy rules. The label takes the site's mono caps, the
 // value the same supporting size the project cards use, so this reads as the
@@ -77,12 +77,12 @@ const { facts } = Astro.props;
     }
   }
 
-  /* Desktop: one row, uneven on purpose. A timeline is eight words at most and
-     an outcome is a sentence, so equal thirds would leave a hole in the middle
-     and crowd the end. */
+  /* Desktop: one row, uneven on purpose. A timeline is four words, a role is a
+     title and an outcome is a sentence, so equal thirds would leave a hole at
+     the start and crowd the end. */
   @media (min-width: 1024px) {
     .qf {
-      grid-template-columns: 1.5fr 1fr 2.5fr;
+      grid-template-columns: 1fr 1.5fr 2.5fr;
       gap: var(--sp-40);
     }
   }
