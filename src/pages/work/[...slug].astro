@@ -268,17 +268,17 @@ const facts = [
     }
 
     /* Two class names, because the rule this narrows sits further down the
-       sheet and would otherwise win on source order alone. */
+       sheet and would otherwise win on source order alone.
+
+       The two gaps in this block are both made of this padding: rows are 2p
+       apart and the chips above are m + p away. 9.5 and 12.5 put them at 19
+       and 22, which is the pair the page was set by eye. */
     .cs__links .cs__link {
-      padding-block: 10px;
+      padding-block: 9.5px;
     }
 
-    /* One gap, used twice. What separates the chips from the links has to
-       equal what separates one row of links from the next, and the row gap is
-       the tap padding doubled — so the margin is that same padding, and both
-       read as 20px. */
     .cs__links {
-      margin-top: 10px;
+      margin-top: 12.5px;
     }
 
     .cs__links[data-count='1'] {
