@@ -51,22 +51,22 @@ institution-wide structure, Research Units supports comparison across department
 research centers, and Bridging Scholars surfaces people who connect otherwise separate
 communities.
 
-<figure>
-  <video
-    src="/media/inside-the-institution/collaboration-map.mp4"
-    width="1440"
-    height="712"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
-  ></video>
-  <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
-</figure>
+<div class="media-pair" data-cols="3">
+  <figure>
+    <video
+      src="/media/inside-the-institution/collaboration-map.mp4"
+      width="1440"
+      height="712"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-label="The Collaboration Map: the university-wide co-authorship graph, with a scholar selected to reveal their local network."
+    ></video>
+    <figcaption>University level: clusters, gaps, and cross-unit ties.</figcaption>
+  </figure>
 
-<div class="media-pair">
   <figure>
     <video
       src="/media/inside-the-institution/research-units.mp4"
