@@ -9,6 +9,9 @@ Thumbs.db
 CLAUDE.md
 .claude/
 
-# Video masters: multi-GB screen recordings. The compressed web copies in
-# public/ are what the site serves; keep the originals locally.
+# media-src/ is the raw archive: whatever came out of the camera, the screen
+# recorder or the export dialog, named after the file it produces in
+# public/media/. The site is built from public/, so the masters do not need to
+# travel with the repo — and a few of them are tens of megabytes.
 media-src/**/*.mp4
+media-src/**/*.pdf
