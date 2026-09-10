@@ -488,20 +488,16 @@ expectations, and data-governance rules.
 
 </details>
 
-<!-- PARKED for the Takeaway. The old Reflection, kept because the closing
-     section is not written yet — move what it needs and delete the rest.
 
-     The participant who found the inconsistency is the reason this project has an
-     argument rather than just an artifact. Network analysis and interactive
-     visualization produce different kinds of knowledge. The analysis told me the
-     network was fragmented. It could not tell me what a meta-scientist would notice
-     first, which encoding they would trust, or which feature they would never find.
-     Design is what connects the two.
+## Takeaway
 
-     The work covers one institution, so the structural findings are about Northeastern
-     and not about research universities generally.
+I began with a visualization brief, but each stage changed what the project required. My
+first prototypes exposed missing institutional data. Scaling from 379 scholars to 2,737
+forced me to add analytical encodings, and expert testing exposed a mismatch between two
+definitions of bridging.
 
-     If I rebuilt it, I would start with the data model rather than arriving at it.
-     Three months of curation was the right call and it was also the consequence of
-     designing before knowing what the design needed.
--->
+If I started again, I would define the data model and analytical terms earlier. I would
+still keep the tool exploratory rather than guide users toward one story. Participants
+compared unexpected units, questioned bibliometric impact, and caught an analytical
+mismatch I had missed. Those moments convinced me that data, analysis, and interface
+cannot be treated as separate handoffs.
