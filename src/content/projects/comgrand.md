@@ -85,27 +85,12 @@ in urban China suggested that physical and financial independence did not automa
 translate into social participation. Needs around self-worth, peer friendship, respect,
 and social integration pointed to concerns beyond basic care.
 
-<div class="stat-strip">
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">68.0%</p>
-    <p class="stat-strip__label">Wanted to realize their self-worth</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">84.5%</p>
-    <p class="stat-strip__label">Wanted to gain respect</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">81.6%</p>
-    <p class="stat-strip__label">Wanted peer friendships</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">71.4%</p>
-    <p class="stat-strip__label">Wanted to integrate into society</p>
-  </div>
-</div>
+| Need | Share |
+| --- | --- |
+| To realize their self-worth | 68.0% |
+| To gain respect | 84.5% |
+| To have peer friendships | 81.6% |
+| To integrate into society | 71.4% |
 
 **Framework.** I used the Active Aging framework to organize the research around health,
 security, and participation. Participation became the area I chose to design around.
