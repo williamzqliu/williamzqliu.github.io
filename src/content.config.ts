@@ -61,6 +61,12 @@ const projects = defineCollection({
       heroWide: z.string().optional(),
       heroMobile: z.string().optional(),
       tone: z.enum(['dark', 'light', 'neutral']),
+      /* Case study heads open in the viewer like every other picture on the
+         page, because a cover is usually the project's own artwork and there
+         is more of it than the column prints. Set false where enlarging it
+         shows nothing: a generated or purely illustrative opener has no
+         detail to go and look at. */
+      zoom: z.boolean().default(true),
       alt: z.string(),
       /* Printed under the case study head. `alt` says what the picture is for
          a reader who cannot see it; this says what it shows to one who can. */
