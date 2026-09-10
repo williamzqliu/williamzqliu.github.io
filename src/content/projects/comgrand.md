@@ -457,11 +457,13 @@ interface.
 
 </details>
 
-The interface could be refined on screen, but the ring raised a question a render could not
-answer: how would it actually feel on an older adult&#8217;s hand?
-
 
 ## Testing with older adults
+
+<!-- Intended opening for this section, agreed but not yet written in:
+     "The ring looked resolved in sketches and renders, but wearing it exposed
+     problems I could not see on screen." The rest of this section is still the
+     old draft. -->
 
 I built a physical prototype and had two elders wear it through the actual use cases:
 identity verification, exchanging contacts with another wearer, oximetry, NFC
