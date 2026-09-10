@@ -65,8 +65,9 @@ place for the community&#8217;s members, charts, events, and years of records. C
 good for staying connected, but not for finding what happened years ago.
 
 In 2026, I designed and built barboard.space as an archive and web portal for the
-community. The goal was not to replace WeChat, but to give Barboard a place of its own for
-information people might want to return to.
+community. As some long-time members became busier or drifted away and community activity
+slowed, I also hoped the site could create a renewed point of connection. The goal was not
+to replace WeChat, but to give Barboard a place of its own that people could return to.
 
 <!-- TODO media. This section wants one desktop view of the barboard.space home
      page, showing the BAR / BOARD identity, 欧美流行音乐个人榜吧, the live updates
@@ -377,22 +378,22 @@ device.
 
 ## Building live community tools
 
-barboard.space was not only built for looking back. During Barvision 2026 and each weekly
-BarboardLab update, it also needed to reflect what the community was doing now. Members
-could check the latest chart, search within it, follow the contest, and submit songs while
-registration was open.
+barboard.space was not only built for looking back. It also became part of how Barboard
+ran its biggest event of 2026. Barvision Chongqing 2026 attracted the most participants
+and song entries in the event&#8217;s history, while the site supported registration,
+information updates, schedules, and results throughout the season.
 
-I designed these as reusable tools rather than one-off event pages. The chart updates from
-structured data, time-sensitive pages change as an event moves through different stages,
-and interactive controls make it easier to find or act on information without rebuilding
-the experience each time.
+I also built recurring tools around BarboardLab and other community data, from weekly
+chart updates and search to interactive results and member records. Together, these
+features turned the site from an archive into an active portal for both ongoing and
+seasonal community activity.
 
-> **Product principle**
+> **Live season**
 >
-> Turn recurring community routines into reusable tools.
+> Barvision 2026 became the largest edition in the event&#8217;s history.
 >
-> Checking charts, following events, and submitting entries should not require rebuilding
-> the experience each time.
+> barboard.space supported registration, event information, and results throughout the
+> season.
 
 <details>
 <summary>How the live tools work</summary>
@@ -414,12 +415,13 @@ image to share. The point is that the data is not only shown; the interface give
 something to do with it.
 
 **Handling a live event over time.** Barvision 2026 was not one page, it was a state that
-changed across the summer. The submission page reads differently before registration
-opens, while submissions are active, and after it closes. Validation and confirmation
-happen in the browser, and EmailJS carries the submission itself, so a song can be entered
-without a server standing behind the form. A local receipt means someone returning on the
-same device can see what they already sent. Other surfaces moved with the competition too,
-including the odds board and the season status.
+changed across the summer, and the site carried a real season rather than a rehearsal of
+one. The submission page read differently before registration opened, while submissions
+were active, and after it closed. Validation and confirmation happened in the browser, and
+EmailJS carried the submission itself, so a song could be entered without a server
+standing behind the form. A local receipt meant someone returning on the same device could
+see what they had already sent. Other surfaces moved with the competition too, including
+the season status, the odds board, and the results as they were published.
 
 </details>
 
@@ -481,3 +483,9 @@ exist for the site to keep growing, and building it is a stated next step rather
 an aspiration, which is also why the current version is documented this precisely.
 Knowing exactly which manual step each limitation produces is what makes the migration
 a scoping exercise instead of a rewrite.
+
+Barvision 2026 offered an early sign that the site could support renewed participation: it
+became the largest edition in the event&#8217;s history while barboard.space served as a
+central portal throughout the season. What I still cannot separate is how much of that
+growth came from the website itself, rather than the event, the community, or other
+factors.
