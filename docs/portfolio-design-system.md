@@ -226,9 +226,10 @@ picture, not a player.
 
 **Lightbox.** `components/Lightbox.astro`, one implementation for the whole
 site, with two gesture models that share one visual language: a fine pointer
-clicks a picture a second time to open it at its own size and scrolls the
-oversized result (`data-zoomed` on the dialog, chrome switched to
-`position: fixed`); touch keeps pinch and pan. A new picture, a close, or a
+clicks a picture a second time to open it at its own size, then scrolls or
+drags the oversized result (`data-zoomed` on the dialog, chrome switched to
+`position: fixed`; the drag scrolls the container rather than transforming the
+picture); touch keeps pinch and pan. A new picture, a close, or a
 step always returns to the fitted view. It collects `.prose img, .prose video, .cs__media img` at open time,
 orders them by document position (only a `.media-mosaic` is re-sorted, into the
 column order the eye takes), and carries each figure's caption. Desktop gets
