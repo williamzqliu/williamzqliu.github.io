@@ -1114,6 +1114,54 @@ const facts = [
     color: var(--text-2);
   }
 
+  /* Two numbers the section is built on, set the way this site has always set a
+     data value: mono, tabular, one hairline between the cells and nothing else.
+     Not a dashboard — no fills, no icons, no chart. Prose width, because it is
+     drawn rather than photographed.
+
+     `--measure` is in `ch`, so the block carries the copy size to come out as
+     wide as the paragraphs. */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-24);
+    margin-top: var(--sp-32);
+    font-size: var(--fs-copy);
+  }
+
+  .stat-strip__cell + .stat-strip__cell {
+    padding-left: var(--sp-24);
+    border-left: var(--rule-hair) solid var(--rule);
+  }
+
+  .stat-strip .stat-strip__value {
+    margin-top: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+
+  .stat-strip .stat-strip__label {
+    margin-top: var(--sp-8);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    font-weight: var(--fw-medium);
+    color: var(--text-2);
+  }
+
+  /* The count the percentage came from. Quietest of the three lines: it is
+     there to be checked, not read. */
+  .stat-strip .stat-strip__note {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
   /* Data keeps the metadata treatment: mono heads, hairline rows, no fills. */
   .prose table {
     width: 100%;

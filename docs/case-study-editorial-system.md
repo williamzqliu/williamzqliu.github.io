@@ -172,13 +172,21 @@ second device. Only quote when the words are stronger evidence than a
 paraphrase: behaviour, critique, an expert's diagnosis. Never generic praise,
 never a wall of testimonials.
 
-### Stat strip — does not exist
+### Stat strip — `.stat-strip`
 
-There was a `StatRow` component and a `stats` frontmatter array on fifteen
-projects; nothing ever rendered them, and both were removed in the architecture pass.
-If a project ever earns one, build it then: three or four numbers that
-genuinely help scanning, plain type, no icons, no dashboard styling. Do not
-reintroduce a `stats` field speculatively.
+**Use for** a small group of numbers the section is built on, where scanning
+them beats reading them in a sentence. Inside the Institution has exactly one,
+carrying two figures.
+
+**Standard.** Prose width. Mono value at `--fs-title` with tabular figures, a
+label under it, and an optional quieter note for the count a percentage came
+from. One hairline between cells, two columns at every width. No fill, no icon,
+no chart, no dashboard.
+
+**Don't** create a second one in the same case study, and don't build one out
+of study ratings — behaviour is better evidence than a row of Likert scores.
+There is no `stats` frontmatter field; the markup lives in the content file
+like every other editorial pattern.
 
 ---
 

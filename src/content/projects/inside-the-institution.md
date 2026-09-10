@@ -370,8 +370,8 @@ short questionnaire followed.
   <figcaption>A formal think-aloud session: experts explored freely and formed their own questions.</figcaption>
 </figure>
 
-<!-- PARKED for 07 "What became visible" and 08 "What needed work". Written, not
-     yet re-homed — do not delete without moving these facts into those sections.
+<!-- PARKED for 08 "What needed work". Written, not yet re-homed — do not delete
+     without moving these facts into that section.
 
      The questionnaire combined twenty-five view-specific Likert items with six overall
      items and three open-ended questions. I analyzed the session records thematically
@@ -379,20 +379,62 @@ short questionnaire followed.
      interpretive priority, on the principle that observed behavior is better evidence
      than self-reported satisfaction.
 
-     Two findings matter most. The first is what the network turned out to look like.
-     Only 52.3% of faculty have any recorded co-authorship tie inside the university,
-     and only 7.1% have a tie with someone in a different college. Remove that small
-     group and the main connected component fragments into college-specific clusters.
-     The share of faculty in the main component ranges from 69.2% in Engineering to
-     3.3% at Northeastern University London.
+     Remove the cross-college group and the main connected component fragments into
+     college-specific clusters. The share of faculty in the main component ranges from
+     69.2% in Engineering to 3.3% at Northeastern University London.
 
-     The second is that participants surfaced structural patterns the network analysis
-     had not anticipated: gaps between colleges, bridge scholars connecting otherwise
-     disconnected communities, disciplinary asymmetries in how research gets published.
-     One participant found a design inconsistency in the tool that I had not caught.
+     Participants surfaced structural patterns the network analysis had not
+     anticipated: gaps between colleges, disciplinary asymmetries in how research gets
+     published. One participant found a design inconsistency in the tool that I had not
+     caught.
 
      Participant experience, from the background questionnaire: seventeen with Python
      network libraries, fifteen with Gephi, seven with D3 or other web visualization.
+-->
+
+## What became visible
+
+I counted how many faculty had at least one recorded internal co-authorship tie and how
+many connected across colleges.
+
+<div class="stat-strip">
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">52.3%</p>
+    <p class="stat-strip__label">Recorded internal tie</p>
+    <p class="stat-strip__note">1,431 of 2,737 faculty</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">7.1%</p>
+    <p class="stat-strip__label">Cross-college tie</p>
+    <p class="stat-strip__note">195 of 2,737 faculty</p>
+  </div>
+</div>
+
+During testing, participants traced cross-unit ties, inspected scholars between
+clusters, and compared those positions with their own knowledge of the university.
+
+One participant found a scholar with a modest h-index but a high bridge score. That
+contrast made them question whether bibliometric impact and structural importance were
+measuring the same thing.
+
+<!-- INTERFACE STATE — waiting on one file. Drop it in
+     public/media/inside-the-institution/ and uncomment; the section reads fine
+     until then.
+
+     bridge-scholar-selected.webp — the Collaboration Map with a bridge scholar
+     selected, the panel open beside it, so the ring, the h-index and the
+     affiliations are visible in one frame.
+
+<figure>
+  <img
+    src="/media/inside-the-institution/bridge-scholar-selected.webp"
+    alt="The Collaboration Map with a bridge scholar selected: a ringed node in the network and the scholar panel open beside it."
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>A selected bridge scholar: structural position shown alongside bibliometric and affiliation context.</figcaption>
+</figure>
 -->
 
 ## Reflection
