@@ -50,6 +50,9 @@ credits:
     # one entry rather than two of the five slots.
     - Scholarly APIs (*OpenAlex* and *ORCID*)
   team:
+    - group: Research, Analysis & Design
+      people:
+        - Zhuoqi Liu
     - group: Advising
       people:
         - Dakota Murray
