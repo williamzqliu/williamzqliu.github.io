@@ -173,7 +173,7 @@ score, so readers can see how the measure is built before they interpret the res
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Figure 4a.</strong> Worked comparison of the social-distance measure. Four shortest-path distances between first and last authors are averaged for each citation, giving &#10216;d&#10217; = 2.25 for the original example and &#10216;d&#10217; = 3 for the LLM-generated example.</figcaption>
+  <figcaption><strong>Figure 4a.</strong> Worked comparison of the social-distance measure for an original citation and an LLM-generated replacement.</figcaption>
 </figure>
 
 <details>
@@ -184,9 +184,8 @@ paper and the first and last author of the cited paper, giving four author pairs
 finds the shortest path between each pair in the coauthorship network. Averaging those
 four path lengths produces one score for the paper pair.
 
-In the two examples in Figure 4a, the original citation&#8217;s four distances are 2, 2,
-2 and 3, averaging 2.25, while the LLM-generated citation&#8217;s are 3, 3, 3 and 3,
-averaging 3.
+In the worked examples above, the original citation averages to &#10216;d&#10217; =
+2.25, while the LLM-generated replacement averages to &#10216;d&#10217; = 3.
 
 </details>
 
