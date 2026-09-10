@@ -50,22 +50,56 @@ credits:
 
 ## From Tieba to barboard.space
 
-Barboard is a music community of 143 people. I am a core member, and I built its
-website because it did not have one and I wanted it to.
+Barboard (榜吧), short for 欧美流行音乐个人榜吧, is a Chinese-speaking community for Western
+pop music founded on Baidu Tieba in 2013. Its English name combines &#8220;Bar,&#8221; a
+play on the Chinese &#8220;吧,&#8221; with &#8220;board,&#8221; reflecting the personal-chart
+culture at the center of the community. I joined in 2017.
 
-Nobody paid for this and nobody asked. That is the constraint the whole thing is built
-around: one person, unpaid, alongside a thesis and a job search, maintaining whatever
-got built for as long as the community wanted it.
+As day-to-day conversation gradually moved to WeChat, there was no longer a single durable
+place for the community&#8217;s members, charts, events, and years of records. Chat was
+good for staying connected, but not for finding what happened years ago.
 
-So the site is entirely static. That was not a conviction about architecture. It was
-the shape of the thing I could actually ship and keep running with the time and
-attention I had, and it is a stage rather than an end state. A version with a backend
-is the intended next step, and the section at the end says what it would be for.
+In 2026, I designed and built barboard.space as an archive and web portal for the
+community. The goal was not to replace WeChat, but to give Barboard a place of its own for
+information people might want to return to.
 
-I did the art direction, the visual system, the information architecture, and the
-technical direction. The implementation was carried out with AI assistance, which is
-visible in the commit history rather than hidden: 302 of 353 commits carry a
-co-authorship trailer. What the project demonstrates is the direction, not the typing.
+<!-- TODO media. This section wants one desktop view of the barboard.space home
+     page, showing the BAR / BOARD identity, 欧美流行音乐个人榜吧, the live updates
+     area and enough interface to read as a working site. Nothing of the kind is
+     in `media-src/barboard/`, which holds only the logo the cover is cut from,
+     and the browser pane cannot capture at the 2400 to 3200px the media rules
+     ask of a screenshot. Drop a full-width home page capture into that folder
+     and it goes in here, above the callout. Keep the Chinese interface as it
+     is; the caption carries the context. -->
+
+> **Product scope**
+>
+> Not another social platform.
+>
+> WeChat remained the place for daily conversation. barboard.space was built for the
+> information the community needed to keep, revisit, and find again.
+
+<!-- PARKED from the previous draft of this section, which this rewrite
+     replaces. None of it is published elsewhere on the page. Delete once each
+     fact has a home in Sections 02 to 06 or has been ruled out.
+
+     1. Scale and terms: the community is 143 people; I am a core member; the
+        site was unpaid, unasked for, and built alongside a thesis and a job
+        search, which is the constraint the whole thing was designed around.
+
+     2. Why static: not a conviction about architecture but the shape of the
+        thing one person could ship and keep running, and a stage rather than
+        an end state, with a backend as the intended next step. Section 06
+        still carries the backend argument; this framing does not.
+
+     3. What I did and how: art direction, visual system, information
+        architecture and technical direction were mine, and the implementation
+        was carried out with AI assistance, visible in the commit history
+        rather than hidden, with 302 of 353 commits carrying a co-authorship
+        trailer. This is a disclosure the previous draft chose to make in the
+        open, and it currently appears nowhere on the page.
+-->
+
 
 ## Shaping the visual system
 
