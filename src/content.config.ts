@@ -86,6 +86,10 @@ const projects = defineCollection({
         team: z
           .array(z.object({ group: z.string().optional(), people: z.array(z.string()).min(1) }))
           .default([]),
+        /* The row is labelled `Team` unless the project says otherwise. A solo
+           project with someone who advised on it is not a team, and the label
+           would claim a collaboration that did not happen. */
+        teamLabel: z.string().optional(),
         specialThanks: z.array(z.string()).default([]),
         note: z.string().optional(),
         /* Attribution normally sits behind one disclosure. Set false where

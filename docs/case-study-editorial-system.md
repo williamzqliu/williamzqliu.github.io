@@ -426,6 +426,9 @@ recomposition at the end of every project. One shared component; not one per
 row.
 
 **Core categories** — Skills, Tools, Team. **Optional** — Special Thanks, Note.
+`teamLabel` renames the third row per project: a solo project with someone who
+advised on it is not a team, and `Team` would claim a collaboration that did not
+happen. Comgrand labels it `Roles` and gives each person their own group.
 They render in that order and an empty one disappears.
 
 **Two depths.** Skills, tools and team are visible by default; special thanks
