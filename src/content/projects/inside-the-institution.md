@@ -45,8 +45,8 @@ actually explore?**
 
 ## Three views
 
-The final tool organizes the same institutional network across three scales:
-**university, research unit, and scholar.** The **Collaboration Map** reveals
+I organized the same institutional network across three scales: **university,
+research unit, and scholar.** The **Collaboration Map** reveals
 institution-wide structure. **Research Units** compares departments and research
 centers. **Bridging Scholars** surfaces people who connect otherwise separate
 communities.
@@ -205,9 +205,9 @@ centers**.
 
 I first developed the Collaboration Map at a deliberately bounded scale: **379 scholars
 across three departments and three research centers.** At that size, a force-directed
-layout made clusters and cross-unit ties readable on its own. When the network expanded
-to all 2,737 faculty, the same approach became much denser. The interface needed
-additional encodings to keep structural patterns legible.
+layout made clusters and cross-unit ties readable on its own. When I expanded the
+network to all 2,737 faculty, the same layout became much denser. I added encodings to
+keep structural patterns legible.
 
 <div class="media-pair">
   <figure>
@@ -235,11 +235,10 @@ additional encodings to keep structural patterns legible.
   </figure>
 </div>
 
-One response was to encode structural roles that layout alone could no longer make
-obvious. I used network analysis to identify scholars whose collaborations cross
-departmental boundaries. I translated that measure into progressively stronger outer
-rings. The halo increases in four steps, marking the top 25%, 5%, 3%, and 1% of the
-score distribution.
+I used network analysis to surface structural roles that the layout no longer made
+obvious. I measured how strongly scholars collaborated across departmental boundaries
+and translated that score into progressively stronger outer rings. The halo increases in
+four steps, marking the top 25%, 5%, 3%, and 1% of the score distribution.
 
 <div class="tier-key">
   <p class="tier-key__title">Bridge-score tiers</p>
@@ -308,7 +307,7 @@ collaborate broadly and cross organizational boundaries.
 
 ## Bringing the views together
 
-As the tool expanded to three views, they needed to feel like different perspectives on
+As the tool grew to three views, I needed them to feel like different perspectives on
 the same dataset, not separate applications.
 
 Early versions mixed global navigation with controls that only applied within a specific
@@ -331,10 +330,10 @@ The side panel evolved for the same reason. It began as a place for scholar deta
 Over time, it adopted the same visual language as the main views: joint appointments,
 bridge status, and affiliation encoding.
 
-In the final system, the panel carries scholar or unit context beside the active view.
-`Direct`, `1-Hop`, and `2-Hop` bring ego-network exploration onto the main canvas. The
-panel became a contextual hub between the **university, research unit, and scholar**
-levels.
+In the final system, the panel carries scholar or unit context beside the active view. I
+added `Direct`, `1-Hop`, and `2-Hop` controls to bring ego-network exploration onto the
+main canvas. The panel became a contextual hub between the **university, research unit,
+and scholar** levels.
 
 <figure>
   <img
@@ -364,7 +363,7 @@ short questionnaire followed.
     src="/media/inside-the-institution/study-session.webp"
     alt="Participant using the collaboration visualization on a laptop during a think-aloud study session."
     width="1600"
-    height="900"
+    height="979"
     loading="lazy"
     decoding="async"
   />
