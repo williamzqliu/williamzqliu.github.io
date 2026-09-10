@@ -460,25 +460,65 @@ interface.
 
 ## Testing with older adults
 
-<!-- Intended opening for this section, agreed but not yet written in:
-     "The ring looked resolved in sketches and renders, but wearing it exposed
-     problems I could not see on screen." The rest of this section is still the
-     old draft. -->
+The ring looked resolved in sketches and renders, but wearing it exposed problems I could
+not see on screen.
 
-I built a physical prototype and had two elders wear it through the actual use cases:
-identity verification, exchanging contacts with another wearer, oximetry, NFC
-payment, event check-in, and triggering an emergency state.
+I built a physical prototype and asked two older adults to try it across several intended
+interactions, including check-in, payment, health sensing, and the emergency function. The
+prototype carried the form rather than working electronics, so what it could show me was
+how the object sat on a hand and whether each gesture made sense to the person performing
+it.
 
-Both of them found problems.
+<figure>
+  <img
+    src="/media/comgrand/testing.webp"
+    alt="A sheet of nine labelled frames. On the left, a hand resting on a table wearing the prototype, a plain white band with no display or visible components. On the right, eight frames of it in use: verification against a phone, NFC payment, event check-in against a reader, two hands touching to exchange contacts, oximetry, and lifting an emergency state."
+    width="3680"
+    height="1240"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>The physical prototype, and the intended interactions it was tried across.</figcaption>
+</figure>
 
-My grandmother said the gesture itself was easy with her fingers, but she was worried
-about triggering it by accident. Mrs. Pan, her neighbour, said the band was too narrow
-to sit comfortably on her finger, and that the display was not bright enough to read.
+<ul class="process-steps" data-cols="2">
+  <li>
+    <p class="process-steps__num">Accidental activation</p>
+    <p class="process-steps__name">Easy to trigger was not always better.</p>
+    <p class="process-steps__note">My grandmother found the interaction straightforward, but worried that the emergency function could be activated by accident.</p>
+  </li>
 
-Neither problem is a detail. A wearable that can be triggered accidentally is a
-wearable that produces false emergencies, which is worse than no emergency function
-at all. And I had sized the ring for the form I wanted rather than for the range of
-hands that would wear it.
+  <li>
+    <p class="process-steps__num">Fit and readability</p>
+    <p class="process-steps__name">The form did not suit both wearers equally.</p>
+    <p class="process-steps__note">Mrs. Pan, her neighbour, found the band too narrow and the display area too dim to read comfortably.</p>
+  </li>
+</ul>
+
+For a high-stakes action, preventing accidental activation mattered as much as making the
+interaction easy to perform. I had also sized the ring around the form I wanted rather than
+the range of hands and viewing conditions it needed to accommodate.
+
+Two people cannot settle either question, but they were enough to show me what a next
+iteration would have to work on.
+
+<ul class="process-steps">
+  <li>
+    <p class="process-steps__name">Emergency interaction</p>
+    <p class="process-steps__note">Reduce accidental activation.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__name">Fit</p>
+    <p class="process-steps__note">Accommodate a wider range of hands.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__name">Readability</p>
+    <p class="process-steps__note">Improve display visibility.</p>
+  </li>
+</ul>
+
 
 ## Looking back
 
