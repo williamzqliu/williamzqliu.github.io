@@ -1189,10 +1189,7 @@ const facts = [
     font-size: calc(var(--fs-small) + 1px);
     line-height: var(--lh-small);
     font-weight: var(--fw-medium);
-    /* Most of the way to the body ink. At `--text-2` these lines read as a
-       caption on the figure; they are the half of the cell that says what the
-       figure counts, and in a grid of four they are what is scanned. */
-    color: color-mix(in srgb, var(--text) 55%, var(--text-2));
+    color: var(--text-2);
   }
 
   /* The count the percentage came from. Quietest of the three lines: it is
@@ -1488,7 +1485,10 @@ const facts = [
     padding: var(--sp-8) var(--sp-16) var(--sp-8) 0;
     border-bottom: var(--rule-hair) solid var(--rule);
     vertical-align: baseline;
-    color: var(--text-2);
+    /* Most of the way to the body ink. The head is the quiet part of a table;
+       the cells are the reading, and at the secondary tone a column of figures
+       sat fainter than the sentence that introduced it. */
+    color: color-mix(in srgb, var(--text) 55%, var(--text-2));
   }
 
   /* Collapsed layers. Eleven case studies use native <details>/<summary> for

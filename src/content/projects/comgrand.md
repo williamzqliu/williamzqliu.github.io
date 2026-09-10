@@ -87,11 +87,6 @@ and social integration pointed to concerns beyond basic care.
 
 <div class="stat-strip" data-grid>
   <div class="stat-strip__cell">
-    <p class="stat-strip__value">68.0%</p>
-    <p class="stat-strip__label">Wanted to realize their self-worth</p>
-  </div>
-
-  <div class="stat-strip__cell">
     <p class="stat-strip__value">84.5%</p>
     <p class="stat-strip__label">Wanted to gain respect</p>
   </div>
@@ -104,6 +99,11 @@ and social integration pointed to concerns beyond basic care.
   <div class="stat-strip__cell">
     <p class="stat-strip__value">71.4%</p>
     <p class="stat-strip__label">Wanted to integrate into society</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">68.0%</p>
+    <p class="stat-strip__label">Wanted to realize their self-worth</p>
   </div>
 </div>
 
