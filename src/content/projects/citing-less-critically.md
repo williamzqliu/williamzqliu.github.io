@@ -53,6 +53,26 @@ role, and examine what kind of work and authors it points to. I designed the fra
 figure that brings these stages into one visual system, while keeping the human and LLM
 paths comparable throughout.
 
+<ol class="process-steps">
+  <li>
+    <p class="process-steps__num">01</p>
+    <p class="process-steps__name">Reconstruct</p>
+    <p class="process-steps__note">Mask the original citation sentence and ask an LLM to reconstruct it with the same number of references.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">02</p>
+    <p class="process-steps__name">Classify</p>
+    <p class="process-steps__note">Label both human and LLM citations by rhetorical intent: supporting, contrasting, or mentioning.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">03</p>
+    <p class="process-steps__name">Ground</p>
+    <p class="process-steps__note">Match the cited works to bibliographic metadata for downstream analysis.</p>
+  </li>
+</ol>
+
 <!-- FINAL FIGURE 1 — waiting on one file. Drop it in
      public/media/citing-less-critically/ and uncomment; the section reads fine
      until then.
