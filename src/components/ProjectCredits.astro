@@ -8,8 +8,14 @@
 //
 // Film credits, not a second resume: a large title anchoring the left, a
 // column of labelled rows on the right, hairlines between them, and nothing
-// else. No fills, no cards, no pills, no icons, no motion. Role is absent on
-// purpose — the intro already carries it.
+// else. No fills, no cards, no pills, no icons. Role is absent on purpose —
+// the intro already carries it.
+//
+// Two depths. Skills and tools answer "what is this project made of", which is
+// still part of reading it. Team, thanks and the note are attribution: true,
+// owed, and not what someone arriving at the end of a case study is reading
+// for. They sit behind one disclosure so the block closes the page instead of
+// filling a screen.
 
 export interface Credits {
   skills?: string[];
@@ -23,6 +29,13 @@ interface Props {
   credits?: Credits;
 }
 
+type Row = {
+  label: string;
+  items?: string[];
+  groups?: { group: string; people: string[] }[];
+  note?: string;
+};
+
 const { credits } = Astro.props;
 
 // `*Gephi*` marks a product or service, the same convention the prose uses for
@@ -30,26 +43,22 @@ const { credits } = Astro.props;
 // a tools entry can name what it wraps without the schema growing a shape.
 const marked = (text: string) => text.split('*');
 
-const rows = credits
-  ? ([
-      credits.skills?.length ? { label: 'Skills', items: credits.skills } : null,
-      credits.tools?.length ? { label: 'Tools', items: credits.tools } : null,
-      credits.team?.length ? { label: 'Team', groups: credits.team } : null,
-      credits.specialThanks?.length
-        ? { label: 'Special thanks', items: credits.specialThanks }
-        : null,
-      credits.note ? { label: 'Note', note: credits.note } : null,
-    ].filter(Boolean) as {
-      label: string;
-      items?: string[];
-      groups?: { group: string; people: string[] }[];
-      note?: string;
-    }[])
-  : [];
+const kept = (list: (Row | null)[]) => list.filter(Boolean) as Row[];
+
+const primary = kept([
+  credits?.skills?.length ? { label: 'Skills', items: credits.skills } : null,
+  credits?.tools?.length ? { label: 'Tools', items: credits.tools } : null,
+]);
+
+const secondary = kept([
+  credits?.team?.length ? { label: 'Team', groups: credits.team } : null,
+  credits?.specialThanks?.length ? { label: 'Special thanks', items: credits.specialThanks } : null,
+  credits?.note ? { label: 'Note', note: credits.note } : null,
+]);
 ---
 
 {
-  rows.length > 0 && (
+  primary.length + secondary.length > 0 && (
     <section class="credits" aria-labelledby="credits-title">
       {/* An h2 outside `.prose`, so it takes neither the section counter nor a
           place in the table of contents: the narrative ends with the last
@@ -58,54 +67,89 @@ const rows = credits
         Credits
       </h2>
 
-      <dl class="credits__rows">
-        {rows.map((row) => (
-          <div class="credits__row">
-            <dt class="credits__label">{row.label}</dt>
+      <div class="credits__rows">
+        {primary.length > 0 && (
+          <dl class="credits__set">
+            {primary.map((row) => (
+              <div class="credits__row">
+                <dt class="credits__label">{row.label}</dt>
 
-            <dd class="credits__body">
-              {row.items && (
-                <ul class="credits__list">
-                  {row.items.map((item) => (
-                    <li>{marked(item).map((part, i) => (i % 2 ? <em>{part}</em> : part))}</li>
-                  ))}
-                </ul>
-              )}
+                <dd class="credits__body">
+                  <ul class="credits__list">
+                    {row.items?.map((item) => (
+                      <li>{marked(item).map((part, i) => (i % 2 ? <em>{part}</em> : part))}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
 
-              {row.groups &&
-                row.groups.map((group) => (
-                  <div class="credits__group">
-                    <p class="credits__group-label">{group.group}</p>
-                    <ul class="credits__list">
-                      {group.people.map((person) => (
-                        <li>{person}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+        {secondary.length > 0 && (
+          /* Native disclosure: the state is the element's own, it opens from
+             the keyboard with no script, and the sign is the same one every
+             collapsed layer in the article uses. The words carry the meaning —
+             the plus only confirms it. */
+          <details class="credits__more">
+            <summary class="credits__more-sum">
+              <span class="credits__more-label">Full credits</span>
+            </summary>
 
-              {row.note && <p class="credits__note">{row.note}</p>}
-            </dd>
-          </div>
-        ))}
-      </dl>
+            <dl class="credits__set">
+              {secondary.map((row) => (
+                <div class="credits__row">
+                  <dt class="credits__label">{row.label}</dt>
+
+                  <dd class="credits__body">
+                    {row.items && (
+                      <ul class="credits__list">
+                        {row.items.map((item) => (
+                          <li>{marked(item).map((part, i) => (i % 2 ? <em>{part}</em> : part))}</li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {row.groups?.map((group) => (
+                      <div class="credits__group">
+                        <p class="credits__group-label">{group.group}</p>
+
+                        <ul class="credits__list">
+                          {group.people.map((person) => (
+                            <li>{person}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+
+                    {row.note && <p class="credits__note">{row.note}</p>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </details>
+        )}
+      </div>
     </section>
   )
 }
 
 <style>
-  /* The one heavy rule on the page below the head: it separates the article
-     from its credits, which is exactly what `--rule-heavy` is reserved for. */
+  /* The line that separates the article from its credits, drawn in the colour
+     every section heading's rule is drawn in — off full strength, so the one
+     heavy rule on the page reads as a boundary rather than as the darkest
+     thing on it. The title stands well clear: under a 2px line a tighter gap
+     read as a caption on the rule rather than as the start of a block. */
   .credits {
     margin-top: var(--sp-96);
-    padding-top: var(--sp-24);
-    border-top: var(--rule-heavy) solid var(--rule-strong);
+    padding-top: var(--sp-40);
+    border-top: var(--rule-heavy) solid color-mix(in srgb, var(--rule-strong) 60%, var(--bg));
   }
 
   /* Set exactly as a section heading is: this closes the same page the
      numbered sections run down, and a larger face would read as a second
      title competing with the project's own. What marks it as the end is the
-     heavy rule above it and the column it stands in, not its size. */
+     rule above it and the column it stands in, not its size. */
   .credits__title {
     font-family: var(--font-display);
     font-optical-sizing: auto;
@@ -127,14 +171,12 @@ const rows = credits
     margin-top: var(--sp-32);
   }
 
-  /* Phone: label over content, one hairline opening each row. */
+  /* Phone: label over content, one hairline opening each row. The rules
+     separate the rows; they do not box the block. Nothing closes the bottom,
+     so the credits end into the space before the next project. */
   .credits__row {
     padding-block: var(--sp-20);
     border-top: var(--rule-hair) solid var(--rule);
-  }
-
-  .credits__row:last-child {
-    border-bottom: var(--rule-hair) solid var(--rule);
   }
 
   /* The register every other piece of project metadata uses — Role, Timeline,
@@ -203,14 +245,104 @@ const rows = credits
     color: var(--text-3);
   }
 
+  /* ---- the second depth ---- */
+
+  /* The disclosure is a row like the others, so the rule above it belongs to
+     the rhythm rather than to a control. The element itself carries nothing:
+     no border, no fill, no margin. */
+  .credits__more {
+    border: 0;
+  }
+
+  .credits__more-sum {
+    position: relative;
+    padding-block: var(--sp-16);
+    border-top: var(--rule-hair) solid var(--rule);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .credits__more-sum::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The body face at the caption size, not the mono caps of a category label:
+     this is a way further in, and a second row of caps here would read as a
+     sixth category. */
+  .credits__more-label {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Both signs stacked in one place, crossfading — the same device the
+     article's collapsed layers use, and for the same reason: `content` cannot
+     be transitioned, so the plus and the minus trade opacity instead. The
+     words stay in both states; the sign only confirms which one it is. */
+  .credits__more-sum::before,
+  .credits__more-sum::after {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    line-height: 1;
+    color: var(--text-3);
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  .credits__more-sum::before {
+    content: '−';
+    opacity: 0;
+  }
+
+  .credits__more-sum::after {
+    content: '+';
+    opacity: 1;
+  }
+
+  /* `data-closing` is set by the page's shared disclosure script while the
+     height collapses, so the sign turns back as the panel starts to shut. */
+  .credits__more[open]:not([data-closing]) > .credits__more-sum::before {
+    opacity: 1;
+  }
+
+  .credits__more[open]:not([data-closing]) > .credits__more-sum::after {
+    opacity: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .credits__more-sum:hover .credits__more-label {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .credits__more-sum:active .credits__more-label {
+      color: var(--accent);
+      transition-duration: var(--dur-press);
+    }
+  }
+
   /* From 640 the label steps beside its content, and the rows start reading
      across rather than down. */
   @media (min-width: 640px) {
-    .credits__row {
+    .credits__row,
+    .credits__more-sum {
       display: grid;
       grid-template-columns: 160px minmax(0, 1fr);
       column-gap: var(--sp-32);
+    }
+
+    .credits__row {
       padding-block: var(--sp-24);
+    }
+
+    /* The control sits in the content column, on the same left edge as every
+       name above and below it. */
+    .credits__more-label {
+      grid-column: 2;
     }
 
     .credits__body {
@@ -237,11 +369,14 @@ const rows = credits
       margin-top: 0;
     }
 
-    .credits__row {
+    .credits__row,
+    .credits__more-sum {
       grid-template-columns: 180px minmax(0, 1fr);
     }
 
-    .credits__row:first-child {
+    /* The rule above the block is already the line over the first row; a
+       hairline under it would be a second one. */
+    .credits__set:first-child .credits__row:first-child {
       border-top: 0;
       padding-top: 0;
     }

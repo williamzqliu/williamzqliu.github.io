@@ -1625,7 +1625,7 @@ const facts = [
   function smoothDisclosures() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const blocks = document.querySelectorAll<HTMLDetailsElement>(
-      '.prose details, details.cs__toc'
+      '.prose details, details.cs__toc, details.credits__more'
     );
 
     for (const details of blocks) {

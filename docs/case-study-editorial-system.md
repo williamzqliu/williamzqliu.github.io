@@ -273,6 +273,14 @@ row.
 **Core categories** — Skills, Tools, Team. **Optional** — Special Thanks, Note.
 They render in that order and an empty one disappears.
 
+**Two depths.** Skills and tools are visible by default; team, special thanks
+and the note sit behind one `Full credits` disclosure. Skills and tools answer
+what the project is made of, which is still part of reading it. The rest is
+attribution — owed, but not what someone arriving at the end of a case study is
+reading for, and five open rows made the block a screen tall. A project whose
+authorship genuinely needs the team up front is a reason to add a flag to the
+schema at that point, not before.
+
 **Role** is deliberately absent. The intro already carries it, and credits
 should complement that block rather than restate it.
 
@@ -302,10 +310,16 @@ hand-off, outside `.prose` — which is what keeps it out of the section counter
 and out of the table of contents, both of which read the markdown headings. The
 numbered narrative still ends at the last `##` in the content file.
 
-**Look.** A heavy rule opening the block, the title holding the same left
-column the table of contents holds above it, labelled rows to the right with
-hairlines between them. No fills, no cards, no pills, no icons, no motion. It
-should read as an end-credit frame, not as a second resume.
+**Look.** A 2px rule opening the block, in the same off-strength colour the
+section headings' rules use; the title holds the same left column the table of
+contents holds above it, with labelled rows to the right and hairlines between
+them. The rules separate rows, they do not box the block: nothing closes the
+bottom, and the credits end into the space before the next project. The
+disclosure is a row like the others — same grid, same rule above it, the
+control sitting in the content column and carrying the same crossfading
+`+`/`−` sign every collapsed layer in the article uses. No fills, no cards, no
+pills, no icons. It should read as an end-credit frame, not as a second
+resume.
 
 ---
 
