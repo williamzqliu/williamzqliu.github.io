@@ -50,10 +50,15 @@ credits:
 
 ## From Tieba to barboard.space
 
-Barboard (榜吧), short for 欧美流行音乐个人榜吧, is a Chinese-speaking community for Western
-pop music founded on Baidu Tieba in 2013. Its English name combines &#8220;Bar,&#8221; a
-play on the Chinese &#8220;吧,&#8221; with &#8220;board,&#8221; reflecting the personal-chart
-culture at the center of the community. I joined in 2017.
+<!-- The page is `lang="en"`. Without marking these three, a screen reader
+     pronounces Chinese with an English voice. -->
+
+Barboard (<span lang="zh-Hans">榜吧</span>), short for
+<span lang="zh-Hans">欧美流行音乐个人榜吧</span>, is a Chinese-speaking community for
+Western pop music founded on Baidu Tieba in 2013. Its English name combines
+&#8220;Bar,&#8221; a play on the Chinese &#8220;<span lang="zh-Hans">吧</span>,&#8221;
+with &#8220;board,&#8221; reflecting the personal-chart culture at the center of the
+community. I joined in 2017.
 
 As day-to-day conversation gradually moved to WeChat, there was no longer a single durable
 place for the community&#8217;s members, charts, events, and years of records. Chat was
@@ -103,19 +108,77 @@ information people might want to return to.
 
 ## Shaping the visual system
 
-A single fixed dark palette, with no theme switching. No `prefers-color-scheme`, no
-data attribute, no light mode. For a community site with one context of use, a theme
-toggle is a feature that adds surface area and answers no question anyone asked.
+Barboard already had its own identity, but barboard.space took shape during Barvision
+Chongqing 2026, the community&#8217;s largest event. I had designed that edition around
+Chongqing&#8217;s river confluence and cyber-lit nightscape, using liquid neon, wave-like
+forms, and blue-violet light. I carried that visual language into the website so the new
+portal felt connected to the community&#8217;s biggest live moment.
 
-Design tokens live as CSS custom properties in one file: 65 of them, referenced across
-29 files. The palette is 51 of those tokens, which reflects what the site actually
-needed. Type is three font stacks: a condensed display face, a sans for body, a mono
-for data.
+From there, I simplified it into a reusable web system: small Chinese labels paired with
+large English display headings, a dark base, and shared accent colors across members,
+charts, events, and archives, while BarboardLab and individual Barvision editions kept
+their own visual character.
 
-The only place tokens are redeclared is a 768px breakpoint, where four spacing and
-layout values change. Redeclaring tokens responsively rather than thematically was the
-right call for this site, and it is worth naming because it is the less common of the
-two uses.
+> **System principle**
+>
+> Turn a seasonal visual language into a system that could outlast the season.
+>
+> The website carried the atmosphere of Barvision Chongqing 2026 into reusable typography,
+> color, and interface rules for the wider community.
+
+<details>
+<summary>Visual system details</summary>
+
+**From Barvision 2026 to the web.** The Chongqing edition was built around the meeting of
+the Jialing and Yangtze rivers, which let water ripples and sound-wave interference stand
+for each other. Its identity used dark surfaces, liquid neon, refraction, and glow on a
+blue-violet base, with each stage introducing its own accent colors. The website does not
+reproduce that artwork. I took the reusable qualities out of it instead: dark surfaces,
+luminous accents, restrained glow, and a shared color vocabulary.
+
+**Typography across two scripts.** The community follows Western pop music in Chinese, so
+Chinese interface text sits beside English artist names, song titles, chart terminology,
+and event branding on the same page. Large display headings use Bebas Neue, Chinese text
+and body copy use DM Sans, and DM Mono carries dates and other data. Bebas Neue and DM
+Mono have no Chinese glyphs, so Chinese content needs a fallback that is chosen rather
+than whatever the browser reaches for, and stating that became an explicit rule across the
+site. The member renderer detects CJK characters and switches the face for exactly this
+reason.
+
+**From campaign colors to interface colors.** The event palette becomes interface roles
+rather than decoration. Blue, pink, violet, and gold recur across headings, rankings,
+states, charts, and activity accents, while shared background and text values keep the
+data-heavy pages consistent. The implementation currently holds 65 CSS custom properties.
+
+**Shared system, local identities.** BarboardLab works inside the shared system with its
+own color treatment, and a Barvision edition can keep its own palette in the hero area,
+while tables, navigation, typography, and the rest of the interface return to the common
+system. The pentagon mark recurs as a motif across those contexts. Consistency does not
+require every activity to look identical.
+
+The same Barvision 2026 visual language was also extended into the event&#8217;s
+[live broadcast and control system](/work/barvision).
+
+</details>
+
+<!-- PARKED from the previous draft of this section, which this rewrite
+     replaces. Not published elsewhere on the page. Delete once each fact has a
+     home in Sections 03 to 06 or has been ruled out.
+
+     1. A single fixed dark palette with no theme switching: no
+        `prefers-color-scheme`, no data attribute, no light mode. For a
+        community site with one context of use, a theme toggle adds surface
+        area and answers no question anyone asked.
+
+     2. The token counts behind the 65: they are referenced across 29 files,
+        and 51 of them are palette.
+
+     3. Tokens are redeclared in exactly one place, a 768px breakpoint where
+        four spacing and layout values change. Responsive rather than thematic
+        redeclaration, which is the less common of the two uses. This is
+        Section 04's material.
+-->
+
 
 ## Making history searchable
 
