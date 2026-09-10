@@ -136,63 +136,90 @@ security, and participation. Participation became the area I chose to design aro
 
 ## Letting research change the concept
 
-I interviewed three community elders, chosen so their living situations and digital
-comfort differed rather than because they were easy to reach. One at 78 living alone,
-able to use a basic phone. One at 74 living with her spouse, fluent with digital
-products. One at 71 living with his children, able to use a smartphone for simple
-tasks.
+Reframing the problem around participation still left a practical question: **what should
+the service actually help older adults do?**
 
-Then I looked at the secondary literature on empty nesters in urban Chinese
-communities. The numbers pointed somewhere I had not expected. Among elders living
-alone, 98.4% can care for themselves, 89.9% are in good health, and 90.1% are
-financially self-sufficient. But 68.0% want to realise their own worth, 81.6% want
-friendships with peers, 71.4% want to be part of society, and 84.5% want to be
-respected.
+To narrow the concept, I brought six possible directions into a co-design session with
+older adults, a community social worker, and other residents. Their priorities came back
+clearer than my initial concept: companionship first, then physical health, then having a
+wider variety of things to do.
 
-The material needs are largely met. The gap is participation.
+<!-- TODO media. Section 3 of the brief asks for one photograph from the 2023
+     co-design session, or a tight crop of the prioritisation board. Nothing of
+     the kind is in `media-src/comgrand/`, which holds only the cover and the two
+     grandmother photographs, so this section publishes no figure rather than a
+     path that does not resolve. Drop a co-design photo into that folder and it
+     goes in here, above the ranking. -->
 
-That reframing is the pivot of the whole project. The WHO Active Aging framework from
-1999 rests on three pillars: health, insurance, and participation. Health and
-insurance were being addressed. Participation was not, and no amount of better
-healthcare delivery was going to address it.
+<table data-ranked>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Direction</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Socializing with friends</td><td>20</td></tr>
+    <tr><td>2</td><td>Psychological counseling</td><td>19</td></tr>
+    <tr><td>3</td><td>Empowerment activity</td><td>18</td></tr>
+    <tr><td>4</td><td>Health monitoring</td><td>16</td></tr>
+    <tr><td>5</td><td>Co-creation of community space</td><td>14</td></tr>
+    <tr data-mark><td>6</td><td>Volunteer service</td><td>12</td></tr>
+  </tbody>
+</table>
 
-The behaviour I had read as stubbornness turned out to have a structure. Internally:
-damaged self-esteem, fear of making mistakes, a widening gap between how they see
-themselves and how they are treated, and no vocabulary for describing what they
-actually need. Externally: gerontology researchers building products without
-attending to real needs, families providing informal support that is not enough, and
-community organisations whose intervention is limited and often impatient.
+> **Concept check**
+>
+> The direction closest to my original idea ranked last.
+>
+> Volunteer service sounded like a direct way to support contribution, but participants
+> showed the least willingness to take part in it.
 
-If the problem is that elders are positioned only as recipients, the design has to
-move them into the position of providers.
+That made me separate **contribution from assigned service**. Wanting a more active role in
+community life did not necessarily mean wanting formal volunteer work, and the session gave
+me a reason to carry forward the directions people were more willing to engage with rather
+than push my original concept into the service.
+
+<details>
+<summary>Decision details</summary>
+
+**How I compared the directions.** I rated each of the six candidate directions against
+five criteria: demand match, willingness to participate, satisfaction, scalability, and
+novelty. The totals in the table are the sum of those five ratings. They were a way to
+compare directions inside the project, not a measurement of what older adults want.
+
+**What participants emphasized.** The community social worker, Ms. Xiao, made the point
+that having company mattered to the older adults she worked with more than who the company
+was. One of the older participants, Mrs. Wu, described long stretches of time on her own as
+something she felt physically.
+
+Companionship read as a more immediate and lower-barrier way in than the
+contribution-oriented activities I had started from.
+
+</details>
+
+<!-- PARKED from the previous draft of this section. Not in the copy above and
+     not published elsewhere on the page. Delete once these facts have a home or
+     have been ruled out.
+
+     1. Three figures on empty nesters living alone, carried in the old draft
+        without a source: 98.4% can care for themselves, 89.9% are in good
+        health, 90.1% are financially self-sufficient. The four figures now in
+        Section 01 come from the Southern Jiangsu study and are attributed;
+        these three are not, so they are held back until the source is found.
+
+     2. The structure the old draft gave to the behaviour I had read as
+        stubbornness. Internal: damaged self-esteem, fear of making mistakes, a
+        widening gap between how older adults see themselves and how they are
+        treated, and no vocabulary for describing what they actually need.
+        External: gerontology researchers building products without attending to
+        real needs, families providing informal support that is not enough, and
+        community organisations whose intervention is limited and often
+        impatient.
+-->
 
 ## Building the service ecosystem
-
-I ran a co-design session with community elders, a social worker, and other residents,
-and put six candidate functions in front of them.
-
-The social worker, Ms. Xiao, said something that reordered my priorities: the elders
-seem to care more about having company than about who the company is. One
-participant, Mrs. Wu, put it more directly. She said that when she is alone for long
-enough, she starts to feel physically ill.
-
-That gave me a hierarchy to design against. Companionship first, then physical
-health, then variety of activity.
-
-I scored the six functions across five criteria: demand match, willingness to
-participate, satisfaction, scalability, and novelty. Socializing With Friends came out
-at 20, Psychological Counseling at 19, Empowerment Activity at 18, Health Monitoring
-at 16, Co-Creation of Community Space at 14, and Volunteer Service at 12. I kept the
-top four and cut the bottom two.
-
-Volunteer Service is worth dwelling on, because it is the function that sounds most
-aligned with the recipient-to-provider goal and it scored last. Willingness to
-participate was the lowest rating in the table. Wanting to contribute is not the same
-as wanting to be assigned volunteer work, and the scoring is what showed me the
-difference. If I had trusted the concept I arrived with, that function would have
-shipped and failed.
-
-## Connecting physical and digital touchpoints
 
 The result is three things that depend on each other, not an app with hardware
 attached.
@@ -221,7 +248,7 @@ workers, volunteer neighbours, gerontology researchers, family relatives, and th
 elders themselves. Mapping the money mattered. A service that no one can afford to
 run is a concept, not a design.
 
-## Testing with older adults
+## Connecting physical and digital touchpoints
 
 I sketched a range of forms and took three forward. A ring rather than a band or a
 watch, because it is the least intrusive thing to wear all day and because tapping
@@ -233,6 +260,8 @@ integrated motion sensor, an NFC and Bluetooth module, a pressable display, and 
 solar element. The CMF system offers three options on each axis: Origin, Charcoal, and
 Carbon for colour; titanium, tungsten carbide, and hypoallergenic resin for material;
 CNC engraving, matte texture, and a soft touch finish.
+
+## Testing with older adults
 
 I built a physical prototype and had two elders wear it through the actual use cases:
 identity verification, exchanging contacts with another wearer, oximetry, NFC
@@ -257,7 +286,7 @@ your payment credentials, your identity, and your medical alerts is a device you
 cannot afford to misplace, and I had not treated that as a design constraint. Hardware
 comfort and device security are where this would go next, ahead of any new features.
 
-What I would keep is the order of operations. The scoring session cut a function I
+What I would keep is the order of operations. The co-design session cut a function I
 was attached to, and the wear test found two problems I would not have found by
 looking at the model. Both of those happened because I put unfinished work in front of
 the people it was for, early enough that the answer could still change what I built.

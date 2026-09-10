@@ -216,8 +216,8 @@ them beats reading them in a sentence. Inside the Institution has exactly one,
 carrying two figures.
 
 **Standard.** Prose width, closed by a hairline above and below with 24px of
-air inside them. Three levels: a mono value at `--fs-display` with tabular
-figures and `--fw-strong`, a label 8px under it, and a quieter note 4px under
+air inside them. Three levels: a mono value two pixels under `--fs-display`
+with tabular figures and `--fw-strong`, a label 8px under it, and a quieter note 4px under
 that for the count a percentage came from. Two columns with a lighter, inset
 divider between them; one column on a phone, where the divider goes and space
 takes over. No fill, no corners, no shadow, no icon, no chart.
@@ -249,6 +249,36 @@ are one column of it, is a table and should use `.prose table`.
 of study ratings — behaviour is better evidence than a row of Likert scores.
 There is no `stats` frontmatter field; the markup lives in the content file
 like every other editorial pattern.
+
+---
+
+### Ranked table — `.prose table[data-ranked]`
+
+**Use for** a shortlist the project ranked: candidate concepts, evaluated
+directions, research priorities, design alternatives. Four to eight rows, each
+carrying a position, a name and one figure, where the order is the point and
+the size of the gap between the figures is not. Comgrand's Section 02 has one,
+carrying the six directions from the co-design session.
+
+**A modifier, not a pattern.** The strip's own rule already sends this shape to
+`.prose table`: rows that are the content, with the figures as one column of
+it. So this adds three columns' worth of hierarchy to the table rather than a
+new block. The position leads in the quiet mono the process steps use, the
+name takes the ink at copy size, and the figure follows in mono, tabular and
+right-aligned against the prose's right edge. Fixed 3rem and 4rem outer
+columns, so the name takes whatever is left and the two number columns stay
+put down the page.
+
+`data-mark` on one `<tr>` lifts that row's name to full ink and
+`--fw-medium`. It is for the row the copy around the table is about, and only
+ever one. No fill, no colour and no rule: a marked row is the one being
+discussed, not an error state.
+
+**Don't** convert the values to percentages, add a chart, or write a figure
+into the table that the section does not need — if magnitude is the message
+rather than order, this is the wrong block. And don't use it for a table that
+happens to be sorted; the position column is a claim that the ranking is the
+finding.
 
 ---
 
