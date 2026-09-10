@@ -1378,7 +1378,7 @@ const facts = [
      description takes the wider gap: name and age are one thing, what follows
      is another. */
   .prose .process-steps__num + .process-steps__note {
-    margin-top: var(--sp-8);
+    margin-top: calc(var(--sp-8) + 1px);
   }
 
   .prose .process-steps__note {
@@ -1386,7 +1386,9 @@ const facts = [
     /* Two over the caption size. These are three sentences a reader is meant
        to read, not labels to glance at, and they sit under a 17px name. */
     font-size: calc(var(--fs-small) + 2px);
-    line-height: var(--lh-small);
+    /* Two pixels over the small leading. At 1.5 these wrapped to three lines
+       that sat closer together than the gap above them. */
+    line-height: calc(var(--lh-small) * 1em + 2px);
     color: var(--text-2);
   }
 
