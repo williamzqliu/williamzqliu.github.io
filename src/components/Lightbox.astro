@@ -141,6 +141,14 @@
     .lb[data-zoomed] .lb__img {
       cursor: zoom-out;
     }
+
+    /* While the picture is being hauled the hand closes. It has to be set on
+       the dialog as well as the picture: the drag captures the pointer on the
+       dialog, so the dialog's own cursor is the one the window shows. */
+    .lb[data-hauling],
+    .lb[data-hauling] .lb__img {
+      cursor: grabbing;
+    }
   }
 
   .lb::backdrop {
@@ -828,7 +836,7 @@
         haulY = event.clientY;
         fromLeft = dialog.scrollLeft;
         fromTop = dialog.scrollTop;
-        frame.style.cursor = 'grabbing';
+        dialog.dataset.hauling = 'true';
         dialog.setPointerCapture(event.pointerId);
       },
       { signal }
@@ -847,7 +855,7 @@
     const drop2 = (event: PointerEvent) => {
       if (!hauling) return;
       hauling = false;
-      frame.style.cursor = '';
+      delete dialog.dataset.hauling;
       if (dialog.hasPointerCapture(event.pointerId)) dialog.releasePointerCapture(event.pointerId);
       // A drag ends in a click; without this the picture would snap back to
       // fitted every time it was moved.
