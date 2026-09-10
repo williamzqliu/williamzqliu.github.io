@@ -1226,7 +1226,7 @@ const facts = [
      than rules on both sides: this block introduces the figure below it and
      should not compete with it. Generic to case studies; nothing about it is
      specific to one project. */
-  .process-steps {
+  .prose .process-steps {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     row-gap: var(--sp-24);
@@ -1248,6 +1248,12 @@ const facts = [
   /* The dash is drawn with a width, a height and a background, so dropping
      `content` alone is not enough: the divider below reuses this pseudo
      element, and it inherited an 8px bar that showed up over every number. */
+  /* A cell whose first line is the name rather than a number starts flush
+     with the rule, like the numbered ones do. */
+  .prose .process-steps li > :first-child {
+    margin-top: 0;
+  }
+
   .prose .process-steps li::before {
     content: none;
     width: auto;
@@ -1292,7 +1298,10 @@ const facts = [
      clear of it, so the row reads as one thing divided rather than as three
      boxes. */
   @media (min-width: 640px) {
-    .process-steps {
+    /* `.prose` on this too: the base rule above needs it to outrank
+       `.prose ul, .prose ol`, and without it here the single column wins on
+       specificity and the row never forms. */
+    .prose .process-steps {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       column-gap: var(--sp-32);
     }
