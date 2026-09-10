@@ -13,8 +13,8 @@ links:
   code: "https://github.com/liu-yi-xuan/llm_citation_intent/"
 cover:
   wide: "/media/citing-less-critically/cover-wide.webp"
-  tone: "dark"
-  alt: "Redrawn version of the paper's three-stage framework diagram: one citation slot moving from the human original, through masking, to an LLM-generated replacement."
+  tone: "light"
+  alt: "A human hand and a robot hand each holding out a reference card toward the same empty citation bracket on a page of text, between stacks of books labelled HUMAN and LLM."
 quickFacts:
   - label: "Role"
     value: "Research Contributor & Figure Designer"
