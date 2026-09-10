@@ -8,7 +8,10 @@ tracks: [design]
 featured: 9
 # Tools, the way every other project's stack reads. Service design is a skill
 # and lives in the credits.
-stack: [Figma, Balsamiq, Blender]
+stack:
+  - Figma
+  - Balsamiq
+  - Blender
 links: {}
 cover:
   wide: /media/comgrand/cover-wide.webp
@@ -16,7 +19,7 @@ cover:
   alt: "One hand holding a phone that shows the Comgrand app, with a health score, reminders and a neighbourhood circle, while a younger hand and an older hand each hold one of the rings."
 quickFacts:
   - label: "Role"
-    value: "Designer & researcher"
+    value: "Designer & Researcher"
   - label: "Outcome"
     value: "Service ecosystem, mobile app, and physical smart ring prototype"
 credits:
@@ -475,7 +478,7 @@ interface.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>Selected interaction flows connecting the app&#8217;s main service functions.</figcaption>
+  <figcaption>Selected interaction flows connecting the app’s main service functions.</figcaption>
 </figure>
 
 </details>
@@ -573,7 +576,7 @@ Looking back, I would keep the core idea but narrow the scope and test it earlie
   <li>
     <p class="process-steps__num">03</p>
     <p class="process-steps__name">Define the audience more carefully</p>
-    <p class="process-steps__note">Three participants aged 71 to 78 already differed in living situation and digital confidence. &#8220;Older adults&#8221; was too broad a category.</p>
+    <p class="process-steps__note">Three participants aged 71 to 78 already differed in living situation and digital confidence. “Older adults” was too broad a category.</p>
   </li>
 </ul>
 

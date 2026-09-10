@@ -1,12 +1,14 @@
 ---
-title: What's Going on in There?
+title: What’s Going on in There?
 year: 2024
 dates: Nov 2024 – Dec 2024
 blurb: An exhibit where visitors map their own caffeine and sleep habits onto a brain with coloured rubber bands.
 tags: [interactive]
 tracks: [design]
 featured: 6
-stack: [Figma, Adobe Illustrator, Physical prototyping]
+stack:
+  - Figma
+  - Adobe Illustrator
 links: {}
 cover:
   wide: /media/whats-going-on-in-there/cover-wide.webp

@@ -7,16 +7,17 @@ tags: ["information-design"]
 tracks: ["design"]
 featured: 12
 draft: false
-stack: ["Figma"]
+stack:
+  - Figma
 cover:
   wide: "/media/not-always-more-for-more/cover-wide.webp"
   tone: "light"
   alt: "Detail of the final chart: columns of green person icons above a baseline for population, columns of dollar signs below it for per capita health spending, with Mexico, the United States and China labelled."
 quickFacts:
   - label: "Role"
-    value: "Solo Information Designer"
+    value: "Information Designer"
   - label: "Outcome"
-    value: "A completed unit chart of more than 2,000 symbols"
+    value: "Completed unit chart of more than 2,000 symbols"
 ---
 
 Does higher health spending buy longer life? This is one chart, built four times, trying to answer that with 2022 data on population, per capita health spending and life expectancy.

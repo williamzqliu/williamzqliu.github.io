@@ -6,7 +6,9 @@ blurb: A music discovery concept that renders each song as a generative form dri
 tags: [interactive]
 tracks: [design]
 featured: 10
-stack: [TouchDesigner, Figma, Brand identity]
+stack:
+  - TouchDesigner
+  - Figma
 links:
   demo: https://www.youtube.com/watch?v=Pem2er8I3Mc
 cover:
@@ -15,7 +17,7 @@ cover:
   alt: A generative sphere in teal and violet, its surface warped and striped by the audio of a single song.
 quickFacts:
   - label: "Role"
-    value: "Solo Designer & Researcher"
+    value: "Designer & Researcher"
   - label: "Outcome"
     value: "Visual system, app, brand identity, and print"
 ---

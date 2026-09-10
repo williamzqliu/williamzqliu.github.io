@@ -6,7 +6,12 @@ blurb: "An interactive map of AI ethics literature: keyword co-occurrence and th
 tags: [networks, interactive]
 tracks: [design, engineering]
 featured: 3
-stack: [Svelte 5, Vite 6, SVG, d3-force, GitHub Actions]
+stack:
+  - Svelte 5
+  - Vite 6
+  - SVG
+  - d3-force
+  - GitHub Actions
 links:
   demo: https://nu-center-for-design.github.io/Polygraphs_AI_Ethics_Network/
   code: https://github.com/NU-Center-for-Design/Polygraphs_AI_Ethics_Network

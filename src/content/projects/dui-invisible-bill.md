@@ -1,5 +1,5 @@
 ---
-title: "DUI's Invisible Bill"
+title: "DUI’s Invisible Bill"
 year: 2024
 dates: "Sep 2024"
 blurb: "A redesign that turns $296 billion in DUI losses into one number a household can feel: $2,354."
@@ -7,16 +7,18 @@ tags: ["information-design"]
 tracks: ["design"]
 featured: 11
 draft: false
-stack: ["Adobe Illustrator", "Figma"]
+stack:
+  - Adobe Illustrator
+  - Figma
 cover:
   wide: "/media/dui-invisible-bill/cover-wide.webp"
   tone: "light"
   alt: "Top section of the redesigned infographic: a yellow map of the United States with $296 BILLION set across it in red, beside nine icons for the components of the loss figure."
 quickFacts:
   - label: "Role"
-    value: "Solo Information Designer"
+    value: "Information Designer"
   - label: "Outcome"
-    value: "A completed infographic redesign, rebuilt from eight sources"
+    value: "Completed infographic redesign, rebuilt from eight sources"
 ---
 
 The brief was to redesign an existing piece of information design. I chose an infographic that argued against driving under the influence, and spent three weeks rebuilding both its argument and its data presentation.

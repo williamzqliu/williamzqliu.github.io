@@ -7,7 +7,8 @@ tags: ["information-design"]
 tracks: ["design"]
 archive: true
 draft: false
-stack: ["Figma"]
+stack:
+  - Figma
 links: {}
 cover:
   wide: "/media/visual-cognition/cover-wide.webp"
