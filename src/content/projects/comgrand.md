@@ -35,26 +35,35 @@ That changed the question I wanted to design around. Instead of asking how to ma
 adults adapt to new technology, I began asking how a community could give them more
 meaningful ways to **connect, participate, and contribute on their own terms**.
 
-<!-- STARTING POINT — waiting on one file. Nothing in the project assets shows
-     the personal starting point: media-src/comgrand/ holds only the cover, so
-     there is no photograph of my grandmother and no 2023 board to crop from.
-     Drop one in and uncomment; the section reads without it.
+<!-- `--pair-split` in the pictures' own aspect ratios, 1.354 and 2.284, so
+     two differently shaped photographs come out the same height without
+     either being cropped. -->
 
-     starting-point.webp — a photograph of my grandmother, or a clean crop of
-     the person and the moment from the 1-1 inspiration board. Not the whole
-     board: this is the personal opening, not a presentation slide. Export at
-     2400-3200px wide.
+<div class="media-pair" style="--pair-split: 1.354fr 2.284fr">
+  <figure>
+    <img
+      src="/media/comgrand/grandmother-alone.webp"
+      alt="My grandmother sitting alone on the sofa in a face mask, holding a pulse oximeter, with her phone on the table beside her."
+      width="2400"
+      height="1772"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>At home on her own.</figcaption>
+  </figure>
 
-<figure>
-  <img
-    src="/media/comgrand/starting-point.webp"
-    alt=""
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Where the project started.</figcaption>
-</figure>
--->
+  <figure>
+    <img
+      src="/media/comgrand/grandmother-social.webp"
+      alt="My grandmother playing cards on the floor with two younger neighbours, laughing."
+      width="2400"
+      height="1051"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>And with others, in Chongqing.</figcaption>
+  </figure>
+</div>
 
 > **Research shift**
 >
@@ -65,15 +74,40 @@ meaningful ways to **connect, participate, and contribute on their own terms**.
 <summary>Research details</summary>
 
 **Three perspectives.** I spoke with three community residents aged 71 to 78 whose living
-situations and comfort with digital products differed, giving me several perspectives on
-independence, technology, and community life.
+situations and comfort with digital products differed: my grandmother, 78, living alone
+and familiar mainly with basic phone operations; Mrs. Wang, 74, living with her spouse and
+more confident with digital products; and Uncle Zhang, 71, living with family and able to
+use a smartphone for simple tasks. Digital confidence varied substantially even within a
+group of three.
 
-**What secondary research added.** The literature I reviewed suggested that physical and
-financial independence did not automatically translate into social participation. Measures
-around friendship, self-worth, respect, and social integration pointed to needs beyond
-basic care.
+**What secondary research added.** The literature I reviewed on older adults living alone
+in urban China suggested that physical and financial independence did not automatically
+translate into social participation. Needs around self-worth, peer friendship, respect,
+and social integration pointed to concerns beyond basic care.
 
-**Framework.** I used the Active Aging framework to organize the problem around health,
+<div class="stat-strip">
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">68.0%</p>
+    <p class="stat-strip__label">Wanted to realize their self-worth</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">84.5%</p>
+    <p class="stat-strip__label">Wanted to gain respect</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">81.6%</p>
+    <p class="stat-strip__label">Wanted peer friendships</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">71.4%</p>
+    <p class="stat-strip__label">Wanted to integrate into society</p>
+  </div>
+</div>
+
+**Framework.** I used the Active Aging framework to organize the research around health,
 security, and participation. Participation became the area I chose to design around.
 
 </details>
