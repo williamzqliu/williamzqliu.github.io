@@ -1354,9 +1354,12 @@ const facts = [
      name when the cell is a person rather than a step, and the rule below
      zeroes it in the first case. */
   .prose .process-steps__num {
-    margin-top: var(--sp-4);
+    margin-top: calc(var(--sp-4) + 2px);
     font-family: var(--font-mono);
-    font-size: var(--fs-micro);
+    /* A pixel over the mono micro size. It carries a stage number in one
+       block and a person's age in another, and at 11 the age read as a
+       footnote to the name rather than as part of it. */
+    font-size: calc(var(--fs-micro) + 1px);
     font-weight: var(--fw-mono);
     line-height: var(--lh-micro);
     letter-spacing: 0.06em;
@@ -1378,7 +1381,7 @@ const facts = [
      description takes the wider gap: name and age are one thing, what follows
      is another. */
   .prose .process-steps__num + .process-steps__note {
-    margin-top: calc(var(--sp-8) + 1px);
+    margin-top: calc(var(--sp-8) + 2px);
   }
 
   .prose .process-steps__note {
@@ -1386,9 +1389,7 @@ const facts = [
     /* Two over the caption size. These are three sentences a reader is meant
        to read, not labels to glance at, and they sit under a 17px name. */
     font-size: calc(var(--fs-small) + 2px);
-    /* Two pixels over the small leading. At 1.5 these wrapped to three lines
-       that sat closer together than the gap above them. */
-    line-height: calc(var(--lh-small) * 1em + 2px);
+    line-height: var(--lh-small);
     color: var(--text-2);
   }
 
