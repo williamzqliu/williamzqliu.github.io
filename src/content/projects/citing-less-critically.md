@@ -234,8 +234,8 @@ constructed, not just reporting its result.
   <img
     src="/media/citing-less-critically/final-figure-4a.webp"
     alt="Two worked rows. In each, a citing paper and a cited paper are shown with their first and last authors, the four shortest paths between those author pairs are traced through the coauthorship network, and the four lengths are averaged. The original row averages 2.25; the LLM-generated row averages 3."
-    width="2484"
-    height="1612"
+    width="2374"
+    height="1431"
     loading="lazy"
     decoding="async"
   />
