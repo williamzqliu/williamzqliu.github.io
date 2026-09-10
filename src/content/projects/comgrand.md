@@ -14,7 +14,7 @@ cover:
   alt: "One hand holding a phone that shows the Comgrand app, with a health score, reminders and a neighbourhood circle, while a younger hand and an older hand each hold one of the rings."
 quickFacts:
   - label: "Role"
-    value: "Solo designer & researcher"
+    value: "Designer & researcher"
   - label: "Outcome"
     value: "Service ecosystem, mobile app, and physical smart ring prototype"
 ---
