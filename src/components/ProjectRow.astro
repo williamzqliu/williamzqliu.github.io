@@ -247,13 +247,17 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* The title takes the accent while the card is hovered and nothing else —
      no fill, so no padding to reserve, no layer of its own to be hoverable in,
      no clone rule for a wrapped highlight. One transitioned property.
-     
-     360ms, the same as the media's, and the same in both directions: the two
-     are one response, and at the site's usual 200/280 the colour had changed
-     before the eye — which is usually somewhere else on the card when the
-     pointer arrives — had followed it. */
+
+     On the site's hover pair, 200ms in and 280ms out, like every other hover
+     on the page. This used to run 360ms symmetrically, chosen for arriving at
+     a card from nowhere. Moving between two cards is the commoner gesture in
+     a list, and there 360 both ways left a long stretch where neither row was
+     clearly the live one: the outgoing card was still lit while the incoming
+     one had barely started. Out slower than in on purpose — the old row lets
+     go just after the new one lands, so attention transfers instead of
+     falling through a gap. */
   .prow__titletext {
-    transition: color 360ms var(--ease-out);
+    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
   .prow__blurb {
@@ -324,14 +328,16 @@ const liveLinks = links.filter((link) => link.href !== '#');
      colour lands — the hover reveals the encoding rather than just brightening
      a thumbnail.
 
-     Two properties, two durations. The transform is the slower of the pair and
-     rides its own curve so the image settles rather than snapping; the colour
-     comes in under it. Never `all`. */
+     Both properties on the same hover pair as the title, so the row answers
+     as one thing. The stagger comes from the easing rather than from two
+     different numbers: `--ease-out` decelerates, so the zoom reads as
+     settling while the colour, a plain value change, arrives flat. Never
+     `all`. */
   .prow__card[data-linked] .prow__mediacol :global(.cover) {
     filter: grayscale(1);
     transition:
-      transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
-      filter 300ms ease;
+      transform var(--dur-hover-out) var(--ease-out),
+      filter var(--dur-hover-out) var(--ease-out);
   }
 
   /* Touch has no hover to restore the colour, so there is nothing to mute. */
@@ -352,6 +358,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
   @media (hover: hover) and (pointer: fine) {
     .prow__card[data-linked]:hover .prow__titletext {
       color: var(--accent);
+      transition-duration: var(--dur-hover-in);
     }
 
     /* Anywhere on the row, not just on the media: the row is one thing, and
@@ -366,6 +373,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
       filter: grayscale(0);
       transform: scale(1.1);
+      transition-duration: var(--dur-hover-in);
     }
 
     /* An outbound link is a second destination on the same row, so it answers
