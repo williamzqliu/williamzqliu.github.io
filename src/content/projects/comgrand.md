@@ -519,14 +519,15 @@ iteration would have to work on.
   </li>
 </ul>
 
-<!-- Raw HTML rather than `>` because this one carries an attribute: markdown
-     has no way to put `data-quiet` on a blockquote. -->
+<details>
+<summary>Unresolved risk</summary>
 
-<blockquote data-quiet>
-  <p><strong>Unresolved risk</strong></p>
-  <p>Losing the ring mattered more once it carried sensitive functions.</p>
-  <p>Adaptability varied across participants, and concern about losing the device came up repeatedly. Because the concept combined payment, identity, and medical alert functions, loss and security would need to be treated as core design constraints in a future iteration.</p>
-</blockquote>
+**Losing the ring mattered more once it carried sensitive functions.** Adaptability varied
+across participants, and concern about losing the device came up repeatedly. Because the
+concept combined payment, identity, and medical alert functions, loss and security would
+need to be treated as core design constraints in a future iteration.
+
+</details>
 
 
 ## Looking back
