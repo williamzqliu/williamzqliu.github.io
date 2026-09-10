@@ -12,7 +12,7 @@ links:
 cover:
   wide: /media/barboard/cover-wide.webp
   tone: dark
-  alt: The Barboard homepage in its fixed dark palette, showing the weekly singles chart above the member directory.
+  alt: "The Barboard logo, a five-sided badge beside the wordmark, on a dark grid with purple and teal light at the edges."
 quickFacts:
   - label: "Role"
     value: "Designer & Developer"
