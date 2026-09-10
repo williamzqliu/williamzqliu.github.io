@@ -1,0 +1,238 @@
+---
+// The end credits of a case study: what the project asked of me, what it was
+// built with, and who else is in it. Deliberately a component rather than one
+// more markdown pattern — unlike `.participant-quote` or `.tier-key`, this
+// carries structured data, repeats verbatim at the end of every project, and
+// re-composes across the three breakpoints. See
+// docs/case-study-editorial-system.md.
+//
+// Film credits, not a second resume: a large title anchoring the left, a
+// column of labelled rows on the right, hairlines between them, and nothing
+// else. No fills, no cards, no pills, no icons, no motion. Role is absent on
+// purpose — the intro already carries it.
+
+export interface Credits {
+  skills?: string[];
+  tools?: string[];
+  team?: { group: string; people: string[] }[];
+  specialThanks?: string[];
+  note?: string;
+}
+
+interface Props {
+  credits?: Credits;
+}
+
+const { credits } = Astro.props;
+
+// `*Gephi*` marks a product or service, the same convention the prose uses for
+// named things. Splitting on the asterisk puts every odd piece in italics, so
+// a tools entry can name what it wraps without the schema growing a shape.
+const marked = (text: string) => text.split('*');
+
+const rows = credits
+  ? ([
+      credits.skills?.length ? { label: 'Skills', items: credits.skills } : null,
+      credits.tools?.length ? { label: 'Tools', items: credits.tools } : null,
+      credits.team?.length ? { label: 'Team', groups: credits.team } : null,
+      credits.specialThanks?.length
+        ? { label: 'Special thanks', items: credits.specialThanks }
+        : null,
+      credits.note ? { label: 'Note', note: credits.note } : null,
+    ].filter(Boolean) as {
+      label: string;
+      items?: string[];
+      groups?: { group: string; people: string[] }[];
+      note?: string;
+    }[])
+  : [];
+---
+
+{
+  rows.length > 0 && (
+    <section class="credits" aria-labelledby="credits-title">
+      {/* An h2 outside `.prose`, so it takes neither the section counter nor a
+          place in the table of contents: the narrative ends with the last
+          numbered section, and this is the epilogue. */}
+      <h2 class="credits__title" id="credits-title">
+        Credits
+      </h2>
+
+      <dl class="credits__rows">
+        {rows.map((row) => (
+          <div class="credits__row">
+            <dt class="credits__label">{row.label}</dt>
+
+            <dd class="credits__body">
+              {row.items && (
+                <ul class="credits__list">
+                  {row.items.map((item) => (
+                    <li>{marked(item).map((part, i) => (i % 2 ? <em>{part}</em> : part))}</li>
+                  ))}
+                </ul>
+              )}
+
+              {row.groups &&
+                row.groups.map((group) => (
+                  <div class="credits__group">
+                    <p class="credits__group-label">{group.group}</p>
+                    <ul class="credits__list">
+                      {group.people.map((person) => (
+                        <li>{person}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
+              {row.note && <p class="credits__note">{row.note}</p>}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  )
+}
+
+<style>
+  /* The one heavy rule on the page below the head: it separates the article
+     from its credits, which is exactly what `--rule-heavy` is reserved for. */
+  .credits {
+    margin-top: var(--sp-96);
+    padding-top: var(--sp-24);
+    border-top: var(--rule-heavy) solid var(--rule-strong);
+  }
+
+  /* The size the section headings never reach, because this one is a title
+     rather than a heading — it names the whole block instead of opening a
+     part of it. */
+  .credits__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-lg);
+    line-height: var(--lh-display-lg);
+    font-weight: var(--fw-display);
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .credits__rows {
+    margin-top: var(--sp-32);
+  }
+
+  /* Phone: label over content, one hairline opening each row. */
+  .credits__row {
+    padding-block: var(--sp-20);
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .credits__row:last-child {
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+
+  /* The register every other piece of project metadata uses — Role, Timeline,
+     the section bar. */
+  .credits__label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .credits__body {
+    margin: 0;
+    margin-top: var(--sp-12);
+  }
+
+  /* No marker. The article's lists carry a hairline dash because their items
+     are sentences that need a start; these are names, and a run of them reads
+     as a roll on its own. Tight leading is what makes it one. */
+  .credits__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .credits__list li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-small);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+  }
+
+  .credits__list li + li {
+    margin-top: var(--sp-4);
+  }
+
+  /* A product name inside an entry, italic for the same reason the prose sets
+     one that way. */
+  .credits__list em {
+    font-weight: var(--fw-regular);
+  }
+
+  /* Quieter than the people under it: this is which kind of contribution, not
+     who made it. */
+  .credits__group-label {
+    margin: 0 0 var(--sp-4);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .credits__group + .credits__group {
+    margin-top: var(--sp-16);
+  }
+
+  /* The most subordinate line in the block: body copy, no rule, no box. */
+  .credits__note {
+    margin: 0;
+    font-size: var(--fs-body);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  /* From 640 the label steps beside its content, and the rows start reading
+     across rather than down. */
+  @media (min-width: 640px) {
+    .credits__row {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      column-gap: var(--sp-32);
+      padding-block: var(--sp-24);
+    }
+
+    .credits__body {
+      margin-top: 0;
+    }
+
+    .credits__label {
+      padding-top: 0.2em;
+    }
+  }
+
+  /* Desktop: the title holds the left column the table of contents holds
+     above it, so the two align down the page and the rows sit in one block to
+     the right of both. */
+  @media (min-width: 1024px) {
+    .credits {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      column-gap: var(--sp-64);
+      align-items: start;
+    }
+
+    .credits__rows {
+      margin-top: 0;
+    }
+
+    .credits__row {
+      grid-template-columns: 180px minmax(0, 1fr);
+    }
+
+    .credits__row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+</style>

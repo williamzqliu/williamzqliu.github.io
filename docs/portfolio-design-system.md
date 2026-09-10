@@ -349,6 +349,7 @@ uncomment the nav entry.
 | participant quote, issue → response | same block: `.participant-quote`, `.issue-response` |
 | stat strip | same block: `.stat-strip` |
 | lightbox, swipe, pinch | `src/components/Lightbox.astro` |
+| end credits at the close of a case study | `src/components/ProjectCredits.astro` + the project's `credits:` frontmatter |
 | a project's words, media, section order | `src/content/projects/<slug>.md` |
 | a project's images | `public/media/<slug>/` (masters in `media-src/<slug>/`) |
 | one project's local layout exception | an attribute or custom property in that project's markdown |

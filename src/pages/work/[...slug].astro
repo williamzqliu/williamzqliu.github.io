@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import CoverMedia from '../../components/CoverMedia.astro';
 import QuickFacts from '../../components/QuickFacts.astro';
 import NextProject from '../../components/NextProject.astro';
+import ProjectCredits from '../../components/ProjectCredits.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import { projectLinks, hasCaseStudy, nextStep, WORK_INDEX_ENABLED } from '../../lib/projects';
@@ -145,6 +146,11 @@ const facts = [
           <Content />
         </div>
       </div>
+
+      {/* The epilogue. Outside `.cs__body`, so it is outside the reading
+          measure the progress bar tracks and outside the numbered narrative;
+          before the hand-off, because it belongs to this project. */}
+      <ProjectCredits credits={project.data.credits} />
 
       <div class="cs__next">
         {

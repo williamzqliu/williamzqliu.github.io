@@ -32,6 +32,35 @@ quickFacts:
     value: "Visualization Designer & Researcher"
   - label: "Outcome"
     value: "Interactive research tool and MFA thesis. Poster presented at NetSci 2026"
+# Order is the editorial decision here — read down, not sorted. Five is the cap
+# on skills and tools, enforced by the schema.
+credits:
+  skills:
+    - Data Visualization
+    - Network Analysis
+    - Information Design
+    - UX Research
+    - Front-end Development
+  tools:
+    - D3.js
+    - Python
+    - Three.js
+    - HTML Canvas
+    # `*name*` sets a named service in italics, as the prose does. Two APIs in
+    # one entry rather than two of the five slots.
+    - Scholarly APIs (*OpenAlex* and *ORCID*)
+  team:
+    - group: Advising
+      people:
+        - Dakota Murray
+        - Nabeel Gillani
+        - Alina Lungeanu
+  specialThanks:
+    - Network Science Institute
+    - Todd Linkner
+    - Kristine Lu
+    - Isabel Dmitruk
+  note: Selected coding tasks were supported by Claude Code.
 ---
 
 ## The exploration gap

@@ -257,6 +257,58 @@ system document. Nothing needs a per-project width rule.
 
 ---
 
+## Project credits
+
+The end-credit frame every case study closes with. Rendered by
+`src/components/ProjectCredits.astro` from a `credits:` block in the project's
+frontmatter.
+
+**Why a component and not a markdown pattern.** `.participant-quote`,
+`.issue-response`, `.formula` and `.tier-key` are one-off editorial shapes
+written into the content file where they are used. Credits is the opposite: the
+same structured fields, the same markup and the same three-breakpoint
+recomposition at the end of every project. One shared component; not one per
+row.
+
+**Core categories** — Skills, Tools, Team. **Optional** — Special Thanks, Note.
+They render in that order and an empty one disappears.
+
+**Role** is deliberately absent. The intro already carries it, and credits
+should complement that block rather than restate it.
+
+**Skills** — at most five, ordered by what the project actually asked of you.
+Never alphabetised, never numbered: vertical order is the only ranking, and it
+is not labelled as one. The cap is in the schema, so a sixth fails the build.
+
+**Tools** — at most five, same rules. Combine closely related services rather
+than spending two slots on them: `Scholarly APIs (*OpenAlex* and *ORCID*)` is
+one entry. `*name*` in a credits string sets that name in italics, the same
+convention the prose uses for named software.
+
+**Team** — groups of `{ group, people }`, so a project can carry Design,
+Development, Research, Leadership, Advising, or whatever it actually had.
+Prefer a functional noun for the group label over a reproduced job title:
+*Advising*, not *Principal Investigators*. The label is quieter than the names
+under it. No cards, no avatars, no bios, no automatic links.
+
+**Special thanks** — optional, a compact factual list, no descriptions after
+the names and no gratitude prose. The names are the acknowledgement.
+
+**Note** — optional, one short clarification or attribution, set as the most
+subordinate line in the block. Not a disclaimer box, not a callout.
+
+**Placement.** After the last narrative section and before the next-project
+hand-off, outside `.prose` — which is what keeps it out of the section counter
+and out of the table of contents, both of which read the markdown headings. The
+numbered narrative still ends at the last `##` in the content file.
+
+**Look.** A heavy rule opening the block, the title holding the same left
+column the table of contents holds above it, labelled rows to the right with
+hairlines between them. No fills, no cards, no pills, no icons, no motion. It
+should read as an end-credit frame, not as a second resume.
+
+---
+
 ## Prose conventions
 
 - **Inline code** for literal interface values, field names, modes and
