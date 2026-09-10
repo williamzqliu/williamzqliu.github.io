@@ -85,7 +85,7 @@ through bibliographic grounding.
 
 The submitted framework captured the full experimental pipeline, but that completeness
 came at the cost of hierarchy. During peer review, one reviewer called out the problem
-directly: &#8220;Figure 1 is too visually dense.&#8221;
+directly: **&#8220;Figure 1 is too visually dense.&#8221;**
 
 I rebuilt the figure without removing the methodological structure. The redesign
 separated the three stages more clearly, strengthened the parallel human and LLM paths,
