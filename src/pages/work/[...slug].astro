@@ -1189,7 +1189,10 @@ const facts = [
     font-size: calc(var(--fs-small) + 1px);
     line-height: var(--lh-small);
     font-weight: var(--fw-medium);
-    color: var(--text-2);
+    /* Most of the way to the body ink. At `--text-2` these lines read as a
+       caption on the figure; they are the half of the cell that says what the
+       figure counts, and in a grid of four they are what is scanned. */
+    color: color-mix(in srgb, var(--text) 55%, var(--text-2));
   }
 
   /* The count the percentage came from. Quietest of the three lines: it is
@@ -1199,6 +1202,40 @@ const facts = [
     font-size: calc(var(--fs-small) + 1px);
     line-height: var(--lh-small);
     color: var(--text-3);
+  }
+
+  /* Four values, two by two, with the dividers closed into a cross. The strip
+     proper is one row of figures and needs only the line between them; once it
+     wraps, a column divider on its own leaves the second row floating under
+     the first. Gaps go to zero and the space moves inside the cells, so the
+     two rules meet exactly at the centre and the block reads as one divided
+     field rather than four boxes.
+
+     Column one keeps no left padding, so its figures stay on the same left
+     edge as the prose. */
+  .stat-strip[data-grid] {
+    column-gap: 0;
+    row-gap: 0;
+  }
+
+  .stat-strip[data-grid] .stat-strip__cell {
+    padding: 0 var(--sp-24) var(--sp-20) 0;
+  }
+
+  .stat-strip[data-grid] .stat-strip__cell + .stat-strip__cell::before {
+    content: none;
+  }
+
+  .stat-strip[data-grid] .stat-strip__cell:nth-child(even) {
+    padding-right: 0;
+    padding-left: var(--sp-24);
+    border-left: var(--rule-hair) solid color-mix(in srgb, var(--rule) 55%, var(--bg));
+  }
+
+  .stat-strip[data-grid] .stat-strip__cell:nth-child(n + 3) {
+    padding-bottom: 0;
+    padding-top: var(--sp-20);
+    border-top: var(--rule-hair) solid color-mix(in srgb, var(--rule) 55%, var(--bg));
   }
 
   /* Three across only where the cells can hold a 28px figure: below 640 the
