@@ -351,13 +351,13 @@ levels.
 ## Testing with experts
 
 Before the formal study, I ran a two-person pilot to test the evaluation protocol
-itself. Guided tasks took over too much of the session, while role-playing produced less
+itself. Guided tasks took over too much of the session. Role-playing also produced less
 grounded responses, so I removed both.
 
-The formal study centered on free exploration and think-aloud with **20 meta-scientists**,
-all of whom had prior experience with network-analysis tools. Participants explored the
-tool as themselves, then completed one open-ended task: find a pattern or connection
-that surprised them, followed by a short questionnaire.
+The formal study involved **20 meta-scientists**. All had prior experience with
+network-analysis tools. Participants explored the tool freely while thinking aloud. They
+then completed one open-ended task: find a pattern or connection that surprised them. A
+short questionnaire followed.
 
 <!-- STUDY SESSION — waiting on one file. Drop it in
      public/media/inside-the-institution/ and uncomment; the section reads fine
