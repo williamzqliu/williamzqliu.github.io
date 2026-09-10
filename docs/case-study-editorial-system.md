@@ -92,18 +92,17 @@ mattered; the media shows what changed.
 **Standard.** Equal columns, tops aligned, no crop, no card, no shadow, no
 badges, no arrows, no slider. Each half opens in the lightbox independently.
 
-**Modifiers.** Default stacks below 640px. `data-abreast` keeps the columns at
-every width (12px gutter on a phone, 24px above) for a set that means nothing
-apart — the lightbox covers the lost detail. `--pair-split` (passed as an
-inline style, like the mosaic's) sets the column template, and both rules read
-it: give two differently shaped pictures the ratio of their own aspects and
-they come out the same height with nothing cropped, or pass
-`repeat(5, minmax(0, 1fr))` for a five-state sequence that holds its row on a
-phone.
+**Modifiers.** Default stacks below 640px. `data-abreast` keeps two columns at
+every width (12px gutter on a phone, 24px above) for a comparison that means
+nothing apart — the lightbox covers the lost detail. `--pair-split` (passed as
+an inline style, like the mosaic's) sets the column ratio: give two differently
+shaped pictures the ratio of their own aspects and they come out the same
+height with nothing cropped.
 
-**Labels above.** `data-caption="above"` on a figure moves its caption over the
-picture. Use it for a sequence or comparison, where the reader needs to know
-what changed before looking; ordinary figures keep the caption below.
+**A sequence that arrives as one image stays one image.** Five panel states
+exported as a single figure are one `<figure>` with one caption below, not five
+crops in a grid: the composition is already the evidence, and the viewer
+enlarges the whole strip.
 
 **Don't** put two unrelated images together to save vertical space.
 
