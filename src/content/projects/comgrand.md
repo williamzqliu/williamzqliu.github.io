@@ -266,17 +266,17 @@ digital touchpoints that connected those experiences without replacing them.
 <ul class="process-steps">
   <li>
     <p class="process-steps__name">Community space</p>
-    <p class="process-steps__note">Physical spaces, bulletin boards, and shared facilities, so informal interaction had somewhere to happen and activities stayed visible in everyday community life.</p>
+    <p class="process-steps__note">Shared spaces and bulletin boards supported informal interaction and made community activities easier to discover.</p>
   </li>
 
   <li>
     <p class="process-steps__name">Services and activities</p>
-    <p class="process-steps__note">Health talks, skill-sharing, workshops, and community events that older adults could attend or help lead.</p>
+    <p class="process-steps__note">Health talks, skill-sharing, and workshops gave older adults ways to join or help lead.</p>
   </li>
 
   <li>
     <p class="process-steps__name">Digital support</p>
-    <p class="process-steps__note">A mobile app and a smart ring carrying identity, events, health information, and lightweight interactions across the rest of the service.</p>
+    <p class="process-steps__note">An app and smart ring connected identity, events, health information, and lightweight interactions.</p>
   </li>
 </ul>
 
