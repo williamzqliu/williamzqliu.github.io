@@ -209,8 +209,6 @@ layout made clusters and cross-unit ties readable on its own. When the network e
 to all 2,737 faculty, the same approach became much denser, so the interface needed
 additional encodings to keep structural patterns legible.
 
-<p>From a bounded prototype to institutional scale.</p>
-
 <div class="media-pair">
   <figure>
     <img
