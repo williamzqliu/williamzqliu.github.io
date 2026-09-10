@@ -255,9 +255,14 @@ const liveLinks = links.filter((link) => link.href !== '#');
      clearly the live one: the outgoing card was still lit while the incoming
      one had barely started. Out slower than in on purpose — the old row lets
      go just after the new one lands, so attention transfers instead of
-     falling through a gap. */
+     falling through a gap.
+
+     Both ends then took 200ms more than the pair's own values, so the row
+     answers slowly rather than snapping. Written as `calc` off the tokens so
+     the 80ms the exit trails the entrance by is still the pair's, and stays
+     the pair's if those values ever move. */
   .prow__titletext {
-    transition: color var(--dur-hover-out) var(--ease-out);
+    transition: color calc(var(--dur-hover-out) + 200ms) var(--ease-out);
   }
 
   .prow__blurb {
@@ -336,8 +341,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
   .prow__card[data-linked] .prow__mediacol :global(.cover) {
     filter: grayscale(1);
     transition:
-      transform var(--dur-hover-out) var(--ease-out),
-      filter var(--dur-hover-out) var(--ease-out);
+      transform calc(var(--dur-hover-out) + 200ms) var(--ease-out),
+      filter calc(var(--dur-hover-out) + 200ms) var(--ease-out);
   }
 
   /* Touch has no hover to restore the colour, so there is nothing to mute. */
@@ -358,7 +363,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
   @media (hover: hover) and (pointer: fine) {
     .prow__card[data-linked]:hover .prow__titletext {
       color: var(--accent);
-      transition-duration: var(--dur-hover-in);
+      transition-duration: calc(var(--dur-hover-in) + 200ms);
     }
 
     /* Anywhere on the row, not just on the media: the row is one thing, and
@@ -373,7 +378,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
       filter: grayscale(0);
       transform: scale(1.1);
-      transition-duration: var(--dur-hover-in);
+      transition-duration: calc(var(--dur-hover-in) + 200ms);
     }
 
     /* An outbound link is a second destination on the same row, so it answers
