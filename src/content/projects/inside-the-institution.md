@@ -383,11 +383,6 @@ short questionnaire followed.
      college-specific clusters. The share of faculty in the main component ranges from
      69.2% in Engineering to 3.3% at Northeastern University London.
 
-     Participants surfaced structural patterns the network analysis had not
-     anticipated: gaps between colleges, disciplinary asymmetries in how research gets
-     published. One participant found a design inconsistency in the tool that I had not
-     caught.
-
      Participant experience, from the background questionnaire: seventeen with Python
      network libraries, fifteen with Gephi, seven with D3 or other web visualization.
 -->
@@ -432,22 +427,62 @@ contrast made them question whether bibliometric impact and structural importanc
 measuring the same thing.
 
 
-## Reflection
+## What needed work
 
-The participant who found the inconsistency is the reason this project has an
-argument rather than just an artifact. Network analysis and interactive visualization
-produce different kinds of knowledge. The analysis told me the network was
-fragmented. It could not tell me what a meta-scientist would notice first, which
-encoding they would trust, or which feature they would never find. Design is what
-connects the two.
+Testing exposed several interface problems. Participants needed a persistent legend,
+missed some secondary features, and wanted more orientation when they first entered the
+tool. Several also found the 3D view harder to read and control than the 2D views.
 
-The limits are real. The work covers one institution, so the structural findings are
-about Northeastern and not about research universities generally. Co-authorship is a
-narrow proxy for collaboration and misses mentorship, grant work, and everything
-unpublished. And a tool that makes individual collaboration patterns legible to
-administrators carries obligations I spend a chapter of the thesis on rather than a
-sentence here.
+The responses are straightforward: a legend that stays on screen, onboarding and
+stronger signifiers for the features people missed, and a 2D alternative to test against
+the 3D view.
 
-If I rebuilt it, I would start with the data model rather than arriving at it. Three
-months of curation was the right call and it was also the consequence of designing
-before knowing what the design needed.
+A more important issue appeared when one participant compared two definitions of
+"bridging." I had computed bridge score from departmental boundaries, while the Bridging
+Scholars view used Leiden communities derived from the co-authorship network. Both
+measures were valid on their own, but I had presented them as if they described the same
+kind of bridge.
+
+> &#8220;The bridge score is computed based on departments, but the visualization is
+> based on topics.&#8221;
+
+That feedback changed how I think about analytical tools. I can make an interface
+visually consistent and still connect analyses that answer different questions. The
+analytical definitions have to align first. Only then should the visual language make
+them look equivalent.
+
+<details>
+<summary>Limits and responsibility</summary>
+
+**Co-authorship is partial evidence.** It captures one form of collaboration and
+systematically underrepresents work in arts, humanities, and practice-based fields. An
+isolated node is not an uncollaborative scholar.
+
+**The network is not a performance metric.** It shows structural patterns, not
+productivity or research quality. I would not use centrality, bridge score, or internal
+tie counts to evaluate anyone.
+
+**Aggregation creates new visibility.** The source records are public, but combining
+them into identifiable scholar profiles is a different thing from the records
+themselves. A production version would need correction mechanisms, consent
+expectations, and data-governance rules.
+
+</details>
+
+<!-- PARKED for the Takeaway. The old Reflection, kept because the closing
+     section is not written yet — move what it needs and delete the rest.
+
+     The participant who found the inconsistency is the reason this project has an
+     argument rather than just an artifact. Network analysis and interactive
+     visualization produce different kinds of knowledge. The analysis told me the
+     network was fragmented. It could not tell me what a meta-scientist would notice
+     first, which encoding they would trust, or which feature they would never find.
+     Design is what connects the two.
+
+     The work covers one institution, so the structural findings are about Northeastern
+     and not about research universities generally.
+
+     If I rebuilt it, I would start with the data model rather than arriving at it.
+     Three months of curation was the right call and it was also the consequence of
+     designing before knowing what the design needed.
+-->
