@@ -97,12 +97,13 @@ mattered; the media shows what changed.
 **Standard.** Equal columns, tops aligned, no crop, no card, no shadow, no
 badges, no arrows, no slider. Each half opens in the lightbox independently.
 
-**Modifiers.** Default stacks below 640px. `data-abreast` keeps two columns at
-every width (12px gutter on a phone, 24px above) for a comparison that means
-nothing apart — the lightbox covers the lost detail. `--pair-split` (passed as
-an inline style, like the mosaic's) sets the column ratio: give two differently
-shaped pictures the ratio of their own aspects and they come out the same
-height with nothing cropped.
+**Modifiers.** Default stacks below 640px. `data-abreast` keeps the row at
+every width (12px gutter on a phone, 24px above) for pictures that mean nothing
+apart. `--pair-split` (passed as an inline style, like the mosaic's) sets the
+column ratio: give differently shaped pictures the ratio of their own aspects
+and they come out the same height with nothing cropped. The two work together,
+so a row set abreast with a split holds both its shape and its single height
+down to the phone.
 
 **A sequence that arrives as one image stays one image.** Five panel states
 exported as a single figure are one `<figure>` with one caption below, not five
@@ -115,7 +116,9 @@ children of the `.media-pair`, with one `<figcaption>` under it: three photos
 of one session are one picture as far as the reader is concerned, and three
 captions would ask them to tell the frames apart. `--pair-split` takes as many
 ratios as there are frames, so masters exported at one height come out in a row
-at one height. Comgrand's Section 02 has the three-frame form.
+at one height, and `data-abreast` keeps them in that row on a phone — split
+across three screens they stop being one moment. Comgrand's Section 02 has the
+three-frame form.
 
 **Don't** put two unrelated images together to save vertical space.
 
@@ -309,6 +312,27 @@ finding.
 - **Inline caption position is independent of the lightbox.** The viewer always
   shows the caption under the picture; moving an inline caption above a figure
   must not change that.
+
+---
+
+## What opens in the lightbox
+
+**Artifacts, not people.** The viewer is for images whose detail is part of the
+reading: system maps, service blueprints, wireframes, interface screens,
+product and prototype close-ups, dense figures. A reader who cannot enlarge
+those is being shown a claim they cannot check.
+
+**Documentary photographs of people carry `data-nozoom`** on the `<img>`. A
+photograph of a session, a participant or a family is context and evidence that
+the work happened with real people; enlarging a face adds nothing the reader
+needs and turns the person into something to inspect. The cursor and the
+gallery come off the same selector, so a marked picture never shows a
+`zoom-in` cursor that leads nowhere.
+
+Currently marked: Comgrand's two grandmother photographs and the three
+co-design frames, and Inside the Institution's think-aloud session photograph.
+
+`data-nozoom` on `.cs__media` does the same job for a case-study head.
 
 ---
 

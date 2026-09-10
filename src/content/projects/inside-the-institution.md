@@ -393,6 +393,7 @@ short questionnaire followed.
 <figure data-width="prose">
   <img
     src="/media/inside-the-institution/study-session.webp"
+    data-nozoom
     alt="Participant using the collaboration visualization on a laptop during a think-aloud study session."
     width="1600"
     height="979"
