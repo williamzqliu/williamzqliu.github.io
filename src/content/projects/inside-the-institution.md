@@ -73,8 +73,9 @@ credits:
 ## The exploration gap
 
 Meta-scientists use co-authorship networks to study collaboration within
-universities. Existing tools can reveal network structure, but make it difficult to
-explore it across departments, research centers, and individual scholars.
+universities. Existing tools can reveal network structure, but make that
+structure difficult to explore across departments, research centers, and individual
+scholars.
 
 **How might an institutional co-authorship network become something researchers can
 actually explore?**
@@ -276,8 +277,9 @@ keep structural patterns legible.
 </div>
 
 I used network analysis to surface structural roles that the layout no longer made
-obvious. I measured how strongly scholars collaborated across departmental boundaries
-and translated that score into progressively stronger outer rings. The halo increases in
+obvious. I measured the strength of scholars' collaboration across
+departmental boundaries and translated that measure into progressively stronger outer
+rings. The halo increases in
 four steps, marking the top 25%, 5%, 3%, and 1% of the score distribution.
 
 <div class="tier-key">
@@ -415,7 +417,7 @@ short questionnaire followed.
 
      The questionnaire combined twenty-five view-specific Likert items with six overall
      items and three open-ended questions. I analyzed the session records thematically
-     alongside it, and where the two streams disagreed I gave the session records
+     alongside the questionnaire. Where the two disagreed, I gave the session records
      interpretive priority, on the principle that observed behavior is better evidence
      than self-reported satisfaction.
 
@@ -446,9 +448,9 @@ many connected across colleges.
   </div>
 </div>
 
-During testing, participants traced cross-unit ties, inspected local scholar networks,
-and compared those positions with profile information and their own knowledge of the
-university.
+During testing, participants traced cross-unit ties. They inspected local scholar
+networks and compared scholars' positions in those networks with profile information and
+their own knowledge of the university.
 
 <blockquote class="participant-quote">
   <p>“I would not have thought some of the different areas were like collaborating together.”</p>
