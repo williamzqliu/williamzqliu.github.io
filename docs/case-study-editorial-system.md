@@ -257,6 +257,31 @@ system document. Nothing needs a per-project width rule.
 
 ---
 
+## Process steps — `.process-steps`
+
+**Use for** the stages of a method, where the order is part of the content and
+each stage has a name worth scanning for. Citing Less Critically uses one, for
+the study's three stages.
+
+**Standard.** An `<ol class="process-steps">` with one `<li>` per stage holding
+`.process-steps__num`, `.process-steps__name` and `.process-steps__note`. An
+ordered list because the sequence is structural, not just drawn. Prose width, a
+single hairline above, three equal columns from 640px with the stat strip's
+inset divider between them, one column on a phone where space separates them.
+The article's list marker and indent are turned off.
+
+The hierarchy is the inverse of the stat strip's: there the number is what is
+being read and takes the display size, here it is only a position, so the name
+leads in full ink at copy size, the description sits under it, and the number is
+the smallest and quietest of the three.
+
+**Don't** add arrows between the stages, or a fill, card, icon or badge around
+them; and don't use it for a feature list or a set of principles, which have no
+order to carry. If the block sits above a figure it should stay quieter than the
+figure: prose width, not the article column.
+
+---
+
 ## Project credits
 
 The end-credit frame every case study closes with. Rendered by

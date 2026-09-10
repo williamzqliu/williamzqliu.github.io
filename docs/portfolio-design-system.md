@@ -347,7 +347,7 @@ uncomment the nav entry.
 | accordion look and the +/− | same block: `.prose details`, `.prose summary` |
 | callout | same block: `.prose blockquote:not(.participant-quote)` |
 | participant quote, issue → response | same block: `.participant-quote`, `.issue-response` |
-| stat strip | same block: `.stat-strip` |
+| stat strip, process steps | same block: `.stat-strip`, `.process-steps` |
 | lightbox, swipe, pinch | `src/components/Lightbox.astro` |
 | end credits at the close of a case study | `src/components/ProjectCredits.astro` + the project's `credits:` frontmatter |
 | a project's words, media, section order | `src/content/projects/<slug>.md` |

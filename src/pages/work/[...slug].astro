@@ -1212,6 +1212,93 @@ const facts = [
     }
   }
 
+  /* The stages of a method, in order. An ordered list because the order is
+     the content: the numbers are drawn so the columns can be read across, and
+     the element carries the same sequence for anything that is not looking.
+
+     Not the stat strip, which this resembles: there the number is the thing
+     being read and takes the display size. Here the number is only a position
+     and the verb is what the reader is after, so the hierarchy is inverted —
+     name in full ink at copy size, description under it, number smallest and
+     quietest of the three.
+
+     Prose width, not the article column, and a single hairline above rather
+     than rules on both sides: this block introduces the figure below it and
+     should not compete with it. Generic to case studies; nothing about it is
+     specific to one project. */
+  .process-steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--sp-24);
+    margin-top: var(--sp-32);
+    padding-top: var(--sp-20);
+    border-top: var(--rule-hair) solid var(--rule);
+    list-style: none;
+    font-size: var(--fs-copy);
+  }
+
+  /* The article's list marker and indent are for items that are sentences in
+     a run. These are columns. */
+  .prose .process-steps li {
+    position: relative;
+    margin-top: 0;
+    padding-left: 0;
+  }
+
+  .prose .process-steps li::before {
+    content: none;
+  }
+
+  /* Two class names: `.prose p` sets the copy size and colour and would
+     otherwise win on element count. */
+  .prose .process-steps__num {
+    margin-top: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+  }
+
+  /* The word the reader is scanning for. A weight step and full ink, no size
+     jump: at the copy size it already leads the two lines under it. */
+  .prose .process-steps__name {
+    margin-top: var(--sp-8);
+    font-size: var(--fs-copy);
+    line-height: var(--lh-small);
+    font-weight: var(--fw-strong);
+    color: var(--text);
+  }
+
+  .prose .process-steps__note {
+    margin-top: var(--sp-4);
+    font-size: calc(var(--fs-small) + 1px);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+  }
+
+  /* Three across from 640, with the same inset hairline the stat strip puts
+     between its cells: lighter than the rule that opens the block and held
+     clear of it, so the row reads as one thing divided rather than as three
+     boxes. */
+  @media (min-width: 640px) {
+    .process-steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: var(--sp-32);
+    }
+
+    .prose .process-steps li + li::before {
+      content: '';
+      position: absolute;
+      left: calc(var(--sp-16) * -1);
+      top: 0;
+      bottom: var(--sp-4);
+      border-left: var(--rule-hair) solid color-mix(in srgb, var(--rule) 55%, var(--bg));
+    }
+  }
+
   /* An exact sentence from a study participant. A vertical rule rather than a
      horizontal one: the stat strip and the section rules already cut across
      this column, and a third full-width line would keep slicing the page
