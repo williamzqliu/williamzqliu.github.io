@@ -66,8 +66,8 @@ good for staying connected, but not for finding what happened years ago.
 
 In 2026, I designed and built barboard.space as an archive and web portal for the
 community. As some long-time members became busier or drifted away and community activity
-slowed, I also hoped the site could create a renewed point of connection. The goal was not
-to replace WeChat, but to give Barboard a place of its own that people could return to.
+slowed, I also hoped the site could create a renewed point of connection. The goal was to give
+Barboard a place of its own that people could return to.
 
 <figure>
   <img
