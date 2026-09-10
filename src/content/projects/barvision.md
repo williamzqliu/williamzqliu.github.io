@@ -33,9 +33,10 @@ quickFacts:
 
 ## What this is
 
-Barboard is a music community of about forty people. I am a core member, and over
-one summer I designed and ran its song contest: three live broadcasts, a full visual
-identity, and the playout system that put all of it on screen.
+Barboard is a long-running Chinese music community centered on personal charts and
+Western pop. I am a core member, and over one summer I designed and ran its song
+contest: three live broadcasts, a full visual identity, and the playout system that put
+all of it on screen.
 
 The format is borrowed. Barvision is a direct adaptation of the Eurovision Song
 Contest, which is where the name comes from: a jury vote and a public televote scored
@@ -55,7 +56,7 @@ means something to the audience. The flag does an enormous amount of work. It is
 legible at any size, it survives being reproduced twenty-six times on one screen, and
 it identifies a competitor without needing a photograph.
 
-A forty-person online community has none of that. Participants are usernames.
+A forty-person online contest has none of that. Participants are usernames.
 Usernames are long, visually undifferentiated, and useless at the size a
 twenty-six-row leaderboard forces.
 
