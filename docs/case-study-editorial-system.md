@@ -173,12 +173,17 @@ what they doubted, how they diagnosed a problem. Inside the Institution has two
 — one discovery in 07, one critique in 08.
 
 **Standard.** A native `<blockquote class="participant-quote">` holding a `<p>`
-and a `<cite>`, at prose width. A hairline in `--rule-strong` above it, the
-sentence at copy size in `--fw-medium`, and the source under the words in the
-mono label register the rest of the page uses for metadata. The author callout
-is told apart by scale and an accent rule on the left; this one is told apart by
-a rule above and the attribution below. No fill, no card, no shadow, no giant
-quote mark, no centring.
+and a `<cite>`. A hairline accent rule on the left with 20px of padding, the
+sentence at `--fs-title` in `--fw-medium` on a 1.4 line, 85% of the measure so
+it sits inside the column rather than filling it, and the source 12px under the
+words in the mono label register, one pixel over micro. 32px of air above and
+below. No fill, no card, no shadow, no giant quote mark, no centring.
+
+A vertical rule rather than a horizontal one: the stat strip and the section
+rules already cut across this column, and a third full-width line would keep
+slicing the page instead of marking a voice. The author callout keeps the heavy
+2px accent and the full 720px; this is the hairline version of the same colour,
+held short and closed by its source.
 
 **Don't** use it for your own conclusions, a section summary, a turning point,
 or anything that reads as a testimonial — those are the callout, or they are
