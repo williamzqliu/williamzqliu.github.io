@@ -854,6 +854,13 @@ const facts = [
     margin-top: var(--sp-32);
   }
 
+  /* A disclosure closes on a hairline, and at the paragraph's own 16 the
+     sentence after it sat under that rule as though it were still inside.
+     The same 32 every other block hands to the paragraph following it. */
+  .prose details + p {
+    margin-top: var(--sp-32);
+  }
+
   /* Two pictures of one thing, side by side from 640px up and stacked below
      it. No shared frame and no crop: a square and a 16:9 in equal columns
      come to different heights, and levelling them would mean letterboxing one
@@ -1424,6 +1431,14 @@ const facts = [
     .prose .process-steps {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       column-gap: var(--sp-32);
+    }
+
+    /* Two where the block divides a responsibility rather than stepping
+       through stages: three columns holding two items leaves a third of the
+       row empty, and the gap reads as a missing item. Same name the stat
+       strip uses for the same job. */
+    .prose .process-steps[data-cols='2'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .prose .process-steps li + li::before {

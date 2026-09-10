@@ -378,6 +378,12 @@ being read and takes the display size, here it is only a position, so the name
 leads in full ink at copy size, the description sits under it, and the number is
 the smallest and quietest of the three.
 
+`data-cols="2"` takes the row down to two columns from 640px, for a block that
+divides a responsibility in two rather than stepping through stages: three
+columns holding two items leave a third of the row empty and the gap reads as a
+missing item. Same attribute name the stat strip uses for the same job.
+Comgrand's Section 04 splits app and ring on it.
+
 **Don't** add arrows between the stages, or a fill, card, icon or badge around
 them; and don't use it for a feature list or a set of principles, which have no
 order to carry. If the block sits above a figure it should stay quieter than the
