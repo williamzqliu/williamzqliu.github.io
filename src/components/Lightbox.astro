@@ -346,10 +346,13 @@
 
 <style is:global>
   /* Only the images that have more to show than the column can print. The
-     cursor is the whole affordance — no overlay, no icon, no border. */
+     cursor is the whole affordance — no overlay, no icon, no border. A head
+     marked `data-nozoom` is excluded from both this and the gallery below:
+     one selector, so the cursor can never promise a viewer that will not
+     open. */
   .prose img,
   .prose video,
-  .cs__media img {
+  .cs__media:not([data-nozoom]) img {
     cursor: zoom-in;
   }
 </style>
@@ -357,7 +360,7 @@
 <script>
   // Opening is delegated from the document, so images that arrive with a new
   // page (ClientRouter swaps the body) need no re-binding of their own.
-  const SOURCES = '.prose img, .prose video, .cs__media img';
+  const SOURCES = '.prose img, .prose video, .cs__media:not([data-nozoom]) img';
 
   let listeners: AbortController | undefined;
 

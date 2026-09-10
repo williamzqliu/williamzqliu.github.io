@@ -97,7 +97,7 @@ const facts = [
 
       {
         COVERS_ENABLED && (
-          <figure class="cs__media">
+          <figure class="cs__media" data-nozoom={project.data.cover.zoom ? undefined : 'true'}>
             <CoverMedia
               tone={project.data.cover.tone}
               ratio="hero"
