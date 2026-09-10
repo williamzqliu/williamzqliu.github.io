@@ -218,14 +218,17 @@ projects, reliable matching was a prerequisite for trustworthy downstream analys
 
 ## Making social distance visible
 
-Social distance was one of the study&#8217;s more abstract measures. For each
-citing&#8211;cited paper pair, the analysis considers the first and last authors of both
-papers, producing four author-pair distances through the coauthorship network.
+Social distance is one of the study&#8217;s more abstract measures. For each citation, the
+first and last authors of the citing paper are paired with the first and last authors of
+the cited paper, producing four shortest-path distances in the coauthorship network. The
+same calculation is applied to both the original citation and its LLM-generated
+replacement, allowing their social proximity to be compared on a common basis.
 
-I designed Figure 4a as a worked example rather than a purely conceptual diagram. By
-showing each of the four shortest paths and how they combine into a single average
-distance, the figure makes the metric directly inspectable before readers encounter the
-results.
+I designed Figure 4a as a worked comparison rather than a formula alone. Each row traces
+the four author-pair paths through the network and carries them into the final average,
+making the difference between the original citation and its LLM-generated counterpart
+directly inspectable. In scientific figures, clarity also means showing how a measure is
+constructed, not just reporting its result.
 
 <figure>
   <img
@@ -236,7 +239,7 @@ results.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>Figure 4a. A worked example of the social-distance measure. The four author-pair shortest paths are 2, 2, 2, and 3, producing an average distance of 2.25.</figcaption>
+  <figcaption><strong>Figure 4a.</strong> Worked comparison of the social-distance measure. The original citation averages author-pair distances of 2, 2, 2, and 3 (&#10216;d&#10217; = 2.25), while the LLM-generated citation averages four distances of 3 (&#10216;d&#10217; = 3).</figcaption>
 </figure>
 
 <!-- PARKED from the previous draft of this section. Not in the copy above and
