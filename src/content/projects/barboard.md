@@ -2,11 +2,19 @@
 title: barboard.space
 year: 2026
 dates: May 2026 – Aug 2026
-blurb: A digital home for a long-running Chinese music community, bringing its members, charts, competitions, and archives into one place.
+# 140 is the schema cap, and the card is built for three lines. The sent copy
+# ran to 167, so `historical records` and `browsable` come out; everything else
+# is as written.
+blurb: A community archive and web portal for a long-running Chinese music community, bringing members, charts, competitions, and records together.
 tags: [interactive]
 tracks: [engineering]
 featured: 7
-stack: [HTML, CSS, JavaScript, Python, GitHub Actions]
+stack:
+  - HTML
+  - CSS
+  - JavaScript
+  - Python
+  - GitHub Actions
 links:
   # Not `Live Demo`: this is the site itself, running, not a demonstration of
   # it. The label override is what the schema's named-link form is for.
@@ -21,7 +29,7 @@ quickFacts:
   - label: "Role"
     value: "Designer & Developer"
   - label: "Outcome"
-    value: "Launched at barboard.space as a self-initiated community project"
+    value: "Live community archive and web portal at barboard.space"
 ---
 
 ## What this is
