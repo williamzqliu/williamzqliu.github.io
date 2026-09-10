@@ -1420,6 +1420,35 @@ const facts = [
     color: var(--text-2);
   }
 
+  /* Stacked, for items that read in sequence rather than in parallel. The
+     columns are for a set the eye compares; a retrospective is a list you go
+     down, and three reflections side by side ask to be weighed against each
+     other instead of read in order. Rows are separated by the hairline the
+     issue list uses rather than by space, so the block stays compact, and the
+     specificity carries over the 640px rules below without needing a query of
+     its own. */
+  .prose .process-steps[data-stack] {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .prose .process-steps[data-stack] li {
+    padding-bottom: var(--sp-20);
+  }
+
+  .prose .process-steps[data-stack] li + li {
+    padding-top: var(--sp-20);
+    border-top: var(--rule-hair) solid color-mix(in srgb, var(--rule) 55%, var(--bg));
+  }
+
+  .prose .process-steps[data-stack] li:last-child {
+    padding-bottom: 0;
+  }
+
+  .prose .process-steps[data-stack] li + li::before {
+    content: none;
+  }
+
   /* Three across from 640, with the same inset hairline the stat strip puts
      between its cells: lighter than the rule that opens the block and held
      clear of it, so the row reads as one thing divided rather than as three
