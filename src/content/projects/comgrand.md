@@ -371,17 +371,35 @@ I explored several wearable forms before choosing a ring. I saw it as less intru
 all-day wear than a larger wrist device, while also making simple tap-based interactions
 such as identity exchange, payment, and event check-in more immediate.
 
-<figure>
-  <img
-    src="/media/comgrand/ring-sketches.webp"
-    alt="Fifteen hand-drawn wearable concepts on a pale green ground: rings, open cuffs, clip-on forms and small screen-bearing bands, drawn from several angles. Three of them are circled."
-    width="1932"
-    height="1296"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Exploring wearable forms before narrowing the concept to a ring.</figcaption>
-</figure>
+<!-- The exploration and what it resolved into, in the pictures' own aspect
+     ratios, 1.491 and 1.302, so the sheet of sketches and the render come out
+     the same height with neither cropped. -->
+
+<div class="media-pair" style="--pair-split: 1.491fr 1.302fr">
+  <figure>
+    <img
+      src="/media/comgrand/ring-sketches.webp"
+      alt="Fifteen hand-drawn wearable concepts on a pale green ground: rings, open cuffs, clip-on forms and small screen-bearing bands, drawn from several angles. Three of them are circled."
+      width="1932"
+      height="1296"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Exploring wearable forms before narrowing the concept to a ring.</figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/media/comgrand/ring-product-render.webp"
+      alt="A render of the ring in two finishes, annotated with the proposed components: health data sensor, electrode array, integrated dynamic sensor, NFC and Bluetooth, a pressable display and a solar module, with the digital model measured at 1.9 by 2.3 by 0.6 centimetres. A hand wearing a ring sits above."
+      width="3200"
+      height="2459"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>The digital model of the ring, with the components and dimensions the concept proposed.</figcaption>
+  </figure>
+</div>
 
 Rather than reproducing a smartphone on the hand, I developed the ring around a small set
 of actions someone would carry out in passing. The concept combined NFC and Bluetooth
@@ -391,18 +409,6 @@ connectivity, health sensing, a pressable display, and an emergency trigger.
 >
 > Keep the wearable focused on short, contextual interactions.
 
-<figure>
-  <img
-    src="/media/comgrand/ring-product-render.webp"
-    alt="A render of the ring in two finishes, annotated with the proposed components: health data sensor, electrode array, integrated dynamic sensor, NFC and Bluetooth, a pressable display and a solar module, with the digital model measured at 1.9 by 2.3 by 0.6 centimetres. A hand wearing a ring sits above."
-    width="3200"
-    height="2459"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The digital model of the ring, with the components and dimensions the concept proposed.</figcaption>
-</figure>
-
 The app carried the heavier information layer that the ring was not designed to handle.
 Neighborhood supported local connection, Health surfaced personal information, Events made
 activities discoverable, and Me connected identity and community points.
@@ -411,8 +417,8 @@ activities discoverable, and Me connected identity and community points.
   <img
     src="/media/comgrand/high-fidelity.webp"
     alt="High-fidelity screens laid out in two rows: health reports, reminders and treatments above; Neighborhood, Health, the home screen, the quick bar, Events and Me below, with an easy mode that enlarges the health summary."
-    width="1186"
-    height="622"
+    width="3200"
+    height="1678"
     loading="lazy"
     decoding="async"
   />
