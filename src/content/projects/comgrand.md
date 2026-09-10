@@ -11,7 +11,7 @@ links: {}
 cover:
   wide: /media/comgrand/cover-wide.webp
   tone: light
-  alt: Two views of a titanium smart ring with an integrated sensor band and a pressable display, annotated with component callouts.
+  alt: "One hand holding a phone that shows the Comgrand app, with a health score, reminders and a neighbourhood circle, while a younger hand and an older hand each hold one of the rings."
 quickFacts:
   - label: "Role"
     value: "Solo Designer & Researcher"
