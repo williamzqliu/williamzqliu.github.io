@@ -366,6 +366,9 @@ const facts = [
      from anywhere in the article. Layering is explicit — header and progress
      line at 50, this bar at 30, the article under both. */
   .cs__toc {
+    /* Animated by the same script as the article's disclosures; see the note
+       on `.prose details`. */
+    overflow-anchor: none;
     position: sticky;
     top: var(--header-h);
     z-index: 30;
@@ -1464,6 +1467,13 @@ const facts = [
     font-size: var(--fs-copy);
     border-top: var(--rule-hair) solid var(--rule-strong);
     border-bottom: var(--rule-hair) solid var(--rule);
+    /* Off, because this element's height is animated. Scroll anchoring picks a
+       node to hold still and corrects the scroll offset when layout moves it;
+       against a 320ms height animation that correction runs every frame, and
+       whether it fires at all depends on where the reader happens to be
+       scrolled. That is the twitch. The element is opened by a deliberate
+       click, so there is nothing here for anchoring to protect. */
+    overflow-anchor: none;
   }
 
   .prose summary {

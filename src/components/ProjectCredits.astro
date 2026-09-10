@@ -260,6 +260,10 @@ const secondary = kept([
      no border, no fill, no margin. */
   .credits__more {
     border: 0;
+    /* Height-animated by the page's shared disclosure script, so scroll
+       anchoring is off here for the same reason it is off on the article's
+       disclosures. */
+    overflow-anchor: none;
   }
 
   /* Set as the article's collapsed layers are set: mono caps at the label
