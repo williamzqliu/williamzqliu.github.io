@@ -74,8 +74,8 @@ Our team asked whether LLMs make the same citation choices as human authors when
 the same citation position.
 
 To make the experimental design easier to follow, I designed a three-stage visual
-framework for our team’s method, keeping the human and LLM paths easy to compare
-from reconstruction to bibliographic matching.
+framework for our team's method. It keeps the human and LLM paths side by side across all
+three stages, from reconstruction to bibliographic matching.
 
 <ol class="process-steps">
   <li>
@@ -180,9 +180,9 @@ attaching incorrect metadata to downstream analysis.
 **Why matching quality mattered.** Using the same grounding process, our team found an
 86.7% match rate for human-written citations, while the six LLMs ranged from 39.5% to
 81.9%. To understand the unmatched outputs more closely, our team manually audited 100
-unmatched titles from GPT-5.1 and 100 from Claude-3.5-Haiku. Of these, 79% and 97%,
-respectively, fell into the paper’s combined hallucination category, which includes
-fabricated works and real works with substantially garbled titles.
+unmatched titles from GPT-5.1 and 100 from Claude-3.5-Haiku. Among them, 79% of the GPT-5.1 titles and 97% of the
+Claude-3.5-Haiku titles fell into the paper's combined hallucination category, which
+includes fabricated works and real works with substantially garbled titles.
 
 I had built an earlier development version against OpenAlex at a smaller scale. That was
 an exploratory build, not the pipeline reported in the paper.
@@ -291,7 +291,7 @@ experience working as part of a research team through a full peer-review cycle.
 
 What stayed with me most was how research quality is built collectively. I learned that
 contributing well does not mean owning every part of a project. It means making my part
-rigorous enough to support the work around it, whether that meant resolving data
+rigorous enough to support the work around it, whether that means resolving data
 carefully, making a complex method easier to inspect, or checking an automated result
 against human judgment. The project also showed me how naturally my design and technical
 skills can work together in a research setting.

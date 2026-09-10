@@ -255,8 +255,8 @@ that having company mattered to the older adults she worked with more than who t
 was. One of the older participants, Mrs. Wu, described long stretches of time on her own as
 something she felt physically.
 
-Companionship read as a more immediate and lower-barrier way in than the
-contribution-oriented activities I had started from.
+Companionship was an easier starting point than the contribution-oriented activities I
+had begun with.
 
 </details>
 
@@ -337,7 +337,7 @@ something of value.
 
 A service like this depended on more than the older adults using it. I mapped the groups
 and organizations involved, along with the flows of materials, information, and money, to
-understand what needed to support the experience around them.
+understand what the service needed to support the people using it.
 
 <figure>
   <img
@@ -351,9 +351,9 @@ understand what needed to support the experience around them.
   <figcaption>The service ecosystem across nine participating groups and the resources exchanged between them.</figcaption>
 </figure>
 
-Mapping these relationships made the operational side of the concept visible. Designing the
-experience also meant asking who would provide each service, where information would move,
-and how value could circulate through the system.
+Mapping these relationships showed what running the service would take. Designing it also
+meant asking who would provide each service, where information would move, and how value
+could circulate through the system.
 
 <details>
 <summary>How the service works end to end</summary>
@@ -491,9 +491,8 @@ not see on screen.
 
 I built a physical prototype and asked two older adults to try it across several intended
 interactions, including check-in, payment, health sensing, and the emergency function. The
-prototype carried the form rather than working electronics, so what it could show me was
-how the object sat on a hand and whether each gesture made sense to the person performing
-it.
+prototype carried the form rather than working electronics, so it could show me how the
+object sat on a hand and whether each gesture made sense to the person performing it.
 
 <figure>
   <img
@@ -522,8 +521,8 @@ it.
 </ul>
 
 For a high-stakes action, preventing accidental activation mattered as much as making the
-interaction easy to perform. I had also sized the ring around the form I wanted rather than
-the range of hands and viewing conditions it needed to accommodate.
+interaction easy to perform. I had also sized the ring around the form I wanted, not
+around the range of hands it had to fit or the conditions it had to be read in.
 
 Two people cannot settle either question, but they were enough to show me what a next
 iteration would have to work on.
@@ -548,8 +547,9 @@ iteration would have to work on.
 <details>
 <summary>Unresolved risk</summary>
 
-**Losing the ring mattered more once it carried sensitive functions.** Adaptability varied
-across participants, and concern about losing the device came up repeatedly. Because the
+**Losing the ring mattered more once it carried sensitive functions.** Participants varied in how
+easily they adapted to wearing and using the ring, and concern about losing it came up
+repeatedly. Because the
 concept combined payment, identity, and medical alert functions, loss and security would
 need to be treated as core design constraints in a future iteration.
 
