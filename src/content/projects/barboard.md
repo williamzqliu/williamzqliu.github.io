@@ -27,9 +27,28 @@ quickFacts:
     value: "Designer & Developer"
   - label: "Outcome"
     value: "Live community archive and web portal at barboard.space"
+credits:
+  skills:
+    - Front-end design
+    - Information architecture
+    - Responsive design
+    - Data interface design
+  tools:
+    - HTML
+    - CSS
+    - JavaScript
+    - Python
+    - GitHub Actions
+  # The role is the row label, so the name sits in the open credits rather than
+  # behind a control. No `Team`: I built the site for a community that already
+  # existed, and there is no one else to file under it.
+  teamLabel: Design and development
+  team:
+    - people:
+        - Zhuoqi Liu
 ---
 
-## What this is
+## From Tieba to barboard.space
 
 Barboard is a music community of 143 people. I am a core member, and I built its
 website because it did not have one and I wanted it to.
@@ -48,7 +67,23 @@ technical direction. The implementation was carried out with AI assistance, whic
 visible in the commit history rather than hidden: 302 of 353 commits carry a
 co-authorship trailer. What the project demonstrates is the direction, not the typing.
 
-## What static bought, and what it cost
+## Shaping the visual system
+
+A single fixed dark palette, with no theme switching. No `prefers-color-scheme`, no
+data attribute, no light mode. For a community site with one context of use, a theme
+toggle is a feature that adds surface area and answers no question anyone asked.
+
+Design tokens live as CSS custom properties in one file: 65 of them, referenced across
+29 files. The palette is 51 of those tokens, which reflects what the site actually
+needed. Type is three font stacks: a condensed display face, a sans for body, a mono
+for data.
+
+The only place tokens are redeclared is a 768px breakpoint, where four spacing and
+layout values change. Redeclaring tokens responsively rather than thematically was the
+right call for this site, and it is worth naming because it is the less common of the
+two uses.
+
+## Making history searchable
 
 There is no server. Not a lightweight one, not a serverless function, not a database.
 The site is static files on GitHub Pages behind a custom domain, and everything that
@@ -82,60 +117,7 @@ per person.
 
 None of those are bugs. They are the same decision, seen from the maintenance side.
 
-## The weekly chart pipeline
-
-The community tracks a weekly singles chart, and keeping it current by hand was never
-going to survive contact with a busy month.
-
-A Python script fetches the chart, reshapes it into 100 records of nine fields each,
-and writes a 30KB JSON file. A GitHub Actions workflow runs it on a schedule and
-commits the result. Three pages fetch that file at load time. That is the whole
-pipeline, and it has run 26 times across three months without intervention.
-
-Two parts of it are worth explaining.
-
-**The endpoint refuses non-browser clients.** A plain HTTP library gets a 403,
-regardless of headers, because the rejection is based on the TLS handshake rather than
-the request. So the fetch uses `curl_cffi` with Chrome 136 impersonation, which
-reproduces the browser's TLS fingerprint, alongside thirteen headers that match what
-Chrome 136 would actually send. This is the one part of the project where the naive
-approach simply does not work and knowing why matters.
-
-**It fails silently, on purpose.** On a 403, and on any other exception, the script
-prints a message and exits zero. The existing data stays where it is, and the site
-keeps serving last week's chart rather than an error or an empty state.
-
-That decision has a cost I want to be explicit about: the workflow reports success
-whether or not anything happened, and there is no alerting. If the endpoint changed
-shape tomorrow, the chart would quietly freeze and I would find out by noticing.
-
-I would make the same call again for a community site, where a stale chart is a
-non-event and a broken page is embarrassing. I would not make it for anything where
-the data mattered. The right version of this has the same graceful degradation plus a
-notification, and I skipped the second half.
-
-**And a self-skipping backup run.** The primary job runs Saturday evening UTC. A second
-runs Monday morning, but first checks whether the data file was committed in the last
-two days and exits if it was. One retry window, no duplicate work, no coordination
-state to maintain.
-
-## The visual system
-
-A single fixed dark palette, with no theme switching. No `prefers-color-scheme`, no
-data attribute, no light mode. For a community site with one context of use, a theme
-toggle is a feature that adds surface area and answers no question anyone asked.
-
-Design tokens live as CSS custom properties in one file: 65 of them, referenced across
-29 files. The palette is 51 of those tokens, which reflects what the site actually
-needed. Type is three font stacks: a condensed display face, a sans for body, a mono
-for data.
-
-The only place tokens are redeclared is a 768px breakpoint, where four spacing and
-layout values change. Redeclaring tokens responsively rather than thematically was the
-right call for this site, and it is worth naming because it is the less common of the
-two uses.
-
-## Where it falls short
+## Designing for small screens
 
 <details>
 <summary>Engineering notes</summary>
@@ -179,7 +161,44 @@ tag manager, and no error tracking. That kept the build simple and it means that
 three months I can tell you the site works and I cannot tell you whether anyone uses
 the member directory, which is the feature I spent the most time on.
 
-## What a backend would be for
+## Building live community tools
+
+The community tracks a weekly singles chart, and keeping it current by hand was never
+going to survive contact with a busy month.
+
+A Python script fetches the chart, reshapes it into 100 records of nine fields each,
+and writes a 30KB JSON file. A GitHub Actions workflow runs it on a schedule and
+commits the result. Three pages fetch that file at load time. That is the whole
+pipeline, and it has run 26 times across three months without intervention.
+
+Two parts of it are worth explaining.
+
+**The endpoint refuses non-browser clients.** A plain HTTP library gets a 403,
+regardless of headers, because the rejection is based on the TLS handshake rather than
+the request. So the fetch uses `curl_cffi` with Chrome 136 impersonation, which
+reproduces the browser's TLS fingerprint, alongside thirteen headers that match what
+Chrome 136 would actually send. This is the one part of the project where the naive
+approach simply does not work and knowing why matters.
+
+**It fails silently, on purpose.** On a 403, and on any other exception, the script
+prints a message and exits zero. The existing data stays where it is, and the site
+keeps serving last week's chart rather than an error or an empty state.
+
+That decision has a cost I want to be explicit about: the workflow reports success
+whether or not anything happened, and there is no alerting. If the endpoint changed
+shape tomorrow, the chart would quietly freeze and I would find out by noticing.
+
+I would make the same call again for a community site, where a stale chart is a
+non-event and a broken page is embarrassing. I would not make it for anything where
+the data mattered. The right version of this has the same graceful degradation plus a
+notification, and I skipped the second half.
+
+**And a self-skipping backup run.** The primary job runs Saturday evening UTC. A second
+runs Monday morning, but first checks whether the data file was committed in the last
+two days and exits if it was. One retry window, no duplicate work, no coordination
+state to maintain.
+
+## Looking ahead
 
 Static was the right first version and it is not the right last one. The limitations
 above are not independent problems; they are one problem seen from four angles, and
