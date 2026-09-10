@@ -466,9 +466,12 @@
         clip.hidden = true;
         clip.removeAttribute('src');
         frame.hidden = false;
-        // `currentSrc` is what the browser actually chose, so a <picture> with
-        // an art-directed phone crop opens the crop the reader is looking at.
-        frame.src = source.currentSrc || source.src;
+        // `data-full` first: where the page carries a crop of something too
+        // tall to place inline, the viewer is where the whole artifact belongs.
+        // Otherwise `currentSrc`, which is what the browser actually chose, so
+        // a <picture> with an art-directed phone crop opens the crop the reader
+        // is looking at.
+        frame.src = source.dataset.full || source.currentSrc || source.src;
         frame.alt = source.alt;
 
         // A plate that needs paper under it on the page needs it here too, and

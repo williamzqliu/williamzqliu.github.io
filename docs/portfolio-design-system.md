@@ -223,6 +223,7 @@ picture, not a player.
 | --- | --- |
 | `data-ground="paper"` on an `<img>` | fills the transparent ground with `--paper`, dark theme included |
 | `data-caption="center"` on a `<figure>` | centres the caption under a plate that has no left edge |
+| `data-full="/path.webp"` on an `<img>` | the viewer opens this instead of the page's copy, for an artifact too tall to place inline |
 
 **Lightbox.** `components/Lightbox.astro`, one implementation for the whole
 site, with two gesture models that share one visual language: a fine pointer

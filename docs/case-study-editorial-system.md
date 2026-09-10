@@ -314,6 +314,36 @@ finding.
 
 ---
 
+## Code excerpt
+
+**Use for** real source from the project, inside a disclosure, where the
+decision it encodes is part of what the case study is arguing. Barboard has
+five, across three disclosures. No other project has any, which is the right
+ratio: most design work is not better explained by its source.
+
+**Standard.** A fenced block in the content file, hairlines above and below
+like every other block that interrupts the prose, mono a pixel under the
+caption size in the supporting tone, and the horizontal scroll contained so a
+long line moves the block rather than the page. **No syntax highlighting**,
+site-wide: Shiki ships a themed rectangle with its own palette, and it would be
+the only coloured surface on a page built out of rules and space. Set in
+`astro.config.mjs`.
+
+**Say what it means, not what it does.** A sentence of prose before the block
+gives the design consequence; `.code-note` under it carries the one technical
+detail worth stating, in the caption register. Never a line-by-line walkthrough.
+
+**Keep the source as it is.** Original comments stay in their own language, the
+same way a screenshot keeps its interface: the English goes in the prose around
+it. Trim to the lines that carry the point, but do not rewrite real code into
+prettier pseudo-code.
+
+**Don't** put code in the reading layer. Every disclosure on the page can be
+skipped without losing the argument, and a code block in the open would make
+that untrue for the reader who does not read code.
+
+---
+
 ## Caption rules
 
 - **Ordinary figures: caption below.** That is the default and it stays.
@@ -350,6 +380,13 @@ marked, because the participant is shot from behind and the picture is really
 of the interface on the screen.
 
 `data-nozoom` on `.cs__media` does the same job for a case-study head.
+
+**A crop in the page, the whole thing in the viewer.** `data-full` on an
+`<img>` points the viewer at a different file. It is for an artifact whose real
+proportions cannot go inline: Barboard's exported member card is 3552 by 6378,
+so the page carries the top of it and the viewer opens all of it. Not for
+serving a larger version of the same framing; the published file is already
+sized for the viewer.
 
 **Media inside a closed disclosure is out of the gallery** until the reader
 opens it. A closed `<details>` still lays its content out, so the viewer tests

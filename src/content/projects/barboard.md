@@ -69,14 +69,17 @@ community. As some long-time members became busier or drifted away and community
 slowed, I also hoped the site could create a renewed point of connection. The goal was not
 to replace WeChat, but to give Barboard a place of its own that people could return to.
 
-<!-- TODO media. This section wants one desktop view of the barboard.space home
-     page, showing the BAR / BOARD identity, 欧美流行音乐个人榜吧, the live updates
-     area and enough interface to read as a working site. Nothing of the kind is
-     in `media-src/barboard/`, which holds only the logo the cover is cut from,
-     and the browser pane cannot capture at the 2400 to 3200px the media rules
-     ask of a screenshot. Drop a full-width home page capture into that folder
-     and it goes in here, above the callout. Keep the Chinese interface as it
-     is; the caption carries the context. -->
+<figure>
+  <img
+    src="/media/barboard/homepage.webp"
+    alt="Dark homepage with a large split-colour BARBOARD wordmark on the left above a short founding line, and a dated list of recent community updates on the right, with a scrolling news ticker along the bottom edge."
+    width="2880"
+    height="1800"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>The homepage brings current updates and Barboard&#8217;s main activities into a single entry point.</figcaption>
+</figure>
 
 > **Product scope**
 >
@@ -115,10 +118,34 @@ Chongqing&#8217;s river confluence and cyber-lit nightscape, using liquid neon, 
 forms, and blue-violet light. I carried that visual language into the website so the new
 portal felt connected to the community&#8217;s biggest live moment.
 
+<figure>
+  <img
+    src="/media/barboard/keyvisual-to-page.webp"
+    alt="Side by side comparison. On the left, the event poster: blue and violet ribbons of light with the BARVISION wordmark. On the right, the same artwork used as the background of the edition page, with site navigation and a large city name and year set over it."
+    width="2920"
+    height="868"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>The visual language of Barvision Chongqing 2026 carries into the website through its palette, typography, and atmospheric treatment. The left half is the event key visual, not the site.</figcaption>
+</figure>
+
 From there, I simplified it into a reusable web system: small Chinese labels paired with
 large English display headings, a dark base, and shared accent colors across members,
 charts, events, and archives, while BarboardLab and individual Barvision editions kept
 their own visual character.
+
+<figure>
+  <img
+    src="/media/barboard/edition-theme-system.webp"
+    alt="Four screenshots in a two by two grid, each an edition page for a different year of the same contest. The layout is identical in all four while the colour palette and background artwork change completely between them."
+    width="2508"
+    height="1374"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Individual Barvision editions keep their own palettes and key visuals while sharing the same underlying page system.</figcaption>
+</figure>
 
 > **System principle**
 >
@@ -194,6 +221,30 @@ Instead of treating past results as isolated artifacts, I designed ways to explo
 edition, year, person, song, artist, and language. The goal was not simply to preserve old
 files, but to make the community&#8217;s history easier to return to and use again.
 
+<figure>
+  <img
+    src="/media/barboard/stats-search.webp"
+    alt="A search interface headed Data Center. Four dimension tabs sit above a search field containing the word Love, with a result count beneath it and a table of matching contest entries where each occurrence of the search term is highlighted."
+    width="2880"
+    height="1800"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Cross-edition search lets members trace a song, artist, member, or language through sixteen Barvision editions.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/media/barboard/member-profile.webp"
+    alt="A member profile page. A circular avatar and nickname sit beside a row of sixteen small pentagon badges, one per contest edition. Below are eight statistic cards, then a results table, then a line chart tracking the member's ranking across every contest they entered."
+    width="2880"
+    height="2900"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Member profiles reorganize years of records around a person, combining participation history, statistics, results, and ranking trends.</figcaption>
+</figure>
+
 <!-- Four figures, so the strip closes its dividers into a cross. Coarse to fine
      rather than high to low: these are not four measurements of one thing, and
      editions, years, entries and ballots is the order the archive nests in. -->
@@ -238,6 +289,26 @@ sources could become structured data and which could only stay as references or 
 The point was never to copy every old artifact into the website. It was to rebuild the
 information people would want to return to.
 
+A search result that returned one row per database record would bury the reader, because a
+song that survives several rounds is stored several times. Matches are grouped and collapsed
+to the appearance that went furthest, so a result is one song&#8217;s run through one
+edition rather than one row per record.
+
+```js
+// 同一届同一首歌的不同场次（半决赛 + 决赛）合并为一条，保留更后阶段（决赛优先）
+// 阶段权重：决赛 > 半决赛 > 外卡突围赛 > 海选突围赛/分组（同一首歌保留最靠后、最具代表性的一场）
+var stageOf = function (e) { var m = e.match || ''; return m === 'GF' ? 4 : (m === 'SF' || m === 'SF1' || m === 'SF2') ? 3 : m === 'SC' ? 2 : 1; };
+var grp = {}, order = [];
+hits.forEach(function (e) {
+  var k = e.edition_no + '|' + e.member + '|' + e.artist + '|' + e.song;
+  if (!grp[k]) { grp[k] = e; order.push(k); }
+  else if (stageOf(e) > stageOf(grp[k])) grp[k] = e;
+});
+hits = order.map(function (k) { return grp[k]; });
+```
+
+<p class="code-note">The stage ladder reads GF, the grand final, above SF, a semi-final, above SC, the second chance round, above a qualifier or group stage. Insertion order is kept separately so collapsing does not reshuffle the results.</p>
+
 **From records to questions.** The same material is reorganized into different views
 depending on what someone is trying to find. What happened in this edition goes to the
 Barvision edition pages. Whether a song or an artist has appeared before goes to Barvision
@@ -253,6 +324,22 @@ still varies by year and by activity. The interface distinguishes information th
 missing from a value that is genuinely zero, and anonymous or unattributed entries stay
 unattributed rather than being assigned to a member who looks likely. An archive that
 hides its own gaps is harder to trust than one that shows them.
+
+That distinction is a comparison against `null`, not a truthiness check, and it runs through
+every row of every member&#8217;s chart history. Collapsing the two would have been easier
+and would have quietly falsified a lot of people&#8217;s records.
+
+```js
+var assistRows = years.map(function (y) {
+  var a = annual[y].assists || {}, sh = annual[y].assists_shadow || {};  // 主数=占位曲；括号=亚洲不占位曲
+  return '<tr><td class="yr">' + y + '</td>' + TIERS.map(function (t) {
+    var v = a[t[0]];  // null=该档数据源缺失（如 2017，见 no_detail）显示"—"；undefined 沿用旧行为按 0 算
+    return '<td class="num">' + (v === null ? '—' : (v || 0)) + (sh[t[0]] ? '<span class="mp-an-sh">(' + sh[t[0]] + ')</span>' : '') + '</td>';
+  }).join('') + '</tr>';
+}).join('');
+```
+
+<p class="code-note">A dash means the source data for that year does not exist. A zero means the member genuinely scored none.</p>
 
 </details>
 
@@ -296,6 +383,30 @@ On data-heavy pages, that was not always simple. Some Barvision scoreboards are 
 behaves at smaller widths: tables scroll while key columns stay visible, some become
 cards, and controls move to more useful positions.
 
+<figure>
+  <img
+    src="/media/barboard/scoreboard-responsive.webp"
+    alt="Desktop and phone screenshots side by side showing the same voting scoreboard. On both, the leftmost columns identifying each entry stay fixed in place while the grid of individual voter scores extends off to the right."
+    width="3332"
+    height="1848"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Key identifying columns stay visible while the rest of a wide scoreboard scrolls independently on mobile, and the member handle collapses to a two-character nickname to buy back width.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/media/barboard/stats-responsive.webp"
+    alt="Desktop and phone screenshots side by side showing the same search results. The desktop version is a seven column table. The phone version is a vertical stack of cards, each leading with a large rank number."
+    width="3332"
+    height="1848"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Where column relationships are less important, desktop tables become mobile cards instead of being compressed.</figcaption>
+</figure>
+
 > **Responsive principle**
 >
 > Preserve the information, change the presentation.
@@ -313,6 +424,31 @@ stay in place while the score columns move under them, and a swipe hint appears 
 the table actually exceeds the width available. The frozen positions are measured from the
 rendered columns with `getBoundingClientRect()` rather than assumed from fixed values,
 because the widths change with the content.
+
+```js
+function colW(el) { return el ? el.getBoundingClientRect().width : 0; }
+function stickyMatrixCols() {
+  document.querySelectorAll('.bvr-mtx').forEach(function (tbl) {
+    var hr = tbl.tHead && tbl.tHead.rows[0]; if (!hr) return;
+    var ro = hr.querySelector('.ro'), rcp = hr.querySelector('.rcp'),
+        tot = hr.querySelector('.tot'), sj = hr.querySelector('.sj'), st = hr.querySelector('.st'),
+        raw = hr.querySelector('.raw');
+    if (!rcp || !tot) return;
+    var lRcp = colW(ro);                         // R/O 列宽（无则 0）
+    var lTot = lRcp + colW(rcp);
+    var lSj = lTot + colW(tot);                  // Jury 小计列位置
+    var lSt = sj ? lSj + colW(sj) : lSj;         // Tele 小计：有 sj 在其后，否则紧随 tot
+    var lRaw = lSt + (st ? colW(st) : 0);        // 票数列（观众表）：Tele 之后
+    tbl.style.setProperty('--mtx-l-rcp', lRcp + 'px');
+    tbl.style.setProperty('--mtx-l-tot', lTot + 'px');
+    tbl.style.setProperty('--mtx-l-sj', lSj + 'px');
+    tbl.style.setProperty('--mtx-l-st', lSt + 'px');
+    tbl.style.setProperty('--mtx-l-raw', lRaw + 'px');
+  });
+}
+```
+
+<p class="code-note">The same table measures 0 / 46 / 226 / 277px at a 1440px viewport and 0 / 46 / 111 / 162px at 390px, which is why one table serves both without a separate mobile layout. <code>getBoundingClientRect().width</code> returns fractional pixels where <code>offsetWidth</code> rounds; the rounding left sub-pixel gaps that made the frozen columns jitter during scroll.</p>
 
 **Changing components, not only dimensions.** Some Stats and Hall of Fame tables stop
 being tables on a small screen and become cards. Long member handles give way to shorter
@@ -388,6 +524,50 @@ chart updates and search to interactive results and member records. Together, th
 features turned the site from an archive into an active portal for both ongoing and
 seasonal community activity.
 
+<figure>
+  <img
+    src="/media/barboard/bbl-current-chart.webp"
+    alt="A music chart page. Ranked rows with album artwork, position movement indicators and per-track statistics fill the main column, while a sidebar holds a search field and four highlight cards for the week's biggest riser, longest runner and other notable entries."
+    width="2880"
+    height="1800"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>The weekly BarboardLab chart combines current rankings with search and highlights derived from each week&#8217;s data.</figcaption>
+</figure>
+
+<!-- `--pair-split` in the pictures' own aspect ratios, 1.6 and 1.869, so the
+     board and the export card come out the same height with neither cropped.
+     The export is a crop of a 3552 by 6378 card; `data-full` opens the whole
+     thing in the viewer rather than putting it in the page. -->
+
+<div class="media-pair" style="--pair-split: 1.6fr 1.869fr">
+  <figure>
+    <img
+      src="/media/barboard/odds-board.webp"
+      alt="A predictions table. Two rows of tabs select the contest stage and the market type, above a grid of entries with a probability column and seven columns of numeric odds, with selected cells highlighted in violet and blue."
+      width="2880"
+      height="1800"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>The Barvision odds board turns changing predictions into an interface members can sort and compare during the event. Violet marks the model&#8217;s predicted winner, blue each predictor&#8217;s best price.</figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/media/barboard/member-export-preview.webp"
+      data-full="/media/barboard/member-export-full.webp"
+      alt="The top of an exported summary card: a circular avatar, a member name, a row of sixteen pentagon edition badges, eight statistic tiles and a line chart of contest rankings."
+      width="3552"
+      height="1900"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Members can export their contest history as a shareable graphic generated directly in the browser.</figcaption>
+  </figure>
+</div>
+
 > **Live season**
 >
 > Barvision 2026 became the largest edition in the event&#8217;s history.
@@ -405,6 +585,20 @@ BarboardLab pages read the updated file directly rather than waiting on anyone t
 it. The same run can refresh related home page content, such as the current issue
 information. The workflow has run on its schedule through the project period.
 
+The upstream source sits behind bot protection and sometimes answers 403. The job treats
+that as a normal outcome rather than a failure: it writes nothing, exits zero, and leaves
+last week&#8217;s chart in place, so the site serves the most recent chart it successfully
+fetched instead of publishing an empty one.
+
+```python
+try:
+    resp = requests.get(API_URL, headers=headers, timeout=30, impersonate="chrome136")
+    if resp.status_code == 403:
+        print("API returned 403 (anti-crawler). Keeping existing data.", file=sys.stderr)
+        sys.exit(0)
+    resp.raise_for_status()
+```
+
 **Designing interaction around the data.** Displaying the chart is the easy half. Search
 filters the current chart by song or artist. Computed highlight cards surface the things
 people actually look for, such as the highest debut, the longest-charting song, the
@@ -413,6 +607,28 @@ chart. The Barvision interfaces use sorting, filtering and tabbed views where th
 information rewards being explored directly, and a member record can be exported as an
 image to share. The point is that the data is not only shown; the interface gives people
 something to do with it.
+
+The odds board highlights the best few values in each column, which is under-specified the
+moment values tie. Sorting and slicing would pick arbitrarily and imply a ranking the
+numbers do not support, so the highlight walks the sorted values in tie groups and includes
+a group only if the whole group still fits.
+
+```js
+function tieHighlight(entries, N) {
+  var s = entries.slice().sort(function (a, b) { return a.val - b.val; });
+  var win = {}, cum = 0, i = 0;
+  while (i < s.length) {
+    var j = i;
+    while (j < s.length && s[j].val === s[i].val) j++;
+    var sz = j - i;
+    if (cum + sz <= N) { for (var k = i; k < j; k++) win[s[k].key] = 1; cum += sz; i = j; }
+    else break;
+  }
+  return win;
+}
+```
+
+<p class="code-note">Four predictors tied for third means none of them is marked, which is the honest answer. The same function drives both highlight systems on the board.</p>
 
 **Handling a live event over time.** Barvision 2026 was not one page, it was a state that
 changed across the summer, and the site carried a real season rather than a rehearsal of
