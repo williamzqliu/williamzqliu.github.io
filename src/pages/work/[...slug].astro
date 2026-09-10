@@ -910,15 +910,6 @@ const facts = [
     grid-row: 2;
   }
 
-  /* Tiles this size cannot carry a line of text under them without the text
-     becoming the block. The captions are not lost: the lightbox reads them
-     from these same figures, so tapping a tile is what shows them. */
-  @media (max-width: 639px) {
-    .media-mosaic figcaption {
-      display: none;
-    }
-  }
-
   @media (min-width: 640px) {
     .media-mosaic {
       grid-template-columns: var(--mosaic-split, 1fr 1fr);

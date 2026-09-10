@@ -221,7 +221,7 @@ additional encodings to keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>379 scholars<br />3 departments + 3 research centers</figcaption>
+    <figcaption>379 scholars: 3 departments + 3 research centers</figcaption>
   </figure>
 
   <figure>
@@ -233,7 +233,7 @@ additional encodings to keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>2,737 scholars<br />full institution</figcaption>
+    <figcaption>2,737 scholars: full institution</figcaption>
   </figure>
 </div>
 
