@@ -235,6 +235,11 @@ the centre and the block reads as one field divided rather than as separate
 boxes; the first column keeps no left padding, so its figures stay on the
 prose's own left edge. Comgrand's research disclosure uses the two by two.
 
+**Order.** Independent categories with no sequence of their own read high to
+low, in the grid's normal reading order: top left, top right, then the row
+under it. Where the data does carry an order, chronological, procedural or
+conceptual, that order wins and the values fall where they fall.
+
 **A grid, not a table.** Four figures with a short label each is still a strip:
 the figure leads and the label says what it counts. A list of rows with the
 same shape of value in each, where the rows are the content and the figures
