@@ -24,12 +24,8 @@ quickFacts:
 Comgrand began with my grandmother, who lived independently. During the pandemic, I began
 paying closer attention to how she navigated uncertainty and change. Even after
 restrictions eased in December 2022, she stayed home for nearly another month because she
-lacked a reliable way to know what was happening. I initially read this as resistance to
-change.
-
-I interviewed three older adults in Chongqing and compared their experiences with
-secondary research on older adults living alone in urban China. The research shifted my
-focus beyond everyday care.
+lacked a reliable way to understand what was happening outside. I initially read this as
+resistance to change.
 
 <!-- `--pair-split` in the pictures' own aspect ratios, 1.354 and 2.284, so
      two differently shaped photographs come out the same height without
@@ -45,7 +41,7 @@ focus beyond everyday care.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>At home by herself.</figcaption>
+    <figcaption>At home on her own.</figcaption>
   </figure>
 
   <figure>
@@ -61,30 +57,52 @@ focus beyond everyday care.
   </figure>
 </div>
 
+Later, I interviewed three older adults in Chongqing and compared their experiences with
+secondary research on older adults living alone in urban China. The research shifted my
+focus beyond everyday care.
+
 > **Research gap**
 >
-> Independent living did not mean meaningful participation.
+> Meeting basic needs did not mean feeling socially connected or involved.
 >
-> Social connection, self-worth, and opportunities to contribute still mattered.
+> The research pointed to needs around friendship, respect, self-worth, and opportunities
+> to take part in community life.
 
-That reframed the project: instead of asking older adults to adapt to technology, I asked
-how a community could help them **connect, participate, and contribute on their own
-terms**.
+That reframed the project. Instead of asking how older adults could adapt to technology, I
+began asking how a community could create more meaningful ways for them to **connect,
+participate, and contribute on their own terms**.
 
 <details>
 <summary>Research details</summary>
 
 **Three perspectives.** I spoke with three community residents aged 71 to 78 whose living
-situations and comfort with digital products differed: my grandmother, 78, living alone
-and familiar mainly with basic phone operations; Mrs. Wang, 74, living with her spouse and
-more confident with digital products; and Uncle Zhang, 71, living with family and able to
-use a smartphone for simple tasks. Digital confidence varied substantially even within a
-group of three.
+situations and comfort with digital technology differed.
 
-**What secondary research added.** The literature I reviewed on older adults living alone
-in urban China suggested that physical and financial independence did not automatically
-translate into social participation. Needs around self-worth, peer friendship, respect,
-and social integration pointed to concerns beyond basic care.
+<ul class="process-steps">
+  <li>
+    <p class="process-steps__num">78</p>
+    <p class="process-steps__name">My grandmother</p>
+    <p class="process-steps__note">Living alone, mostly basic phone use.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">74</p>
+    <p class="process-steps__name">Mrs. Wang</p>
+    <p class="process-steps__note">Living with her spouse, confident with digital products.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">71</p>
+    <p class="process-steps__name">Uncle Zhang</p>
+    <p class="process-steps__note">Living with family, comfortable with simple smartphone tasks.</p>
+  </li>
+</ul>
+
+Digital confidence varied substantially even within this small group of older adults.
+
+**What secondary research added.** Secondary research broadened what I had heard in the
+interviews. Physical and financial independence did not necessarily resolve needs around
+social connection, recognition, and participation.
 
 <div class="stat-strip" data-grid>
   <div class="stat-strip__cell">
