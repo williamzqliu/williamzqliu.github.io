@@ -1348,9 +1348,13 @@ const facts = [
   }
 
   /* Two class names: `.prose p` sets the copy size and colour and would
-     otherwise win on element count. */
+     otherwise win on element count.
+
+     A small margin rather than none: this line leads a stage but follows a
+     name when the cell is a person rather than a step, and the rule below
+     zeroes it in the first case. */
   .prose .process-steps__num {
-    margin-top: 0;
+    margin-top: var(--sp-4);
     font-family: var(--font-mono);
     font-size: var(--fs-micro);
     font-weight: var(--fw-mono);
@@ -1368,6 +1372,13 @@ const facts = [
     line-height: var(--lh-small);
     font-weight: var(--fw-strong);
     color: var(--text);
+  }
+
+  /* Where the quiet line sits between the name and the description, the
+     description takes the wider gap: name and age are one thing, what follows
+     is another. */
+  .prose .process-steps__num + .process-steps__note {
+    margin-top: var(--sp-8);
   }
 
   .prose .process-steps__note {
