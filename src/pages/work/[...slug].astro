@@ -1144,19 +1144,8 @@ const facts = [
     font-size: var(--fs-copy);
   }
 
-  /* A second strip in one case study, when the first one is the section's
-     argument and this one is only the evidence behind a sentence. Same
-     structure, the figure a size down, so the two do not read as equals. */
-  .stat-strip[data-quiet] .stat-strip__value {
-    font-size: var(--fs-title);
-    letter-spacing: -0.02em;
-    /* Off full ink as well as down a size. At 20px in --text these figures
-       still read level with the names in the block above them, and this strip
-       is the evidence behind a sentence, not the sentence. */
-    color: var(--text-2);
-  }
-
-  .prose .stat-strip + p {
+  .prose .stat-strip + p,
+  .prose .process-steps + p {
     margin-top: var(--sp-40);
   }
 
