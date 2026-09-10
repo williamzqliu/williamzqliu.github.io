@@ -1197,7 +1197,9 @@ const facts = [
   .stat-strip .stat-strip__value {
     margin-top: 0;
     font-family: var(--font-mono);
-    font-size: var(--fs-display);
+    /* Two under the display size. Mono runs wide, and at the full 28 a row of
+       percentages sat a step louder than the section it belongs to. */
+    font-size: calc(var(--fs-display) - 2px);
     line-height: 1.1;
     font-weight: var(--fw-strong);
     /* None. Mono already sets its own even width, and any negative tracking
@@ -1546,6 +1548,50 @@ const facts = [
        the cells are the reading, and at the secondary tone a column of figures
        sat fainter than the sentence that introduced it. */
     color: color-mix(in srgb, var(--text) 55%, var(--text-2));
+  }
+
+  /* A ranked shortlist, on the table. Six rows that each carry a name and one
+     figure are a table by the rule this system already follows, so this is a
+     modifier rather than a pattern: what it adds is the reading order.
+
+     The position leads in the quiet mono the process steps use, the name takes
+     the ink, and the figure stays at copy size instead of a display size,
+     because the reader is after the order rather than the size of the gap
+     between 20 and 19.
+
+     `data-mark` lifts one row back to full ink. It marks the row the copy
+     around the table is about, not a failure state, so there is no fill, no
+     colour and no rule on it. */
+  .prose table[data-ranked] th:first-child,
+  .prose table[data-ranked] td:first-child {
+    width: 3rem;
+    padding-right: var(--sp-12);
+  }
+
+  .prose table[data-ranked] td:first-child {
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+  }
+
+  .prose table[data-ranked] th:last-child,
+  .prose table[data-ranked] td:last-child {
+    width: 4rem;
+    padding-right: 0;
+    text-align: right;
+  }
+
+  .prose table[data-ranked] td:last-child {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose table[data-ranked] tr[data-mark] td:nth-child(2) {
+    font-weight: var(--fw-medium);
+    color: var(--text);
   }
 
   /* Collapsed layers. Eleven case studies use native <details>/<summary> for
