@@ -354,14 +354,20 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* ---- states (SPEC §4) ---- */
 
-  /* One response, not two. Anywhere inside the card and the row answers as a
+  /* `[data-hovered]` is the same state arriving from the script below rather
+     than from the pointer. Chrome only re-evaluates `:hover` when the scroll
+     settles, so a wheel past a row used to light it up a beat late; the
+     script hit-tests each frame instead. `:is()` so one rule covers both and
+     they can never disagree about what the row looks like.
+
+     One response, not two. Anywhere inside the card and the row answers as a
      whole: the title takes the accent and the image steps closer, arriving at
      its own colour as it does. The pointer being on the title itself used to
      mean something more; it was a second layer on a row that only ever led to
      one place. Only colour, filter and transform move — nothing is added,
      resized or re-weighted. */
   @media (hover: hover) and (pointer: fine) {
-    .prow__card[data-linked]:hover .prow__titletext {
+    .prow__card[data-linked]:is(:hover, [data-hovered]) .prow__titletext {
       color: var(--accent);
       transition-duration: calc(var(--dur-hover-in) + 200ms);
     }
@@ -375,7 +381,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
        The asset never changes. A looping cover keeps looping — hover scales
        the same frame it was already showing and does not restart, swap or
        reveal anything. */
-    .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
+    .prow__card[data-linked]:is(:hover, [data-hovered]) .prow__mediacol :global(.cover) {
       filter: grayscale(0);
       transform: scale(1.1);
       transition-duration: calc(var(--dur-hover-in) + 200ms);
@@ -392,7 +398,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* The colour change is the point and it stays; the 1.5% of movement does
      not. */
   @media (prefers-reduced-motion: reduce) {
-    .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
+    .prow__card[data-linked]:is(:hover, [data-hovered]) .prow__mediacol :global(.cover) {
       transform: none;
     }
   }
@@ -465,6 +471,65 @@ const liveLinks = links.filter((link) => link.href !== '#');
   // Delegated to the document, so one listener covers every row on the page
   // and it survives a client-side navigation. Nothing calls preventDefault on
   // the pointer events, so scrolling stays entirely native.
+  // Fine pointers only: `:hover` is not recomputed while the page scrolls
+  // under a still mouse, so a row the cursor passes over only lights up once
+  // the scroll stops. This hit-tests the cursor's last position on every
+  // frame that the pointer moved or the page scrolled, and mirrors the result
+  // onto `data-hovered`, which the CSS above reads alongside `:hover`.
+  //
+  // One `elementFromPoint` per frame, and only while something is actually
+  // moving. Nothing here runs on touch, where there is no cursor to track.
+  function trackHoverThroughScroll() {
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    if (!fine.matches) return;
+
+    let x = -1;
+    let y = -1;
+    let queued = false;
+    let current: HTMLElement | null = null;
+
+    const settle = (row: HTMLElement | null) => {
+      if (row === current) return;
+      current?.removeAttribute('data-hovered');
+      row?.setAttribute('data-hovered', 'true');
+      current = row;
+    };
+
+    const sync = () => {
+      queued = false;
+      if (x < 0) return;
+      const el = document.elementFromPoint(x, y) as HTMLElement | null;
+      settle(el?.closest<HTMLElement>('.prow__card[data-linked]') ?? null);
+    };
+
+    const schedule = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(sync);
+    };
+
+    document.addEventListener(
+      'pointermove',
+      (event) => {
+        if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+        x = event.clientX;
+        y = event.clientY;
+        schedule();
+      },
+      { passive: true }
+    );
+
+    // The cursor left the window, so nothing is under it any more.
+    document.addEventListener('pointerleave', () => {
+      x = -1;
+      settle(null);
+    });
+
+    window.addEventListener('scroll', schedule, { passive: true });
+  }
+
+  trackHoverThroughScroll();
+
   const TAP_SLOP = 10; // px of travel before a press is treated as a scroll
 
   let gesture: { id: number; x: number; y: number } | null = null;
