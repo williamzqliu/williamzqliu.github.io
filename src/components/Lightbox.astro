@@ -346,12 +346,18 @@
 
 <style is:global>
   /* Only the images that have more to show than the column can print. The
-     cursor is the whole affordance — no overlay, no icon, no border. A head
-     marked `data-nozoom` is excluded from both this and the gallery below:
-     one selector, so the cursor can never promise a viewer that will not
-     open. */
-  .prose img,
-  .prose video,
+     cursor is the whole affordance — no overlay, no icon, no border. Anything
+     marked `data-nozoom`, a head or a figure in the article, is excluded from
+     both this and the gallery below: one selector, so the cursor can never
+     promise a viewer that will not open.
+
+     Documentary photographs of people carry `data-nozoom`. They are context
+     and evidence, and enlarging a face adds nothing a reader needs; the
+     viewer is for artifacts whose detail is part of the reading, which is
+     system maps, blueprints, wireframes, interface screens and product
+     close-ups. */
+  .prose img:not([data-nozoom]),
+  .prose video:not([data-nozoom]),
   .cs__media:not([data-nozoom]) img {
     cursor: zoom-in;
   }
@@ -360,7 +366,8 @@
 <script>
   // Opening is delegated from the document, so images that arrive with a new
   // page (ClientRouter swaps the body) need no re-binding of their own.
-  const SOURCES = '.prose img, .prose video, .cs__media:not([data-nozoom]) img';
+  const SOURCES =
+    '.prose img:not([data-nozoom]), .prose video:not([data-nozoom]), .cs__media:not([data-nozoom]) img';
 
   let listeners: AbortController | undefined;
 

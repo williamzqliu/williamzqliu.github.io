@@ -871,9 +871,14 @@ const facts = [
   /* Opt-in: a pair that has to be read as a pair. Two states of one panel mean
      nothing apart — stacked, the second is a screen away from the first, and
      the reader is comparing a picture with a memory. Narrower on a phone is
-     the lesser cost, and either half opens in the viewer. */
+     the lesser cost.
+
+     `--pair-split` applies here too, so a row of three frames of one moment
+     holds its shape and its single height at every width instead of coming
+     apart into three pictures on a phone. Without the variable this is the
+     equal-column pair it has always been. */
   .media-pair[data-abreast] {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: var(--pair-split, repeat(2, minmax(0, 1fr)));
     align-items: start;
     gap: var(--sp-12);
   }

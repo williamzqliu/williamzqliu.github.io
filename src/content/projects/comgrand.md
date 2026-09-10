@@ -35,6 +35,7 @@ resistance to change.
   <figure>
     <img
       src="/media/comgrand/grandmother-alone.webp"
+      data-nozoom
       alt="My grandmother sitting alone on the sofa in a face mask, holding a pulse oximeter, with her phone on the table beside her."
       width="2400"
       height="1772"
@@ -47,6 +48,7 @@ resistance to change.
   <figure>
     <img
       src="/media/comgrand/grandmother-social.webp"
+      data-nozoom
       alt="My grandmother playing cards on the floor with two of her grandchildren, laughing."
       width="2400"
       height="1051"
@@ -147,12 +149,14 @@ wider variety of things to do.
 <!-- Three frames of one session, so `--pair-split` carries the pictures' own
      aspect ratios, 0.73, 1.297 and 0.73. All three masters are 592px tall, so
      the ratios put them in a row at one height with nothing cropped. One
-     caption, because it is one moment. -->
+     caption, because it is one moment, and `data-abreast` so the row holds at
+     every width: split across three screens they stop being one moment. -->
 
 <figure>
-  <div class="media-pair" style="--pair-split: 0.73fr 1.297fr 0.73fr">
+  <div class="media-pair" data-abreast style="--pair-split: 0.73fr 1.297fr 0.73fr">
     <img
       src="/media/comgrand/codesign-01.webp"
+      data-nozoom
       alt="Older residents seated in a circle in a community room, one of them speaking, with handwritten notes taped to the wall behind."
       width="432"
       height="592"
@@ -161,6 +165,7 @@ wider variety of things to do.
     />
     <img
       src="/media/comgrand/codesign-02.webp"
+      data-nozoom
       alt="A wider view of the same circle: around ten older residents seated facing each other, several talking at once."
       width="768"
       height="592"
@@ -169,6 +174,7 @@ wider variety of things to do.
     />
     <img
       src="/media/comgrand/codesign-03.webp"
+      data-nozoom
       alt="Someone standing in the middle of the circle speaking to the seated residents, with handwritten boards on the wall behind."
       width="432"
       height="592"
