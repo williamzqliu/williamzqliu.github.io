@@ -204,8 +204,8 @@ files, but to make the community&#8217;s history easier to return to and use aga
   </div>
 
   <div class="stat-strip__cell">
-    <p class="stat-strip__value">11 years</p>
-    <p class="stat-strip__label">Annual charts</p>
+    <p class="stat-strip__value">11</p>
+    <p class="stat-strip__label">Years of annual charts</p>
   </div>
 
   <div class="stat-strip__cell">
