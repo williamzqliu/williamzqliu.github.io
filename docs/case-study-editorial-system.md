@@ -227,6 +227,19 @@ below that the phone rule wraps them instead, because three 28px figures do
 not fit a phone column without touching. Citing Less Critically's grounding
 section uses the three-column form.
 
+`data-grid` is for a strip that wraps into rows: four cells two by two, six
+cells three by two, and so on. It closes the dividers into a cross rather than
+leaving a column rule with nothing under it. Gaps go to zero and the space
+moves inside the cells, so the vertical and horizontal rules meet exactly at
+the centre and the block reads as one field divided rather than as separate
+boxes; the first column keeps no left padding, so its figures stay on the
+prose's own left edge. Comgrand's research disclosure uses the two by two.
+
+**A grid, not a table.** Four figures with a short label each is still a strip:
+the figure leads and the label says what it counts. A list of rows with the
+same shape of value in each, where the rows are the content and the figures
+are one column of it, is a table and should use `.prose table`.
+
 **Don't** create a second one in the same case study, and don't build one out
 of study ratings — behaviour is better evidence than a row of Likert scores.
 There is no `stats` frontmatter field; the markup lives in the content file
