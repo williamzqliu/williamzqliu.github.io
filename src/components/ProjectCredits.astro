@@ -23,6 +23,7 @@ export interface Credits {
   team?: { group?: string; people: string[] }[];
   specialThanks?: string[];
   note?: string;
+  collapse?: boolean;
 }
 
 interface Props {
@@ -57,15 +58,23 @@ const primary = kept([
   credits?.tools?.length ? { label: 'Tools', items: credits.tools } : null,
 ]);
 
-const secondary = kept([
+const attribution = kept([
   credits?.team?.length ? { label: 'Team', groups: credits.team } : null,
   credits?.specialThanks?.length ? { label: 'Special thanks', items: credits.specialThanks } : null,
   credits?.note ? { label: 'Note', note: credits.note } : null,
 ]);
+
+// The disclosure earns its place when there is enough behind it to be worth
+// closing. A project crediting a team, its thanks and a note fills a screen;
+// one crediting five names does not, and a control that hides a single row is
+// a step the reader takes for nothing. `collapse: false` says so per project.
+const collapse = credits?.collapse !== false;
+const shown = collapse ? primary : [...primary, ...attribution];
+const hidden = collapse ? attribution : [];
 ---
 
 {
-  primary.length + secondary.length > 0 && (
+  shown.length + hidden.length > 0 && (
     <section class="credits" aria-labelledby="credits-title">
       {/* An h2 outside `.prose`, so it takes neither the section counter nor a
           place in the table of contents: the narrative ends with the last
@@ -75,25 +84,41 @@ const secondary = kept([
       </h2>
 
       <div class="credits__rows">
-        {primary.length > 0 && (
+        {shown.length > 0 && (
           <dl class="credits__set">
-            {primary.map((row) => (
+            {shown.map((row) => (
               <div class="credits__row">
                 <dt class="credits__label">{row.label}</dt>
 
                 <dd class="credits__body">
-                  <ul class="credits__list">
-                    {row.items?.map((item) => (
-                      <li>{marked(item).map((part, i) => (i % 2 ? <em>{part}</em> : part))}</li>
-                    ))}
-                  </ul>
+                  {row.items && (
+                    <ul class="credits__list">
+                      {row.items.map((item) => (
+                        <li>{marked(item).map((part, i) => (i % 2 ? <em>{part}</em> : part))}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {row.groups?.map((group) => (
+                    <div class="credits__group">
+                      {group.group && <p class="credits__group-label">{group.group}</p>}
+
+                      <ul class="credits__list">
+                        {group.people.map((person) => (
+                          <li>{person}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+
+                  {row.note && <p class="credits__note">{row.note}</p>}
                 </dd>
               </div>
             ))}
           </dl>
         )}
 
-        {secondary.length > 0 && (
+        {hidden.length > 0 && (
           /* Native disclosure: the state is the element's own, it opens from
              the keyboard with no script, and the sign is the same one every
              collapsed layer in the article uses. The words carry the meaning —
@@ -104,7 +129,7 @@ const secondary = kept([
             </summary>
 
             <dl class="credits__set">
-              {secondary.map((row) => (
+              {hidden.map((row) => (
                 <div class="credits__row">
                   <dt class="credits__label">{row.label}</dt>
 

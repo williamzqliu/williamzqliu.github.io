@@ -312,9 +312,12 @@ They render in that order and an empty one disappears.
 and the note sit behind one `Full credits` disclosure. Skills and tools answer
 what the project is made of, which is still part of reading it. The rest is
 attribution — owed, but not what someone arriving at the end of a case study is
-reading for, and five open rows made the block a screen tall. A project whose
-authorship genuinely needs the team up front is a reason to add a flag to the
-schema at that point, not before.
+reading for, and five open rows made the block a screen tall.
+
+`collapse: false` drops the disclosure and shows every row. The control earns
+its place when there is enough behind it to be worth closing: Citing Less
+Critically credits three rows in total, and a control that hides one of them is
+a step the reader takes for nothing.
 
 **Role** is deliberately absent. The intro already carries it, and credits
 should complement that block rather than restate it.
@@ -331,7 +334,9 @@ convention the prose uses for named software.
 **Team** — groups of `{ group, people }`, so a project can carry Design,
 Development, Research, Leadership, Advising, or whatever it actually had.
 Prefer a functional noun for the group label over a reproduced job title:
-*Advising*, not *Principal Investigators*. The label is quieter than the names
+*Advising*, not *Principal Investigators*. The label is optional: a project
+that does not divide its team into contributions just lists who was on it, and
+should not invent roles it cannot verify. The label is quieter than the names
 under it. No cards, no avatars, no bios, no automatic links.
 
 **Special thanks** — optional, a compact factual list, no descriptions after
