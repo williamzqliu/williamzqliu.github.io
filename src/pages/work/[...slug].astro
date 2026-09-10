@@ -687,8 +687,13 @@ const facts = [
 
      Two paragraphs by convention: the first is the label, the last is the
      statement. A one-paragraph blockquote is all statement and still reads
-     correctly. */
-  .prose blockquote {
+     correctly.
+
+     `:not(.participant-quote)` on all four rules: a verbatim participant
+     sentence is also a blockquote, and it is a different editorial object.
+     Excluding it here keeps the two apart without either one having to win a
+     specificity race against the other. */
+  .prose blockquote:not(.participant-quote) {
     margin-block: var(--sp-40);
     max-width: 720px;
     padding-left: var(--sp-20);
@@ -696,7 +701,7 @@ const facts = [
   }
 
   /* The register the metadata labels use — Role, Timeline, Next project. */
-  .prose blockquote p:first-child:not(:only-child) {
+  .prose blockquote:not(.participant-quote) p:first-child:not(:only-child) {
     margin-top: 0;
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -709,12 +714,12 @@ const facts = [
 
   /* `**Challenge**` is how the label is written in the content file; mono caps
      already carry the emphasis, so the bold does not also apply. */
-  .prose blockquote p:first-child strong {
+  .prose blockquote:not(.participant-quote) p:first-child strong {
     font-weight: inherit;
     color: inherit;
   }
 
-  .prose blockquote p:last-child {
+  .prose blockquote:not(.participant-quote) p:last-child {
     margin-top: var(--sp-12);
     font-size: var(--fs-title);
     font-weight: var(--fw-medium);
@@ -1192,6 +1197,91 @@ const facts = [
 
     .stat-strip__cell + .stat-strip__cell::before {
       content: none;
+    }
+  }
+
+  /* An exact sentence from a study participant. The callout above is set large
+     because it carries the section's argument; this is evidence, so it stays at
+     copy size and is told apart by a rule above it, one weight step, and the
+     source underneath — the callout puts its label first, this puts the words
+     first. Verbatim participant speech only: not conclusions, not summaries. */
+  .prose .participant-quote {
+    max-width: var(--measure);
+    margin-block: var(--sp-40);
+    padding-top: var(--sp-20);
+    border-top: var(--rule-hair) solid var(--rule-strong);
+    font-size: var(--fs-copy);
+  }
+
+  .prose .participant-quote p {
+    margin-top: 0;
+    font-size: var(--fs-copy);
+    line-height: var(--lh-body-lg);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+  }
+
+  /* The label register the rest of the page uses for metadata, under the
+     sentence rather than over it: the words come first, the attribution only
+     qualifies them. */
+  .prose .participant-quote cite {
+    display: block;
+    margin-top: var(--sp-12);
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-style: normal;
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* A finding from testing and the change it points to. A definition list
+     because that is what the pair is: the term is the problem, the description
+     is the response. Two columns from 640px so a pair reads across in one
+     line. Hairlines between the rows and nothing else — a fill, an icon or an
+     arrow glyph would turn three sentences into a dashboard. */
+  .issue-response {
+    max-width: var(--measure);
+    margin-top: var(--sp-32);
+    font-size: var(--fs-copy);
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .prose .issue-response + p {
+    margin-top: var(--sp-32);
+  }
+
+  .issue-response > div {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    column-gap: var(--sp-24);
+    padding-block: var(--sp-16);
+  }
+
+  .issue-response > div + div {
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .issue-response dt {
+    line-height: var(--lh-body-lg);
+    font-weight: var(--fw-medium);
+    color: var(--text);
+  }
+
+  .issue-response dd {
+    margin: 0;
+    line-height: var(--lh-body-lg);
+    color: var(--text-2);
+  }
+
+  /* Phone: the response under its issue, close enough that the two still read
+     as one row rather than as six lines. */
+  @media (max-width: 639px) {
+    .issue-response > div {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--sp-4);
     }
   }
 

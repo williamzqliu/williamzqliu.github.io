@@ -162,15 +162,46 @@ decision. One per case study is normal; Inside the Institution has exactly one.
 optional bolded first line acts as a kicker.
 
 **Don't** use it to restate the section title, and don't give every section one
-— varied rhythm is the point.
+— varied rhythm is the point. It is the author's voice: a verbatim sentence
+from a study participant belongs in a participant quote instead.
 
-### Quote block
+### Participant quote — `.participant-quote`
 
-Not yet implemented as a distinct pattern. When a project needs one, use the
-callout treatment with attribution and document it here rather than inventing a
-second device. Only quote when the words are stronger evidence than a
-paraphrase: behaviour, critique, an expert's diagnosis. Never generic praise,
-never a wall of testimonials.
+**Use for** exact evidence from a research participant or user, where the
+wording itself carries something a paraphrase would lose: what they noticed,
+what they doubted, how they diagnosed a problem. Inside the Institution has two
+— one discovery in 07, one critique in 08.
+
+**Standard.** A native `<blockquote class="participant-quote">` holding a `<p>`
+and a `<cite>`, at prose width. A hairline in `--rule-strong` above it, the
+sentence at copy size in `--fw-medium`, and the source under the words in the
+mono label register the rest of the page uses for metadata. The author callout
+is told apart by scale and an accent rule on the left; this one is told apart by
+a rule above and the attribution below. No fill, no card, no shadow, no giant
+quote mark, no centring.
+
+**Don't** use it for your own conclusions, a section summary, a turning point,
+or anything that reads as a testimonial — those are the callout, or they are
+prose. Don't paraphrase inside the quotation marks: the surrounding paragraph is
+where the precise version goes. Don't stack several into a gallery; a case study
+is not a results chapter.
+
+### Issue → response — `.issue-response`
+
+**Use for** findings that each point at one concrete change, where the pairing
+is the information. Inside the Institution has exactly one, carrying the three
+interface problems from the study and what each one asks for.
+
+**Standard.** A native `<dl>` with one `<div>` per pair, `<dt>` for the issue and
+`<dd>` for the response, at prose width. Two columns from 640px so a pair reads
+across in one line, a hairline above the list and between the rows, and stacked
+inside each pair on a phone so the pair stays one unit. No cards, no icons, no
+badges, no arrow glyphs, no fills — three sentences should not look like a
+dashboard.
+
+**Don't** use it for a feature list, statistics, or any two columns that are not
+an issue and its response, and don't add an "Issue / Response" header row: the
+pairing is legible without one.
 
 ### Stat strip — `.stat-strip`
 

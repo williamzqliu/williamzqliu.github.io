@@ -410,6 +410,13 @@ During testing, participants traced cross-unit ties, inspected local scholar net
 and compared those positions with profile information and their own knowledge of the
 university.
 
+<blockquote class="participant-quote">
+  <p>&#8220;I would not have thought some of the different areas were like collaborating together.&#8221;</p>
+  <cite>Participant 09</cite>
+</blockquote>
+
+That comparison came from the participant, not from a predefined task.
+
 <figure>
   <img
     src="/media/inside-the-institution/scholar-selected.webp"
@@ -429,27 +436,41 @@ measuring the same thing.
 
 ## What needed work
 
-Testing exposed several interface problems. Participants needed a persistent legend,
-missed some secondary features, and wanted more orientation when they first entered the
-tool. Several also found the 3D view harder to read and control than the 2D views.
+Participants needed a persistent legend, missed some secondary features, and wanted more
+orientation when they first entered the tool. Several also found the 3D view harder to
+read and control than the 2D views.
 
-The responses are straightforward: a legend that stays on screen, onboarding and
-stronger signifiers for the features people missed, and a 2D alternative to test against
-the 3D view.
+<dl class="issue-response">
+  <div>
+    <dt>Encoding clarity</dt>
+    <dd>I would keep a persistent legend on screen.</dd>
+  </div>
 
-A more important issue appeared when one participant compared two definitions of
+  <div>
+    <dt>Feature discoverability</dt>
+    <dd>I would add onboarding and stronger signifiers for the features participants missed.</dd>
+  </div>
+
+  <div>
+    <dt>3D interaction cost</dt>
+    <dd>I would test a 2D alternative against the 3D view.</dd>
+  </div>
+</dl>
+
+One participant found a deeper analytical mismatch between two definitions of
 "bridging." I had computed bridge score from departmental boundaries, while the Bridging
 Scholars view used Leiden communities derived from the co-authorship network. Both
 measures were valid on their own, but I had presented them as if they described the same
 kind of bridge.
 
-> &#8220;The bridge score is computed based on departments, but the visualization is
-> based on topics.&#8221;
+<blockquote class="participant-quote">
+  <p>&#8220;The bridge score is computed based on departments, but the visualization is based on topics.&#8221;</p>
+  <cite>Participant 16</cite>
+</blockquote>
 
-That feedback changed how I think about analytical tools. I can make an interface
-visually consistent and still connect analyses that answer different questions. The
-analytical definitions have to align first. Only then should the visual language make
-them look equivalent.
+I had made the interface visually consistent, but the two analyses answered different
+questions. The analytical definitions have to align first. Only then should the visual
+language make them look equivalent.
 
 <details>
 <summary>Limits and responsibility</summary>

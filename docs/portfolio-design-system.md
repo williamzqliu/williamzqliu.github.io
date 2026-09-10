@@ -345,7 +345,9 @@ uncomment the nav entry.
 | figure, caption, media widths | same block: `.prose figure`, `.prose figcaption`, `.prose > *` |
 | two-up, mosaic, formula, tier key | same block: `.media-pair`, `.media-mosaic`, `.formula`, `.tier-key` |
 | accordion look and the +/− | same block: `.prose details`, `.prose summary` |
-| callout | same block: `.prose blockquote` |
+| callout | same block: `.prose blockquote:not(.participant-quote)` |
+| participant quote, issue → response | same block: `.participant-quote`, `.issue-response` |
+| stat strip | same block: `.stat-strip` |
 | lightbox, swipe, pinch | `src/components/Lightbox.astro` |
 | a project's words, media, section order | `src/content/projects/<slug>.md` |
 | a project's images | `public/media/<slug>/` (masters in `media-src/<slug>/`) |
