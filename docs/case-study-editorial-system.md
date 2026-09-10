@@ -178,10 +178,12 @@ never a wall of testimonials.
 them beats reading them in a sentence. Inside the Institution has exactly one,
 carrying two figures.
 
-**Standard.** Prose width. Mono value at `--fs-title` with tabular figures, a
-label under it, and an optional quieter note for the count a percentage came
-from. One hairline between cells, two columns at every width. No fill, no icon,
-no chart, no dashboard.
+**Standard.** Prose width, closed by a hairline above and below with 24px of
+air inside them. Three levels: a mono value at `--fs-display` with tabular
+figures and `--fw-strong`, a label 8px under it, and a quieter note 4px under
+that for the count a percentage came from. Two columns with a lighter, inset
+divider between them; one column on a phone, where the divider goes and space
+takes over. No fill, no corners, no shadow, no icon, no chart.
 
 **Don't** create a second one in the same case study, and don't build one out
 of study ratings — behaviour is better evidence than a row of Likert scores.

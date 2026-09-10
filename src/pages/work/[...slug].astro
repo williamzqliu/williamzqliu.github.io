@@ -1114,32 +1114,52 @@ const facts = [
     color: var(--text-2);
   }
 
-  /* Two numbers the section is built on, set the way this site has always set a
-     data value: mono, tabular, one hairline between the cells and nothing else.
-     Not a dashboard — no fills, no icons, no chart. Prose width, because it is
-     drawn rather than photographed.
-
-     `--measure` is in `ch`, so the block carries the copy size to come out as
-     wide as the paragraphs. */
+  /* Two numbers the section is built on, framed the way this page frames a
+     section: a hairline above and below, air inside them, and nothing else.
+     Not a card and not a dashboard — no fill, no corners, no shadow, no icon.
+     Prose width, because it is drawn rather than photographed, and it carries
+     the copy size because `--measure` is in `ch`. */
   .stat-strip {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--sp-24);
-    margin-top: var(--sp-32);
+    column-gap: var(--sp-32);
+    row-gap: var(--sp-24);
+    margin-top: var(--sp-40);
+    padding-block: var(--sp-24);
+    border-top: var(--rule-hair) solid var(--rule);
+    border-bottom: var(--rule-hair) solid var(--rule);
     font-size: var(--fs-copy);
   }
 
-  .stat-strip__cell + .stat-strip__cell {
-    padding-left: var(--sp-24);
-    border-left: var(--rule-hair) solid var(--rule);
+  .prose .stat-strip + p {
+    margin-top: var(--sp-40);
   }
 
+  .stat-strip__cell {
+    position: relative;
+  }
+
+  /* Between the two, not around them: lighter than the rules that close the
+     block and held clear of them at both ends, so the strip reads as one
+     thing divided rather than as two boxes. */
+  .stat-strip__cell + .stat-strip__cell::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--sp-16) * -1);
+    top: var(--sp-8);
+    bottom: var(--sp-8);
+    border-left: var(--rule-hair) solid color-mix(in srgb, var(--rule) 55%, var(--bg));
+  }
+
+  /* The number is the thing being read. Mono because it is a data value —
+     the same reason the resume sets its figures in mono — and one size up
+     from body copy so it anchors the block. */
   .stat-strip .stat-strip__value {
     margin-top: 0;
     font-family: var(--font-mono);
-    font-size: var(--fs-title);
-    line-height: var(--lh-title);
-    font-weight: var(--fw-medium);
+    font-size: var(--fs-display);
+    line-height: 1.1;
+    font-weight: var(--fw-strong);
     letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
     color: var(--text);
@@ -1160,6 +1180,17 @@ const facts = [
     font-size: var(--fs-small);
     line-height: var(--lh-small);
     color: var(--text-3);
+  }
+
+  /* Phone: one under the other, with space instead of a line between them. */
+  @media (max-width: 639px) {
+    .stat-strip {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stat-strip__cell + .stat-strip__cell::before {
+      content: none;
+    }
   }
 
   /* Data keeps the metadata treatment: mono heads, hairline rows, no fills. */
