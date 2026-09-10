@@ -348,41 +348,58 @@ levels.
   <figcaption>Side-panel evolution: from detail display to a contextual hub.</figcaption>
 </figure>
 
-## What the study showed
+## Testing with experts
 
-I ran a pilot with two participants, then a formal study with twenty meta-scientists.
-Sessions ran about twenty minutes in four phases: a background questionnaire, eight
-minutes of free exploration with think-aloud, a single open-ended task, and a
-structured questionnaire. I observed silently and prompted only after thirty seconds
-of silence.
+Before the formal study, I ran a two-person pilot to test the evaluation protocol
+itself. Guided tasks took over too much of the session, while role-playing produced less
+grounded responses, so I removed both.
 
-The pilot changed the protocol. Guided tasks consumed too much of the session and
-suppressed the exploratory behavior the tool was built for, so I removed them. The
-original framing asked participants to adopt a role, which felt awkward and produced
-less grounded responses, so I replaced it with direct engagement as themselves.
+The formal study centered on free exploration and think-aloud with **20 meta-scientists**,
+all of whom had prior experience with network-analysis tools. Participants explored the
+tool as themselves, then completed one open-ended task: find a pattern or connection
+that surprised them, followed by a short questionnaire.
 
-Participants were expert users. All had prior experience with at least one network
-analysis tool: seventeen with Python network libraries, fifteen with *Gephi*, seven with
-D3 or other web visualization. Their feedback reads as expert assessment rather than
-novice impression.
+<!-- STUDY SESSION — waiting on one file. Drop it in
+     public/media/inside-the-institution/ and uncomment; the section reads fine
+     until then.
 
-The questionnaire combined twenty-five view-specific Likert items with six overall
-items and three open-ended questions. I analyzed the session records thematically
-alongside it, and where the two streams disagreed I gave the session records
-interpretive priority, on the principle that observed behavior is better evidence than
-self-reported satisfaction.
+     study-session.webp — one photograph from a formal think-aloud session
 
-Two findings matter most. The first is what the network turned out to look like. Only
-52.3% of faculty have any recorded co-authorship tie inside the university, and only
-7.1% have a tie with someone in a different college. Remove that small group and the
-main connected component fragments into college-specific clusters. The share of
-faculty in the main component ranges from 69.2% in Engineering to 3.3% at
-Northeastern University London.
+<figure>
+  <img
+    src="/media/inside-the-institution/study-session.webp"
+    alt="Participant using the collaboration visualization during a think-aloud study session."
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>A formal think-aloud session: experts explored freely and formed their own questions.</figcaption>
+</figure>
+-->
 
-The second is that participants surfaced structural patterns the network analysis had
-not anticipated: gaps between colleges, bridge scholars connecting otherwise
-disconnected communities, disciplinary asymmetries in how research gets published.
-One participant found a design inconsistency in the tool that I had not caught.
+<!-- PARKED for 07 "What became visible" and 08 "What needed work". Written, not
+     yet re-homed — do not delete without moving these facts into those sections.
+
+     The questionnaire combined twenty-five view-specific Likert items with six overall
+     items and three open-ended questions. I analyzed the session records thematically
+     alongside it, and where the two streams disagreed I gave the session records
+     interpretive priority, on the principle that observed behavior is better evidence
+     than self-reported satisfaction.
+
+     Two findings matter most. The first is what the network turned out to look like.
+     Only 52.3% of faculty have any recorded co-authorship tie inside the university,
+     and only 7.1% have a tie with someone in a different college. Remove that small
+     group and the main connected component fragments into college-specific clusters.
+     The share of faculty in the main component ranges from 69.2% in Engineering to
+     3.3% at Northeastern University London.
+
+     The second is that participants surfaced structural patterns the network analysis
+     had not anticipated: gaps between colleges, bridge scholars connecting otherwise
+     disconnected communities, disciplinary asymmetries in how research gets published.
+     One participant found a design inconsistency in the tool that I had not caught.
+
+     Participant experience, from the background questionnaire: seventeen with Python
+     network libraries, fifteen with Gephi, seven with D3 or other web visualization.
+-->
 
 ## Reflection
 
