@@ -681,27 +681,49 @@ the season status, the odds board, and the results as they were published.
 
 ## Looking ahead
 
-Static was the right first version and it is not the right last one. The limitations
-above are not independent problems; they are one problem seen from four angles, and
-they all resolve the same way.
+Barvision 2026 was an encouraging first test of what barboard.space could become. It was the
+largest edition in the event&#8217;s history by both participants and song entries, while
+the site served as a central portal for registration, updates, schedules, and results. I
+cannot separate how much of that growth came from the site itself, but it showed that the
+portal could support an active community moment rather than only preserve the past.
 
-A member should be able to update their own entry instead of asking me to edit a CSV,
-which means authentication and a writable store, and it also removes the hand-synced
-list of built pages. Contest submissions should be de-duplicated and validated on the
-way in rather than trusted per browser. Chart data should be queryable across weeks
-rather than only in its latest snapshot, which is the difference between a chart and
-a chart history. The pipeline should be able to tell me when it has failed, which is
-the part I consciously left out. And basic usage data would let me find out whether
-the features I built are the features anyone opens.
+Next, I want to make that role more complete: connect currently separate archives through
+better search, fill gaps in older activities, improve accessibility and maintenance, and
+better understand how members use the site over time. The goal is not to turn barboard.space
+into another social network, but to make it a stronger shared reference point for a
+community that has been around for more than a decade.
 
-None of that needed to exist for the site to be useful this summer. All of it needs to
-exist for the site to keep growing, and building it is a stated next step rather than
-an aspiration, which is also why the current version is documented this precisely.
-Knowing exactly which manual step each limitation produces is what makes the migration
-a scoping exercise instead of a rewrite.
+> **Next direction**
+>
+> More complete, more connected, easier to maintain.
+>
+> Better search, fuller archives, accessibility, and lightweight usage measurement are the
+> next priorities.
 
-Barvision 2026 offered an early sign that the site could support renewed participation: it
-became the largest edition in the event&#8217;s history while barboard.space served as a
-central portal throughout the season. What I still cannot separate is how much of that
-growth came from the website itself, rather than the event, the community, or other
-factors.
+<!-- PARKED from the previous draft of this section, which this rewrite
+     replaces. Not published elsewhere on the page. Too implementation-heavy
+     for a visible conclusion, but the reasoning is real. Delete once it has a
+     home or has been ruled out.
+
+     Static was the right first version and it is not the right last one. The
+     remaining limitations are one problem seen from four angles and they all
+     resolve the same way:
+
+     - A member should be able to update their own entry instead of asking me
+       to edit a CSV, which means authentication and a writable store, and
+       which also removes the hand-synced list of built pages.
+     - Contest submissions should be de-duplicated and validated on the way in
+       rather than trusted per browser.
+     - Chart data should be queryable across weeks rather than only in its
+       latest snapshot, which is the difference between a chart and a chart
+       history.
+     - The pipeline should be able to tell me when it has failed, which is the
+       part I consciously left out.
+     - Basic usage data would let me find out whether the features I built are
+       the features anyone opens.
+
+     None of that needed to exist for the site to be useful this summer. All of
+     it needs to exist for the site to keep growing, and knowing exactly which
+     manual step each limitation produces is what makes the migration a scoping
+     exercise instead of a rewrite.
+-->
