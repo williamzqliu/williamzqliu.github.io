@@ -47,9 +47,9 @@ actually explore?**
 
 The final tool organizes the same institutional network across three scales:
 **university, research unit, and scholar.** The **Collaboration Map** reveals
-institution-wide structure, **Research Units** supports comparison across departments
-and research centers, and **Bridging Scholars** surfaces people who connect otherwise
-separate communities.
+institution-wide structure. **Research Units** compares departments and research
+centers. **Bridging Scholars** surfaces people who connect otherwise separate
+communities.
 
 <figure>
   <video
@@ -206,7 +206,7 @@ centers**.
 I first developed the Collaboration Map at a deliberately bounded scale: **379 scholars
 across three departments and three research centers.** At that size, a force-directed
 layout made clusters and cross-unit ties readable on its own. When the network expanded
-to all 2,737 faculty, the same approach became much denser, so the interface needed
+to all 2,737 faculty, the same approach became much denser. The interface needed
 additional encodings to keep structural patterns legible.
 
 <div class="media-pair">
@@ -237,7 +237,7 @@ additional encodings to keep structural patterns legible.
 
 One response was to encode structural roles that layout alone could no longer make
 obvious. I used network analysis to identify scholars whose collaborations cross
-departmental boundaries, then translated that measure into progressively stronger outer
+departmental boundaries. I translated that measure into progressively stronger outer
 rings. The halo increases in four steps, marking the top 25%, 5%, 3%, and 1% of the
 score distribution.
 
@@ -327,11 +327,11 @@ the views where they were relevant.
   <figcaption>Navigation evolution: global views separated from local controls.</figcaption>
 </figure>
 
-The side panel evolved for the same reason. It began as a place for scholar details,
-then gradually adopted the same visual language as the main views: joint appointments,
+The side panel evolved for the same reason. It began as a place for scholar details.
+Over time, it adopted the same visual language as the main views: joint appointments,
 bridge status, and affiliation encoding.
 
-In the final system, it carries scholar or unit context beside the active view, while
+In the final system, the panel carries scholar or unit context beside the active view.
 `Direct`, `1-Hop`, and `2-Hop` bring ego-network exploration onto the main canvas. The
 panel became a contextual hub between the **university, research unit, and scholar**
 levels.
