@@ -80,20 +80,20 @@ situations and comfort with digital technology differed.
 
 <ul class="process-steps">
   <li>
-    <p class="process-steps__num">78</p>
     <p class="process-steps__name">My grandmother</p>
+    <p class="process-steps__num">78 years old</p>
     <p class="process-steps__note">Living alone, mostly basic phone use.</p>
   </li>
 
   <li>
-    <p class="process-steps__num">74</p>
     <p class="process-steps__name">Mrs. Wang</p>
+    <p class="process-steps__num">74 years old</p>
     <p class="process-steps__note">Living with her spouse, confident with digital products.</p>
   </li>
 
   <li>
-    <p class="process-steps__num">71</p>
     <p class="process-steps__name">Uncle Zhang</p>
+    <p class="process-steps__num">71 years old</p>
     <p class="process-steps__note">Living with family, comfortable with simple smartphone tasks.</p>
   </li>
 </ul>
