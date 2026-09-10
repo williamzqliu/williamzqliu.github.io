@@ -225,7 +225,11 @@ picture, not a player.
 | `data-caption="center"` on a `<figure>` | centres the caption under a plate that has no left edge |
 
 **Lightbox.** `components/Lightbox.astro`, one implementation for the whole
-site. It collects `.prose img, .prose video, .cs__media img` at open time,
+site, with two gesture models that share one visual language: a fine pointer
+clicks a picture a second time to open it at its own size and scrolls the
+oversized result (`data-zoomed` on the dialog, chrome switched to
+`position: fixed`); touch keeps pinch and pan. A new picture, a close, or a
+step always returns to the fitted view. It collects `.prose img, .prose video, .cs__media img` at open time,
 orders them by document position (only a `.media-mosaic` is re-sorted, into the
 column order the eye takes), and carries each figure's caption. Desktop gets
 arrows and keys; touch gets swipe, two-finger pinch zoom to 4×, and pan while

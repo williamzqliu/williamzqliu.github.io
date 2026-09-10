@@ -98,6 +98,48 @@
     justify-content: center;
   }
 
+  /* Detail view, fine pointers only. The picture goes to its own size, which
+     is usually bigger than the screen, and the viewer becomes the thing you
+     scroll — the way you would read a large drawing rather than drag it. Safe
+     centring so an oversized picture is still reachable at its top and left;
+     plain centring pins the overflow out of scroll range. */
+  .lb[data-zoomed] {
+    overflow: auto;
+    align-items: safe center;
+    justify-content: safe center;
+    cursor: default;
+  }
+
+  .lb[data-zoomed] .lb__figure {
+    max-width: none;
+    max-height: none;
+    flex: none;
+  }
+
+  .lb[data-zoomed] .lb__img {
+    max-width: none;
+    max-height: none;
+  }
+
+  /* The chrome stays where the window is, not where the picture is: with the
+     viewer scrolled into the middle of a large image, the close button has to
+     be in the corner of the screen rather than in the corner of the picture. */
+  .lb[data-zoomed] .lb__btn {
+    position: fixed;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    /* Two states, and the cursor is the whole affordance — no toolbar, no
+       percentage. */
+    .lb__img {
+      cursor: zoom-in;
+    }
+
+    .lb[data-zoomed] .lb__img {
+      cursor: zoom-out;
+    }
+  }
+
   .lb::backdrop {
     background: transparent;
   }
@@ -145,7 +187,9 @@
   .lb__img,
   .lb__vid {
     transform-origin: center center;
-    transition: transform var(--dur-base) var(--ease-out);
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      width 300ms var(--ease-out);
   }
 
   .lb__img[data-gesturing],
@@ -332,8 +376,41 @@
     let swap: number | undefined;
     let closing: number | undefined;
 
+    // Fine pointers get a second click: fitted, then the picture's own size.
+    // Touch keeps pinch and pan, which is a different model on purpose.
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    const unzoomDetail = () => {
+      delete dialog.dataset.zoomed;
+      frame.style.width = '';
+      dialog.scrollTo(0, 0);
+    };
+
+    const toggleDetail = () => {
+      if (dialog.dataset.zoomed) {
+        unzoomDetail();
+        return;
+      }
+      // Natural size, or twice the fitted size when the file is small — the
+      // point of the second click is that it is a real change.
+      const fitted = frame.getBoundingClientRect().width;
+      if (!fitted) return;
+      dialog.dataset.zoomed = 'true';
+      frame.style.width = `${Math.round(Math.max(frame.naturalWidth, fitted * 2))}px`;
+      // Open on the middle of the picture rather than its corner.
+      requestAnimationFrame(() => {
+        dialog.scrollTo({
+          left: (dialog.scrollWidth - dialog.clientWidth) / 2,
+          top: (dialog.scrollHeight - dialog.clientHeight) / 2,
+        });
+      });
+    };
+
     const render = () => {
       const source = gallery[index];
+
+      // A new picture always arrives fitted, at the top of the scroll.
+      unzoomDetail();
 
       // A new picture arrives at its own size and centred: zoom belongs to the
       // picture being looked at, never to the viewer. The swap happens under a
@@ -489,11 +566,17 @@
         const step = (event.target as HTMLElement | null)?.closest<HTMLElement>(
           '[data-lightbox-step]'
         );
-        if (!step) {
-          dismiss();
+        if (step) {
+          show(index + Number(step.dataset.lightboxStep));
           return;
         }
-        show(index + Number(step.dataset.lightboxStep));
+        // The picture itself is the zoom control on a mouse or trackpad; the
+        // scrim around it still closes. On touch a tap closes, as before.
+        if (fine.matches && (event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) {
+          toggleDetail();
+          return;
+        }
+        dismiss();
       },
       { signal }
     );
@@ -721,6 +804,8 @@
     dialog.addEventListener(
       'wheel',
       (event) => {
+        // Zoomed in, the wheel belongs to the scrollbars.
+        if (dialog.dataset.zoomed) return;
         if (gallery.length < 2 || scale > 1) return;
         event.preventDefault();
 
@@ -774,6 +859,7 @@
       () => {
         document.documentElement.style.overflow = '';
         delete dialog.dataset.shown;
+        unzoomDetail();
         frame.removeAttribute('src');
         clip.pause();
         clip.removeAttribute('src');
