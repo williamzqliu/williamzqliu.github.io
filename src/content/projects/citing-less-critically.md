@@ -88,9 +88,8 @@ directly: **&#8220;Figure 1 is too visually dense.&#8221;**
 </figure>
 
 I rebuilt the figure without stripping away the research logic. I separated the three
-stages, clarified the parallel human and LLM paths, and reduced competition between the
-main steps and supporting detail. I also kept the visual language deliberately restrained
-so the figure would read clearly in a scientific paper rather than compete for attention.
+stages, clarified the parallel human and LLM paths, and simplified the visual hierarchy so
+the main steps remained clear within a restrained, publication-ready layout.
 
 After peer review, the framework went through six rounds of team feedback before reaching
 the final version.
@@ -115,13 +114,13 @@ matched to a reliable bibliographic record. I built the pipeline that connected 
 data to canonical records in *Dimensions*, giving the team consistent metadata for later
 analysis.
 
-For the human-written baseline, the pipeline matched **115,278 of 132,913 citation slots
-(86.7%)**.
+For the human-written baseline, the pipeline matched **115,278 of 132,913 citation
+positions (86.7%)**.
 
 <div class="stat-strip" data-cols="3">
   <div class="stat-strip__cell">
     <p class="stat-strip__value">132,913</p>
-    <p class="stat-strip__label">Human citation slots</p>
+    <p class="stat-strip__label">Human citation positions</p>
   </div>
 
   <div class="stat-strip__cell">
@@ -161,8 +160,8 @@ measured paths through a coauthorship network. I designed Figure 4a to turn that
 metric into a worked comparison between an original citation and an LLM-generated
 replacement.
 
-Instead of showing only the formula, the figure traces the paths that produce each final
-score, so readers can see how the measure is built before they interpret the results.
+Instead of presenting the final score on its own, the figure traces the paths that produce
+it, so readers can see how the measure is built before they interpret the results.
 
 <figure>
   <img
@@ -196,9 +195,10 @@ Because the study used an LLM to classify citation intent, the team also needed 
 check. I helped define the three annotation categories and served as one of three
 independent human annotators.
 
-Across a 90-position validation set, the human labels showed the same overall shift away
-from contrasting citations. The primary LLM judge agreed with the human-majority label in
-**73% of cases**, giving the team an independent check on the automated classification.
+Across a 90-position validation set, the human labels moved in the same direction, with
+fewer citations classified as contrasting. The primary LLM judge agreed with the
+human-majority label in **73% of cases**, giving the team an independent check on the
+automated classification.
 
 <ul class="process-steps">
   <li>
