@@ -46,10 +46,10 @@ actually explore?**
 ## Three views
 
 The final tool organizes the same institutional network across three scales:
-**university, research unit, and scholar.** The Collaboration Map reveals
-institution-wide structure, Research Units supports comparison across departments and
-research centers, and Bridging Scholars surfaces people who connect otherwise separate
-communities.
+**university, research unit, and scholar.** The **Collaboration Map** reveals
+institution-wide structure, **Research Units** supports comparison across departments
+and research centers, and **Bridging Scholars** surfaces people who connect otherwise
+separate communities.
 
 <figure>
   <video
