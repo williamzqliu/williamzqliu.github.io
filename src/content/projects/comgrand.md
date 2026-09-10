@@ -522,8 +522,7 @@ iteration would have to work on.
 
 ## Looking back
 
-Looking back three years later, I would change less about the idea itself than about how
-much I tried to design before testing it.
+Looking back, I would keep the core idea but narrow the scope and test it earlier.
 
 <ul class="process-steps" data-stack>
   <li>
