@@ -310,12 +310,12 @@ collaborate broadly and cross organizational boundaries.
 
 ## Bringing the views together
 
-Adding more views created a new problem: they needed to feel like different perspectives
-on the same dataset, not separate applications.
+As the tool expanded to three views, they needed to feel like different perspectives on
+the same dataset, not separate applications.
 
 Early versions mixed global navigation with controls that only applied within a specific
-view. I flattened the header and moved search, unit tabs, and ego-network controls back
-into the contexts where they operate.
+view. I flattened the header and moved search, unit tabs, and ego-network controls into
+the views where they were relevant.
 
 <figure>
   <img
@@ -330,11 +330,13 @@ into the contexts where they operate.
 </figure>
 
 The side panel evolved for the same reason. It began as a place for scholar details,
-then gradually reused the same structural cues as the visualizations: joint
-appointments, bridge status, and affiliation encoding. In the final system, the panel
-carries scholar or unit context beside the active view, while `Direct`, `1-Hop`, and
-`2-Hop` controls bring ego-network exploration onto the main canvas. It became a
-contextual hub between the **university, research unit, and scholar** levels.
+then gradually adopted the same visual language as the main views: joint appointments,
+bridge status, and affiliation encoding.
+
+In the final system, it carries scholar or unit context beside the active view, while
+`Direct`, `1-Hop`, and `2-Hop` bring ego-network exploration onto the main canvas. The
+panel became a contextual hub between the **university, research unit, and scholar**
+levels.
 
 <figure>
   <img
