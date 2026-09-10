@@ -182,37 +182,107 @@ The same Barvision 2026 visual language was also extended into the event&#8217;s
 
 ## Making history searchable
 
-There is no server. Not a lightweight one, not a serverless function, not a database.
-The site is static files on GitHub Pages behind a custom domain, and everything that
-would normally need a backend is either pushed to a third party or moved to the
-client.
+Barboard&#8217;s history was never stored in one place. Over more than a decade, records
+accumulated across Tieba posts, spreadsheets, and chart videos edited and uploaded by
+members to Bilibili, a major Chinese video-sharing platform. The information was still
+there, but as the years passed, it became harder to trace, compare, or even know where to
+look.
 
-The member directory is a CSV file. The browser fetches it, parses it, and renders 143
-cards with live filtering and substring search. There is no API and no query layer.
-Adding a member is a line in a CSV.
+For barboard.space, I began bringing those records back together as a structured archive.
+Instead of treating past results as isolated artifacts, I designed ways to explore them by
+edition, year, person, song, artist, and language. The goal was not simply to preserve old
+files, but to make the community&#8217;s history easier to return to and use again.
 
-The one form on the site, for song submissions to the community contest, posts through
-EmailJS directly from the browser. No endpoint, no queue, no inbox integration on my
-side.
+<!-- Four figures, so the strip closes its dividers into a cross. Coarse to fine
+     rather than high to low: these are not four measurements of one thing, and
+     editions, years, entries and ballots is the order the archive nests in. -->
 
-Every page is authored HTML with no build step, no bundler, and no package manager.
-Fonts are self-hosted. The only third-party script anywhere on the site is the EmailJS
-SDK.
+<div class="stat-strip" data-grid>
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">16</p>
+    <p class="stat-strip__label">Barvision editions</p>
+  </div>
 
-What this buys is the thing I actually needed: nothing breaks while I am not looking.
-There is nothing to patch, nothing to renew, no credentials to rotate, and no bill to
-forget. Three months in, the operational cost of this site is a domain registration.
-For a solo unpaid project that is not a small advantage, it is the difference between
-a site that is still up and a site that quietly expired.
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">11 years</p>
+    <p class="stat-strip__label">Annual charts</p>
+  </div>
 
-What it costs is that every piece of state is maintained by hand. Adding a member
-means editing a CSV and keeping a hardcoded list of built pages in sync with it.
-Cache invalidation means bumping a version string across every page that references
-the stylesheet, which has actually happened on 16 of 184 pages. Submission
-de-duplication lives in the browser's local storage, so it works per device and not
-per person.
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">771</p>
+    <p class="stat-strip__label">Competition entries</p>
+  </div>
 
-None of those are bugs. They are the same decision, seen from the maintenance side.
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">11,130</p>
+    <p class="stat-strip__label">Ballot records</p>
+  </div>
+</div>
+
+> **Archive principle**
+>
+> Preserving history also means making it possible to find again.
+>
+> Bringing scattered records into connected views made more than a decade of community
+> activity easier to revisit.
+
+<details>
+<summary>How the archive was rebuilt</summary>
+
+**Records across platforms and formats.** The material accumulated over many years rather
+than arriving as one dataset: Tieba-era records, spreadsheets, activity files, and
+member-produced videos hosted on platforms such as Bilibili. Different activities and
+different years preserved different levels of detail, so the first job was deciding which
+sources could become structured data and which could only stay as references or media.
+The point was never to copy every old artifact into the website. It was to rebuild the
+information people would want to return to.
+
+**From records to questions.** The same material is reorganized into different views
+depending on what someone is trying to find. What happened in this edition goes to the
+Barvision edition pages. Whether a song or an artist has appeared before goes to Barvision
+Stats. What a person has done goes to their member profile. What was on the chart in a
+given year goes to the annual chart archive. Deciding those four questions first, and
+letting the views follow from them, is the information architecture.
+
+**Reconstructing incomplete history.** The original Barvision summary archive held 87
+podium-result rows across 15 editions. Reconstructing the records underneath them expanded
+that into 771 competition entries, 1,140 voter records, and 11,130 ballot cells across 16
+editions, alongside 2,291 chart rows across 11 years in the annual archive. Completeness
+still varies by year and by activity. The interface distinguishes information that is
+missing from a value that is genuinely zero, and anonymous or unattributed entries stay
+unattributed rather than being assigned to a member who looks likely. An archive that
+hides its own gaps is harder to trust than one that shows them.
+
+</details>
+
+<!-- PARKED from the previous draft of this section, which this rewrite
+     replaces. Not published elsewhere on the page. Delete once each fact has a
+     home in Sections 04 to 06 or has been ruled out.
+
+     1. What static bought: no server of any kind, the site is static files on
+        GitHub Pages behind a custom domain, everything that would normally
+        need a backend is pushed to a third party or moved to the client, and
+        the operational cost after three months is a domain registration.
+        Nothing breaks while nobody is looking: nothing to patch, nothing to
+        renew, no credentials to rotate, no bill to forget.
+
+     2. How that works in practice: the member directory is a CSV the browser
+        fetches, parses and renders as 143 cards with live filtering and
+        substring search, with no API and no query layer, so adding a member is
+        a line in a CSV. The one form, for contest submissions, posts through
+        EmailJS from the browser. Every page is authored HTML with no build
+        step, no bundler and no package manager, fonts are self-hosted, and the
+        EmailJS SDK is the only third-party script on the site.
+
+     3. What it cost: every piece of state is maintained by hand. Adding a
+        member means editing the CSV and keeping a hardcoded list of built
+        pages in sync with it. Cache invalidation means bumping a version
+        string across every page that references the stylesheet. Submission
+        de-duplication lives in local storage, so it works per device and not
+        per person. None of those are bugs; they are the same decision seen
+        from the maintenance side.
+-->
+
 
 ## Designing for small screens
 
