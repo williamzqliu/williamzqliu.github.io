@@ -339,7 +339,10 @@ const liveLinks = links.filter((link) => link.href !== '#');
      settling while the colour, a plain value change, arrives flat. Never
      `all`. */
   .prow__card[data-linked] .prow__mediacol :global(.cover) {
-    filter: grayscale(1);
+    /* Not all the way. At full grayscale a cover reads as switched off; a
+       fifth of its colour left in keeps it a picture that has not been
+       arrived at yet, and the hover still has somewhere to travel. */
+    filter: grayscale(0.8);
     transition:
       transform calc(var(--dur-hover-out) + 200ms) var(--ease-out),
       filter calc(var(--dur-hover-out) + 200ms) var(--ease-out);
