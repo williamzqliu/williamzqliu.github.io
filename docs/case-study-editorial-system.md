@@ -330,9 +330,16 @@ gallery come off the same selector, so a marked picture never shows a
 `zoom-in` cursor that leads nowhere.
 
 Currently marked: Comgrand's two grandmother photographs and the three
-co-design frames, and Inside the Institution's think-aloud session photograph.
+co-design frames. Inside the Institution's think-aloud photograph is not
+marked, because the participant is shot from behind and the picture is really
+of the interface on the screen.
 
 `data-nozoom` on `.cs__media` does the same job for a case-study head.
+
+**Media inside a closed disclosure is out of the gallery** until the reader
+opens it. A closed `<details>` still lays its content out, so the viewer tests
+`details:not([open])` rather than geometry; without that, stepping through the
+gallery lands on a picture that is not on the page behind the viewer.
 
 ---
 
