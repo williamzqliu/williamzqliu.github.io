@@ -227,25 +227,17 @@ showing each of the four shortest paths and how they combine into a single avera
 distance, the figure makes the metric directly inspectable before readers encounter the
 results.
 
-<!-- FIGURE 4A — waiting on one file. The paragraphs above describe the worked
-     example; the example itself is the piece that is missing, and the section
-     reads without it.
-
-     figure-4a.png in media-src/citing-less-critically/, exported from the
-     source artwork rather than screenshotted from the paper. Export at
-     2400-3200px wide, as the framework figures are: the author nodes, the path
-     lengths and the averaging all have to stay legible in the viewer.
-
 <figure>
   <img
-    src="/media/citing-less-critically/figure-4a.webp"
-    alt="Two named papers with their first and last authors, and the four shortest paths drawn between those author pairs through the coauthorship network, with the four lengths averaged into one distance."
+    src="/media/citing-less-critically/final-figure-4a.webp"
+    alt="Two worked rows. In each, a citing paper and a cited paper are shown with their first and last authors, the four shortest paths between those author pairs are traced through the coauthorship network, and the four lengths are averaged. The original row averages 2.25; the LLM-generated row averages 3."
+    width="2484"
+    height="1612"
     loading="lazy"
     decoding="async"
   />
   <figcaption>Figure 4a. A worked example of the social-distance measure. The four author-pair shortest paths are 2, 2, 2, and 3, producing an average distance of 2.25.</figcaption>
 </figure>
--->
 
 <!-- PARKED from the previous draft of this section. Not in the copy above and
      not published elsewhere on the page. Delete once these facts have a home
