@@ -102,7 +102,7 @@ three stages, from reconstruction to bibliographic matching.
 
 The submitted framework included the full experimental pipeline, but that completeness
 made the figure harder to scan. During peer review, one reviewer called out the problem
-directly: **“Figure 1 is too visually dense.”**
+directly: **"Figure 1 is too visually dense."**
 
 <figure>
   <img
@@ -265,7 +265,7 @@ sentences and the corresponding GPT-5.1 reconstructions without seeing the autom
 labels or cited-paper identities.
 
 Across the original citations, the primary LLM judge agreed with the human-majority
-labels in 73% of cases, with Cohen’s &#954; = 0.60. Our human annotations of the
+labels in 73% of cases, with Cohen's &#954; = 0.60. Our human annotations of the
 reconstructed citations also reproduced the broader movement away from contrasting
 labels.
 
