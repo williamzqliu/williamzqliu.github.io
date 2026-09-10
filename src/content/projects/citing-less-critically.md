@@ -89,7 +89,9 @@ directly: **&#8220;Figure 1 is too visually dense.&#8221;**
 
 I rebuilt the figure without removing the methodological structure. The redesign
 separated the three stages more clearly, strengthened the parallel human and LLM paths,
-and reduced visual competition between primary steps and supporting detail.
+and reduced visual competition between primary steps and supporting detail. I also kept
+the visual language deliberately restrained, prioritizing scientific clarity,
+consistency, and publication-ready layout over decorative complexity.
 
 After the review, the framework went through six rounds of team feedback before reaching
 the final version.
@@ -136,42 +138,82 @@ the final version.
 -->
 
 
-## Grounding 132,913 citations
+## Grounding 132,913 citation slots
 
-The study needed three things that are easy to state and hard to build: a way to compare human and model citation behaviour at the same position in the same sentence, a way to label what a citation is rhetorically doing, and a way to look up what each cited paper actually is.
+Before citation behavior could be compared, each reference had to be connected to a real
+bibliographic record. Citation metadata was inconsistent, and an incorrect match could
+distort every downstream attribute attached to that paper.
 
-I worked on the third, and on explaining the first.
+I built the final grounding pipeline used in the study. It first matched references by
+DOI, then fell back to title matching when the DOI was missing or malformed. Successful
+matches were replaced with canonical metadata from *Dimensions*, while unmatched
+references were excluded from downstream analysis.
 
-The lookup problem is where the paper's central inference lives. Across 1,746 conference papers there are 132,913 citation slots, each naming a work that has to be resolved to a real record before anything can be said about how old it is, how cited it is, or who wrote it. Models produce references that are sometimes real, sometimes real but garbled, and sometimes invented. If the matching layer is inconsistent, every downstream number is unreadable.
+For the human-written baseline, the pipeline matched **115,278 of 132,913 citation slots
+(86.7%)**, providing the bibliographic foundation for later analyses of publication year,
+citation impact, team size, and author relationships.
 
-**A four-tier match cascade, ordered by cost.** DOI lookup first, then arXiv DOI (`10.48550/arXiv.<ID>`), then PMID (skipped, the data had none), then fuzzy title-and-year search. Cheap and exact before expensive and probabilistic. Most references never reach the last tier.
+<div class="stat-strip" data-cols="3">
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">132,913</p>
+    <p class="stat-strip__label">Human citation slots</p>
+  </div>
 
-**A similarity threshold instead of taking the top hit.** A bibliographic search endpoint will happily return a related but different paper. Accepting the first result silently injects wrong matches that look like successful ones. Normalised title comparison with a 0.85 floor means the pipeline drops a borderline case rather than guessing at it. Under-matching is recoverable; a wrong match is not, because nothing downstream will flag it.
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">115,278</p>
+    <p class="stat-strip__label">Matched to Dimensions</p>
+  </div>
 
-**A recorded `match_method` on every row.** The output says whether a citation resolved by DOI, by arXiv ID, or by title. That turns a single aggregate match rate into something auditable by tier, which matters when a reviewer asks how much of the matching rests on fuzzy comparison.
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">86.7%</p>
+    <p class="stat-strip__label">Match rate</p>
+  </div>
+</div>
 
-**Deduplicate before requesting.** The same cited work appears many times across tens of thousands of citations. Keying on DOI, falling back to normalised arXiv ID, falling back to normalised title, collapses those into one request each. The script reports how many API calls that saved.
+This echoed a data challenge I had encountered in
+[*Inside the Institution*](/work/inside-the-institution), where scholar identities also
+had to be reconciled across inconsistent institutional and bibliographic records. In both
+projects, reliable matching was a prerequisite for trustworthy downstream analysis.
 
-**Sample mode, then full, with an on-disk HTTP cache.** Validate on fifty rows before spending hours of requests, and make the full re-run free so that fixing one line does not mean re-fetching everything.
+<!-- PARKED from the previous draft of this section. None of it is in the copy
+     above and none of it is published elsewhere on the page. Kept rather than
+     dropped; delete once these facts have a home or have been ruled out.
 
-**Non-destructive corrections.** Fifteen citing papers had truncated arXiv identifiers, found by cross-comparing three datasets. The fix script looks each one up by conference DOI with three fallback paths, then falls back again to a title search, and writes a mapping table rather than editing the source files. It also asserts that each corrected identifier starts with the truncated one it replaces, so a bad lookup fails loudly instead of overwriting good data.
+     The engineering detail, which the section now leaves out on purpose:
 
-**The matching pipeline.** Human citations resolve at 86.7 percent. The six models resolve at between 39.5 and 81.9 percent.
+     A four-tier match cascade ordered by cost. DOI, then arXiv DOI
+     (`10.48550/arXiv.<ID>`), then PMID (skipped, the data had none), then
+     fuzzy title-and-year search. Most references never reach the last tier.
 
-That spread is the paper's evidence for hallucination, and it is only usable because both sides go through the same pipeline. Since human references match at a high rate, the gap is attributable to what the models produced rather than to how the matching worked. An audit of a hundred unmatched titles per model then puts the hallucination share at 79 percent for one model and 97 percent for another. None of that reads as a finding if the matching layer is doing something different for the two sides.
+     A similarity threshold instead of the top hit: normalised title
+     comparison with a 0.85 floor, so a borderline case is dropped rather
+     than guessed at. Under-matching is recoverable; a wrong match is not,
+     because nothing downstream will flag it.
 
-**Under-match rather than mis-match.** Everything about the pipeline follows from this. The threshold, the cost-ordered cascade, the recorded method, the assertion in the correction script. A missing match shows up as a lower rate and gets discussed. A wrong match is invisible and contaminates a published number.
+     A recorded `match_method` on every row, so the aggregate rate is
+     auditable by tier.
 
-<details>
-<summary>Pipeline notes</summary>
+     Deduplication before requesting, keyed on DOI then normalised arXiv ID
+     then normalised title. Sample mode before full, with an on-disk HTTP
+     cache. Request pacing at 0.11s across four worker threads under a global
+     rate cap.
 
-Python with pandas and requests, using an HTTPAdapter with urllib3 retry. Request pacing at 0.11 seconds, roughly nine requests per second against a polite-pool ceiling of ten, with four worker threads sharing a global rate cap. Responses cached to JSON on disk.
+     Non-destructive corrections: fifteen citing papers had truncated arXiv
+     identifiers, found by cross-comparing three datasets. The fix script
+     writes a mapping table rather than editing the source files, and asserts
+     that each corrected identifier starts with the truncated one it replaces.
 
-The uploaded scripts are the OpenAlex version, an earlier attempt at 200-paper scale with roughly 14,000 real and 9,500 model-generated references. The published results use Dimensions at the full 1,746-paper scale; the matching strategy is the same.
+     The model side of the match rate: the six models resolve at between 39.5
+     and 81.9 percent, against 86.7 for the human baseline. An audit of a
+     hundred unmatched titles per model puts the hallucination share at 79
+     percent for one model and 97 percent for another. That comparison is only
+     usable because both sides went through the same pipeline.
 
-Match reporting is per-tier, so the contribution of exact versus fuzzy matching is visible rather than pooled.
-
-</details>
+     The uploaded scripts are the OpenAlex version, an earlier attempt at
+     200-paper scale with roughly 14,000 real and 9,500 model-generated
+     references. The published results use Dimensions at the full 1,746-paper
+     scale; the matching strategy is the same.
+-->
 
 
 ## Making social distance visible

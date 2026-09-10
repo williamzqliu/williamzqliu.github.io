@@ -222,6 +222,11 @@ that for the count a percentage came from. Two columns with a lighter, inset
 divider between them; one column on a phone, where the divider goes and space
 takes over. No fill, no corners, no shadow, no icon, no chart.
 
+Two columns by default. `data-cols="3"` takes a third, above 640px only:
+below that the phone rule wraps them instead, because three 28px figures do
+not fit a phone column without touching. Citing Less Critically's grounding
+section uses the three-column form.
+
 **Don't** create a second one in the same case study, and don't build one out
 of study ratings — behaviour is better evidence than a row of Likert scores.
 There is no `stats` frontmatter field; the markup lives in the content file

@@ -1133,6 +1133,8 @@ const facts = [
   .stat-strip {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* Two is the default because two numbers is what a section usually turns
+       on. Three needs saying, per instance. */
     column-gap: var(--sp-32);
     row-gap: var(--sp-24);
     margin-top: var(--sp-40);
@@ -1193,6 +1195,15 @@ const facts = [
     font-size: calc(var(--fs-small) + 1px);
     line-height: var(--lh-small);
     color: var(--text-3);
+  }
+
+  /* Three across only where the cells can hold a 28px figure: below 640 the
+     phone rule takes over and wraps them instead. Outside the query this
+     would outrank that rule and leave three numbers touching. */
+  @media (min-width: 640px) {
+    .stat-strip[data-cols='3'] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   /* Phone: the two figures stay side by side while both cells can still hold
