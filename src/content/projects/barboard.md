@@ -2,10 +2,7 @@
 title: barboard.space
 year: 2026
 dates: May 2026 – Aug 2026
-# 140 is the schema cap, and the card is built for three lines. The sent copy
-# ran to 167, so `historical records` and `browsable` come out; everything else
-# is as written.
-blurb: A community archive and web portal for a long-running Chinese music community, bringing members, charts, competitions, and records together.
+blurb: A community archive and web portal for a long-running Chinese music community, bringing members, charts, events, and historical records together in one place.
 tags: [interactive]
 tracks: [engineering]
 featured: 7
