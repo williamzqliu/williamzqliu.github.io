@@ -593,6 +593,16 @@ const facts = [
     max-width: 100%;
   }
 
+  /* Back to the measure, per figure. Some pictures belong with the sentences
+     rather than with the evidence — a photograph of a session, a small
+     explanatory shot — and at full column width they read as a claim the
+     picture is not making. `--measure` is in `ch`, so the figure has to carry
+     the copy size for it to resolve to the paragraphs' width. */
+  .prose > figure[data-width='prose'] {
+    max-width: var(--measure);
+    font-size: var(--fs-copy);
+  }
+
   /* A new section is recognisable from the space above it alone: five times
      the gap between paragraphs. */
   .prose h2 {

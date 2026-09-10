@@ -77,6 +77,11 @@ and hand-editable.
 as wide as the media. Opens in the lightbox. Video is `autoplay muted loop
 playsinline`, no controls.
 
+**Modifier.** `data-width="prose"` brings a figure back to the paragraphs'
+width. For pictures that belong with the sentences rather than with the
+evidence — a photograph of a session, a small explanatory shot — where the
+full column would read as a claim the picture is not making.
+
 **Don't** use a figure as decoration between paragraphs.
 
 ### Figure pair — `.media-pair`

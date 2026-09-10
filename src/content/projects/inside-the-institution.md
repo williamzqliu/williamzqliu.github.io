@@ -359,7 +359,7 @@ network-analysis tools. Participants explored the tool freely while thinking alo
 then completed one open-ended task: find a pattern or connection that surprised them. A
 short questionnaire followed.
 
-<figure>
+<figure data-width="prose">
   <img
     src="/media/inside-the-institution/study-session.webp"
     alt="Participant using the collaboration visualization on a laptop during a think-aloud study session."
