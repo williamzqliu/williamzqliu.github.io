@@ -83,17 +83,94 @@ through bibliographic grounding.
 
 ## Rebuilding the framework after peer review
 
-**Figure 1, the framework diagram.** Three stages, one citation slot travelling through all of them: the human original, the masked version, the model's replacement. The difficulty is not drawing boxes. It is that stages run in sequence while six models run in parallel inside stage one, and both have to be legible in one static frame. The three versions of the sentence sit on a shared horizontal line so a reader can compare them directly, with the stage boundaries carrying the sequence.
+The submitted framework captured the full experimental pipeline, but that completeness
+came at the cost of hierarchy. During peer review, one reviewer called out the problem
+directly: &#8220;Figure 1 is too visually dense.&#8221;
 
-The submitted version of Figure 1 came back from review with a note that the formatting was generally solid but the figure was too visually dense. I rebuilt it, and the rebuild is the figure in the published paper.
+I rebuilt the figure without removing the methodological structure. The redesign
+separated the three stages more clearly, strengthened the parallel human and LLM paths,
+and reduced visual competition between primary steps and supporting detail. After the
+review, the framework went through six rounds of team feedback before reaching the final
+version.
 
-Density in a diagram is rarely a matter of too many elements. It is usually too few levels: everything competing at the same weight, so a reader has nowhere to start. That is why I restarted rather than adjusted. Hierarchy is the lowest-level decision in a layout, and local edits to an existing composition cannot move it.
+<!-- BEFORE AND AFTER — waiting on one file. The final figure is already
+     published; the submitted version is not in the repository, so the
+     comparison cannot be drawn yet and the section reads without it.
 
-The rebuild made the three stages explicit horizontal bands, dropped the parallel branches inside stage one to a secondary weight, and made the shared horizontal line comparing the three versions of one sentence the first thing a reader lands on. Nothing was removed from the method. Six further rounds of team discussion refined it to camera-ready.
+     figure-1-submitted.webp — the version that went to review, exported from
+     the source artwork rather than screenshotted from the submission PDF.
+     Export at 2400-3200px wide, as the final one is.
 
-Every frame is still on the Figma canvas, before and after, from `plot_diagram 2` through `plot_diagram_update` and then six frames of `plot_diagram_better`.
+     Stacked rather than side by side on purpose: at half the article column
+     neither figure's labels survive. Captions sit below each picture, which is
+     this page's convention.
 
-The reason this is worth more than the final figure alone: the critique came from an anonymous expert reviewing the work for publication, the response is traceable frame by frame, and the result cleared a main-conference review. Self-directed iteration is easy to claim. This is the other kind.
+<figure>
+  <img
+    src="/media/citing-less-critically/figure-1-submitted.webp"
+    alt="The submitted framework figure, with the three stages and the supporting detail competing at the same visual weight."
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Submitted version, before peer review.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/media/citing-less-critically/figure-1.webp"
+    alt="The published framework figure, with the three stages set as distinct bands and the human and LLM paths running in parallel through each one."
+    width="3200"
+    height="2333"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Final version, after six rounds of team review.</figcaption>
+</figure>
+-->
+
+<ul class="process-steps">
+  <li>
+    <p class="process-steps__name">Hierarchy</p>
+    <p class="process-steps__note">Separated the method into three visually distinct stages.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__name">Comparison</p>
+    <p class="process-steps__note">Made the human and LLM paths easier to trace in parallel.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__name">Density</p>
+    <p class="process-steps__note">Reduced competing detail while preserving the full experimental logic.</p>
+  </li>
+</ul>
+
+<!-- PARKED from the previous draft of this section. Not in the copy above and
+     not published anywhere else on the page, so it is kept here rather than
+     dropped. Delete once these facts have a home or have been ruled out.
+
+     **Figure 1, the framework diagram.** Three stages, one citation slot
+     travelling through all of them: the human original, the masked version,
+     the model's replacement. The difficulty is not drawing boxes. It is that
+     stages run in sequence while six models run in parallel inside stage one,
+     and both have to be legible in one static frame.
+
+     Density in a diagram is rarely a matter of too many elements. It is
+     usually too few levels: everything competing at the same weight, so a
+     reader has nowhere to start. That is why I restarted rather than
+     adjusted. Hierarchy is the lowest-level decision in a layout, and local
+     edits to an existing composition cannot move it.
+
+     Every frame is still on the Figma canvas, before and after, from
+     `plot_diagram 2` through `plot_diagram_update` and then six frames of
+     `plot_diagram_better`.
+
+     The reason this is worth more than the final figure alone: the critique
+     came from an anonymous expert reviewing the work for publication, the
+     response is traceable frame by frame, and the result cleared a
+     main-conference review. Self-directed iteration is easy to claim. This is
+     the other kind.
+-->
 
 
 ## Grounding 132,913 citations

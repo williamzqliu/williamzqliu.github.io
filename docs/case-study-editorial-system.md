@@ -263,12 +263,17 @@ system document. Nothing needs a per-project width rule.
 each stage has a name worth scanning for. Citing Less Critically uses one, for
 the study's three stages.
 
-**Standard.** An `<ol class="process-steps">` with one `<li>` per stage holding
-`.process-steps__num`, `.process-steps__name` and `.process-steps__note`. An
-ordered list because the sequence is structural, not just drawn. Prose width, a
-single hairline above, three equal columns from 640px with the stat strip's
-inset divider between them, one column on a phone where space separates them.
-The article's list marker and indent are turned off.
+**Standard.** One `<li>` per item holding `.process-steps__name` and
+`.process-steps__note`, with `.process-steps__num` above them when the items
+are a sequence. `<ol>` when the order is the content and the numbers are drawn;
+`<ul>` when the items are parallel and unnumbered, as the design changes in
+Citing Less Critically's Section 02 are. Prose width, a single hairline above,
+three equal columns from 640px with the stat strip's inset divider between
+them, one column on a phone where space separates them. The article's list
+marker and indent are turned off.
+
+Both the block rule and its 640px rule are written `.prose .process-steps`:
+`.prose ul, .prose ol` sets a margin-top, and a single class loses to it.
 
 The hierarchy is the inverse of the stat strip's: there the number is what is
 being read and takes the display size, here it is only a position, so the name
