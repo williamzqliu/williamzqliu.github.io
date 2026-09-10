@@ -354,11 +354,19 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* ---- states (SPEC §4) ---- */
 
-  /* `[data-hovered]` is the same state arriving from the script below rather
-     than from the pointer. Chrome only re-evaluates `:hover` when the scroll
-     settles, so a wheel past a row used to light it up a beat late; the
-     script hit-tests each frame instead. `:is()` so one rule covers both and
-     they can never disagree about what the row looks like.
+  /* Two ways in, and only ever one of them at a time.
+
+     `[data-hovered]` is the state arriving from the script below: Chrome does
+     not re-evaluate `:hover` while the page scrolls under a still mouse, so a
+     wheel past a row lit it a beat late. The script hit-tests each frame
+     instead.
+
+     While it is holding a row it marks the document, and that mark switches
+     `:hover` off. Both at once is exactly the bug: during a scroll the stale
+     `:hover` sits on the row the pointer entered while the attribute has
+     already moved to the row now under it, and an `:is(:hover, [data-hovered])`
+     union lights both. Before the first pointer move the script knows nothing,
+     so the mark is absent and `:hover` still answers on its own.
 
      One response, not two. Anywhere inside the card and the row answers as a
      whole: the title takes the accent and the image steps closer, arriving at
@@ -367,7 +375,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
      one place. Only colour, filter and transform move — nothing is added,
      resized or re-weighted. */
   @media (hover: hover) and (pointer: fine) {
-    .prow__card[data-linked]:is(:hover, [data-hovered]) .prow__titletext {
+    .prow__card[data-linked][data-hovered] .prow__titletext,
+    :root:not([data-rowhover]) .prow__card[data-linked]:hover .prow__titletext {
       color: var(--accent);
       transition-duration: calc(var(--dur-hover-in) + 200ms);
     }
@@ -381,7 +390,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
        The asset never changes. A looping cover keeps looping — hover scales
        the same frame it was already showing and does not restart, swap or
        reveal anything. */
-    .prow__card[data-linked]:is(:hover, [data-hovered]) .prow__mediacol :global(.cover) {
+    .prow__card[data-linked][data-hovered] .prow__mediacol :global(.cover),
+    :root:not([data-rowhover]) .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
       filter: grayscale(0);
       transform: scale(1.1);
       transition-duration: calc(var(--dur-hover-in) + 200ms);
@@ -398,7 +408,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* The colour change is the point and it stays; the 1.5% of movement does
      not. */
   @media (prefers-reduced-motion: reduce) {
-    .prow__card[data-linked]:is(:hover, [data-hovered]) .prow__mediacol :global(.cover) {
+    .prow__card[data-linked][data-hovered] .prow__mediacol :global(.cover),
+    :root:not([data-rowhover]) .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
       transform: none;
     }
   }
@@ -493,6 +504,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
       current?.removeAttribute('data-hovered');
       row?.setAttribute('data-hovered', 'true');
       current = row;
+      // The mark is what suppresses `:hover`, so it goes up only while there
+      // is a row to suppress it for.
+      document.documentElement.toggleAttribute('data-rowhover', row !== null);
     };
 
     const sync = () => {
