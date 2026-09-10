@@ -44,27 +44,27 @@ Scientific citations can support, contrast with, or simply mention prior researc
 study asks whether LLMs make the same rhetorical choices as human authors when filling
 the same citation position.
 
-To make the experimental design easier to follow, I translated the method into a
-three-stage framework that keeps the human and LLM paths comparable from reconstruction
-through bibliographic grounding.
+To make the experimental design easier to follow, I designed a three-stage visual
+framework for our team&#8217;s method, keeping the human and LLM paths comparable from
+reconstruction through bibliographic grounding.
 
 <ol class="process-steps">
   <li>
     <p class="process-steps__num">01</p>
     <p class="process-steps__name">Reconstruct</p>
-    <p class="process-steps__note">Mask the original citation sentence and ask an LLM to reconstruct it with the same number of references.</p>
+    <p class="process-steps__note">Mask the original citation sentence and ask an LLM to reconstruct it with the same number of citations.</p>
   </li>
 
   <li>
     <p class="process-steps__num">02</p>
     <p class="process-steps__name">Classify</p>
-    <p class="process-steps__note">Label both human and LLM citations by rhetorical intent: supporting, contrasting, or mentioning.</p>
+    <p class="process-steps__note">Label the original and LLM-generated citations as supporting, contrasting, or mentioning.</p>
   </li>
 
   <li>
     <p class="process-steps__num">03</p>
     <p class="process-steps__name">Ground</p>
-    <p class="process-steps__note">Match the cited works to bibliographic metadata for downstream analysis.</p>
+    <p class="process-steps__note">Match each cited work to canonical bibliographic records in <em>Dimensions</em> for downstream analysis.</p>
   </li>
 </ol>
 
