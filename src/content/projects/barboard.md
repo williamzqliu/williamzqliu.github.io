@@ -2,7 +2,7 @@
 title: barboard.space
 year: 2026
 dates: May 2026 – Aug 2026
-blurb: A community archive and web portal for a long-running Chinese music community, bringing members, charts, events, and historical records together in one place.
+blurb: A web portal and archive for a long-running Chinese music community, bringing members, charts, events, and history together.
 tags: [interactive]
 tracks: [engineering]
 featured: 7
