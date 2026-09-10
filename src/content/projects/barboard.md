@@ -8,7 +8,11 @@ tracks: [engineering]
 featured: 7
 stack: [HTML, CSS, JavaScript, Python, GitHub Actions]
 links:
-  demo: https://barboard.space
+  # Not `Live Demo`: this is the site itself, running, not a demonstration of
+  # it. The label override is what the schema's named-link form is for.
+  demo:
+    href: https://barboard.space
+    label: Website
 cover:
   wide: /media/barboard/cover-wide.webp
   tone: dark
