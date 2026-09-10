@@ -228,11 +228,20 @@ const liveLinks = links.filter((link) => link.href !== '#');
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
-  /* Stretches the link over the whole row (SPEC §4). */
+  /* Stretches the link over the whole row (SPEC §4).
+
+     `z-index` is not decoration here, it is the click target. The cover
+     carries a `filter`, and a filter makes its element a stacking context —
+     painted with the positioned boxes rather than under them, and painted in
+     tree order, where the media column comes after the text. Without a layer
+     of its own this overlay ends up beneath the picture and the cover swallows
+     every click on it. At 1 it clears the picture and still sits under the
+     outbound links, which carry the same 1 and come later in the row. */
   .prow__link::after {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
   }
 
   /* The title takes the accent while the card is hovered and nothing else —
