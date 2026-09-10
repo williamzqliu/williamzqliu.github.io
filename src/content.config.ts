@@ -23,11 +23,15 @@ const projects = defineCollection({
     year: z.number(),
     dates: z.string(),
     /* A cap, not a target. Three lines is what the card is built for, and
-       roughly 125 characters is what three lines hold at its narrowest — a
-       phone, or the two-column listing at 1024. The ceiling is 140 so a
-       sentence can spend a fourth line when it is worth it; Inside the
-       Institution does. */
-    blurb: z.string().max(140),
+       roughly 125 characters is what three lines hold at its narrowest, which
+       is a phone or the two-column listing at 1024. The ceiling allows a
+       fourth line where a sentence is worth it.
+
+       160, measured rather than guessed: at 375 and at 1024, Inside the
+       Institution's 134 characters, Citing Less Critically's 137 and
+       Barboard's 158 all land on four lines, and at 1280 all three fit in
+       three. The old 140 was inside the same band, not at its edge. */
+    blurb: z.string().max(160),
     /* Subject, not status. `information-design` is stored hyphenated and
        displayed with a space — a value with a space in it would need quoting
        in every frontmatter file. */
