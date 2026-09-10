@@ -19,7 +19,7 @@ quickFacts:
     value: "Service ecosystem, mobile app, and physical smart ring prototype"
 ---
 
-## Where this started
+## From assumptions to participation
 
 My grandmother has lived alone since my grandfather died. During the pandemic she
 bought a pulse oximeter and used it on herself. When the restrictions in China
@@ -35,7 +35,7 @@ the way she always has, and respond to change with withdrawal rather than curios
 That is a question about one person. Turning it into a design problem meant finding
 out whether the pattern held more widely, and if it did, what was actually causing it.
 
-## What the research found
+## Letting research change the concept
 
 I interviewed three community elders, chosen so their living situations and digital
 comfort differed rather than because they were easy to reach. One at 78 living alone,
@@ -67,7 +67,7 @@ community organisations whose intervention is limited and often impatient.
 If the problem is that elders are positioned only as recipients, the design has to
 move them into the position of providers.
 
-## From needs to functions
+## Building the service ecosystem
 
 I ran a co-design session with community elders, a social worker, and other residents,
 and put six candidate functions in front of them.
@@ -93,7 +93,7 @@ as wanting to be assigned volunteer work, and the scoring is what showed me the
 difference. If I had trusted the concept I arrived with, that function would have
 shipped and failed.
 
-## The system
+## Connecting physical and digital touchpoints
 
 The result is three things that depend on each other, not an app with hardware
 attached.
@@ -122,7 +122,7 @@ workers, volunteer neighbours, gerontology researchers, family relatives, and th
 elders themselves. Mapping the money mattered. A service that no one can afford to
 run is a concept, not a design.
 
-## The ring
+## Testing with older adults
 
 I sketched a range of forms and took three forward. A ring rather than a band or a
 watch, because it is the least intrusive thing to wear all day and because tapping
@@ -150,7 +150,7 @@ wearable that produces false emergencies, which is worse than no emergency funct
 at all. And I had sized the ring for the form I wanted rather than for the range of
 hands that would wear it.
 
-## Reflection
+## Looking back
 
 The finding I did not design for is that adaptability to the ring varies a lot between
 individuals, and that nearly everyone worried about losing it. A device that holds
