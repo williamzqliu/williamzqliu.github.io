@@ -368,6 +368,10 @@ resume.
 - **Bold** sparingly, for a figure or a term the eye should catch.
 - Short paragraphs. No emoji. Prefer colons to em dashes in captions and short
   labels.
+- On a collaborative project, name the actor: first person for your own
+  contribution, *our team* for the group's. Avoid *the study* as an active
+  subject where a person would be clearer, but it stays fine as a descriptive
+  noun phrase, as in *the study's dataset*. Zero occurrences is not the rule.
 - Product names keep their own capitalisation; view names (Collaboration Map,
   Bridging Scholars) are proper nouns of the tool and stay plain.
 
