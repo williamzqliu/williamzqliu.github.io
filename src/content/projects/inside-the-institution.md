@@ -408,7 +408,7 @@ many connected across colleges.
 
 During testing, participants traced cross-unit ties, inspected local scholar networks,
 and compared those positions with profile information and their own knowledge of the
-university. They chose what to investigate rather than following predefined comparisons.
+university.
 
 <blockquote class="participant-quote">
   <p>&#8220;I would not have thought some of the different areas were like collaborating together.&#8221;</p>
