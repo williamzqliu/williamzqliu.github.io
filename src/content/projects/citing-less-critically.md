@@ -21,7 +21,7 @@ quickFacts:
   - label: "Role"
     value: "Scientific Figure Designer & Research Contributor"
   - label: "Outcome"
-    value: "Accepted to EMNLP 2026 Main Conference · Third author"
+    value: "Accepted to EMNLP 2026 Main Conference (third author)"
 ---
 
 <!--
