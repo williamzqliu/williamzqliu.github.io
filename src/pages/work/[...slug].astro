@@ -1177,7 +1177,10 @@ const facts = [
     font-size: var(--fs-display);
     line-height: 1.1;
     font-weight: var(--fw-strong);
-    letter-spacing: -0.04em;
+    /* Barely negative. Mono already sets its own even width, and pulling it
+       in as hard as a display line of the body face closed the gap between
+       the digits and the decimal point. */
+    letter-spacing: -0.01em;
     font-variant-numeric: tabular-nums;
     color: var(--text);
   }
@@ -1199,6 +1202,21 @@ const facts = [
     font-size: calc(var(--fs-small) + 1px);
     line-height: var(--lh-small);
     color: var(--text-3);
+  }
+
+  /* Where the figures came from, set as a caption because that is what it is:
+     the same size, tone and leading `.prose figcaption` uses under a picture.
+     Tight to the block above it so it reads as that block's attribution, and
+     the paragraph after it keeps the section's own spacing. */
+  .prose .stat-strip + .stat-strip__source {
+    margin-top: var(--sp-12);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .prose .stat-strip__source + p {
+    margin-top: var(--sp-40);
   }
 
   /* Four values, two by two, with the dividers closed into a cross. The strip

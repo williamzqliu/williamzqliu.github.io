@@ -107,6 +107,8 @@ and social integration pointed to concerns beyond basic care.
   </div>
 </div>
 
+<p class="stat-strip__source">Source: <em>Emotional needs of empty nesters in urban community and their countermeasures: Based on the investigation and analysis of three cities in Southern Jiangsu Province.</em></p>
+
 **Framework.** I used the Active Aging framework to organize the research around health,
 security, and participation. Participation became the area I chose to design around.
 
