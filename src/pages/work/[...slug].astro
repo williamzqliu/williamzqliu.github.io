@@ -1245,8 +1245,14 @@ const facts = [
     padding-left: 0;
   }
 
+  /* The dash is drawn with a width, a height and a background, so dropping
+     `content` alone is not enough: the divider below reuses this pseudo
+     element, and it inherited an 8px bar that showed up over every number. */
   .prose .process-steps li::before {
     content: none;
+    width: auto;
+    height: auto;
+    background: none;
   }
 
   /* Two class names: `.prose p` sets the copy size and colour and would
