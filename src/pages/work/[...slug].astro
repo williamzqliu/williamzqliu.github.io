@@ -804,6 +804,52 @@ const facts = [
     margin-top: var(--sp-16);
   }
 
+  /* Real source from the project, set the way this page sets everything else:
+     mono, one ink, no fill and no colour. Syntax highlighting is off site-wide
+     (see astro.config.mjs) because a themed rectangle would be the only
+     coloured surface on a page made of rules and space.
+
+     Hairlines above and below, like every other block that interrupts the
+     prose, and the scroll is contained so a long line moves the block rather
+     than the page. Twelve, because these are read line by line rather than
+     scanned, and mono sets wide. */
+  .prose pre {
+    margin-top: var(--sp-24);
+    padding-block: var(--sp-20);
+    border-top: var(--rule-hair) solid var(--rule);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .prose pre code {
+    display: block;
+    /* Not the 0.84em an inline literal takes: that is sized to sit inside a
+       sentence, and a block has no sentence to match. */
+    font-size: calc(var(--fs-small) - 1px);
+    line-height: 1.75;
+    font-weight: var(--fw-mono);
+    /* The supporting tone rather than `--code-ink`. A word in a sentence
+       wants the hue to mark it as a literal; twenty lines of it would be a
+       wash. */
+    color: var(--text-2);
+    white-space: pre;
+  }
+
+  /* One line about the excerpt above, in the caption register a figure uses:
+     what the code means for the reader, not what it does line by line. */
+  .prose .code-note {
+    margin-top: var(--sp-12);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .prose .code-note + p,
+  .prose pre + p {
+    margin-top: var(--sp-32);
+  }
+
   .prose li {
     position: relative;
     padding-left: var(--sp-20);
