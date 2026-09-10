@@ -549,6 +549,23 @@ conventions that have no home there.
 - Product names keep their own capitalisation; view names (Collaboration Map,
   Bridging Scholars) are proper nouns of the tool and stay plain.
 
+**One-pass comprehension.** A sentence should be understandable on the first
+read. The reader should not have to return to its beginning, split it mentally,
+hold several clauses open, or translate an abstract phrase into what it actually
+means. Length is not the test: a forty-word sentence that reads clearly on the
+first pass is fine; a twenty-word sentence that has to be reconstructed is not.
+
+Common failure modes include an abstract noun standing in for a concrete action;
+an unclear subject or referent; a second major claim appended with `which` or
+`and` to an already complete sentence; and a list whose items are not parallel
+in structure.
+
+**Check it during editing, not after.** When a section is substantially
+finished, read it once against this standard and report anything that fails
+before moving to the next section. Fixing one sentence is cheap; a full-site
+pass is not. A project joins the reviewed set once its final section has passed
+this check.
+
 ---
 
 ## The iteration rule
