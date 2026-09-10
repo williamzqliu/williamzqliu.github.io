@@ -411,31 +411,26 @@ many connected across colleges.
   </div>
 </div>
 
-During testing, participants traced cross-unit ties, inspected scholars between
-clusters, and compared those positions with their own knowledge of the university.
+During testing, participants traced cross-unit ties, inspected local scholar networks,
+and compared those positions with profile information and their own knowledge of the
+university.
+
+<figure>
+  <img
+    src="/media/inside-the-institution/scholar-selected.webp"
+    alt="The Collaboration Map with one scholar selected in 2-Hop view: their local network on the left, and a panel on the right showing affiliations, h-index, collaborators and research interests."
+    width="1256"
+    height="708"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>A selected scholar in 2-Hop view: local connections shown alongside profile and research context.</figcaption>
+</figure>
 
 One participant found a scholar with a modest h-index but a high bridge score. That
 contrast made them question whether bibliometric impact and structural importance were
 measuring the same thing.
 
-<!-- INTERFACE STATE — waiting on one file. Drop it in
-     public/media/inside-the-institution/ and uncomment; the section reads fine
-     until then.
-
-     bridge-scholar-selected.webp — the Collaboration Map with a bridge scholar
-     selected, the panel open beside it, so the ring, the h-index and the
-     affiliations are visible in one frame.
-
-<figure>
-  <img
-    src="/media/inside-the-institution/bridge-scholar-selected.webp"
-    alt="The Collaboration Map with a bridge scholar selected: a ringed node in the network and the scholar panel open beside it."
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>A selected bridge scholar: structural position shown alongside bibliometric and affiliation context.</figcaption>
-</figure>
--->
 
 ## Reflection
 
