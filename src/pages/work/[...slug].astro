@@ -728,13 +728,27 @@ const facts = [
     color: inherit;
   }
 
-  .prose blockquote:not(.participant-quote) p:last-child {
+  /* The statement is the second paragraph, or the only one. Written as
+     `:last-child` this was the same thing until a callout needed a line under
+     its statement, at which point the last paragraph was the quiet one. */
+  .prose blockquote:not(.participant-quote) p:only-child,
+  .prose blockquote:not(.participant-quote) p:nth-child(2) {
     margin-top: var(--sp-12);
     font-size: var(--fs-title);
     font-weight: var(--fw-medium);
     line-height: 1.35;
     letter-spacing: -0.015em;
     color: var(--text);
+  }
+
+  /* A third paragraph carries what the statement leaves out, at copy size in
+     the supporting tone: the statement is the finding, this is the detail
+     behind it. */
+  .prose blockquote:not(.participant-quote) p:nth-child(3) {
+    margin-top: var(--sp-8);
+    font-size: var(--fs-copy);
+    line-height: var(--lh-body-lg);
+    color: var(--text-2);
   }
 
   /* Editorial emphasis, not highlighting: a weight step and nothing else. No

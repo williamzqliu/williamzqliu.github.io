@@ -21,19 +21,15 @@ quickFacts:
 
 ## From assumptions to participation
 
-Comgrand began with my grandmother. She lived independently, but unfamiliar technology
-and changes in daily life often made her pull back rather than engage. I initially saw
-that as resistance to change.
+Comgrand began with my grandmother, who lived independently. During the pandemic, I began
+paying closer attention to how she navigated uncertainty and change. Even after
+restrictions eased in December 2022, she stayed home for nearly another month because she
+lacked a reliable way to know what was happening. I initially read this as resistance to
+change.
 
-I interviewed three older adults in Chongqing with different living situations and levels
-of digital confidence, then compared those conversations with secondary research on older
-adults living alone in Chinese cities. The material pointed to a broader gap: everyday
-care was only part of the picture. Social connection, self-worth, and opportunities to
-participate also mattered.
-
-That changed the question I wanted to design around. Instead of asking how to make older
-adults adapt to new technology, I began asking how a community could give them more
-meaningful ways to **connect, participate, and contribute on their own terms**.
+I interviewed three older adults in Chongqing and compared their experiences with
+secondary research on older adults living alone in urban China. The research shifted my
+focus beyond everyday care.
 
 <!-- `--pair-split` in the pictures' own aspect ratios, 1.354 and 2.284, so
      two differently shaped photographs come out the same height without
@@ -65,10 +61,15 @@ meaningful ways to **connect, participate, and contribute on their own terms**.
   </figure>
 </div>
 
-> **Research shift**
+> **Research gap**
 >
-> From helping older adults adapt to technology, to designing for participation on their
-> own terms.
+> Independent living did not mean meaningful participation.
+>
+> Social connection, self-worth, and opportunities to contribute still mattered.
+
+That reframed the project: instead of asking older adults to adapt to technology, I asked
+how a community could help them **connect, participate, and contribute on their own
+terms**.
 
 <details>
 <summary>Research details</summary>
