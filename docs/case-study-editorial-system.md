@@ -487,9 +487,10 @@ Never alphabetised, never numbered: vertical order is the only ranking, and it
 is not labelled as one. The cap is in the schema, so a sixth fails the build.
 
 **Tools** — at most five, same rules. Combine closely related services rather
-than spending two slots on them: `Scholarly APIs (*OpenAlex* and *ORCID*)` is
-one entry. `*name*` in a credits string sets that name in italics, the same
-convention the prose uses for named software.
+than spending two slots on them: `Scholarly APIs (OpenAlex and ORCID)` is one
+entry. `*name*` in a credits string sets that name in italics, which is for a
+work title; software sets roman here as it does in the prose, so nothing in the
+current credits uses it.
 
 **Team** — groups of `{ group, people }`, so a project can carry Design,
 Development, Research, Leadership, Advising, or whatever it actually had.
@@ -525,11 +526,19 @@ resume.
 
 ## Prose conventions
 
-- **Inline code** for literal interface values, field names, modes and
-  identifiers: `` `Direct` ``, `` `1-Hop` ``, `` `internal ID` ``.
-- **Italics** for named software, tools, databases, publications and papers:
-  *Gephi*, *D3.js*, *OpenAlex*, *ORCID*, *Figma*.
-- Generic technologies stay plain: HTML Canvas, SVG, WebGL.
+For the typographic and semantic formatting conventions in full, follow
+`docs/portfolio-formatting.md`. It is the source of truth, and where the two
+files disagree it wins. What is here is the short form and the narrative
+conventions that have no home there.
+
+- **Inline code** for literal technical tokens: function names with their
+  parentheses, variables, CSS properties and values, file paths, commands, data
+  field names, and code literals such as `` `null` ``.
+- **Interface labels are ordinary text** in their own capitalisation: Direct,
+  1-Hop, 2-Hop. A backtick claims the word is code, and a label is not.
+- **Italics** for the titles of standalone works: *Sanctuary*, *150 Years of
+  Nature*. Software, services, databases, tools and models set roman: Gephi,
+  D3.js, OpenAlex, ORCID, Figma.
 - **Bold** sparingly, for a figure or a term the eye should catch.
 - Short paragraphs. No emoji. Prefer colons to em dashes in captions and short
   labels.
