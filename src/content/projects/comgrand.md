@@ -372,10 +372,10 @@ all-day wear than a larger wrist device, while also making simple tap-based inte
 such as identity exchange, payment, and event check-in more immediate.
 
 <!-- The exploration and what it resolved into, in the pictures' own aspect
-     ratios, 1.491 and 1.302, so the sheet of sketches and the render come out
+     ratios, 1.491 and 1.219, so the sheet of sketches and the render come out
      the same height with neither cropped. -->
 
-<div class="media-pair" style="--pair-split: 1.491fr 1.302fr">
+<div class="media-pair" style="--pair-split: 1.491fr 1.219fr">
   <figure>
     <img
       src="/media/comgrand/ring-sketches.webp"
@@ -392,12 +392,12 @@ such as identity exchange, payment, and event check-in more immediate.
     <img
       src="/media/comgrand/ring-product-render.webp"
       alt="A render of the ring in two finishes, annotated with the proposed components: health data sensor, electrode array, integrated dynamic sensor, NFC and Bluetooth, a pressable display and a solar module, with the digital model measured at 1.9 by 2.3 by 0.6 centimetres. A hand wearing a ring sits above."
-      width="3200"
-      height="2459"
+      width="3120"
+      height="2560"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>The digital model of the ring, with the components and dimensions the concept proposed.</figcaption>
+    <figcaption>The digital model of the ring.</figcaption>
   </figure>
 </div>
 
