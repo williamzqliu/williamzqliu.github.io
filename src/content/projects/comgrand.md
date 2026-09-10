@@ -138,8 +138,8 @@ security, and participation. Participation became the area I chose to design aro
 
 ## Letting research change the concept
 
-Reframing the problem around participation still left a practical question: **what should
-the service actually help older adults do?**
+That reframing raised a practical question: **what should the service actually help older
+adults do?**
 
 To narrow the concept, I brought six possible directions into a co-design session with
 older adults, a community social worker, and other residents. Their priorities became
@@ -255,9 +255,8 @@ contribution-oriented activities I had started from.
 
 ## Building the service ecosystem
 
-The priorities from co-design crossed social connection, health, activities, and community
-life. A single product would have been too narrow, so I began thinking about how those
-experiences could work together as a service.
+Because those priorities spanned social connection, health, and community life, I developed
+them into a service ecosystem rather than a single product.
 
 I structured Comgrand around **three interdependent layers**: community spaces that
 supported everyday interaction, services and activities people could join or help lead, and
@@ -352,6 +351,9 @@ carried it, and what had to happen frontstage and backstage behind it.
 
 
 ## Connecting physical and digital touchpoints
+
+With the ecosystem defined, I split the digital experience between an app for
+information-rich tasks and a ring for quick, everyday interactions.
 
 I sketched a range of forms and took three forward. A ring rather than a band or a
 watch, because it is the least intrusive thing to wear all day and because tapping
