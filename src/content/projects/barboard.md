@@ -267,7 +267,7 @@ files, but to make the community&#8217;s history easier to return to and use aga
 
   <div class="stat-strip__cell">
     <p class="stat-strip__value">11,130</p>
-    <p class="stat-strip__label">Ballot records</p>
+    <p class="stat-strip__label">Vote records</p>
   </div>
 </div>
 
