@@ -1354,7 +1354,7 @@ const facts = [
      name when the cell is a person rather than a step, and the rule below
      zeroes it in the first case. */
   .prose .process-steps__num {
-    margin-top: calc(var(--sp-4) + 2px);
+    margin-top: calc(var(--sp-8) - 1px);
     font-family: var(--font-mono);
     /* A pixel over the mono micro size. It carries a stage number in one
        block and a person's age in another, and at 11 the age read as a
@@ -1377,11 +1377,12 @@ const facts = [
     color: var(--text);
   }
 
-  /* Where the quiet line sits between the name and the description, the
-     description takes the wider gap: name and age are one thing, what follows
-     is another. */
+  /* Nine under the quiet line against seven above it, so the description
+     reads as the next thing rather than as more of the name. Only where it
+     follows that line: where the note follows a name directly, as it does
+     under a stage, the four below still applies. */
   .prose .process-steps__num + .process-steps__note {
-    margin-top: calc(var(--sp-8) + 2px);
+    margin-top: calc(var(--sp-8) + 1px);
   }
 
   .prose .process-steps__note {
