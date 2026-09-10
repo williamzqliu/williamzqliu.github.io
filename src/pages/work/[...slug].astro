@@ -1203,10 +1203,10 @@ const facts = [
   /* An exact sentence from a study participant. A vertical rule rather than a
      horizontal one: the stat strip and the section rules already cut across
      this column, and a third full-width line would keep slicing the page
-     instead of marking a voice. The callout keeps the heavy 2px accent; this
-     is a hairline of the same colour, held to a shorter measure and closed by
-     its source. Verbatim participant speech only — not conclusions, not
-     summaries.
+     instead of marking a voice. Same rule weight as the callout, in the same
+     colour: the two never appear in the same section, and what tells them
+     apart is the shorter measure and the source underneath. Verbatim
+     participant speech only — not conclusions, not summaries.
 
      `--measure` is in `ch` and resolves against this element's own font size,
      so the block stays at copy size and the sentence inside it steps up. */
@@ -1214,7 +1214,7 @@ const facts = [
     max-width: calc(var(--measure) * 0.85);
     margin-block: var(--sp-32);
     padding-left: var(--sp-20);
-    border-left: var(--rule-hair) solid var(--accent);
+    border-left: var(--rule-heavy) solid var(--accent);
     font-size: var(--fs-copy);
   }
 
