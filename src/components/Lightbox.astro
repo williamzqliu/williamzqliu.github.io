@@ -513,7 +513,15 @@
       // full-width clip further down the article. Both keys are rounded into
       // bands so this is a real ordering rather than a fuzzy comparison that
       // sorts differently depending on where it starts.
-      const items = Array.from(document.querySelectorAll<Source>(SOURCES));
+      // Only what the reader can actually see. A figure inside a closed
+      // disclosure is still laid out — the element keeps its box, the
+      // disclosure just clips it — so a geometry test does not catch it, and
+      // stepping the gallery into a picture that is not on the page behind
+      // the viewer is a dead end nobody asked for. The clicked source is open
+      // by construction, so nothing that can start a gallery is filtered out.
+      const items = Array.from(document.querySelectorAll<Source>(SOURCES)).filter(
+        (element) => !element.closest('details:not([open])')
+      );
       const tile = (element: Source): Element => element.closest('.media-mosaic') ?? element;
       const seat = new Map<Element, number>();
       items.forEach((element, position) => {

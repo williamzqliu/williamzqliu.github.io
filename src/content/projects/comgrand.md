@@ -142,9 +142,9 @@ Reframing the problem around participation still left a practical question: **wh
 the service actually help older adults do?**
 
 To narrow the concept, I brought six possible directions into a co-design session with
-older adults, a community social worker, and other residents. Their priorities came back
-clearer than my initial concept: companionship first, then physical health, then having a
-wider variety of things to do.
+older adults, a community social worker, and other residents. Their priorities became
+clearer: physical health came first, followed by companionship and a desire for more varied
+activities.
 
 <!-- Three frames of one session, so `--pair-split` carries the pictures' own
      aspect ratios, 0.73, 1.297 and 0.73. All three masters are 592px tall, so
@@ -255,32 +255,101 @@ contribution-oriented activities I had started from.
 
 ## Building the service ecosystem
 
-The result is three things that depend on each other, not an app with hardware
-attached.
+The priorities from co-design crossed social connection, health, activities, and community
+life. A single product would have been too narrow, so I began thinking about how those
+experiences could work together as a service.
 
-The community layer is physical. An elderly-oriented area gets renovated, with a
-bulletin board and interactive fixtures, so that the incidental bench conversations
-that already happen have somewhere to happen reliably.
+I structured Comgrand around **three interdependent layers**: community spaces that
+supported everyday interaction, services and activities people could join or help lead, and
+digital touchpoints that connected those experiences without replacing them.
 
-The service layer is programming: health talks, skill workshops, and co-creation of
-the community space, organised so elders can run sessions as well as attend them.
+<ul class="process-steps">
+  <li>
+    <p class="process-steps__name">Community space</p>
+    <p class="process-steps__note">Physical spaces, bulletin boards, and shared facilities, so informal interaction had somewhere to happen and activities stayed visible in everyday community life.</p>
+  </li>
 
-The digital layer is an app and a ring, syncing in both directions. The app has four
-sections: Neighborhood for sharing and contact, Health for records and medication
-reminders, Events for community activities, and Me for settings and the points
-system. The ring carries NFC for payment and identity exchange, sensors for health
-data, Bluetooth for sync, and an emergency trigger with a status light.
+  <li>
+    <p class="process-steps__name">Services and activities</p>
+    <p class="process-steps__note">Health talks, skill-sharing, workshops, and community events that older adults could attend or help lead.</p>
+  </li>
 
-The points system exists to make participation pay. Attending and running activities
-earns community points, and those points redeem against health services at the
-community clinic. Without that loop, asking elders to contribute is asking them for
-labour.
+  <li>
+    <p class="process-steps__name">Digital support</p>
+    <p class="process-steps__note">A mobile app and a smart ring carrying identity, events, health information, and lightweight interactions across the rest of the service.</p>
+  </li>
+</ul>
 
-The system map traces material, information, and money across nine parties:
-technology company, government, community office, community clinics, community
-workers, volunteer neighbours, gerontology researchers, family relatives, and the
-elders themselves. Mapping the money mattered. A service that no one can afford to
-run is a concept, not a design.
+> **System decision**
+>
+> Not an app with hardware attached.
+>
+> The physical spaces, the services, and the digital touchpoints were designed to depend on
+> one another.
+
+Participation also had to be reciprocal. Older adults would earn community points by
+joining or leading activities and redeem them for health services at the community clinic.
+If people give the community their time or their knowledge, the system should return
+something of value.
+
+<ol class="process-steps">
+  <li>
+    <p class="process-steps__num">01</p>
+    <p class="process-steps__name">Join or lead activities</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">02</p>
+    <p class="process-steps__name">Earn community points</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">03</p>
+    <p class="process-steps__name">Redeem health services</p>
+  </li>
+</ol>
+
+A service like this also depended on more than the older adults using it. I mapped the
+groups and organizations it would involve, along with the materials, information, and money
+moving between them, to work out what would have to support the experience around the
+person using it.
+
+<figure>
+  <img
+    src="/media/comgrand/system-map.webp"
+    alt="The Comgrand system map. Nine groups are placed around the community elderly at the centre: technology company, government, community office, community clinics, community workers, volunteer neighbours, gerontology researchers, family relatives, and the device and application themselves. Solid, dashed and pink arrows carry material flow, information flow and fund flow between them, each labelled with what moves. A stakeholder map on the right sorts the same groups into partners, primary and secondary stakeholders."
+    width="3200"
+    height="1542"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>The service ecosystem across nine participating groups and the resources exchanged between them.</figcaption>
+</figure>
+
+Mapping these relationships made the operational side of the concept visible. Designing the
+experience also meant asking who would provide each service, where information would move,
+and how value could circulate through the system.
+
+<details>
+<summary>How the service works end to end</summary>
+
+I used a service blueprint to trace what someone did at each stage, which touchpoint
+carried it, and what had to happen frontstage and backstage behind it.
+
+<figure>
+  <img
+    src="/media/comgrand/service-blueprint.webp"
+    alt="The Comgrand service blueprint. Columns run left to right through preparation, treatment offline and online, event participation beforehand, in progress and afterwards, online socialization, and achievements. Rows below each stage list user behaviour, whether the app or the device is the touchpoint, the frontstage actions the service performs, and the backstage actions behind them."
+    width="3200"
+    height="1301"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Service blueprint: user behaviour at each stage, the touchpoint carrying it, and the frontstage and backstage actions behind it.</figcaption>
+</figure>
+
+</details>
+
 
 ## Connecting physical and digital touchpoints
 
