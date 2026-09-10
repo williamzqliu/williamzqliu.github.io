@@ -24,6 +24,34 @@ quickFacts:
     value: "Scientific Figure Designer & Research Contributor"
   - label: "Outcome"
     value: "Accepted to the EMNLP 2026 Main Conference (third author)"
+# Order is the editorial decision here, not an alphabet. Network analysis is
+# deliberately absent from skills: the coauthorship analysis was not mine.
+credits:
+  skills:
+    - Scientific figure design
+    - Information design
+    - Research data engineering
+    - Research validation
+  tools:
+    - Figma
+    - Python
+    - pandas
+    - Dimensions
+  team:
+    - group: Authors
+      people:
+        - "Yixuan Liu*"
+        - "Lin Chen*"
+        - Zhuoqi Liu
+        - Jianglin Lu
+        - Dakota Murray
+    - group: My contribution
+      people:
+        - Scientific figure design, Figures 1 and 4a
+        - Bibliographic matching pipeline
+        - Citation-intent rubric development
+        - Human validation
+  note: Yixuan Liu and Lin Chen contributed equally.
 ---
 
 <!--

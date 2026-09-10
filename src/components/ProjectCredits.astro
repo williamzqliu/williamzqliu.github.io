@@ -41,7 +41,14 @@ const { credits } = Astro.props;
 // `*Gephi*` marks a product or service, the same convention the prose uses for
 // named things. Splitting on the asterisk puts every odd piece in italics, so
 // a tools entry can name what it wraps without the schema growing a shape.
-const marked = (text: string) => text.split('*');
+//
+// Only when the asterisks pair up. A lone one is a footnote mark, not an
+// opening delimiter — `Yixuan Liu*` in an author list would otherwise lose it
+// to an empty `<em>`.
+const marked = (text: string) => {
+  const parts = text.split('*');
+  return parts.length > 2 && parts.length % 2 === 1 ? parts : [text];
+};
 
 const kept = (list: (Row | null)[]) => list.filter(Boolean) as Row[];
 
