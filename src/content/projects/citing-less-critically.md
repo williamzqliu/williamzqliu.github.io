@@ -2,24 +2,26 @@
 title: "Citing Less Critically"
 year: 2026
 dates: "Nov 2025 – Aug 2026"
-blurb: "A study of whether large language models cite the way scholars do, with my two figures and citation-matching pipeline."
+blurb: "An EMNLP 2026 study of how LLMs reshape scientific citation. I designed two of its figures and built its bibliographic matching pipeline."
 tags: ["networks"]
 tracks: ["design", "engineering"]
 featured: 2
 draft: false
-stack: ["Figma", "Python", "pandas", "OpenAlex API", "Dimensions"]
+stack: ["Figma", "Python", "pandas", "Dimensions"]
 links:
-  paper: "https://arxiv.org/abs/2609.01432"
+  paper:
+    href: "https://arxiv.org/abs/2609.01432"
+    label: "Preprint"
   code: "https://github.com/liu-yi-xuan/llm_citation_intent/"
 cover:
   wide: "/media/citing-less-critically/cover-wide.webp"
-  tone: "light"
+  tone: "neutral"
   alt: "A human hand and a robot hand each holding out a reference card toward the same empty citation bracket on a page of text, between stacks of books labelled HUMAN and LLM."
 quickFacts:
   - label: "Role"
-    value: "Research Contributor & Figure Designer"
+    value: "Scientific Figure Designer & Research Contributor"
   - label: "Outcome"
-    value: "Third author on a paper published at EMNLP 2026, main conference"
+    value: "Accepted to EMNLP 2026 Main Conference · Third author"
 ---
 
 <!--
@@ -34,7 +36,16 @@ Cover must be a redrawn version of Figure 1 or Figure 4a, not the typeset
 version lifted from the PDF.
 -->
 
-An EMNLP 2026 paper asks whether large language models cite the way scholars do. I designed two of its figures, built the pipeline that resolved its citations to bibliographic records, and served as one of three human annotators on its validation set.
+Scientific citations do more than point to prior work. They also signal whether a scholar
+supports, contrasts with, or simply mentions previous research. This study asks what
+happens to those choices when an LLM writes the citation instead.
+
+Across six models and 132,913 human citation slots from 1,746 ACL, EMNLP, and NAACL
+papers, the study found that LLMs cite less critically, favor older and more visible
+work, and reach farther outside authors’ collaboration networks. My contribution focused
+on making that research legible and auditable: I designed two explanatory figures, built
+the final bibliographic matching pipeline, and contributed to the human validation of
+citation intent.
 
 ## The problem
 
