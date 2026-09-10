@@ -257,12 +257,13 @@ labels.
 
 ## Outcome and takeaway
 
-Accepted at EMNLP 2026, main conference. Preprint and code are public.
+The paper was accepted to the EMNLP 2026 Main Conference, with me as third author. It was
+the first paper I contributed to that was accepted for publication, and my first
+experience working as part of a research team through a full peer-review cycle.
 
-I am the third of five authors, and Human annotator 3 in the paper's validation table. The equal-contribution marks belong to the first two. The research question, the masked-citation design, the judging procedure and the 20.3-million-edge coauthorship analysis are not mine, and I would rather say so than let a reader assume otherwise. What is mine is above.
-
-The useful thing I learned is that in a pipeline feeding a published claim, the failure modes are not symmetric. Recall problems announce themselves as a number somebody will ask about. Precision problems do not announce themselves at all: a wrong match becomes a real-looking row in a real-looking table, and the person who eventually notices is a reader, after publication. Designing for the loud failure over the quiet one is not caution, it is the only version that survives review.
-
-The figures taught me something narrower. Reviewers of a methods paper read for whether the method is sound, not for whether the diagram is handsome, and a framework figure earns its space by making one thing checkable. The density note was the most useful piece of design feedback I have had, because it came from someone with no stake in the diagram and every stake in understanding the method.
-
-Figure 4a is the one I would show if asked for a single example of information design: a definition nobody would read, turned into something a reader gets in one pass. It needed one revision. Figure 1 needed nine, which is the more honest number.
+What stayed with me most was how research quality is built collectively. I learned that
+contributing well does not mean owning every part of a project. It means making my part
+rigorous enough to support the work around it, whether that meant resolving data
+carefully, making a complex method easier to inspect, or checking an automated result
+against human judgment. The project also showed me how naturally my design and technical
+skills can work together in a research setting.
