@@ -34,9 +34,10 @@ credits:
     - Research validation
   tools:
     - Figma
-    - Python
-    - pandas
+    - Python (pandas)
     - Dimensions
+  # Three rows in total, so there is nothing worth putting behind a control.
+  collapse: false
   # Who I worked with, not the paper's author line. No per-person roles: we
   # have no verified role attribution for the others.
   team:

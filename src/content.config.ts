@@ -88,6 +88,9 @@ const projects = defineCollection({
           .default([]),
         specialThanks: z.array(z.string()).default([]),
         note: z.string().optional(),
+        /* Attribution normally sits behind one disclosure. Set false where
+           there is too little behind it to be worth closing. */
+        collapse: z.boolean().default(true),
       })
       .optional(),
   }),
