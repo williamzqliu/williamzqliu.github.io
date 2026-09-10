@@ -119,6 +119,9 @@
   .lb[data-zoomed] .lb__img {
     max-width: none;
     max-height: none;
+    /* A haul across a large picture should not select the caption on the way. */
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   /* The chrome stays where the window is, not where the picture is: with the
@@ -800,6 +803,62 @@
     let rolled = 0;
     let rolledAt = 0;
     let steppedAt = 0;
+
+    /* Zoomed in, the picture can also be pushed around with the mouse. The
+       scrollbars are still the primary control — this is the shortcut for
+       moving a long way without reaching for them. It scrolls the container
+       rather than transforming the picture, so both stay in agreement.
+
+       The cursor stays `zoom-out` at rest: the click is still what returns the
+       picture to its fitted size, and only the drag itself shows a grabbing
+       hand. */
+    let hauling = false;
+    let haulX = 0;
+    let haulY = 0;
+    let fromLeft = 0;
+    let fromTop = 0;
+
+    dialog.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (event.pointerType !== 'mouse' || !dialog.dataset.zoomed) return;
+        if (!(event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) return;
+        hauling = true;
+        haulX = event.clientX;
+        haulY = event.clientY;
+        fromLeft = dialog.scrollLeft;
+        fromTop = dialog.scrollTop;
+        frame.style.cursor = 'grabbing';
+        dialog.setPointerCapture(event.pointerId);
+      },
+      { signal }
+    );
+
+    dialog.addEventListener(
+      'pointermove',
+      (event) => {
+        if (!hauling) return;
+        event.preventDefault();
+        dialog.scrollTo(fromLeft - (event.clientX - haulX), fromTop - (event.clientY - haulY));
+      },
+      { signal }
+    );
+
+    const drop2 = (event: PointerEvent) => {
+      if (!hauling) return;
+      hauling = false;
+      frame.style.cursor = '';
+      if (dialog.hasPointerCapture(event.pointerId)) dialog.releasePointerCapture(event.pointerId);
+      // A drag ends in a click; without this the picture would snap back to
+      // fitted every time it was moved.
+      if (Math.abs(event.clientX - haulX) > 4 || Math.abs(event.clientY - haulY) > 4) threw = true;
+    };
+
+    dialog.addEventListener('pointerup', drop2, { signal });
+    dialog.addEventListener('pointercancel', drop2, { signal });
+
+    // The browser's own image drag would start a ghost image mid-haul.
+    frame.addEventListener('dragstart', (event) => event.preventDefault(), { signal });
 
     dialog.addEventListener(
       'wheel',
