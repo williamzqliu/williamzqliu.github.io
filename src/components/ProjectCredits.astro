@@ -102,16 +102,25 @@ const rows = credits
     border-top: var(--rule-heavy) solid var(--rule-strong);
   }
 
-  /* The size the section headings never reach, because this one is a title
-     rather than a heading — it names the whole block instead of opening a
-     part of it. */
+  /* Set exactly as a section heading is: this closes the same page the
+     numbered sections run down, and a larger face would read as a second
+     title competing with the project's own. What marks it as the end is the
+     heavy rule above it and the column it stands in, not its size. */
   .credits__title {
     font-family: var(--font-display);
-    font-size: var(--fs-display-lg);
-    line-height: var(--lh-display-lg);
+    font-optical-sizing: auto;
+    font-size: var(--fs-lead);
+    line-height: 1.15;
     font-weight: var(--fw-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
     color: var(--text);
+  }
+
+  /* The same step the article's headings take on a phone. */
+  @media (max-width: 639px) {
+    .credits__title {
+      font-size: 1.75rem;
+    }
   }
 
   .credits__rows {
@@ -132,7 +141,10 @@ const rows = credits
      the section bar. */
   .credits__label {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    /* 14px. These are the only mono labels on the page that carry a column of
+       their own rather than sitting directly over their value, and at 12 they
+       read as a footnote to the names instead of as the heading of a row. */
+    font-size: 0.875rem;
     font-weight: var(--fw-mono);
     line-height: var(--lh-micro);
     letter-spacing: 0.06em;
