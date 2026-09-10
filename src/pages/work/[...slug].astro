@@ -904,6 +904,13 @@ const facts = [
     margin-top: var(--sp-32);
   }
 
+  /* A row inside one figure, under one caption: three frames of a single
+     moment are one picture as far as the reader is concerned. The figure
+     already carries the space above, so the row starts flush with it. */
+  .prose figure > .media-pair {
+    margin-top: 0;
+  }
+
   /* A caption sits under the left edge of its picture, which is right until
      the picture has no left edge. The network plate is a circle on a
      transparent ground, so the only edge it really has is its centre — this
@@ -1554,18 +1561,34 @@ const facts = [
      figure are a table by the rule this system already follows, so this is a
      modifier rather than a pattern: what it adds is the reading order.
 
-     The position leads in the quiet mono the process steps use, the name takes
-     the ink, and the figure stays at copy size instead of a display size,
-     because the reader is after the order rather than the size of the gap
-     between 20 and 19.
+     The two number columns are fixed and centred in their own width, so the
+     positions and the figures each stack into a column the eye can run down
+     without either one being pushed against an edge, and the name takes
+     whatever is left.
 
-     `data-mark` lifts one row back to full ink. It marks the row the copy
-     around the table is about, not a failure state, so there is no fill, no
-     colour and no rule on it. */
+     `--measure` is in `ch` and resolves against the element's own font size.
+     The table sets the body size for its cells, so the max-width is stated at
+     the copy size here and handed back to the cells below; otherwise the block
+     runs to the article column while the paragraphs around it stop at the
+     prose measure. */
+  .prose table[data-ranked] {
+    max-width: var(--measure);
+    font-size: var(--fs-copy);
+  }
+
+  .prose table[data-ranked] td {
+    font-size: var(--fs-body);
+    /* Full ink. Mono at 15 on a cream ground already reads a step lighter than
+       the sans beside it, and the mixed tone the general table cell carries
+       took it below legible. */
+    color: var(--text);
+  }
+
   .prose table[data-ranked] th:first-child,
   .prose table[data-ranked] td:first-child {
     width: 3rem;
     padding-right: var(--sp-12);
+    text-align: center;
   }
 
   .prose table[data-ranked] td:first-child {
@@ -1574,24 +1597,24 @@ const facts = [
     font-weight: var(--fw-mono);
     letter-spacing: 0.06em;
     font-variant-numeric: tabular-nums;
-    color: var(--text-3);
+    /* A step down from the cells, not two: the position is the quiet column,
+       but it is still being read. */
+    color: var(--text-2);
   }
 
   .prose table[data-ranked] th:last-child,
   .prose table[data-ranked] td:last-child {
     width: 4rem;
     padding-right: 0;
-    text-align: right;
+    text-align: center;
   }
 
   .prose table[data-ranked] td:last-child {
     font-family: var(--font-mono);
+    /* A pixel under the name beside it, at the regular weight. The figure is
+       what the ranking was built from, not what the row is read for. */
+    font-size: calc(var(--fs-body) - 1px);
     font-variant-numeric: tabular-nums;
-  }
-
-  .prose table[data-ranked] tr[data-mark] td:nth-child(2) {
-    font-weight: var(--fw-medium);
-    color: var(--text);
   }
 
   /* Collapsed layers. Eleven case studies use native <details>/<summary> for

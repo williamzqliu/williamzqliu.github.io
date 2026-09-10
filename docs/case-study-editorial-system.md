@@ -109,6 +109,14 @@ exported as a single figure are one `<figure>` with one caption below, not five
 crops in a grid: the composition is already the evidence, and the viewer
 enlarges the whole strip.
 
+**One moment, one caption.** Where several frames are the same moment rather
+than a comparison, the row goes inside a single `<figure>` as bare `<img>`
+children of the `.media-pair`, with one `<figcaption>` under it: three photos
+of one session are one picture as far as the reader is concerned, and three
+captions would ask them to tell the frames apart. `--pair-split` takes as many
+ratios as there are frames, so masters exported at one height come out in a row
+at one height. Comgrand's Section 02 has the three-frame form.
+
 **Don't** put two unrelated images together to save vertical space.
 
 ### Figure mosaic — `.media-mosaic`
@@ -262,17 +270,23 @@ carrying the six directions from the co-design session.
 
 **A modifier, not a pattern.** The strip's own rule already sends this shape to
 `.prose table`: rows that are the content, with the figures as one column of
-it. So this adds three columns' worth of hierarchy to the table rather than a
-new block. The position leads in the quiet mono the process steps use, the
-name takes the ink at copy size, and the figure follows in mono, tabular and
-right-aligned against the prose's right edge. Fixed 3rem and 4rem outer
-columns, so the name takes whatever is left and the two number columns stay
-put down the page.
+it. So this adds hierarchy to the table rather than a new block. Fixed 3rem and
+4rem outer columns, both centred in their own width, so the positions and the
+figures each stack into a column the eye runs down; the name takes whatever is
+left. The position is mono at the micro size in the secondary tone, the name
+takes full ink at the body size, and the figure follows in mono a pixel under
+it at the regular weight — it is what the ranking was built from, not what the
+row is read for.
 
-`data-mark` on one `<tr>` lifts that row's name to full ink and
-`--fw-medium`. It is for the row the copy around the table is about, and only
-ever one. No fill, no colour and no rule: a marked row is the one being
-discussed, not an error state.
+Prose width, stated as `--measure` at the copy size on the table with the body
+size handed back to the cells: `ch` resolves against the element's own font
+size, and without that the block runs to the article column while the
+paragraphs around it stop at the measure.
+
+**Every row reads the same.** An earlier version lifted one row to full ink to
+mark the entry the copy discusses. It read as a state rather than as emphasis,
+and the sentence under the table already names the row. The ranking carries its
+own emphasis through position.
 
 **Don't** convert the values to percentages, add a chart, or write a figure
 into the table that the section does not need — if magnitude is the message

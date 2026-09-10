@@ -144,12 +144,40 @@ older adults, a community social worker, and other residents. Their priorities c
 clearer than my initial concept: companionship first, then physical health, then having a
 wider variety of things to do.
 
-<!-- TODO media. Section 3 of the brief asks for one photograph from the 2023
-     co-design session, or a tight crop of the prioritisation board. Nothing of
-     the kind is in `media-src/comgrand/`, which holds only the cover and the two
-     grandmother photographs, so this section publishes no figure rather than a
-     path that does not resolve. Drop a co-design photo into that folder and it
-     goes in here, above the ranking. -->
+<!-- Three frames of one session, so `--pair-split` carries the pictures' own
+     aspect ratios, 0.73, 1.297 and 0.73. All three masters are 592px tall, so
+     the ratios put them in a row at one height with nothing cropped. One
+     caption, because it is one moment. -->
+
+<figure>
+  <div class="media-pair" style="--pair-split: 0.73fr 1.297fr 0.73fr">
+    <img
+      src="/media/comgrand/codesign-01.webp"
+      alt="Older residents seated in a circle in a community room, one of them speaking, with handwritten notes taped to the wall behind."
+      width="432"
+      height="592"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/comgrand/codesign-02.webp"
+      alt="A wider view of the same circle: around ten older residents seated facing each other, several talking at once."
+      width="768"
+      height="592"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/comgrand/codesign-03.webp"
+      alt="Someone standing in the middle of the circle speaking to the seated residents, with handwritten boards on the wall behind."
+      width="432"
+      height="592"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption>Co-designing service priorities with community participants.</figcaption>
+</figure>
 
 <table data-ranked>
   <thead>
@@ -165,7 +193,7 @@ wider variety of things to do.
     <tr><td>3</td><td>Empowerment activity</td><td>18</td></tr>
     <tr><td>4</td><td>Health monitoring</td><td>16</td></tr>
     <tr><td>5</td><td>Co-creation of community space</td><td>14</td></tr>
-    <tr data-mark><td>6</td><td>Volunteer service</td><td>12</td></tr>
+    <tr><td>6</td><td>Volunteer service</td><td>12</td></tr>
   </tbody>
 </table>
 
