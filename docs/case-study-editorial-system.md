@@ -385,6 +385,12 @@ being read and takes the display size, here it is only a position, so the name
 leads in full ink at copy size, the description sits under it, and the number is
 the smallest and quietest of the three.
 
+`data-stack` keeps one column at every width, with the rows separated by the
+same inset hairline the columns get. For items that read in sequence rather
+than in parallel: three reflections side by side ask to be weighed against each
+other, while a retrospective is a list the reader goes down. Comgrand's Section
+06 uses it.
+
 `data-cols="2"` takes the row down to two columns from 640px, for a block that
 divides a responsibility in two rather than stepping through stages: three
 columns holding two items leave a third of the row empty and the gap reads as a

@@ -522,17 +522,40 @@ iteration would have to work on.
 
 ## Looking back
 
-The finding I did not design for is that adaptability to the ring varies a lot between
-individuals, and that nearly everyone worried about losing it. A device that holds
-your payment credentials, your identity, and your medical alerts is a device you
-cannot afford to misplace, and I had not treated that as a design constraint. Hardware
-comfort and device security are where this would go next, ahead of any new features.
+Looking back three years later, I would change less about the idea itself than about how
+much I tried to design before testing it.
 
-What I would keep is the order of operations. The co-design session cut a function I
-was attached to, and the wear test found two problems I would not have found by
-looking at the model. Both of those happened because I put unfinished work in front of
-the people it was for, early enough that the answer could still change what I built.
+<ul class="process-steps" data-stack>
+  <li>
+    <p class="process-steps__num">01</p>
+    <p class="process-steps__name">Narrow the scope</p>
+    <p class="process-steps__note">Build a smaller part of the service first, then expand only after testing it.</p>
+  </li>
 
-What I would change is the ambition. Nine months produced a complete service design
-across three layers, and the ring is the only part that got physically tested. If I
-were doing it again I would build less system and test more of it.
+  <li>
+    <p class="process-steps__num">02</p>
+    <p class="process-steps__name">Test the service earlier</p>
+    <p class="process-steps__note">The ring reached physical testing, but most of the wider service system did not.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__num">03</p>
+    <p class="process-steps__name">Define the audience more carefully</p>
+    <p class="process-steps__note">Three participants aged 71 to 78 already differed in living situation and digital confidence. &#8220;Older adults&#8221; was too broad a category.</p>
+  </li>
+</ul>
+
+> **What I learned**
+>
+> Let research change the direction, and test ideas with people before they feel finished.
+
+<!-- PARKED from the previous draft of this section. Not in the copy above and
+     not published elsewhere on the page. Delete once it has a home or has been
+     ruled out.
+
+     A finding from the wear test that Section 05 does not carry: adaptability
+     to the ring varied a lot between individuals, and nearly everyone worried
+     about losing it. A device holding payment credentials, identity and
+     medical alerts is one you cannot afford to misplace, and I had not treated
+     that as a design constraint.
+-->
