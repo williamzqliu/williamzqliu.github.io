@@ -241,7 +241,11 @@ layout made clusters and cross-unit ties readable on its own. When I expanded th
 network to all 2,737 faculty, the same layout became much denser. I added encodings to
 keep structural patterns legible.
 
-<div class="media-pair">
+<!-- `--pair-split` in the pictures' own aspect ratios, 1.177 and 1, so the
+     bounded network and the square full-university plate come out the same
+     height without either being cropped. -->
+
+<div class="media-pair" style="--pair-split: 1.177fr 1fr">
   <figure>
     <img
       src="/media/inside-the-institution/layout-379-scholars.webp"
@@ -258,8 +262,8 @@ keep structural patterns legible.
     <img
       src="/media/inside-the-institution/layout-2737-scholars.webp"
       alt="The same layout on the full institutional network: one dense mass with the structure no longer separable."
-      width="1224"
-      height="1040"
+      width="3080"
+      height="3080"
       loading="lazy"
       decoding="async"
     />
@@ -447,6 +451,10 @@ university.
   <cite>Participant 09</cite>
 </blockquote>
 
+One participant found a scholar with a modest h-index but a high bridge score. That
+contrast made them question whether bibliometric impact and structural importance were
+measuring the same thing.
+
 <figure>
   <img
     src="/media/inside-the-institution/scholar-selected.webp"
@@ -459,15 +467,11 @@ university.
   <figcaption>A selected scholar in 2-Hop view: local connections shown alongside profile and research context.</figcaption>
 </figure>
 
-One participant found a scholar with a modest h-index but a high bridge score. That
-contrast made them question whether bibliometric impact and structural importance were
-measuring the same thing.
-
 
 ## What needed work
 
-Participants needed a persistent legend, missed some secondary features, and wanted more
-orientation when they first entered the tool. Several also found the 3D view harder to
+Participants needed a persistent legend and more orientation when they first entered the
+tool, while some secondary features were easy to miss. Several also found the 3D view harder to
 read and control than the 2D views.
 
 <dl class="issue-response">

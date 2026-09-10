@@ -396,6 +396,9 @@
     let index = 0;
     let swap: number | undefined;
     let closing: number | undefined;
+    // A tap on the picture that is waiting to find out whether it is half of a
+    // double tap. Declared up here because `dismiss` clears it.
+    let tapTimer: number | undefined;
 
     // Fine pointers get a second click: fitted, then the picture's own size.
     // Touch keeps pinch and pan, which is a different model on purpose.
@@ -558,6 +561,10 @@
 
     // `dialog.close()` is instant, so the fade has to finish first.
     const dismiss = () => {
+      if (tapTimer) {
+        window.clearTimeout(tapTimer);
+        tapTimer = undefined;
+      }
       if (!dialog.open || dialog.dataset.closing) return;
       delete dialog.dataset.shown;
       if (reduced.matches) {
@@ -603,9 +610,27 @@
           return;
         }
         // The picture itself is the zoom control on a mouse or trackpad; the
-        // scrim around it still closes. On touch a tap closes, as before.
+        // scrim around it still closes.
         if (fine.matches && (event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) {
           toggleDetail();
+          return;
+        }
+        // Touch: a tap on the picture still closes, but it waits long enough
+        // to find out whether a second one is coming, because a double tap is
+        // what every other photo viewer on a phone zooms with. Only the
+        // picture waits — the scrim around it closes on the first tap, so
+        // leaving is never slower than it was.
+        if (!fine.matches && (event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) {
+          if (tapTimer) {
+            window.clearTimeout(tapTimer);
+            tapTimer = undefined;
+            tapZoom(event.clientX, event.clientY);
+            return;
+          }
+          tapTimer = window.setTimeout(() => {
+            tapTimer = undefined;
+            dismiss();
+          }, DOUBLE_MS);
           return;
         }
         dismiss();
@@ -644,6 +669,12 @@
     let centre = { x: 0, y: 0 };
     let anchor = { x: 0, y: 0 };
 
+    // A second tap inside this window zooms instead of closing. 280ms is the
+    // usual double-tap window, and it is also how long a tap on the picture
+    // now waits before it closes.
+    const DOUBLE_MS = 280;
+    const DOUBLE_SCALE = 2.5;
+
     const shown = (): HTMLElement => (clip.hidden ? frame : clip);
 
     const paint = () => {
@@ -676,6 +707,26 @@
       media.dataset.gesturing = 'true';
       media.style.transform = '';
       requestAnimationFrame(() => delete media.dataset.gesturing);
+    };
+
+    // Double tap, the touch counterpart of the second click a mouse gets.
+    // Zoomed in, it goes back to fitted; out, it steps to a size worth the
+    // gesture and brings the point that was tapped toward the middle of the
+    // frame, so the reader lands on what they aimed at rather than on the
+    // centre of the picture. Pinch and pan pick up from here unchanged,
+    // because this writes the same scale and pan the pinch uses.
+    const tapZoom = (x: number, y: number) => {
+      const media = shown();
+      if (scale > 1) {
+        unzoom(true);
+        return;
+      }
+      const box = media.getBoundingClientRect();
+      scale = Math.min(DOUBLE_SCALE, ZOOM_MAX);
+      panX = ((box.left + box.right) / 2 - x) * (scale - 1);
+      panY = ((box.top + box.bottom) / 2 - y) * (scale - 1);
+      rein();
+      paint();
     };
 
     const span = () => {

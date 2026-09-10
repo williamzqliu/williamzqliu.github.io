@@ -318,7 +318,7 @@ letting the views follow from them, is the information architecture.
 
 **Reconstructing incomplete history.** The original Barvision summary archive held 87
 podium-result rows across 15 editions. Reconstructing the records underneath them expanded
-that into 771 competition entries, 1,140 voter records, and 11,130 ballot cells across 16
+that into 771 competition entries, 1,140 voter records, and 11,130 votes across 16
 editions, alongside 2,291 chart rows across 11 years in the annual archive. Completeness
 still varies by year and by activity. The interface distinguishes information that is
 missing from a value that is genuinely zero, and anonymous or unattributed entries stay

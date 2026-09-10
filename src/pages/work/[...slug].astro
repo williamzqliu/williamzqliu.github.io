@@ -1842,17 +1842,26 @@ const facts = [
     margin-bottom: var(--sp-24);
   }
 
+  /* A link inside a sentence should be findable without pulling the eye off
+     the sentence, so it rests a step back from the accent and comes up to it
+     under the pointer. The rule mixes toward the page rather than toward the
+     ink, so both themes soften the same way. */
   .prose a {
-    color: var(--accent);
-    border-bottom: var(--rule-hair) solid transparent;
+    color: color-mix(in srgb, var(--accent) 80%, var(--bg));
+    /* Half a pixel over the hairline. The rule only shows on hover, and at 1
+       it read as thin against the type it sits under. */
+    border-bottom: 1.5px solid transparent;
   }
 
   @media (hover: hover) and (pointer: fine) {
     .prose a {
-      transition: border-color var(--dur-hover-out) var(--ease-out);
+      transition:
+        color var(--dur-hover-out) var(--ease-out),
+        border-color var(--dur-hover-out) var(--ease-out);
     }
 
     .prose a:hover {
+      color: var(--accent);
       border-bottom-color: currentColor;
       transition-duration: var(--dur-hover-in);
     }
