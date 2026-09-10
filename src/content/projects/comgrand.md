@@ -49,19 +49,19 @@ meaningful ways to **connect, participate, and contribute on their own terms**.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>At home on her own.</figcaption>
+    <figcaption>At home by herself.</figcaption>
   </figure>
 
   <figure>
     <img
       src="/media/comgrand/grandmother-social.webp"
-      alt="My grandmother playing cards on the floor with two younger neighbours, laughing."
+      alt="My grandmother playing cards on the floor with two of her grandchildren, laughing."
       width="2400"
       height="1051"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>And with others, in Chongqing.</figcaption>
+    <figcaption>Playing cards with her grandchildren.</figcaption>
   </figure>
 </div>
 
