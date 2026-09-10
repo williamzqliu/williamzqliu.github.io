@@ -40,9 +40,9 @@ version lifted from the PDF.
 
 ## Explaining the research framework
 
-Scientific citations can support, contrast with, or simply mention prior research. This
-study asks whether LLMs make the same citation choices as human authors when filling the
-same citation position.
+Scientific citations can support, contrast with, or simply mention prior research.
+Our team asked whether LLMs make the same citation choices as human authors when filling
+the same citation position.
 
 To make the experimental design easier to follow, I designed a three-stage visual
 framework for our team&#8217;s method, keeping the human and LLM paths easy to compare
@@ -91,8 +91,8 @@ I rebuilt the figure without stripping away the research logic. I separated the 
 stages, clarified the parallel human and LLM paths, and simplified the visual hierarchy so
 the main steps remained clear within a restrained, publication-ready layout.
 
-After peer review, the framework went through six rounds of team feedback before reaching
-the final version.
+After peer review, our team refined the framework through six rounds of feedback before
+reaching the final version.
 
 <figure>
   <img
@@ -109,9 +109,9 @@ the final version.
 
 ## Matching citations to reliable records
 
-Before the team could compare what humans and LLMs cited, each reference had to be
+Before our team could compare what humans and LLMs cited, each reference had to be
 matched to a reliable bibliographic record. I built the pipeline that connected citation
-data to canonical records in *Dimensions*, giving the team consistent metadata for later
+data to canonical records in *Dimensions*, giving our team consistent metadata for later
 analysis.
 
 For the human-written baseline, the pipeline matched **115,278 of 132,913 citation
@@ -142,27 +142,28 @@ come before reliable analysis.
 <details>
 <summary>How the matching pipeline worked</summary>
 
-**Matching strategy.** The final pipeline first matched references by DOI, then fell back
-to title matching when the DOI was missing or malformed. Successful matches were replaced
-with canonical *Dimensions* metadata; unmatched references were excluded from downstream
-analysis. The matching logic favored conservative resolution because a false positive
-would attach the wrong metadata to every downstream analysis.
+**Matching strategy.** I built the final pipeline to match references by DOI first, then
+fall back to title matching when the DOI was missing or malformed. Successful matches were
+replaced with canonical *Dimensions* metadata, while unmatched references were excluded
+from downstream analysis. In the matching logic, I favored conservative resolution because
+a false positive could attach incorrect metadata to every downstream analysis.
 
-**Why matching quality mattered.** Human-written citations reached an 86.7% match rate,
-while the six LLMs ranged from 39.5% to 81.9%. To understand what lay behind unmatched
-outputs, the study manually audited 100 unmatched titles from *GPT-5.1* and 100 from
-*Claude-3.5-Haiku*. Of these, 79% and 97%, respectively, were classified as hallucinated,
-including both fabricated works and real works with substantially garbled titles.
+**Why matching quality mattered.** Using the same grounding process, our team found an
+86.7% match rate for human-written citations, while the six LLMs ranged from 39.5% to
+81.9%. To understand the unmatched outputs more closely, our team manually audited 100
+unmatched titles from *GPT-5.1* and 100 from *Claude-3.5-Haiku*. Of these, 79% and 97%,
+respectively, fell into the paper&#8217;s combined hallucination category, which includes
+fabricated works and real works with substantially garbled titles.
 
-An earlier development version of the pipeline ran against *OpenAlex* at a smaller scale.
-That was an exploratory build, not the pipeline reported in the paper.
+I had built an earlier development version against *OpenAlex* at a smaller scale. That was
+an exploratory build, not the pipeline reported in the paper.
 
 </details>
 
 
 ## Making social distance visible
 
-To compare how socially close cited authors were to the authors citing them, the study
+To compare how socially close cited authors were to the authors citing them, our team
 measured paths through a coauthorship network. I designed Figure 4a to turn that abstract
 metric into a worked comparison between an original citation and an LLM-generated
 replacement.
@@ -185,20 +186,20 @@ it, so readers can see how the measure is built before they interpret the result
 <details>
 <summary>How social distance is calculated</summary>
 
-Each citation links two papers. The measure takes the first and last author of the citing
-paper and the first and last author of the cited paper, giving four author pairs, then
-finds the shortest path between each pair in the coauthorship network. Averaging those
-four path lengths produces one score for the paper pair.
+For each citation, our team paired the first and last authors of the citing paper with
+the first and last authors of the cited paper, producing four author pairs. We then found
+the shortest path between each pair in the coauthorship network and averaged those four
+path lengths into one score for the paper pair.
 
-In the worked examples above, the original citation averages to &#10216;d&#10217; =
-2.25, while the LLM-generated replacement averages to &#10216;d&#10217; = 3.
+In Figure 4a, the original example produces &#10216;d&#10217; = 2.25, while the
+LLM-generated example produces &#10216;d&#10217; = 3.
 
 </details>
 
 
 ## Validating citation intent with human readers
 
-Because the study used an LLM to classify citation intent, the team also needed a human
+Because our team used an LLM to classify citation intent, we also needed a human
 check. I helped define the three annotation categories and served as one of three
 independent human annotators.
 
@@ -221,20 +222,24 @@ independent human annotators.
 
 Across a 90-position validation set, the human labels moved in the same direction, with
 fewer citations classified as contrasting. The primary LLM judge agreed with the
-human-majority label in **73% of cases**, giving the team an independent check on the
+human-majority label in **73% of cases**, giving our team an independent check on the
 automated classification.
 
 <details>
 <summary>Validation details</summary>
 
-The three categories were settled by the first three authors together, adapted from an
-existing citation-classification scheme. The validation set was a stratified sample of
-ninety citation positions, and each of the three annotators labelled it independently,
-without seeing the automated labels or the identities of the cited papers.
+Our team assembled a stratified 90-position validation set to compare automated intent
+labels with independent human judgments, using the three categories the first three
+authors had adapted from an existing citation-classification scheme.
 
-Agreement between the annotators was Cohen&#8217;s &#954; = 0.60. The corresponding
-*GPT-5.1* reconstruction labeling was used as a further independent check on the automated
-classification.
+I was one of three annotators. We independently labeled the selected original citation
+sentences and the corresponding *GPT-5.1* reconstructions, without seeing the automated
+labels or the identities of the cited papers.
+
+Across the original citations, the primary LLM judge agreed with the human-majority
+labels in 73% of cases, with Cohen&#8217;s &#954; = 0.60. Our human annotations of the
+reconstructed citations also reproduced the broader movement away from contrasting
+labels.
 
 </details>
 
