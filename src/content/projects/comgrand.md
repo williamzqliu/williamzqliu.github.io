@@ -561,5 +561,5 @@ Looking back, I would keep the core idea but narrow the scope and test it earlie
 
 <blockquote data-close>
   <p><strong>What I learned</strong></p>
-  <p>Let research change the direction, and test ideas with people before they feel finished.</p>
+  <p>What I learned was to let research change the direction, and to test ideas with people before developing them too far.</p>
 </blockquote>
