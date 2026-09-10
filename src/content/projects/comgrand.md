@@ -45,7 +45,7 @@ credits:
 
 ## From assumptions to participation
 
-Comgrand began with my grandmother, who lived independently. During the pandemic, I began
+Comgrand began with my grandmother, who lived alone. During the pandemic, I began
 paying closer attention to how she navigated uncertainty and change. Even after
 restrictions eased in December 2022, she stayed home for nearly another month because she
 lacked a reliable way to understand what was happening outside. I initially read this as
@@ -83,8 +83,8 @@ resistance to change.
   </figure>
 </div>
 
-Later, I interviewed three older adults in Chongqing and compared their experiences with
-secondary research on older adults living alone in urban China. The research shifted my
+Later, I interviewed three older adults in her neighborhood and compared their experiences
+with secondary research on older adults living alone in urban China. The research shifted my
 focus beyond everyday care.
 
 > **Research gap**
@@ -235,9 +235,9 @@ activities.
 > showed the least willingness to take part in it.
 
 That made me separate **contribution from assigned service**. Wanting a more active role in
-community life did not necessarily mean wanting formal volunteer work, and the session gave
-me a reason to carry forward the directions people were more willing to engage with rather
-than push my original concept into the service.
+community life did not necessarily mean wanting formal volunteer work. The session showed
+me which directions people were more willing to engage with, so I could move beyond my
+original concept.
 
 <details>
 <summary>Decision details</summary>
@@ -332,10 +332,9 @@ something of value.
   </li>
 </ol>
 
-A service like this also depended on more than the older adults using it. I mapped the
-groups and organizations it would involve, along with the materials, information, and money
-moving between them, to work out what would have to support the experience around the
-person using it.
+A service like this depended on more than the older adults using it. I mapped the groups
+and organizations involved, along with the flows of materials, information, and money, to
+understand what needed to support the experience around them.
 
 <figure>
   <img
@@ -526,22 +525,22 @@ the range of hands and viewing conditions it needed to accommodate.
 Two people cannot settle either question, but they were enough to show me what a next
 iteration would have to work on.
 
-<ul class="process-steps">
-  <li>
-    <p class="process-steps__name">Emergency interaction</p>
-    <p class="process-steps__note">Reduce accidental activation.</p>
-  </li>
+<dl class="issue-response">
+  <div>
+    <dt>Emergency interaction</dt>
+    <dd>Reduce accidental activation.</dd>
+  </div>
 
-  <li>
-    <p class="process-steps__name">Fit</p>
-    <p class="process-steps__note">Accommodate a wider range of hands.</p>
-  </li>
+  <div>
+    <dt>Fit</dt>
+    <dd>Accommodate a wider range of hands.</dd>
+  </div>
 
-  <li>
-    <p class="process-steps__name">Readability</p>
-    <p class="process-steps__note">Improve display visibility.</p>
-  </li>
-</ul>
+  <div>
+    <dt>Readability</dt>
+    <dd>Improve display visibility.</dd>
+  </div>
+</dl>
 
 <details>
 <summary>Unresolved risk</summary>
