@@ -359,22 +359,17 @@ network-analysis tools. Participants explored the tool freely while thinking alo
 then completed one open-ended task: find a pattern or connection that surprised them. A
 short questionnaire followed.
 
-<!-- STUDY SESSION — waiting on one file. Drop it in
-     public/media/inside-the-institution/ and uncomment; the section reads fine
-     until then.
-
-     study-session.webp — one photograph from a formal think-aloud session
-
 <figure>
   <img
     src="/media/inside-the-institution/study-session.webp"
-    alt="Participant using the collaboration visualization during a think-aloud study session."
+    alt="Participant using the collaboration visualization on a laptop during a think-aloud study session."
+    width="1600"
+    height="1202"
     loading="lazy"
     decoding="async"
   />
   <figcaption>A formal think-aloud session: experts explored freely and formed their own questions.</figcaption>
 </figure>
--->
 
 <!-- PARKED for 07 "What became visible" and 08 "What needed work". Written, not
      yet re-homed — do not delete without moving these facts into those sections.
