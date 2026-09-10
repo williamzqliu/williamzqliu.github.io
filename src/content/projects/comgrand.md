@@ -21,19 +21,63 @@ quickFacts:
 
 ## From assumptions to participation
 
-My grandmother has lived alone since my grandfather died. During the pandemic she
-bought a pulse oximeter and used it on herself. When the restrictions in China
-loosened in December 2022 she stayed quarantined at home for almost another month,
-expecting no visitors, because she had no reliable way to find out what was actually
-happening. She tried to learn to use a smartphone, gave up, and went back to her old
-handset. She walks in the community most days, and when she runs into neighbours her
-own age they sit on a bench and talk.
+Comgrand began with my grandmother. She lived independently, but unfamiliar technology
+and changes in daily life often made her pull back rather than engage. I initially saw
+that as resistance to change.
 
-The question I started from was about her specifically: why does she insist on living
-the way she always has, and respond to change with withdrawal rather than curiosity?
+I interviewed three older adults in Chongqing with different living situations and levels
+of digital confidence, then compared those conversations with secondary research on older
+adults living alone in Chinese cities. The material pointed to a broader gap: everyday
+care was only part of the picture. Social connection, self-worth, and opportunities to
+participate also mattered.
 
-That is a question about one person. Turning it into a design problem meant finding
-out whether the pattern held more widely, and if it did, what was actually causing it.
+That changed the question I wanted to design around. Instead of asking how to make older
+adults adapt to new technology, I began asking how a community could give them more
+meaningful ways to **connect, participate, and contribute on their own terms**.
+
+<!-- STARTING POINT — waiting on one file. Nothing in the project assets shows
+     the personal starting point: media-src/comgrand/ holds only the cover, so
+     there is no photograph of my grandmother and no 2023 board to crop from.
+     Drop one in and uncomment; the section reads without it.
+
+     starting-point.webp — a photograph of my grandmother, or a clean crop of
+     the person and the moment from the 1-1 inspiration board. Not the whole
+     board: this is the personal opening, not a presentation slide. Export at
+     2400-3200px wide.
+
+<figure>
+  <img
+    src="/media/comgrand/starting-point.webp"
+    alt=""
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Where the project started.</figcaption>
+</figure>
+-->
+
+> **Research shift**
+>
+> From helping older adults adapt to technology, to designing for participation on their
+> own terms.
+
+<details>
+<summary>Research details</summary>
+
+**Three perspectives.** I spoke with three community residents aged 71 to 78 whose living
+situations and comfort with digital products differed, giving me several perspectives on
+independence, technology, and community life.
+
+**What secondary research added.** The literature I reviewed suggested that physical and
+financial independence did not automatically translate into social participation. Measures
+around friendship, self-worth, respect, and social integration pointed to needs beyond
+basic care.
+
+**Framework.** I used the Active Aging framework to organize the problem around health,
+security, and participation. Participation became the area I chose to design around.
+
+</details>
+
 
 ## Letting research change the concept
 
