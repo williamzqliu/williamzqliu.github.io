@@ -1,8 +1,8 @@
 ---
-title: Barboard
+title: barboard.space
 year: 2026
 dates: May 2026 – Aug 2026
-blurb: A zero-backend site for a 143-member music community, with an automated weekly chart pipeline.
+blurb: A digital home for a long-running Chinese music community, bringing its members, charts, competitions, and archives into one place.
 tags: [interactive]
 tracks: [engineering]
 featured: 7
