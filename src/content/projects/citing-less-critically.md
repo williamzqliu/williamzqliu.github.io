@@ -145,8 +145,8 @@ come before reliable analysis.
 **Matching strategy.** I built the final pipeline to match references by DOI first, then
 fall back to title matching when the DOI was missing or malformed. Successful matches were
 replaced with canonical *Dimensions* metadata, while unmatched references were excluded
-from downstream analysis. In the matching logic, I favored conservative resolution because
-a false positive could attach incorrect metadata to every downstream analysis.
+from downstream analysis. I built the matching logic conservatively to reduce the risk of
+attaching incorrect metadata to downstream analysis.
 
 **Why matching quality mattered.** Using the same grounding process, our team found an
 86.7% match rate for human-written citations, while the six LLMs ranged from 39.5% to
@@ -229,12 +229,11 @@ automated classification.
 <summary>Validation details</summary>
 
 Our team assembled a stratified 90-position validation set to compare automated intent
-labels with independent human judgments, using the three categories the first three
-authors had adapted from an existing citation-classification scheme.
+labels with independent human judgments.
 
 I was one of three annotators. We independently labeled the selected original citation
-sentences and the corresponding *GPT-5.1* reconstructions, without seeing the automated
-labels or the identities of the cited papers.
+sentences and the corresponding *GPT-5.1* reconstructions without seeing the automated
+labels or cited-paper identities.
 
 Across the original citations, the primary LLM judge agreed with the human-majority
 labels in 73% of cases, with Cohen&#8217;s &#954; = 0.60. Our human annotations of the
