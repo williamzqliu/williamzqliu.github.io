@@ -41,18 +41,21 @@
 
 /* Explicit choice (set by the inline theme script). */
 :root[data-theme='dark'] {
-  --bg:            #1C1914;
-  --surface:       #272319;
-  --text:          #F9F3E4;
+  --bg:            #181510;
+  --surface:       #221E16;
+  --text:          #DCD4C3;
   --text-2:        #ABA492;
   --text-3:        #8A8374;
   /* Black on a near-black page is no scrim at all. */
   --tap-press:     rgba(255, 255, 255, 0.10);
   --rule:          #332E24;
-  --rule-strong:   #F9F3E4;
+  --rule-strong:   #DCD4C3;
   --accent:        #FF6134;
   --accent-2:      #FFD44A;
   --code-ink:      #FFE0CE;
+  /* A full-width plate of paper-white is the brightest thing on a dark
+     page. Dimmed, and still clearly a light plate under its own ink. */
+  --tone-light:    #DAD4C5;
 
   color-scheme: dark;
 }
@@ -61,17 +64,20 @@
    data-theme, so this only ever applies when scripting is off. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg:            #1C1914;
-    --surface:       #272319;
-    --text:          #F9F3E4;
+    --bg:            #181510;
+    --surface:       #221E16;
+    --text:          #DCD4C3;
     --text-2:        #ABA492;
     --text-3:        #8A8374;
     --tap-press:     rgba(255, 255, 255, 0.10);
     --rule:          #332E24;
-    --rule-strong:   #F9F3E4;
+    --rule-strong:   #DCD4C3;
     --accent:        #FF6134;
     --accent-2:      #FFD44A;
     --code-ink:      #FFE0CE;
+    /* A full-width plate of paper-white is the brightest thing on a dark
+       page. Dimmed, and still clearly a light plate under its own ink. */
+    --tone-light:    #DAD4C5;
 
     color-scheme: dark;
   }
@@ -84,7 +90,8 @@
 :root {
   --tone-dark:    #14140F;
   /* Lighter than --bg on purpose: a light plate has to read as media, not
-     as a hole in the page. */
+     as a hole in the page. Paper-white is right on a cream page and glaring
+     on a dark one, so the dark theme dims it. */
   --tone-light:   #FFFBF1;
   --tone-neutral: #8E8E84;
 
