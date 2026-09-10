@@ -1280,7 +1280,9 @@ const facts = [
 
   .prose .process-steps__note {
     margin-top: var(--sp-4);
-    font-size: calc(var(--fs-small) + 1px);
+    /* Two over the caption size. These are three sentences a reader is meant
+       to read, not labels to glance at, and they sit under a 17px name. */
+    font-size: calc(var(--fs-small) + 2px);
     line-height: var(--lh-small);
     color: var(--text-2);
   }
