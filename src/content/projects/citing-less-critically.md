@@ -37,33 +37,29 @@ credits:
     - Python
     - pandas
     - Dimensions
+  # Who I worked with, not the paper's author line. No per-person roles: we
+  # have no verified role attribution for the others.
   team:
-    - group: Authors
-      people:
-        - "Yixuan Liu*"
-        - "Lin Chen*"
+    - people:
+        - Yixuan Liu
+        - Lin Chen
         - Zhuoqi Liu
         - Jianglin Lu
         - Dakota Murray
-    - group: My contribution
-      people:
-        - Scientific figure design, Figures 1 and 4a
-        - Bibliographic matching pipeline
-        - Citation-intent rubric development
-        - Human validation
-  note: Yixuan Liu and Lin Chen contributed equally.
 ---
 
 <!--
 Attribution must stay visible in the row blurb, not only here. I am the third
-author of five; the equal-contribution asterisks belong to the first two
-authors and not to me. The research question, the masked-citation design, the
+author of five, and Human annotator 3 in the paper's Table 7. Yixuan Liu and
+Lin Chen contributed equally; that marker is theirs and not mine, and it is
+kept here rather than on the page so it is available if a formal author line
+is ever needed. The research question, the masked-citation design, the
 LLM-as-judge procedure and the coauthorship-network analysis are other
 people's work. My contributions are the two figures named below, the
 citation-matching pipeline, and one of three human annotation passes.
 
-Cover must be a redrawn version of Figure 1 or Figure 4a, not the typeset
-version lifted from the PDF.
+Cover is a rendered scene, not a redrawn figure. Figures 1 and 4a ship as
+their own exports in Sections 02 and 04; neither is a screenshot of the PDF.
 -->
 
 ## Explaining the research framework

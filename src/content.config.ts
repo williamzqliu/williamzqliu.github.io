@@ -84,7 +84,7 @@ const projects = defineCollection({
         skills: z.array(z.string()).max(5).default([]),
         tools: z.array(z.string()).max(5).default([]),
         team: z
-          .array(z.object({ group: z.string(), people: z.array(z.string()).min(1) }))
+          .array(z.object({ group: z.string().optional(), people: z.array(z.string()).min(1) }))
           .default([]),
         specialThanks: z.array(z.string()).default([]),
         note: z.string().optional(),

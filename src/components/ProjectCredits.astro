@@ -20,7 +20,7 @@
 export interface Credits {
   skills?: string[];
   tools?: string[];
-  team?: { group: string; people: string[] }[];
+  team?: { group?: string; people: string[] }[];
   specialThanks?: string[];
   note?: string;
 }
@@ -32,7 +32,7 @@ interface Props {
 type Row = {
   label: string;
   items?: string[];
-  groups?: { group: string; people: string[] }[];
+  groups?: { group?: string; people: string[] }[];
   note?: string;
 };
 
@@ -119,7 +119,10 @@ const secondary = kept([
 
                     {row.groups?.map((group) => (
                       <div class="credits__group">
-                        <p class="credits__group-label">{group.group}</p>
+                        {/* A group with no name is just the people: a project
+                            whose team divides into contributions labels them,
+                            one that does not simply lists who was on it. */}
+                        {group.group && <p class="credits__group-label">{group.group}</p>}
 
                         <ul class="credits__list">
                           {group.people.map((person) => (
