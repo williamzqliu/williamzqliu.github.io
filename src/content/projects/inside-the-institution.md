@@ -364,7 +364,7 @@ short questionnaire followed.
     src="/media/inside-the-institution/study-session.webp"
     alt="Participant using the collaboration visualization on a laptop during a think-aloud study session."
     width="1600"
-    height="1202"
+    height="900"
     loading="lazy"
     decoding="async"
   />
