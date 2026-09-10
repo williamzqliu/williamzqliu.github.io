@@ -1150,6 +1150,10 @@ const facts = [
   .stat-strip[data-quiet] .stat-strip__value {
     font-size: var(--fs-title);
     letter-spacing: -0.02em;
+    /* Off full ink as well as down a size. At 20px in --text these figures
+       still read level with the names in the block above them, and this strip
+       is the evidence behind a sentence, not the sentence. */
+    color: var(--text-2);
   }
 
   .prose .stat-strip + p {

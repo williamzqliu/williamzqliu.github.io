@@ -41,12 +41,12 @@ version lifted from the PDF.
 ## Explaining the research framework
 
 Scientific citations can support, contrast with, or simply mention prior research. This
-study asks whether LLMs make the same rhetorical choices as human authors when filling
-the same citation position.
+study asks whether LLMs make the same citation choices as human authors when filling the
+same citation position.
 
 To make the experimental design easier to follow, I designed a three-stage visual
-framework for our team&#8217;s method, keeping the human and LLM paths comparable from
-reconstruction through bibliographic grounding.
+framework for our team&#8217;s method, keeping the human and LLM paths easy to compare
+from reconstruction to bibliographic matching.
 
 <ol class="process-steps">
   <li>
@@ -64,15 +64,15 @@ reconstruction through bibliographic grounding.
   <li>
     <p class="process-steps__num">03</p>
     <p class="process-steps__name">Ground</p>
-    <p class="process-steps__note">Match each cited work to canonical bibliographic records in <em>Dimensions</em> for downstream analysis.</p>
+    <p class="process-steps__note">Match each cited work to a canonical record in <em>Dimensions</em> so its metadata can be analyzed.</p>
   </li>
 </ol>
 
 
 ## Rebuilding the framework after peer review
 
-The submitted framework captured the full experimental pipeline, but that completeness
-came at the cost of hierarchy. During peer review, one reviewer called out the problem
+The submitted framework included the full experimental pipeline, but that completeness
+made the figure harder to scan. During peer review, one reviewer called out the problem
 directly: **&#8220;Figure 1 is too visually dense.&#8221;**
 
 <figure>
@@ -87,13 +87,12 @@ directly: **&#8220;Figure 1 is too visually dense.&#8221;**
   <figcaption><strong>Submitted version.</strong> Framework submitted for peer review.</figcaption>
 </figure>
 
-I rebuilt the figure without removing the methodological structure. The redesign
-separated the three stages more clearly, strengthened the parallel human and LLM paths,
-and reduced visual competition between primary steps and supporting detail. I also kept
-the visual language deliberately restrained, prioritizing scientific clarity,
-consistency, and publication-ready layout over decorative complexity.
+I rebuilt the figure without stripping away the research logic. I separated the three
+stages, clarified the parallel human and LLM paths, and reduced competition between the
+main steps and supporting detail. I also kept the visual language deliberately restrained
+so the figure would read clearly in a scientific paper rather than compete for attention.
 
-After the review, the framework went through six rounds of team feedback before reaching
+After peer review, the framework went through six rounds of team feedback before reaching
 the final version.
 
 <figure>
@@ -109,49 +108,15 @@ the final version.
 </figure>
 
 
+## Matching citations to reliable records
 
-<!-- PARKED from the previous draft of this section. Not in the copy above and
-     not published anywhere else on the page, so it is kept here rather than
-     dropped. Delete once these facts have a home or have been ruled out.
-
-     **Figure 1, the framework diagram.** Three stages, one citation slot
-     travelling through all of them: the human original, the masked version,
-     the model's replacement. The difficulty is not drawing boxes. It is that
-     stages run in sequence while six models run in parallel inside stage one,
-     and both have to be legible in one static frame.
-
-     Density in a diagram is rarely a matter of too many elements. It is
-     usually too few levels: everything competing at the same weight, so a
-     reader has nowhere to start. That is why I restarted rather than
-     adjusted. Hierarchy is the lowest-level decision in a layout, and local
-     edits to an existing composition cannot move it.
-
-     Every frame is still on the Figma canvas, before and after, from
-     `plot_diagram 2` through `plot_diagram_update` and then six frames of
-     `plot_diagram_better`.
-
-     The reason this is worth more than the final figure alone: the critique
-     came from an anonymous expert reviewing the work for publication, the
-     response is traceable frame by frame, and the result cleared a
-     main-conference review. Self-directed iteration is easy to claim. This is
-     the other kind.
--->
-
-
-## Grounding 132,913 citation slots
-
-Before citation behavior could be compared, each reference had to be connected to a real
-bibliographic record. Citation metadata was inconsistent, and an incorrect match could
-distort every downstream attribute attached to that paper.
-
-I built the final grounding pipeline used in the study. It first matched references by
-DOI, then fell back to title matching when the DOI was missing or malformed. Successful
-matches were replaced with canonical metadata from *Dimensions*, while unmatched
-references were excluded from downstream analysis.
+Before the team could compare what humans and LLMs cited, each reference had to be
+matched to a reliable bibliographic record. I built the pipeline that connected citation
+data to canonical records in *Dimensions*, giving the team consistent metadata for later
+analysis.
 
 For the human-written baseline, the pipeline matched **115,278 of 132,913 citation slots
-(86.7%)**, providing the bibliographic foundation for later analyses of publication year,
-citation impact, team size, and author relationships.
+(86.7%)**.
 
 <div class="stat-strip" data-cols="3">
   <div class="stat-strip__cell">
@@ -170,65 +135,34 @@ citation impact, team size, and author relationships.
   </div>
 </div>
 
-This echoed a data challenge I had encountered in
-[*Inside the Institution*](/work/inside-the-institution), where scholar identities also
-had to be reconciled across inconsistent institutional and bibliographic records. In both
-projects, reliable matching was a prerequisite for trustworthy downstream analysis.
+This echoed a challenge in
+[*Inside the Institution*](/work/inside-the-institution), where I reconciled scholar
+identities across inconsistent data sources. In both projects, reliable matching had to
+come before reliable analysis.
 
-<!-- PARKED from the previous draft of this section. None of it is in the copy
-     above and none of it is published elsewhere on the page. Kept rather than
-     dropped; delete once these facts have a home or have been ruled out.
+<details>
+<summary>How the matching pipeline worked</summary>
 
-     The engineering detail, which the section now leaves out on purpose:
+Each reference was looked up by DOI first, and by title when the DOI was missing or
+malformed. A successful match replaced the reference with canonical metadata from
+*Dimensions*; references that matched nothing were excluded from downstream analysis
+rather than carried forward on a guess.
 
-     A four-tier match cascade ordered by cost. DOI, then arXiv DOI
-     (`10.48550/arXiv.<ID>`), then PMID (skipped, the data had none), then
-     fuzzy title-and-year search. Most references never reach the last tier.
+An earlier development version of the pipeline ran against *OpenAlex* at a smaller scale.
+That was an exploratory build, not the pipeline reported in the paper.
 
-     A similarity threshold instead of the top hit: normalised title
-     comparison with a 0.85 floor, so a borderline case is dropped rather
-     than guessed at. Under-matching is recoverable; a wrong match is not,
-     because nothing downstream will flag it.
-
-     A recorded `match_method` on every row, so the aggregate rate is
-     auditable by tier.
-
-     Deduplication before requesting, keyed on DOI then normalised arXiv ID
-     then normalised title. Sample mode before full, with an on-disk HTTP
-     cache. Request pacing at 0.11s across four worker threads under a global
-     rate cap.
-
-     Non-destructive corrections: fifteen citing papers had truncated arXiv
-     identifiers, found by cross-comparing three datasets. The fix script
-     writes a mapping table rather than editing the source files, and asserts
-     that each corrected identifier starts with the truncated one it replaces.
-
-     The model side of the match rate: the six models resolve at between 39.5
-     and 81.9 percent, against 86.7 for the human baseline. An audit of a
-     hundred unmatched titles per model puts the hallucination share at 79
-     percent for one model and 97 percent for another. That comparison is only
-     usable because both sides went through the same pipeline.
-
-     The uploaded scripts are the OpenAlex version, an earlier attempt at
-     200-paper scale with roughly 14,000 real and 9,500 model-generated
-     references. The published results use Dimensions at the full 1,746-paper
-     scale; the matching strategy is the same.
--->
+</details>
 
 
 ## Making social distance visible
 
-Social distance is one of the study&#8217;s more abstract measures. For each citation, the
-first and last authors of the citing paper are paired with the first and last authors of
-the cited paper, producing four shortest-path distances in the coauthorship network. The
-same calculation is applied to both the original citation and its LLM-generated
-replacement, allowing their social proximity to be compared on a common basis.
+To compare how socially close cited authors were to the authors citing them, the study
+measured paths through a coauthorship network. I designed Figure 4a to turn that abstract
+metric into a worked comparison between an original citation and an LLM-generated
+replacement.
 
-I designed Figure 4a as a worked comparison rather than a formula alone. Each row traces
-the four author-pair paths through the network and carries them into the final average,
-making the difference between the original citation and its LLM-generated counterpart
-directly inspectable. In scientific figures, clarity also means showing how a measure is
-constructed, not just reporting its result.
+Instead of showing only the formula, the figure traces the paths that produce each final
+score, so readers can see how the measure is built before they interpret the results.
 
 <figure>
   <img
@@ -239,35 +173,92 @@ constructed, not just reporting its result.
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Figure 4a.</strong> Worked comparison of the social-distance measure. The original citation averages author-pair distances of 2, 2, 2, and 3 (&#10216;d&#10217; = 2.25), while the LLM-generated citation averages four distances of 3 (&#10216;d&#10217; = 3).</figcaption>
+  <figcaption><strong>Figure 4a.</strong> Worked comparison of the social-distance measure. Four shortest-path distances between first and last authors are averaged for each citation, giving &#10216;d&#10217; = 2.25 for the original example and &#10216;d&#10217; = 3 for the LLM-generated example.</figcaption>
 </figure>
+
+<details>
+<summary>How social distance is calculated</summary>
+
+Each citation links two papers. The measure takes the first and last author of the citing
+paper and the first and last author of the cited paper, giving four author pairs, then
+finds the shortest path between each pair in the coauthorship network. Averaging those
+four path lengths produces one score for the paper pair.
+
+In the two examples in Figure 4a, the original citation&#8217;s four distances are 2, 2,
+2 and 3, averaging 2.25, while the LLM-generated citation&#8217;s are 3, 3, 3 and 3,
+averaging 3.
+
+</details>
+
+
+## Validating citation intent with human readers
+
+Because the study used an LLM to classify citation intent, the team also needed a human
+check. I helped define the three annotation categories and served as one of three
+independent human annotators.
+
+Across a 90-position validation set, the human labels showed the same overall shift away
+from contrasting citations. The primary LLM judge agreed with the human-majority label in
+**73% of cases**, giving the team an independent check on the automated classification.
+
+<ul class="process-steps">
+  <li>
+    <p class="process-steps__name">Supporting</p>
+    <p class="process-steps__note">Builds on prior work as evidence, method, or aligned findings.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__name">Contrasting</p>
+    <p class="process-steps__note">Positions prior work as a competing approach, disagreement, or baseline.</p>
+  </li>
+
+  <li>
+    <p class="process-steps__name">Mentioning</p>
+    <p class="process-steps__note">Uses prior work for background, definitions, or general acknowledgment.</p>
+  </li>
+</ul>
+
+<div class="stat-strip" data-cols="3" data-quiet>
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">90</p>
+    <p class="stat-strip__label">Positions</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">3</p>
+    <p class="stat-strip__label">Annotators</p>
+  </div>
+
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">73%</p>
+    <p class="stat-strip__label">Agreement</p>
+  </div>
+</div>
+
+<details>
+<summary>Validation details</summary>
+
+The three categories were settled by the first three authors together, adapted from an
+existing citation-classification scheme. The validation set was a stratified sample of
+ninety citation positions, and each of the three annotators labelled it independently,
+without seeing the automated labels or the identities of the cited papers.
+
+Agreement between the annotators was Cohen&#8217;s &#954; = 0.60. The corresponding
+GPT-5.1 reconstruction labeling was used as a further independent check on the automated
+classification.
+
+</details>
 
 <!-- PARKED from the previous draft of this section. Not in the copy above and
      not published elsewhere on the page. Delete once these facts have a home
      or have been ruled out.
 
-     Figure 4a took one pass and one round of minor type-size adjustment. Put
-     next to Figure 1 that contrast says the useful thing: the difficulty is
-     not in the drawing, it is in how many levels of structure the subject
-     has. One abstract measure needs one worked example. A three-stage
-     pipeline with parallel branches inside one stage needs its hierarchy
-     sorted out before it can be read at all.
-
-     It is the only purely explanatory figure in the paper; everything else
-     plots results.
-
-     Explain one abstraction rather than illustrate the whole method. Figure
-     4a exists because the coauthorship-distance metric is the one definition
-     in the paper a reader is most likely to skip. Spending a figure on a
-     single idea beats spreading it thin.
+     That validation set is load-bearing. It answers the most obvious
+     objection to the paper, which is that an LLM judge might simply read
+     LLM-written prose as warmer. The warming appears in all three humans'
+     labels too, in the same direction, so it is a property of the rewritten
+     sentences rather than a judge preference.
 -->
-
-
-## Validating citation intent with humans
-
-**The annotation rubric, and one of three annotation passes.** The three intent definitions the whole study runs on, supporting, contrasting and mentioning, were settled by the first three authors together, adapted from an existing citation-classification scheme. I then labelled a stratified sample of ninety citation sentences blind to the model labels and to the cited papers, as one of three annotators.
-
-That validation set is load-bearing. It answers the most obvious objection to the paper, which is that an LLM judge might simply read LLM-written prose as warmer. The warming appears in all three humans' labels too, in the same direction, so it is a property of the rewritten sentences rather than a judge preference.
 
 
 ## Outcome and takeaway

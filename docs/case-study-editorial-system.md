@@ -227,8 +227,13 @@ below that the phone rule wraps them instead, because three 28px figures do
 not fit a phone column without touching. Citing Less Critically's grounding
 section uses the three-column form.
 
-**Don't** create a second one in the same case study, and don't build one out
-of study ratings — behaviour is better evidence than a row of Likert scores.
+`data-quiet` takes the figure down a size and off full ink, for a second
+strip in the same case study where the first one is the section's argument and
+this one is only the evidence behind a sentence. Citing Less Critically has
+both: the match rate in 03 at full size, the validation counts in 05 quiet.
+
+**Don't** put two strips at the same weight in one case study, and don't build
+one out of study ratings — behaviour is better evidence than a row of Likert scores.
 There is no `stats` frontmatter field; the markup lives in the content file
 like every other editorial pattern.
 
