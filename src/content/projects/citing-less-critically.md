@@ -218,11 +218,54 @@ projects, reliable matching was a prerequisite for trustworthy downstream analys
 
 ## Making social distance visible
 
-**Figure 4a, the distance schematic.** The paper measures social distance as the mean shortest path across four author-role pairs between the citing and cited papers. As a formula nobody reads it. As a picture of two named papers with four paths drawn between their first and last authors, and the four numbers averaged, a reader sees where a value of 2.25 comes from. It is the only purely explanatory figure in the paper; everything else plots results.
+Social distance was one of the study&#8217;s more abstract measures. For each
+citing&#8211;cited paper pair, the analysis considers the first and last authors of both
+papers, producing four author-pair distances through the coauthorship network.
 
-**Explain one abstraction rather than illustrate the whole method.** Figure 4a exists because the coauthorship-distance metric is the one definition in the paper a reader is most likely to skip. Spending a figure on a single idea beats spreading it thin.
+I designed Figure 4a as a worked example rather than a purely conceptual diagram. By
+showing each of the four shortest paths and how they combine into a single average
+distance, the figure makes the metric directly inspectable before readers encounter the
+results.
 
-Figure 4a took one pass and one round of minor type-size adjustment. Put next to Figure 1 that contrast says the useful thing: the difficulty is not in the drawing, it is in how many levels of structure the subject has. One abstract measure needs one worked example. A three-stage pipeline with parallel branches inside one stage needs its hierarchy sorted out before it can be read at all.
+<!-- FIGURE 4A — waiting on one file. The paragraphs above describe the worked
+     example; the example itself is the piece that is missing, and the section
+     reads without it.
+
+     figure-4a.png in media-src/citing-less-critically/, exported from the
+     source artwork rather than screenshotted from the paper. Export at
+     2400-3200px wide, as the framework figures are: the author nodes, the path
+     lengths and the averaging all have to stay legible in the viewer.
+
+<figure>
+  <img
+    src="/media/citing-less-critically/figure-4a.webp"
+    alt="Two named papers with their first and last authors, and the four shortest paths drawn between those author pairs through the coauthorship network, with the four lengths averaged into one distance."
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Figure 4a. A worked example of the social-distance measure. The four author-pair shortest paths are 2, 2, 2, and 3, producing an average distance of 2.25.</figcaption>
+</figure>
+-->
+
+<!-- PARKED from the previous draft of this section. Not in the copy above and
+     not published elsewhere on the page. Delete once these facts have a home
+     or have been ruled out.
+
+     Figure 4a took one pass and one round of minor type-size adjustment. Put
+     next to Figure 1 that contrast says the useful thing: the difficulty is
+     not in the drawing, it is in how many levels of structure the subject
+     has. One abstract measure needs one worked example. A three-stage
+     pipeline with parallel branches inside one stage needs its hierarchy
+     sorted out before it can be read at all.
+
+     It is the only purely explanatory figure in the paper; everything else
+     plots results.
+
+     Explain one abstraction rather than illustrate the whole method. Figure
+     4a exists because the coauthorship-distance metric is the one definition
+     in the paper a reader is most likely to skip. Spending a figure on a
+     single idea beats spreading it thin.
+-->
 
 
 ## Validating citation intent with humans
