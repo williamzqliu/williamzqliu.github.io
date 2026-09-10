@@ -67,6 +67,23 @@ const projects = defineCollection({
       caption: z.string().optional(),
     }),
     quickFacts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+    /* The end credits. Source order is the presentation order in every list —
+       nothing here is sorted, because the order is the editorial decision. The
+       caps on skills and tools are the point of putting them in the schema:
+       five is a curated list, and a sixth fails the build rather than quietly
+       turning the block into a resume. Role is deliberately absent — it is
+       already in `quickFacts`. */
+    credits: z
+      .object({
+        skills: z.array(z.string()).max(5).default([]),
+        tools: z.array(z.string()).max(5).default([]),
+        team: z
+          .array(z.object({ group: z.string(), people: z.array(z.string()).min(1) }))
+          .default([]),
+        specialThanks: z.array(z.string()).default([]),
+        note: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 
