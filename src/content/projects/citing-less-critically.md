@@ -38,7 +38,7 @@ Cover must be a redrawn version of Figure 1 or Figure 4a, not the typeset
 version lifted from the PDF.
 -->
 
-## Explaining the Research Framework
+## Explaining the research framework
 
 Scientific citations can support, contrast with, or simply mention prior research. This
 study asks whether LLMs make the same rhetorical choices as human authors when filling
@@ -73,7 +73,7 @@ through bibliographic grounding.
     src="/media/citing-less-critically/figure-1.webp"
     alt="The three-stage framework. Stage 1 puts the original citation sentence, the masked version and the LLM-generated version side by side with their reference lists. Stage 2 sends both the original and generated sentences to an LLM judge, which returns supporting, contrasting or mentioning. Stage 3 matches both sets of references in Dimensions and carries team size, publication year and citation impact into the three research questions."
     width="3200"
-    height="2348"
+    height="2333"
     loading="lazy"
     decoding="async"
   />
@@ -81,7 +81,7 @@ through bibliographic grounding.
 </figure>
 
 
-## Rebuilding the Framework After Peer Review
+## Rebuilding the framework after peer review
 
 **Figure 1, the framework diagram.** Three stages, one citation slot travelling through all of them: the human original, the masked version, the model's replacement. The difficulty is not drawing boxes. It is that stages run in sequence while six models run in parallel inside stage one, and both have to be legible in one static frame. The three versions of the sentence sit on a shared horizontal line so a reader can compare them directly, with the stage boundaries carrying the sequence.
 
@@ -96,7 +96,7 @@ Every frame is still on the Figma canvas, before and after, from `plot_diagram 2
 The reason this is worth more than the final figure alone: the critique came from an anonymous expert reviewing the work for publication, the response is traceable frame by frame, and the result cleared a main-conference review. Self-directed iteration is easy to claim. This is the other kind.
 
 
-## Grounding 132,913 Citations
+## Grounding 132,913 citations
 
 The study needed three things that are easy to state and hard to build: a way to compare human and model citation behaviour at the same position in the same sentence, a way to label what a citation is rhetorically doing, and a way to look up what each cited paper actually is.
 
@@ -134,7 +134,7 @@ Match reporting is per-tier, so the contribution of exact versus fuzzy matching 
 </details>
 
 
-## Making Social Distance Visible
+## Making social distance visible
 
 **Figure 4a, the distance schematic.** The paper measures social distance as the mean shortest path across four author-role pairs between the citing and cited papers. As a formula nobody reads it. As a picture of two named papers with four paths drawn between their first and last authors, and the four numbers averaged, a reader sees where a value of 2.25 comes from. It is the only purely explanatory figure in the paper; everything else plots results.
 
@@ -143,14 +143,14 @@ Match reporting is per-tier, so the contribution of exact versus fuzzy matching 
 Figure 4a took one pass and one round of minor type-size adjustment. Put next to Figure 1 that contrast says the useful thing: the difficulty is not in the drawing, it is in how many levels of structure the subject has. One abstract measure needs one worked example. A three-stage pipeline with parallel branches inside one stage needs its hierarchy sorted out before it can be read at all.
 
 
-## Validating Citation Intent with Humans
+## Validating citation intent with humans
 
 **The annotation rubric, and one of three annotation passes.** The three intent definitions the whole study runs on, supporting, contrasting and mentioning, were settled by the first three authors together, adapted from an existing citation-classification scheme. I then labelled a stratified sample of ninety citation sentences blind to the model labels and to the cited papers, as one of three annotators.
 
 That validation set is load-bearing. It answers the most obvious objection to the paper, which is that an LLM judge might simply read LLM-written prose as warmer. The warming appears in all three humans' labels too, in the same direction, so it is a property of the rewritten sentences rather than a judge preference.
 
 
-## Outcome & Takeaway
+## Outcome and takeaway
 
 Accepted at EMNLP 2026, main conference. Preprint and code are public.
 
