@@ -22,6 +22,7 @@ export interface Credits {
   skills?: string[];
   tools?: string[];
   team?: { group?: string; people: string[] }[];
+  teamLabel?: string;
   specialThanks?: string[];
   note?: string;
   collapse?: boolean;
@@ -57,7 +58,10 @@ const kept = (list: (Row | null)[]) => list.filter(Boolean) as Row[];
 const primary = kept([
   credits?.skills?.length ? { label: 'Skills', items: credits.skills } : null,
   credits?.tools?.length ? { label: 'Tools', items: credits.tools } : null,
-  credits?.team?.length ? { label: 'Team', groups: credits.team } : null,
+  // `Team` unless the project says otherwise: a solo project with an adviser
+  // on it is not a team, and the default label would claim a collaboration
+  // that did not happen.
+  credits?.team?.length ? { label: credits.teamLabel ?? 'Team', groups: credits.team } : null,
 ]);
 
 const attribution = kept([

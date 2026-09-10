@@ -6,7 +6,9 @@ blurb: A service ecosystem designed to help older adults connect, participate, a
 tags: [narrative]
 tracks: [design]
 featured: 9
-stack: [Figma, Balsamiq, Blender, Service Design]
+# Tools, the way every other project's stack reads. Service design is a skill
+# and lives in the credits.
+stack: [Figma, Balsamiq, Blender]
 links: {}
 cover:
   wide: /media/comgrand/cover-wide.webp
@@ -17,6 +19,28 @@ quickFacts:
     value: "Designer & researcher"
   - label: "Outcome"
     value: "Service ecosystem, mobile app, and physical smart ring prototype"
+credits:
+  skills:
+    - Service design
+    - User research
+    - Co-design
+    - Prototyping
+  tools:
+    - Figma
+    - Balsamiq
+    - Blender
+  # Not `Team`: I did the project on my own, and Vince advised on how it is
+  # presented here rather than on the work itself.
+  teamLabel: Roles
+  team:
+    - group: Design and research
+      people:
+        - Zhuoqi Liu
+    - group: Portfolio guidance
+      people:
+        - Vince Ye
+  # Three rows in total, so there is nothing worth putting behind a control.
+  collapse: false
 ---
 
 ## From assumptions to participation
