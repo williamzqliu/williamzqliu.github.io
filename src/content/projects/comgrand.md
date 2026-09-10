@@ -2,7 +2,7 @@
 title: Comgrand
 year: 2023
 dates: Mar 2023 – Nov 2023
-blurb: A service ecosystem that moves community elders from receiving care to providing it.
+blurb: A service ecosystem designed to help older adults connect, participate, and contribute in community life.
 tags: [narrative]
 tracks: [design]
 featured: 9
@@ -14,9 +14,9 @@ cover:
   alt: "One hand holding a phone that shows the Comgrand app, with a health score, reminders and a neighbourhood circle, while a younger hand and an older hand each hold one of the rings."
 quickFacts:
   - label: "Role"
-    value: "Solo Designer & Researcher"
+    value: "Solo designer & researcher"
   - label: "Outcome"
-    value: "12 panels, an app prototype, and a working ring model"
+    value: "Service ecosystem, mobile app, and physical smart ring prototype"
 ---
 
 ## Where this started
