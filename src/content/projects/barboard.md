@@ -377,40 +377,89 @@ device.
 
 ## Building live community tools
 
-The community tracks a weekly singles chart, and keeping it current by hand was never
-going to survive contact with a busy month.
+barboard.space was not only built for looking back. During Barvision 2026 and each weekly
+BarboardLab update, it also needed to reflect what the community was doing now. Members
+could check the latest chart, search within it, follow the contest, and submit songs while
+registration was open.
 
-A Python script fetches the chart, reshapes it into 100 records of nine fields each,
-and writes a 30KB JSON file. A GitHub Actions workflow runs it on a schedule and
-commits the result. Three pages fetch that file at load time. That is the whole
-pipeline, and it has run 26 times across three months without intervention.
+I designed these as reusable tools rather than one-off event pages. The chart updates from
+structured data, time-sensitive pages change as an event moves through different stages,
+and interactive controls make it easier to find or act on information without rebuilding
+the experience each time.
 
-Two parts of it are worth explaining.
+> **Product principle**
+>
+> Turn recurring community routines into reusable tools.
+>
+> Checking charts, following events, and submitting entries should not require rebuilding
+> the experience each time.
 
-**The endpoint refuses non-browser clients.** A plain HTTP library gets a 403,
-regardless of headers, because the rejection is based on the TLS handshake rather than
-the request. So the fetch uses `curl_cffi` with Chrome 136 impersonation, which
-reproduces the browser's TLS fingerprint, alongside thirteen headers that match what
-Chrome 136 would actually send. This is the one part of the project where the naive
-approach simply does not work and knowing why matters.
+<details>
+<summary>How the live tools work</summary>
 
-**It fails silently, on purpose.** On a 403, and on any other exception, the script
-prints a message and exits zero. The existing data stays where it is, and the site
-keeps serving last week's chart rather than an error or an empty state.
+**Keeping the weekly chart current.** BarboardLab publishes a new singles chart every
+week. A Python script retrieves the source data and reshapes it into a consistent JSON
+file, and a GitHub Actions workflow runs that on a schedule, so the home page and the
+BarboardLab pages read the updated file directly rather than waiting on anyone to publish
+it. The same run can refresh related home page content, such as the current issue
+information. The workflow has run on its schedule through the project period.
 
-That decision has a cost I want to be explicit about: the workflow reports success
-whether or not anything happened, and there is no alerting. If the endpoint changed
-shape tomorrow, the chart would quietly freeze and I would find out by noticing.
+**Designing interaction around the data.** Displaying the chart is the easy half. Search
+filters the current chart by song or artist. Computed highlight cards surface the things
+people actually look for, such as the highest debut, the longest-charting song, the
+biggest rise and the biggest fall, and selecting one takes you straight to that row in the
+chart. The Barvision interfaces use sorting, filtering and tabbed views where the
+information rewards being explored directly, and a member record can be exported as an
+image to share. The point is that the data is not only shown; the interface gives people
+something to do with it.
 
-I would make the same call again for a community site, where a stale chart is a
-non-event and a broken page is embarrassing. I would not make it for anything where
-the data mattered. The right version of this has the same graceful degradation plus a
-notification, and I skipped the second half.
+**Handling a live event over time.** Barvision 2026 was not one page, it was a state that
+changed across the summer. The submission page reads differently before registration
+opens, while submissions are active, and after it closes. Validation and confirmation
+happen in the browser, and EmailJS carries the submission itself, so a song can be entered
+without a server standing behind the form. A local receipt means someone returning on the
+same device can see what they already sent. Other surfaces moved with the competition too,
+including the odds board and the season status.
 
-**And a self-skipping backup run.** The primary job runs Saturday evening UTC. A second
-runs Monday morning, but first checks whether the data file was committed in the last
-two days and exits if it was. One retry window, no duplicate work, no coordination
-state to maintain.
+</details>
+
+<!-- PARKED from the previous draft of this section, which this rewrite
+     replaces. Not published elsewhere on the page. Per the brief these are
+     deeper technical material for the later code pass, or Section 06's.
+     Delete once each has a home or has been ruled out.
+
+     1. Shape and scale of the weekly job: the script reshapes the chart into
+        100 records of nine fields each and writes a 30KB JSON file, three
+        pages fetch it at load time, and it had run 26 times across three
+        months without intervention at the time the previous draft was
+        written.
+
+     2. The endpoint refuses non-browser clients. A plain HTTP library gets a
+        403 regardless of headers, because the rejection is based on the TLS
+        handshake rather than the request, so the fetch uses `curl_cffi` with
+        Chrome 136 impersonation to reproduce the browser's TLS fingerprint,
+        alongside thirteen headers matching what Chrome 136 would send. This
+        is the one part of the project where the naive approach simply does
+        not work and knowing why matters.
+
+     3. It fails silently, on purpose. On a 403 or any other exception the
+        script prints a message and exits zero, the existing data stays put,
+        and the site keeps serving last week's chart rather than an error or
+        an empty state. The cost is that the workflow reports success whether
+        or not anything happened and there is no alerting: if the endpoint
+        changed shape tomorrow the chart would quietly freeze and I would find
+        out by noticing. I would make the same call again for a community site
+        where a stale chart is a non-event and a broken page is embarrassing,
+        and not for anything where the data mattered. The right version has
+        the same graceful degradation plus a notification, and I skipped the
+        second half.
+
+     4. A self-skipping backup run. The primary job runs Saturday evening UTC
+        and a second runs Monday morning, but first checks whether the data
+        file was committed in the last two days and exits if it was. One retry
+        window, no duplicate work, no coordination state to maintain.
+-->
+
 
 ## Looking ahead
 
