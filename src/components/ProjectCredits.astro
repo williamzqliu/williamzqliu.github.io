@@ -207,11 +207,16 @@ const secondary = kept([
     padding: 0;
   }
 
+  /* A quarter step off the body ink. These are set smaller and heavier than
+     the article's copy, and at full strength that combination sat darker on
+     the page than the paragraphs above it — an epilogue reading louder than
+     what it follows. Mixed toward the secondary ink rather than switched to
+     it, which would drop them two levels in one go. */
   .credits__list li {
     font-size: var(--fs-body);
     line-height: var(--lh-small);
     font-weight: var(--fw-medium);
-    color: var(--text);
+    color: color-mix(in srgb, var(--text) 75%, var(--text-2));
   }
 
   .credits__list li + li {
