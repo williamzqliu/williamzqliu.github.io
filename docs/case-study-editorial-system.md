@@ -176,8 +176,23 @@ teaser at the bottom of the one before it.
 **Use for** a genuine turning point, a central insight, or a consequential
 decision. One per case study is normal; Inside the Institution has exactly one.
 
-**Standard.** Accent rule on the left, larger type, no fill, no card. An
-optional bolded first line acts as a kicker.
+**Standard.** Accent rule on the left, larger type, no fill, no card. Up to
+three paragraphs: a bolded label in the mono caps register, the statement at
+`--fs-title`, and an optional third line at copy size in the supporting tone
+for the detail behind it.
+
+**Modifiers.** Both need the raw `<blockquote>` form, since markdown has no way
+to put an attribute on a `>` block.
+
+`data-quiet` steps the callout down for a note that sits beside a section's
+finding rather than carrying it: the statement comes back to copy size and the
+rule loses the accent, mixed back toward the page so it marks the block without
+competing. Comgrand's unresolved-risk note at the end of Section 05 uses it.
+
+`data-close` puts the label in the accent instead of the quiet grey. The one
+place a callout label leaves that grey, and it earns it by being the last line
+of the case study: the colour is what says this is the end rather than another
+note along the way. One per case study, and only as the closing block.
 
 **Don't** use it to restate the section title, and don't give every section one
 — varied rhythm is the point. It is the author's voice: a verbatim sentence

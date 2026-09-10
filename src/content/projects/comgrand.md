@@ -519,6 +519,15 @@ iteration would have to work on.
   </li>
 </ul>
 
+<!-- Raw HTML rather than `>` because this one carries an attribute: markdown
+     has no way to put `data-quiet` on a blockquote. -->
+
+<blockquote data-quiet>
+  <p><strong>Unresolved risk</strong></p>
+  <p>Losing the ring mattered more once it carried sensitive functions.</p>
+  <p>Adaptability varied across participants, and concern about losing the device came up repeatedly. Because the concept combined payment, identity, and medical alert functions, loss and security would need to be treated as core design constraints in a future iteration.</p>
+</blockquote>
+
 
 ## Looking back
 
@@ -544,17 +553,12 @@ Looking back, I would keep the core idea but narrow the scope and test it earlie
   </li>
 </ul>
 
-> **What I learned**
->
-> Let research change the direction, and test ideas with people before they feel finished.
+<!-- `data-close` puts the label in the accent. The one place on the site
+     where a callout label leaves the quiet mono grey: this is the last line of
+     the case study, and the colour is what marks it as the end rather than
+     another note. -->
 
-<!-- PARKED from the previous draft of this section. Not in the copy above and
-     not published elsewhere on the page. Delete once it has a home or has been
-     ruled out.
-
-     A finding from the wear test that Section 05 does not carry: adaptability
-     to the ring varied a lot between individuals, and nearly everyone worried
-     about losing it. A device holding payment credentials, identity and
-     medical alerts is one you cannot afford to misplace, and I had not treated
-     that as a design constraint.
--->
+<blockquote data-close>
+  <p><strong>What I learned</strong></p>
+  <p>Let research change the direction, and test ideas with people before they feel finished.</p>
+</blockquote>

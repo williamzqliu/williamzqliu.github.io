@@ -753,6 +753,34 @@ const facts = [
     color: var(--text-2);
   }
 
+  /* A secondary callout. Same frame, one step down: for a note that sits
+     beside a section's finding rather than carrying it. The statement comes
+     back to copy size at the strong weight, and the rule drops the accent, so
+     the block reads as an aside instead of competing with the block above it.
+     The label and the supporting line are already quiet and stay as they are. */
+  .prose blockquote[data-quiet]:not(.participant-quote) {
+    /* Not `--rule-strong`, which is full ink: a 2px black bar reads heavier
+       than the accent it is meant to step down from. Mixed back toward the
+       page so it registers as a mark without competing. */
+    border-left-color: color-mix(in srgb, var(--rule-strong) 40%, var(--bg));
+  }
+
+  .prose blockquote[data-quiet]:not(.participant-quote) p:only-child,
+  .prose blockquote[data-quiet]:not(.participant-quote) p:nth-child(2) {
+    font-size: var(--fs-copy);
+    line-height: var(--lh-body-lg);
+    letter-spacing: 0;
+    font-weight: var(--fw-strong);
+  }
+
+  /* The closing callout of a case study. Its label takes the accent instead of
+     the quiet grey every other label uses — the one exception, and it earns it
+     by being the last line on the page: the colour is what says this is the
+     end rather than another note along the way. One per case study. */
+  .prose blockquote[data-close]:not(.participant-quote) p:first-child:not(:only-child) {
+    color: var(--accent);
+  }
+
   /* Editorial emphasis, not highlighting: a weight step and nothing else. No
      colour change, no rule, no fill — inside a paragraph those all read as UI.
      The phrases themselves come from the content files. */
