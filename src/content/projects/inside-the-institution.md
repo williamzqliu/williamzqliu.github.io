@@ -317,8 +317,6 @@ Early versions mixed global navigation with controls that only applied within a 
 view. I flattened the header and moved search, unit tabs, and ego-network controls back
 into the contexts where they operate.
 
-<p>Navigation evolution: global views separated from local controls.</p>
-
 <figure>
   <img
     src="/media/inside-the-institution/navigation-iterations.webp"
@@ -328,6 +326,7 @@ into the contexts where they operate.
     loading="lazy"
     decoding="async"
   />
+  <figcaption>Navigation evolution: global views separated from local controls.</figcaption>
 </figure>
 
 The side panel evolved for the same reason. It began as a place for scholar details,
@@ -337,69 +336,17 @@ carries scholar or unit context beside the active view, while `Direct`, `1-Hop`,
 `2-Hop` controls bring ego-network exploration onto the main canvas. It became a
 contextual hub between the **university, research unit, and scholar** levels.
 
-<p>Side-panel evolution: from detail display to a contextual hub.</p>
-
-<div class="media-pair" data-abreast style="--pair-split: repeat(5, minmax(0, 1fr))">
-  <figure data-caption="above">
-    <figcaption>Stage 1: Basic details</figcaption>
-    <img
-      src="/media/inside-the-institution/side-panel-stage-1.webp"
-      alt="The panel showing flat scholar information: metrics, research interests and a list of collaborators."
-      width="498"
-      height="1169"
-      loading="lazy"
-      decoding="async"
-    />
-  </figure>
-
-  <figure data-caption="above">
-    <figcaption>Stage 2: Structural context</figcaption>
-    <img
-      src="/media/inside-the-institution/side-panel-stage-2.webp"
-      alt="The panel with joint appointments, community membership and an intra-collaboration measure added."
-      width="502"
-      height="1698"
-      loading="lazy"
-      decoding="async"
-    />
-  </figure>
-
-  <figure data-caption="above">
-    <figcaption>Stage 3: Bridge + data quality</figcaption>
-    <img
-      src="/media/inside-the-institution/side-panel-stage-3.webp"
-      alt="The panel carrying a bridge-scholar badge and a data-quality indicator."
-      width="496"
-      height="1223"
-      loading="lazy"
-      decoding="async"
-    />
-  </figure>
-
-  <figure data-caption="above">
-    <figcaption>Stage 4: Shared encodings</figcaption>
-    <img
-      src="/media/inside-the-institution/side-panel-stage-4.webp"
-      alt="The panel with affiliation bars in the same colours the main canvas uses."
-      width="499"
-      height="1919"
-      loading="lazy"
-      decoding="async"
-    />
-  </figure>
-
-  <figure data-caption="above">
-    <figcaption>Stage 5: Network controls</figcaption>
-    <img
-      src="/media/inside-the-institution/side-panel-stage-5.webp"
-      alt="The panel with Direct, 1-Hop and 2-Hop controls acting on the main canvas."
-      width="501"
-      height="1930"
-      loading="lazy"
-      decoding="async"
-    />
-  </figure>
-</div>
+<figure>
+  <img
+    src="/media/inside-the-institution/side-panel-iterations.webp"
+    alt="Five panel states side by side: basic scholar details; joint appointments and community context; a bridge-scholar badge and data-quality indicator; affiliation bars in the canvas colours; and Direct, 1-Hop and 2-Hop controls."
+    width="2496"
+    height="1932"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Side-panel evolution: from detail display to a contextual hub.</figcaption>
+</figure>
 
 ## What the study showed
 
