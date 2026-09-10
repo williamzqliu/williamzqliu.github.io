@@ -254,26 +254,42 @@ const secondary = kept([
     border: 0;
   }
 
+  /* Set as the article's collapsed layers are set: mono caps at the label
+     size, the whole row a target, the sign on the right. Those values are
+     reproduced here rather than shared, because the prose rules are scoped to
+     `.prose` and widening them would restyle three accordions to fix one
+     control. Only the bar borrows that language — what it opens is still
+     credits, on the credits grid. */
   .credits__more-sum {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-16);
     padding-block: var(--sp-16);
     border-top: var(--rule-hair) solid var(--rule);
     cursor: pointer;
     list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
+  /* Both the standards-track property and the WebKit pseudo-element: between
+     them the native triangle is gone everywhere. */
   .credits__more-sum::-webkit-details-marker {
     display: none;
   }
 
-  /* The body face at the caption size, not the mono caps of a category label:
-     this is a way further in, and a second row of caps here would read as a
-     sixth category. */
-  .credits__more-label {
-    font-size: var(--fs-small);
-    line-height: var(--lh-small);
-    color: var(--text-3);
-    transition: color var(--dur-hover-out) var(--ease-out);
+  @media (max-width: 639px) {
+    .credits__more-sum {
+      font-size: 0.75rem;
+    }
   }
 
   /* Both signs stacked in one place, crossfading — the same device the
@@ -314,12 +330,12 @@ const secondary = kept([
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .credits__more-sum:hover .credits__more-label {
+    .credits__more-sum:hover {
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
 
-    .credits__more-sum:active .credits__more-label {
+    .credits__more-sum:active {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
@@ -328,21 +344,11 @@ const secondary = kept([
   /* From 640 the label steps beside its content, and the rows start reading
      across rather than down. */
   @media (min-width: 640px) {
-    .credits__row,
-    .credits__more-sum {
+    .credits__row {
       display: grid;
       grid-template-columns: 160px minmax(0, 1fr);
       column-gap: var(--sp-32);
-    }
-
-    .credits__row {
       padding-block: var(--sp-24);
-    }
-
-    /* The control sits in the content column, on the same left edge as every
-       name above and below it. */
-    .credits__more-label {
-      grid-column: 2;
     }
 
     .credits__body {
@@ -369,8 +375,7 @@ const secondary = kept([
       margin-top: 0;
     }
 
-    .credits__row,
-    .credits__more-sum {
+    .credits__row {
       grid-template-columns: 180px minmax(0, 1fr);
     }
 
