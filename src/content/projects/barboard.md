@@ -286,47 +286,94 @@ hides its own gaps is harder to trust than one that shows them.
 
 ## Designing for small screens
 
+Barboard members often talk about music in WeChat, then leave the conversation briefly to
+check a chart result or song before sharing it back in the group. That made mobile access
+an important part of the website experience.
+
+On data-heavy pages, that was not always simple. Some Barvision scoreboards are more than
+1,100 pixels wide, so instead of shrinking everything, I changed how the information
+behaves at smaller widths: tables scroll while key columns stay visible, some become
+cards, and controls move to more useful positions.
+
+> **Responsive principle**
+>
+> Preserve the information, change the presentation.
+>
+> A smaller screen should change how dense content is arranged, not simply make everything
+> smaller.
+
 <details>
-<summary>Engineering notes</summary>
+<summary>Responsive implementation details</summary>
 
-**The token system covers less than it should.** There are no radius, shadow, or motion
-tokens at all: those values are written literally at each use site. A Python audit
-script exists to find exactly this kind of drift, and run today it reports 45 hardcoded
-hex colours with no matching token, 262 distinct rgba literals of which 52 recur three
-or more times, 15 off-scale font sizes out of 36, and 34 off-scale spacing values out
-of 43.
+**Keeping wide scoreboards usable.** Several Barvision tables are wider than a phone
+screen and cannot honestly be made narrower, so the horizontal scroll is contained inside
+each table rather than let loose on the page. The columns that say who and what a row is
+stay in place while the score columns move under them, and a swipe hint appears only when
+the table actually exceeds the width available. The frozen positions are measured from the
+rendered columns with `getBoundingClientRect()` rather than assumed from fixed values,
+because the widths change with the content.
 
-**The audit is not enforced.** It runs manually, is not in CI, has no threshold, and
-never fails a build. So it reports drift rather than preventing it, and drift
-accumulated anyway.
+**Changing components, not only dimensions.** Some Stats and Hall of Fame tables stop
+being tables on a small screen and become cards. Long member handles give way to shorter
+nicknames where the horizontal space is worth more than the full name. The BarboardLab
+search control leaves the desktop sidebar and sits above the chart. Member grids drop
+columns, and navigation becomes a drawer. Responsive work here meant changing what a
+component is and where it sits, not only its type size and spacing.
 
-**Worse, its committed output is stale by a wide margin.** The tool excludes generated
-member pages by matching a filename pattern. A migration to clean URLs renamed those
-pages from `member/<id>.html` to `member/<id>/index.html`, so the exclusion silently
-stopped matching anything and the scan grew from 12 files to 194. The tool did not
-error. It just started reporting on a different corpus, and the checked-in report kept
-describing the old one.
-
-That is the most instructive failure in the project. A consistency checker with no
-test coverage of its own scope is a checker you cannot trust, and the thing that broke
-it was a routine rename.
-
-**Other known issues.** Cache-busting query strings appear on 16 of 184 pages.
-Thirteen PNGs account for 93.7MB of the repository with no image pipeline, no WebP or
-AVIF, and no LFS. Fourteen of 29 Python scripts have no execution path and exist only
-as one-shot generators referenced in documentation. Documentation runs to 714KB, which
-is 5.6 times the size of all the CSS and JavaScript source combined.
+**Refining real browser behavior.** Several decisions only came from watching the pages
+run. Measuring widths as fractions rather than rounding them took the visible jitter out
+of the frozen columns. Frozen cells needed opaque backgrounds, or the scrolling content
+showed through them. `text-size-adjust: 100%` stopped Chrome inflating type in the wide
+scoreboards. Hover states and tooltips are suppressed where they mean nothing on a touch
+device.
 
 </details>
 
-The audit tool is the part I would rebuild. Not because a checker is the wrong idea,
-but because a checker that cannot fail a build is a note to yourself, and I wrote it as
-though it were a guardrail.
+<!-- PARKED from the previous draft of this section, which this rewrite
+     replaces. Not published elsewhere on the page. This is Section 06's
+     material: it is the honest account of what the build does not do, and
+     `Looking ahead` is where it belongs. Delete once it has a home there or
+     has been ruled out.
 
-The other thing missing is any measurement at all. The site carries no analytics, no
-tag manager, and no error tracking. That kept the build simple and it means that after
-three months I can tell you the site works and I cannot tell you whether anyone uses
-the member directory, which is the feature I spent the most time on.
+     1. The token system covers less than it should. No radius, shadow or
+        motion tokens at all; those values are written literally at each use
+        site. A Python audit script exists to find exactly this drift, and run
+        today it reports 45 hardcoded hex colours with no matching token, 262
+        distinct rgba literals of which 52 recur three or more times, 15
+        off-scale font sizes out of 36, and 34 off-scale spacing values out of
+        43.
+
+     2. The audit is not enforced. It runs manually, is not in CI, has no
+        threshold, and never fails a build, so it reports drift rather than
+        preventing it, and drift accumulated anyway.
+
+     3. Its committed output is stale by a wide margin. The tool excluded
+        generated member pages by matching a filename pattern; a migration to
+        clean URLs renamed those pages from `member/<id>.html` to
+        `member/<id>/index.html`, the exclusion silently stopped matching, and
+        the scan grew from 12 files to 194. It did not error, it just started
+        reporting on a different corpus while the checked-in report kept
+        describing the old one. A consistency checker with no test coverage of
+        its own scope is a checker you cannot trust, and a routine rename is
+        what broke it.
+
+     4. Other known issues. Cache-busting query strings appear on 16 of 184
+        pages. Thirteen PNGs account for 93.7MB of the repository with no image
+        pipeline, no WebP or AVIF and no LFS. Fourteen of 29 Python scripts
+        have no execution path and exist only as one-shot generators
+        referenced in documentation. Documentation runs to 714KB, 5.6 times
+        the size of all the CSS and JavaScript source combined.
+
+     5. The audit tool is the part I would rebuild. Not because a checker is
+        the wrong idea, but because a checker that cannot fail a build is a
+        note to yourself, and I wrote it as though it were a guardrail.
+
+     6. There is no measurement at all: no analytics, no tag manager, no error
+        tracking. That kept the build simple, and it means that after three
+        months I can say the site works and cannot say whether anyone uses the
+        member directory, which is the feature I spent the most time on.
+-->
+
 
 ## Building live community tools
 
