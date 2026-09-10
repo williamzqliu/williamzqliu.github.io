@@ -1195,10 +1195,16 @@ const facts = [
     color: var(--text-3);
   }
 
-  /* Phone: one under the other, with space instead of a line between them. */
+  /* Phone: the two figures stay side by side while both cells can still hold
+     their longest line — `Recorded internal tie`, 136px — and drop under each
+     other when they cannot. `auto-fit` is what decides, so the strip reflows
+     on its own rather than on a width someone guessed: at 375 it is two
+     columns, at 320 it is one. The divider goes either way; between two
+     narrow cells the line crowds them, and stacked there is nothing for it to
+     divide. */
   @media (max-width: 639px) {
     .stat-strip {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
 
     .stat-strip__cell + .stat-strip__cell::before {
