@@ -41,8 +41,8 @@
 
 /* Explicit choice (set by the inline theme script). */
 :root[data-theme='dark'] {
-  --bg:            #14120E;
-  --surface:       #1F1C15;
+  --bg:            #1C1914;
+  --surface:       #272319;
   --text:          #F9F3E4;
   --text-2:        #ABA492;
   --text-3:        #8A8374;
@@ -61,8 +61,8 @@
    data-theme, so this only ever applies when scripting is off. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg:            #14120E;
-    --surface:       #1F1C15;
+    --bg:            #1C1914;
+    --surface:       #272319;
     --text:          #F9F3E4;
     --text-2:        #ABA492;
     --text-3:        #8A8374;
