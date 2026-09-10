@@ -164,6 +164,13 @@ nested scrolling. One per section as a rule; never nested.
 **Label it specifically** — `Bridge score details`, `Data curation details`.
 Never `Read more`.
 
+**A disclosure ends its section.** Nothing essential goes after one: no
+conclusion, no interpretation, and no transition into the next section. The
+disclosure is the optional tail a reader can skip, so anything placed under it
+is content the section is relying on and half its readers will never open the
+block to reach. The next numbered section opens itself; it does not need a
+teaser at the bottom of the one before it.
+
 ### Callout — `> blockquote`
 
 **Use for** a genuine turning point, a central insight, or a consequential
