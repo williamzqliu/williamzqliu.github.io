@@ -68,18 +68,6 @@ through bibliographic grounding.
   </li>
 </ol>
 
-<figure>
-  <img
-    src="/media/citing-less-critically/figure-1.webp"
-    alt="The three-stage framework. Stage 1 puts the original citation sentence, the masked version and the LLM-generated version side by side with their reference lists. Stage 2 sends both the original and generated sentences to an LLM judge, which returns supporting, contrasting or mentioning. Stage 3 matches both sets of references in Dimensions and carries team size, publication year and citation impact into the three research questions."
-    width="3200"
-    height="2333"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Final framework figure used in the paper. Parallel human and LLM paths remain aligned through each stage, making the comparison traceable from the same citation position to downstream analysis.</figcaption>
-</figure>
-
 
 ## Rebuilding the framework after peer review
 
@@ -87,63 +75,44 @@ The submitted framework captured the full experimental pipeline, but that comple
 came at the cost of hierarchy. During peer review, one reviewer called out the problem
 directly: **&#8220;Figure 1 is too visually dense.&#8221;**
 
+<!-- SUBMITTED VERSION — waiting on one file. The paragraph above names the
+     problem and the one below answers it; the picture of the problem is the
+     piece that is missing, and the section still reads without it.
+
+     figure-1-submitted.webp — the version that went to review, exported from
+     the source artwork rather than screenshotted from the submission PDF.
+     Export at 2400-3200px wide, as the final one is.
+
+<figure>
+  <img
+    src="/media/citing-less-critically/figure-1-submitted.webp"
+    alt="The submitted framework figure, with the stages and their supporting detail competing at the same visual weight."
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption><strong>Submitted version.</strong> Framework submitted for peer review.</figcaption>
+</figure>
+-->
+
 I rebuilt the figure without removing the methodological structure. The redesign
 separated the three stages more clearly, strengthened the parallel human and LLM paths,
 and reduced visual competition between primary steps and supporting detail. After the
 review, the framework went through six rounds of team feedback before reaching the final
 version.
 
-<!-- BEFORE AND AFTER — waiting on one file. The final figure is already
-     published; the submitted version is not in the repository, so the
-     comparison cannot be drawn yet and the section reads without it.
-
-     figure-1-submitted.webp — the version that went to review, exported from
-     the source artwork rather than screenshotted from the submission PDF.
-     Export at 2400-3200px wide, as the final one is.
-
-     Stacked rather than side by side on purpose: at half the article column
-     neither figure's labels survive. Captions sit below each picture, which is
-     this page's convention.
-
-<figure>
-  <img
-    src="/media/citing-less-critically/figure-1-submitted.webp"
-    alt="The submitted framework figure, with the three stages and the supporting detail competing at the same visual weight."
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Submitted version, before peer review.</figcaption>
-</figure>
-
 <figure>
   <img
     src="/media/citing-less-critically/figure-1.webp"
-    alt="The published framework figure, with the three stages set as distinct bands and the human and LLM paths running in parallel through each one."
+    alt="The published framework figure. Stage 1 puts the original citation sentence, the masked version and the LLM-generated version side by side with their reference lists. Stage 2 sends both the original and generated sentences to an LLM judge, which returns supporting, contrasting or mentioning. Stage 3 matches both sets of references in Dimensions and carries team size, publication year and citation impact into the three research questions."
     width="3200"
     height="2333"
     loading="lazy"
     decoding="async"
   />
-  <figcaption>Final version, after six rounds of team review.</figcaption>
+  <figcaption><strong>Final version.</strong> Framework after peer review and six rounds of team feedback.</figcaption>
 </figure>
--->
 
-<ul class="process-steps">
-  <li>
-    <p class="process-steps__name">Hierarchy</p>
-    <p class="process-steps__note">Separated the method into three visually distinct stages.</p>
-  </li>
 
-  <li>
-    <p class="process-steps__name">Comparison</p>
-    <p class="process-steps__note">Made the human and LLM paths easier to trace in parallel.</p>
-  </li>
-
-  <li>
-    <p class="process-steps__name">Density</p>
-    <p class="process-steps__note">Reduced competing detail while preserving the full experimental logic.</p>
-  </li>
-</ul>
 
 <!-- PARKED from the previous draft of this section. Not in the copy above and
      not published anywhere else on the page, so it is kept here rather than
