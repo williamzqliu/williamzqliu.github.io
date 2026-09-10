@@ -1140,14 +1140,20 @@ const facts = [
        on. Three needs saying, per instance. */
     column-gap: var(--sp-32);
     row-gap: var(--sp-24);
-    margin-top: var(--sp-40);
+    /* The rules already open and close the block, and it carries 24 of its own
+       air inside them. Another 40 outside pushed it away from the sentence it
+       belongs to. */
+    margin-top: var(--sp-24);
     padding-block: var(--sp-24);
     border-top: var(--rule-hair) solid var(--rule);
     border-bottom: var(--rule-hair) solid var(--rule);
     font-size: var(--fs-copy);
   }
 
-  .prose .stat-strip + p,
+  .prose .stat-strip + p {
+    margin-top: var(--sp-24);
+  }
+
   .prose .process-steps + p {
     margin-top: var(--sp-40);
   }
@@ -1177,10 +1183,9 @@ const facts = [
     font-size: var(--fs-display);
     line-height: 1.1;
     font-weight: var(--fw-strong);
-    /* Barely negative. Mono already sets its own even width, and pulling it
-       in as hard as a display line of the body face closed the gap between
-       the digits and the decimal point. */
-    letter-spacing: -0.01em;
+    /* None. Mono already sets its own even width, and any negative tracking
+       closes the gap between the digits and the decimal point. */
+    letter-spacing: 0;
     font-variant-numeric: tabular-nums;
     color: var(--text);
   }
@@ -1216,7 +1221,7 @@ const facts = [
   }
 
   .prose .stat-strip__source + p {
-    margin-top: var(--sp-40);
+    margin-top: var(--sp-32);
   }
 
   /* Four values, two by two, with the dividers closed into a cross. The strip
