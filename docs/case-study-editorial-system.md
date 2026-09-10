@@ -308,11 +308,11 @@ row.
 **Core categories** — Skills, Tools, Team. **Optional** — Special Thanks, Note.
 They render in that order and an empty one disappears.
 
-**Two depths.** Skills and tools are visible by default; team, special thanks
-and the note sit behind one `Full credits` disclosure. Skills and tools answer
-what the project is made of, which is still part of reading it. The rest is
-attribution — owed, but not what someone arriving at the end of a case study is
-reading for, and five open rows made the block a screen tall.
+**Two depths.** Skills, tools and team are visible by default; special thanks
+and the note sit behind one `Full credits` disclosure. The first three answer
+what the project was made of and who made it, which is the question a credits
+block exists to answer. Thanks and the note are the acknowledgement layer:
+owed, but not what someone arriving at the end of a case study is reading for.
 
 `collapse: false` drops the disclosure and shows every row. The control earns
 its place when there is enough behind it to be worth closing: Citing Less

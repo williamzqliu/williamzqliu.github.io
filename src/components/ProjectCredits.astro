@@ -11,11 +11,12 @@
 // else. No fills, no cards, no pills, no icons. Role is absent on purpose —
 // the intro already carries it.
 //
-// Two depths. Skills and tools answer "what is this project made of", which is
-// still part of reading it. Team, thanks and the note are attribution: true,
-// owed, and not what someone arriving at the end of a case study is reading
-// for. They sit behind one disclosure so the block closes the page instead of
-// filling a screen.
+// Two depths. Skills, tools and team answer what the project was made of and
+// who made it, which is the question a credits block exists to answer, so they
+// are open. Thanks and the note are the acknowledgement layer: owed, and not
+// what someone arriving at the end of a case study is reading for. They sit
+// behind one disclosure so the block closes the page instead of filling a
+// screen.
 
 export interface Credits {
   skills?: string[];
@@ -56,18 +57,16 @@ const kept = (list: (Row | null)[]) => list.filter(Boolean) as Row[];
 const primary = kept([
   credits?.skills?.length ? { label: 'Skills', items: credits.skills } : null,
   credits?.tools?.length ? { label: 'Tools', items: credits.tools } : null,
+  credits?.team?.length ? { label: 'Team', groups: credits.team } : null,
 ]);
 
 const attribution = kept([
-  credits?.team?.length ? { label: 'Team', groups: credits.team } : null,
   credits?.specialThanks?.length ? { label: 'Special thanks', items: credits.specialThanks } : null,
   credits?.note ? { label: 'Note', note: credits.note } : null,
 ]);
 
 // The disclosure earns its place when there is enough behind it to be worth
-// closing. A project crediting a team, its thanks and a note fills a screen;
-// one crediting five names does not, and a control that hides a single row is
-// a step the reader takes for nothing. `collapse: false` says so per project.
+// closing. `collapse: false` says there is not, per project.
 const collapse = credits?.collapse !== false;
 const shown = collapse ? primary : [...primary, ...attribution];
 const hidden = collapse ? attribution : [];
