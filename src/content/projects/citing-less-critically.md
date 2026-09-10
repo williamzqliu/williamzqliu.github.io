@@ -47,6 +47,43 @@ on making that research legible and auditable: I designed two explanatory figure
 the final bibliographic matching pipeline, and contributed to the human validation of
 citation intent.
 
+## Explaining the Research Framework
+
+The study compares human and LLM citation choices at the same rhetorical position. For
+each citation, the original sentence is masked and an LLM is asked to reconstruct it with
+the same number of references. The human and generated citations are then labeled by
+rhetorical intent and linked to bibliographic metadata for downstream analysis.
+
+This creates a three-stage workflow: reconstruct the citation, identify its rhetorical
+role, and examine what kind of work and authors it points to. I designed the framework
+figure that brings these stages into one visual system, while keeping the human and LLM
+paths comparable throughout.
+
+<!-- FINAL FIGURE 1 — waiting on one file. Drop it in
+     public/media/citing-less-critically/ and uncomment; the section reads fine
+     until then.
+
+     research-framework.webp — the published Figure 1, exported from the source
+     artwork rather than screenshotted from the PDF. Export at 2400-3200px wide:
+     the article column is 1184 CSS px and the lightbox shows up to 1600, so a
+     retina screen wants twice that.
+
+     `alt` below is written from the prose, not from the picture. Replace it
+     once the asset is in: it should say what the figure shows, not what the
+     section already said.
+
+<figure>
+  <img
+    src="/media/citing-less-critically/research-framework.webp"
+    alt="The three-stage research framework: masked-citation reconstruction, citation-intent labeling, and bibliographic grounding, with the human and LLM paths running in parallel."
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Final research framework. The figure connects masked-citation reconstruction, citation-intent labeling, and bibliographic grounding into a single workflow for comparing human and LLM citation behavior.</figcaption>
+</figure>
+-->
+
+
 ## The problem
 
 The study needed three things that are easy to state and hard to build: a way to compare human and model citation behaviour at the same position in the same sentence, a way to label what a citation is rhetorically doing, and a way to look up what each cited paper actually is.
