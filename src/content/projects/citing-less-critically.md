@@ -142,10 +142,17 @@ come before reliable analysis.
 <details>
 <summary>How the matching pipeline worked</summary>
 
-Each reference was looked up by DOI first, and by title when the DOI was missing or
-malformed. A successful match replaced the reference with canonical metadata from
-*Dimensions*; references that matched nothing were excluded from downstream analysis
-rather than carried forward on a guess.
+**Matching strategy.** The final pipeline first matched references by DOI, then fell back
+to title matching when the DOI was missing or malformed. Successful matches were replaced
+with canonical *Dimensions* metadata; unmatched references were excluded from downstream
+analysis. The matching logic favored conservative resolution because a false positive
+would attach the wrong metadata to every downstream analysis.
+
+**Why matching quality mattered.** Human-written citations reached an 86.7% match rate,
+while the six LLMs ranged from 39.5% to 81.9%. To understand what lay behind unmatched
+outputs, the study manually audited 100 unmatched titles from *GPT-5.1* and 100 from
+*Claude-3.5-Haiku*. Of these, 79% and 97%, respectively, were classified as hallucinated,
+including both fabricated works and real works with substantially garbled titles.
 
 An earlier development version of the pipeline ran against *OpenAlex* at a smaller scale.
 That was an exploratory build, not the pipeline reported in the paper.
@@ -195,11 +202,6 @@ Because the study used an LLM to classify citation intent, the team also needed 
 check. I helped define the three annotation categories and served as one of three
 independent human annotators.
 
-Across a 90-position validation set, the human labels moved in the same direction, with
-fewer citations classified as contrasting. The primary LLM judge agreed with the
-human-majority label in **73% of cases**, giving the team an independent check on the
-automated classification.
-
 <ul class="process-steps">
   <li>
     <p class="process-steps__name">Supporting</p>
@@ -217,22 +219,10 @@ automated classification.
   </li>
 </ul>
 
-<div class="stat-strip" data-cols="3" data-quiet>
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">90</p>
-    <p class="stat-strip__label">Positions</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">3</p>
-    <p class="stat-strip__label">Annotators</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">73%</p>
-    <p class="stat-strip__label">Agreement</p>
-  </div>
-</div>
+Across a 90-position validation set, the human labels moved in the same direction, with
+fewer citations classified as contrasting. The primary LLM judge agreed with the
+human-majority label in **73% of cases**, giving the team an independent check on the
+automated classification.
 
 <details>
 <summary>Validation details</summary>
@@ -243,7 +233,7 @@ ninety citation positions, and each of the three annotators labelled it independ
 without seeing the automated labels or the identities of the cited papers.
 
 Agreement between the annotators was Cohen&#8217;s &#954; = 0.60. The corresponding
-GPT-5.1 reconstruction labeling was used as a further independent check on the automated
+*GPT-5.1* reconstruction labeling was used as a further independent check on the automated
 classification.
 
 </details>
