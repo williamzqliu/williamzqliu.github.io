@@ -233,15 +233,15 @@ additional encodings to keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>2,737 scholars: the whole university</figcaption>
+    <figcaption>2,737 scholars: full university network</figcaption>
   </figure>
 </div>
 
 One response was to encode structural roles that layout alone could no longer make
 obvious. I used network analysis to identify scholars whose collaborations cross
 departmental boundaries, then translated that measure into progressively stronger outer
-rings. The visible treatment steps at the top 25%, 5%, 3%, and 1% of the score
-distribution.
+rings. The halo increases in four steps, marking the top 25%, 5%, 3%, and 1% of the
+score distribution.
 
 <div class="tier-key">
   <p class="tier-key__title">Bridge-score tiers</p>
