@@ -7,7 +7,11 @@ tags: ["networks"]
 tracks: ["design", "engineering"]
 featured: 2
 draft: false
-stack: ["Figma", "Python", "pandas", "Dimensions"]
+stack:
+  - Figma
+  - Python
+  - pandas
+  - Dimensions
 links:
   paper:
     href: "https://arxiv.org/abs/2609.01432"
@@ -70,7 +74,7 @@ Our team asked whether LLMs make the same citation choices as human authors when
 the same citation position.
 
 To make the experimental design easier to follow, I designed a three-stage visual
-framework for our team&#8217;s method, keeping the human and LLM paths easy to compare
+framework for our team’s method, keeping the human and LLM paths easy to compare
 from reconstruction to bibliographic matching.
 
 <ol class="process-steps">
@@ -89,7 +93,7 @@ from reconstruction to bibliographic matching.
   <li>
     <p class="process-steps__num">03</p>
     <p class="process-steps__name">Ground</p>
-    <p class="process-steps__note">Match each cited work to a canonical record in <em>Dimensions</em> so its metadata can be analyzed.</p>
+    <p class="process-steps__note">Match each cited work to a canonical record in Dimensions so its metadata can be analyzed.</p>
   </li>
 </ol>
 
@@ -98,7 +102,7 @@ from reconstruction to bibliographic matching.
 
 The submitted framework included the full experimental pipeline, but that completeness
 made the figure harder to scan. During peer review, one reviewer called out the problem
-directly: **&#8220;Figure 1 is too visually dense.&#8221;**
+directly: **“Figure 1 is too visually dense.”**
 
 <figure>
   <img
@@ -136,7 +140,7 @@ reaching the final version.
 
 Before our team could compare what humans and LLMs cited, each reference had to be
 matched to a reliable bibliographic record. I built the pipeline that connected citation
-data to canonical records in *Dimensions*, giving our team consistent metadata for later
+data to canonical records in Dimensions, giving our team consistent metadata for later
 analysis.
 
 For the human-written baseline, the pipeline matched **115,278 of 132,913 citation
@@ -169,18 +173,18 @@ come before reliable analysis.
 
 **Matching strategy.** I built the final pipeline to match references by DOI first, then
 fall back to title matching when the DOI was missing or malformed. Successful matches were
-replaced with canonical *Dimensions* metadata, while unmatched references were excluded
+replaced with canonical Dimensions metadata, while unmatched references were excluded
 from downstream analysis. I built the matching logic conservatively to reduce the risk of
 attaching incorrect metadata to downstream analysis.
 
 **Why matching quality mattered.** Using the same grounding process, our team found an
 86.7% match rate for human-written citations, while the six LLMs ranged from 39.5% to
 81.9%. To understand the unmatched outputs more closely, our team manually audited 100
-unmatched titles from *GPT-5.1* and 100 from *Claude-3.5-Haiku*. Of these, 79% and 97%,
-respectively, fell into the paper&#8217;s combined hallucination category, which includes
+unmatched titles from GPT-5.1 and 100 from Claude-3.5-Haiku. Of these, 79% and 97%,
+respectively, fell into the paper’s combined hallucination category, which includes
 fabricated works and real works with substantially garbled titles.
 
-I had built an earlier development version against *OpenAlex* at a smaller scale. That was
+I had built an earlier development version against OpenAlex at a smaller scale. That was
 an exploratory build, not the pipeline reported in the paper.
 
 </details>
@@ -257,11 +261,11 @@ Our team assembled a stratified 90-position validation set to compare automated 
 labels with independent human judgments.
 
 I was one of three annotators. We independently labeled the selected original citation
-sentences and the corresponding *GPT-5.1* reconstructions without seeing the automated
+sentences and the corresponding GPT-5.1 reconstructions without seeing the automated
 labels or cited-paper identities.
 
 Across the original citations, the primary LLM judge agreed with the human-majority
-labels in 73% of cases, with Cohen&#8217;s &#954; = 0.60. Our human annotations of the
+labels in 73% of cases, with Cohen’s &#954; = 0.60. Our human annotations of the
 reconstructed citations also reproduced the broader movement away from contrasting
 labels.
 

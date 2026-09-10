@@ -6,7 +6,11 @@ blurb: A scrollytelling piece on the migrant deaths that happen within sight of 
 tags: [narrative, interactive]
 tracks: [design, engineering]
 featured: 5
-stack: [D3.js, SVG, JavaScript, Python]
+stack:
+  - D3.js
+  - SVG
+  - JavaScript
+  - Python
 links:
   demo: https://nu-info-design.github.io/mapping-movement/ripples-into-silence/index.html
 cover:
@@ -139,7 +143,7 @@ because getting the rhythm right meant changing four constants and reloading, ov
 over.
 
 **Two scroll mechanisms rather than one.** Continuous progress, like the ripple
-background responding to scroll depth, reads position with `getBoundingClientRect` on
+background responding to scroll depth, reads position with `getBoundingClientRect()` on
 every scroll event. Discrete scene entry uses `IntersectionObserver`. Using the
 observer for continuous animation gives you steps instead of motion; using scroll
 position for one-shot triggers means writing your own debounce and getting it wrong.
@@ -152,7 +156,7 @@ seventeen ES modules. D3 for scales, selections and transitions. No build toolin
 framework, no bundler. Fonts self-hosted.
 
 One real bug, since diagnosed. Path animation advanced by a fixed increment on every
-`requestAnimationFrame` tick rather than by elapsed time, which means the animation
+`requestAnimationFrame()` tick rather than by elapsed time, which means the animation
 runs at whatever speed the display refreshes. On a 60Hz screen it plays as designed; on
 a 120Hz screen it plays at double speed. The page originally disclosed this as a
 platform inconsistency, which was the wrong diagnosis: it has nothing to do with the

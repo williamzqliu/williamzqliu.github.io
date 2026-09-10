@@ -2,12 +2,14 @@
 title: "EmoEase"
 year: 2023
 dates: "Oct 2023 – Nov 2023"
-blurb: "A projection installation that turns the room's body language into emojis, using Kinect."
+blurb: "A projection installation that turns the room’s body language into emojis, using Kinect."
 tags: ["interactive"]
 tracks: ["design"]
 archive: true
 draft: false
-stack: ["TouchDesigner", "Kinect", "Projection"]
+stack:
+  - TouchDesigner
+  - Kinect
 links:
   demo: "https://www.youtube.com/watch?v=1XzRk-Fi_zc"
 cover:
@@ -16,9 +18,9 @@ cover:
   alt: "A dark room with a projected wall of emoji faces, a human silhouette picked out in dense yellow particles at the centre."
 quickFacts:
   - label: "Role"
-    value: "Solo Designer & Creative Technologist"
+    value: "Designer & Creative Technologist"
   - label: "Outcome"
-    value: "A working projection installation with three interaction modes"
+    value: "Working projection installation with three interaction modes"
 ---
 
 <!--

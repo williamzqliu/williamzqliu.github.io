@@ -7,16 +7,20 @@ tags: ["interactive"]
 tracks: ["design"]
 archive: true
 draft: false
-stack: ["Reality Composer", "Nomad", "Procreate", "Figma"]
+stack:
+  - Reality Composer
+  - Nomad
+  - Procreate
+  - Figma
 cover:
   wide: "/media/lumitex/cover-wide.webp"
   tone: "light"
   alt: "A child wearing AR glasses reading a picture book, with coloured word groups and short captions overlaid on the page."
 quickFacts:
   - label: "Role"
-    value: "Solo Designer"
+    value: "Designer"
   - label: "Outcome"
-    value: "A functional AR reading-aid prototype"
+    value: "Functional AR reading-aid prototype"
 ---
 
 <!--

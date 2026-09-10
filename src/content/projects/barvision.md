@@ -6,9 +6,20 @@ blurb: Visual identity and playout system for a community song contest, broadcas
 tags: [interactive, narrative]
 tracks: [design, engineering]
 featured: 4
-stack: [HTML, CSS, JavaScript, Canvas, ffmpeg, OBS]
+stack:
+  - HTML
+  - CSS
+  - JavaScript
+  - Canvas
+  - ffmpeg
+  - OBS
 links:
-  replay: https://www.bilibili.com/video/BV1eT8s6zEk6/
+  # Not `Live Demo`: the show is over and this is the recording of it. The
+  # named-link form carries the label; `replay` is not a link kind the schema
+  # knows, and an unknown key is dropped in silence.
+  demo:
+    href: https://www.bilibili.com/video/BV1eT8s6zEk6/
+    label: Replay
 cover:
   wide: /media/barvision/cover-wide.webp
   tone: dark

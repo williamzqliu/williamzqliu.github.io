@@ -6,7 +6,11 @@ blurb: An interactive research tool for exploring how co-authorship connects sch
 tags: [networks, interactive]
 tracks: [design, engineering]
 featured: 1
-stack: [D3.js, HTML Canvas, Python, Three.js]
+stack:
+  - D3.js
+  - HTML Canvas
+  - Python
+  - Three.js
 links:
   demo: https://williamzqliu.com/neu-network-viz/
   thesis: https://heyzine.com/flip-book/b761227cbf.html
@@ -31,16 +35,16 @@ quickFacts:
   - label: "Role"
     value: "Visualization Designer & Researcher"
   - label: "Outcome"
-    value: "Interactive research tool and MFA thesis. Poster presented at NetSci 2026"
+    value: "Interactive research tool and MFA thesis, with a poster at NetSci 2026"
 # Order is the editorial decision here — read down, not sorted. Five is the cap
 # on skills and tools, enforced by the schema.
 credits:
   skills:
-    - Data Visualization
-    - Network Analysis
-    - Information Design
-    - UX Research
-    - Front-end Development
+    - Data visualization
+    - Network analysis
+    - Information design
+    - UX research
+    - Front-end development
   tools:
     - D3.js
     - Python
@@ -48,9 +52,9 @@ credits:
     - HTML Canvas
     # `*name*` sets a named service in italics, as the prose does. Two APIs in
     # one entry rather than two of the five slots.
-    - Scholarly APIs (*OpenAlex* and *ORCID*)
+    - Scholarly APIs (OpenAlex and ORCID)
   team:
-    - group: Research, Analysis & Design
+    - group: Research, analysis and design
       people:
         - Zhuoqi Liu
     - group: Advising
@@ -162,7 +166,7 @@ clusters emerge from the data rather than from a predefined organizational hiera
       loading="lazy"
       decoding="async"
     />
-    <figcaption>University as a Planetary System.</figcaption>
+    <figcaption>University as a planetary system.</figcaption>
   </figure>
 </div>
 
@@ -181,8 +185,8 @@ Expert testing later showed that the 3D approach also introduced readability cos
 ## The data problem
 
 I started with a dataset containing only four fields per scholar: `internal ID`,
-`name`, `database ID`, and `Northeastern affiliation flag`. My first *Gephi* and
-*D3.js* prototypes could show network density, but not departments, research centers,
+`name`, `database ID`, and `Northeastern affiliation flag`. My first Gephi and
+D3.js prototypes could show network density, but not departments, research centers,
 or meaningful organizational comparisons.
 
 <div class="media-mosaic" style="--mosaic-split: 46fr 54fr; --mosaic-stack: 64fr 36fr">
@@ -208,7 +212,7 @@ or meaningful organizational comparisons.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>The same network rendered in <em>Gephi</em>.</figcaption>
+    <figcaption>The same network rendered in Gephi.</figcaption>
   </figure>
 
   <figure>
@@ -221,7 +225,7 @@ or meaningful organizational comparisons.
       decoding="async"
     />
     <figcaption>
-      Northeastern&#8217;s co-authorship network rendered in <em>D3.js</em>.
+      Northeastern’s co-authorship network rendered in D3.js.
     </figcaption>
   </figure>
 </div>
@@ -229,7 +233,7 @@ or meaningful organizational comparisons.
 > The visualization attempt exposed a data problem.
 
 I spent three months rebuilding the dataset with faculty affiliations, departments,
-research centers, and publication records from *OpenAlex* and *ORCID*. The final
+research centers, and publication records from OpenAlex and ORCID. The final
 dataset covered **2,737 faculty across 11 colleges, 46 departments, and 64 research
 centers**.
 
@@ -255,7 +259,7 @@ keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>379 scholars: 3 departments + 3 research centers</figcaption>
+    <figcaption>379 scholars: 3 departments and 3 research centers.</figcaption>
   </figure>
 
   <figure>
@@ -267,7 +271,7 @@ keep structural patterns legible.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>2,737 scholars: full university network</figcaption>
+    <figcaption>2,737 scholars: full university network.</figcaption>
   </figure>
 </div>
 
@@ -329,7 +333,7 @@ four steps, marking the top 25%, 5%, 3%, and 1% of the score distribution.
     by the base-ten logarithm of total partners.
   </p>
   <div class="formula__parts">
-    <p><b>Proportion:</b> how much of a scholar&#8217;s collaboration crosses departmental
+    <p><b>Proportion:</b> how much of a scholar’s collaboration crosses departmental
       boundaries.</p>
     <p><b>Breadth:</b> how many collaborators they have overall, log-transformed to reduce
       skew.</p>
@@ -367,7 +371,7 @@ Over time, it adopted the same visual language as the main views: joint appointm
 bridge status, and affiliation encoding.
 
 In the final system, the panel carries scholar or unit context beside the active view. I
-added `Direct`, `1-Hop`, and `2-Hop` controls to bring ego-network exploration onto the
+added Direct, 1-Hop, and 2-Hop controls to bring ego-network exploration onto the
 main canvas. The panel became a contextual hub between the **university, research unit,
 and scholar** levels.
 
@@ -447,7 +451,7 @@ and compared those positions with profile information and their own knowledge of
 university.
 
 <blockquote class="participant-quote">
-  <p>&#8220;I would not have thought some of the different areas were like collaborating together.&#8221;</p>
+  <p>“I would not have thought some of the different areas were like collaborating together.”</p>
   <cite>Participant 09</cite>
 </blockquote>
 
@@ -498,7 +502,7 @@ measures were valid on their own, but I had presented them as if they described 
 kind of bridge.
 
 <blockquote class="participant-quote">
-  <p>&#8220;The bridge score is computed based on departments, but the visualization is based on topics.&#8221;</p>
+  <p>“The bridge score is computed based on departments, but the visualization is based on topics.”</p>
   <cite>Participant 16</cite>
 </blockquote>
 

@@ -6,7 +6,12 @@ blurb: A two-phase weighted model that picks one transit station out of 124 for 
 tags: [interactive]
 tracks: [engineering]
 featured: 8
-stack: [Python, pandas, Plotly, Folium, geopy]
+stack:
+  - Python
+  - pandas
+  - Plotly
+  - Folium
+  - geopy
 links: {}
 cover:
   wide: /media/tod-boston/cover-wide.webp
@@ -16,7 +21,7 @@ quickFacts:
   - label: "Role"
     value: "Data Analyst"
   - label: "Outcome"
-    value: "A recommended station, Quincy Center, at an estimated $482M"
+    value: "Recommended station, Quincy Center, at an estimated $482M"
 ---
 
 ## The question a policy created

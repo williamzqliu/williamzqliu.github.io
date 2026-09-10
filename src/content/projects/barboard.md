@@ -56,12 +56,12 @@ credits:
 Barboard (<span lang="zh-Hans">榜吧</span>), short for
 <span lang="zh-Hans">欧美流行音乐个人榜吧</span>, is a Chinese-speaking community for
 Western pop music founded on Baidu Tieba in 2013. Its English name combines
-&#8220;Bar,&#8221; a play on the Chinese &#8220;<span lang="zh-Hans">吧</span>,&#8221;
-with &#8220;board,&#8221; reflecting the personal-chart culture at the center of the
+“Bar,” a play on the Chinese “<span lang="zh-Hans">吧</span>,”
+with “board,” reflecting the personal-chart culture at the center of the
 community. I joined in 2017.
 
 As day-to-day conversation gradually moved to WeChat, there was no longer a single durable
-place for the community&#8217;s members, charts, events, and years of records. Chat was
+place for the community’s members, charts, events, and years of records. Chat was
 good for staying connected, but not for finding what happened years ago.
 
 In 2026, I designed and built barboard.space as an archive and web portal for the
@@ -78,7 +78,7 @@ to replace WeChat, but to give Barboard a place of its own that people could ret
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The homepage brings current updates and Barboard&#8217;s main activities into a single entry point.</figcaption>
+  <figcaption>The homepage brings current updates and Barboard’s main activities into a single entry point.</figcaption>
 </figure>
 
 > **Product scope**
@@ -113,10 +113,10 @@ to replace WeChat, but to give Barboard a place of its own that people could ret
 ## Shaping the visual system
 
 Barboard already had its own identity, but barboard.space took shape during Barvision
-Chongqing 2026, the community&#8217;s largest event. I had designed that edition around
-Chongqing&#8217;s river confluence and cyber-lit nightscape, using liquid neon, wave-like
+Chongqing 2026, the community’s largest event. I had designed that edition around
+Chongqing’s river confluence and cyber-lit nightscape, using liquid neon, wave-like
 forms, and blue-violet light. I carried that visual language into the website so the new
-portal felt connected to the community&#8217;s biggest live moment.
+portal felt connected to the community’s biggest live moment.
 
 <figure>
   <img
@@ -184,7 +184,7 @@ while tables, navigation, typography, and the rest of the interface return to th
 system. The pentagon mark recurs as a motif across those contexts. Consistency does not
 require every activity to look identical.
 
-The same Barvision 2026 visual language was also extended into the event&#8217;s
+The same Barvision 2026 visual language was also extended into the event’s
 [live broadcast and control system](/work/barvision).
 
 </details>
@@ -210,7 +210,7 @@ The same Barvision 2026 visual language was also extended into the event&#8217;s
 
 ## Making history searchable
 
-Barboard&#8217;s history was never stored in one place. Over more than a decade, records
+Barboard’s history was never stored in one place. Over more than a decade, records
 accumulated across Tieba posts, spreadsheets, and chart videos edited and uploaded by
 members to Bilibili, a major Chinese video-sharing platform. The information was still
 there, but as the years passed, it became harder to trace, compare, or even know where to
@@ -219,7 +219,7 @@ look.
 For barboard.space, I began bringing those records back together as a structured archive.
 Instead of treating past results as isolated artifacts, I designed ways to explore them by
 edition, year, person, song, artist, and language. The goal was not simply to preserve old
-files, but to make the community&#8217;s history easier to return to and use again.
+files, but to make the community’s history easier to return to and use again.
 
 <figure>
   <img
@@ -291,7 +291,7 @@ information people would want to return to.
 
 A search result that returned one row per database record would bury the reader, because a
 song that survives several rounds is stored several times. Matches are grouped and collapsed
-to the appearance that went furthest, so a result is one song&#8217;s run through one
+to the appearance that went furthest, so a result is one song’s run through one
 edition rather than one row per record.
 
 ```js
@@ -326,8 +326,8 @@ unattributed rather than being assigned to a member who looks likely. An archive
 hides its own gaps is harder to trust than one that shows them.
 
 That distinction is a comparison against `null`, not a truthiness check, and it runs through
-every row of every member&#8217;s chart history. Collapsing the two would have been easier
-and would have quietly falsified a lot of people&#8217;s records.
+every row of every member’s chart history. Collapsing the two would have been easier
+and would have quietly falsified a lot of people’s records.
 
 ```js
 var assistRows = years.map(function (y) {
@@ -516,7 +516,7 @@ device.
 
 barboard.space was not only built for looking back. It also became part of how Barboard
 ran its biggest event of 2026. Barvision Chongqing 2026 attracted the most participants
-and song entries in the event&#8217;s history, while the site supported registration,
+and song entries in the event’s history, while the site supported registration,
 information updates, schedules, and results throughout the season.
 
 I also built recurring tools around BarboardLab and other community data, from weekly
@@ -533,7 +533,7 @@ seasonal community activity.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The weekly BarboardLab chart combines current rankings with search and highlights derived from each week&#8217;s data.</figcaption>
+  <figcaption>The weekly BarboardLab chart combines current rankings with search and highlights derived from each week’s data.</figcaption>
 </figure>
 
 <!-- `--pair-split` in the pictures' own aspect ratios, 1.6 and 1.869, so the
@@ -551,7 +551,7 @@ seasonal community activity.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>The Barvision odds board turns changing predictions into an interface members can sort and compare during the event. Violet marks the model&#8217;s predicted winner, blue each predictor&#8217;s best price.</figcaption>
+    <figcaption>The Barvision odds board turns changing predictions into an interface members can sort and compare during the event. Violet marks the model’s predicted winner, blue each predictor’s best price.</figcaption>
   </figure>
 
   <figure>
@@ -570,7 +570,7 @@ seasonal community activity.
 
 > **Live season**
 >
-> Barvision 2026 became the largest edition in the event&#8217;s history.
+> Barvision 2026 became the largest edition in the event’s history.
 >
 > barboard.space supported registration, event information, and results throughout the
 > season.
@@ -587,7 +587,7 @@ information. The workflow has run on its schedule through the project period.
 
 The upstream source sits behind bot protection and sometimes answers 403. The job treats
 that as a normal outcome rather than a failure: it writes nothing, exits zero, and leaves
-last week&#8217;s chart in place, so the site serves the most recent chart it successfully
+last week’s chart in place, so the site serves the most recent chart it successfully
 fetched instead of publishing an empty one.
 
 ```python
@@ -682,7 +682,7 @@ the season status, the odds board, and the results as they were published.
 ## Looking ahead
 
 Barvision 2026 was an encouraging first test of what barboard.space could become. It was the
-largest edition in the event&#8217;s history by both participants and song entries, while
+largest edition in the event’s history by both participants and song entries, while
 the site served as a central portal for registration, updates, schedules, and results. I
 cannot separate how much of that growth came from the site itself, but it showed that the
 portal could support an active community moment rather than only preserve the past.
