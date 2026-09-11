@@ -140,14 +140,14 @@ orthogonal and must never be folded into a width query.
 | `Footer` | `components/Footer.astro` | contact block | `Base` | 2×2 baseline grid ≥1024 |
 | `BackToTop` | `components/BackToTop.astro` | reveal-on-scroll link | `Base` | trigger derived from `[data-totop-from]` on each page, not a magic scrollY |
 | `ThemeToggle` | `components/ThemeToggle.astro` | light/dark switch | `Nav` | |
-| `ProjectRow` | `components/ProjectRow.astro` | the project card | `pages/index.astro`, `pages/work/_index.astro` | see below |
+| `ProjectRow` | `components/ProjectRow.astro` | the project card | `pages/index.astro`, `pages/work/index.astro` | see below |
 | `CoverMedia` | `components/CoverMedia.astro` | cover image / video / tone plate | `ProjectRow`, case study head | `ratio="responsive" \| "hero"`, `tone`, optional `src`/`mobileSrc` |
 | `KeywordTags` | `components/KeywordTags.astro` | stack chips | `ProjectRow`, case study head | `items`, `limit`, `emphasise` |
 | `QuickFacts` | `components/QuickFacts.astro` | Timeline / Role / Outcome | case study head | |
 | `ExtArrow` | `components/ExtArrow.astro` | the ↗ mark | four link sites | |
 | `NextProject` | `components/NextProject.astro` | end-of-page hand-off | case study | destination decided by `nextStep()` |
 | `Hero`, `HomeIntro`, `IdentityLine` | `components/` | homepage opening | `pages/index.astro`, `pages/about.astro` | |
-| `FilterRow`, `ArchiveList` | `components/` | work-index UI | `pages/work/_index.astro` | parked with the index — see *The GFL cut* |
+| `FilterRow`, `ArchiveList` | `components/` | work-index UI | `pages/work/index.astro` | |
 | `Lightbox` | `components/Lightbox.astro` | the image/video viewer | case study | one implementation, site-wide |
 
 **When not to create another one:** if a pattern exists once, leave it where it
@@ -309,14 +309,6 @@ phone while every other pair stacks.
 - **`--header-h` is a fixed 97px / 63px** rather than measured. It feeds
   `scroll-margin-top` for every anchor; if the header ever changes height, this
   is the number to change.
-
-### The GFL cut
-
-`src/lib/projects.ts` carries a temporary reduced edition: `/work` is parked at
-`pages/work/_index.astro` (Astro ignores `pages/**/_*`), `Work` is commented out
-of `Nav.astro`, and the homepage shows four projects. `grep -rn GFL src/` lists
-every site. To restore: set `GFL_CUT` to `undefined`, rename the index back,
-uncomment the nav entry.
 
 ---
 
