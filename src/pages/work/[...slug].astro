@@ -8,7 +8,7 @@ import NextProject from '../../components/NextProject.astro';
 import ProjectCredits from '../../components/ProjectCredits.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
 import Lightbox from '../../components/Lightbox.astro';
-import { projectLinks, hasCaseStudy, nextStep, WORK_INDEX_ENABLED } from '../../lib/projects';
+import { projectLinks, hasCaseStudy, nextStep } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
 // SPEC §7 — only projects with body content get a case study page.
@@ -161,14 +161,10 @@ const facts = [
               year={next.project.data.year}
               href={`/work/${next.project.id}`}
             />
-          ) : /* End of the curated sequence: out to the full list, not back
-                  to the start and not down into the archive. GFL: while the
-                  work index is unbuilt there is no list to go to, so the
-                  hand-off is the landing page's own selection. */
-          WORK_INDEX_ENABLED ? (
-            <NextProject title="Explore all work" href="/work" />
           ) : (
-            <NextProject title="Back to selected work" href="/#selected-work" />
+            /* End of the curated sequence: out to the full list, not back to
+               the start and not down into the archive. */
+            <NextProject title="Explore all work" href="/work" />
           )
         }
       </div>
