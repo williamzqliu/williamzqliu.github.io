@@ -175,7 +175,8 @@ clusters emerge from the data rather than from a predefined organizational hiera
 while playing *Sanctuary*. Their geometry suggested a way to represent organizational
 units as distinct but comparable parts of one system.
 
-**Bridging Scholars: vertical structure.** Inspired partly by *150 Years of Nature*, I
+**Bridging Scholars: vertical structure.** Inspired partly by
+[*150 Years of Nature*](https://www.nature.com/immersive/d41586-019-03165-4/index.html), I
 explored depth as an encoding channel. Research communities stay on a shared plane
 while scholars connecting multiple communities are elevated above it.
 
