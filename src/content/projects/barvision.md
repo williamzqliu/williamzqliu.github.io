@@ -1,8 +1,8 @@
 ---
-title: Barvision Song Contest
+title: Barvision Chongqing 2026
 year: 2026
-dates: Jul 2026 – Aug 2026
-blurb: Visual identity and playout system for a community song contest, broadcast live three times.
+dates: Jun 2026 – Aug 2026
+blurb: A live song contest I organized, hosted, art-directed, and operated, with a custom broadcast system for its three-hour grand final.
 tags: [interactive, narrative]
 tracks: [design, engineering]
 featured: 4
@@ -10,8 +10,8 @@ stack:
   - HTML
   - CSS
   - JavaScript
-  - Canvas
-  - ffmpeg
+  - Python
+  - FFmpeg
   - OBS
 links:
   # Not `Live Demo`: the show is over and this is the recording of it. The
@@ -23,12 +23,12 @@ links:
 cover:
   wide: /media/barvision/cover-wide.webp
   tone: dark
-  alt: A televote reveal screen in cyan and teal, showing a cumulative leaderboard of 26 finalists beside the points being awarded.
+  alt: The contest title card, showing the Barvision wordmark, its V replaced by a pentagon, over curved streaks of cyan, violet and magenta light, above the lines Song Contest and Chongqing 2026.
 quickFacts:
   - label: "Role"
-    value: "Art Director & Technical Director"
+    value: "Organizer, Host, Art Director & Broadcast Systems Designer"
   - label: "Outcome"
-    value: "Three live broadcasts, including a 26-song grand final with 242 cued steps"
+    value: "Three live broadcasts, including a verifiable allocation draw and a three-hour grand final run from a purpose-built browser system"
 ---
 
 ## What this is
