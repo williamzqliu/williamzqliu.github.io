@@ -2,7 +2,7 @@
 title: Barvision Chongqing 2026
 year: 2026
 dates: Jun 2026 – Aug 2026
-blurb: A live song contest I organized, hosted, art-directed, and operated, with a custom broadcast system for its three-hour grand final.
+blurb: A live song contest I organized, art-directed, hosted, and operated, with a custom broadcast system for its three-hour grand final.
 tags: [interactive, narrative]
 tracks: [design, engineering]
 featured: 4
@@ -26,7 +26,7 @@ cover:
   alt: The contest title card, showing the Barvision wordmark, its V replaced by a pentagon, over curved streaks of cyan, violet and magenta light, above the lines Song Contest and Chongqing 2026.
 quickFacts:
   - label: "Role"
-    value: "Organizer, Host, Art Director & Broadcast Systems Designer"
+    value: "Organizer, Art Director, Host & Broadcast Systems Designer"
   - label: "Outcome"
     value: "Three live broadcasts, including a verifiable allocation draw and a three-hour grand final run from a purpose-built browser system"
 ---
