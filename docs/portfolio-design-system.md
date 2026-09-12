@@ -316,6 +316,7 @@ phone while every other pair stacks.
 
 | I want to change… | File |
 | --- | --- |
+| whether a project is public | `published:` in its frontmatter |
 | a colour, in either theme | `src/styles/tokens.css` |
 | a type size, weight, or face | `src/styles/tokens.css` |
 | spacing scale | `src/styles/tokens.css` |

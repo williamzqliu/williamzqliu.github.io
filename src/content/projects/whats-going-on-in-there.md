@@ -5,6 +5,7 @@ dates: Nov 2024 – Dec 2024
 blurb: An exhibit where visitors map their own caffeine and sleep habits onto a brain with coloured rubber bands.
 tags: [interactive]
 tracks: [design]
+published: false
 featured: 6
 stack:
   - Figma

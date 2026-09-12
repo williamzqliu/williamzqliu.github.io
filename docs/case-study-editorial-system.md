@@ -607,3 +607,36 @@ sequence. Keep the rest for the thesis.
     targets, only on covers).
 15. Check for horizontal overflow at 375px.
 16. Check no media file in `public/media/<slug>/` is unreferenced.
+17. Only then set `published: true`.
+
+---
+
+## Project publication
+
+Projects carry an explicit `published` flag in frontmatter.
+
+`published: true`
+
+- appears in the public project listings
+- generates a public case study route at `/work/<slug>`
+- is offered by the other surfaces that read the collection
+
+`published: false`, or the field left out
+
+- stays in the repository and is edited in place
+- is left out of every public listing
+- generates no route, so the old `/work/<slug>` URL is not reachable
+
+The flag defaults to false in the schema, so a project goes public only when
+someone writes the line. Every query reads the collection through one gate,
+`isPublic()` in `lib/projects.ts`, which is why a card and a route cannot
+disagree about whether a project is public.
+
+Set it to true only after reading both the card and the case study. Nothing is
+inferred from how long the body is, whether a cover exists, how recently the
+file changed, or whether a folder sits in `media-src/` — that folder was the
+reference for the first migration and has no part in the build.
+
+`draft: true` is the older, blunter flag and still means a file that should not
+build at all. `published` is the narrower case: a file that builds, is worked on
+locally, and is not ready to be read yet.

@@ -5,6 +5,7 @@ dates: Oct 2024 – Dec 2024
 blurb: A two-phase weighted model that picks one transit station out of 124 for mixed-use development.
 tags: [interactive]
 tracks: [engineering]
+published: false
 featured: 8
 stack:
   - Python

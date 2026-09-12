@@ -5,6 +5,7 @@ dates: Mar 2023 – Nov 2023
 blurb: A service ecosystem designed to help older adults connect, participate, and contribute in community life.
 tags: [narrative]
 tracks: [design]
+published: true
 featured: 9
 # Tools, the way every other project's stack reads. Service design is a skill
 # and lives in the credits.
