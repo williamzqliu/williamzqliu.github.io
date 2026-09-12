@@ -729,7 +729,7 @@ the interface, and the completed allocation became a full result board.
   <figcaption>Seed input screen</figcaption>
 </figure>
 
-**One published input.** The draw ran on a seeded generator rather than on the browser's
+**One public seed.** The draw ran on a seeded generator rather than on the browser's
 own randomness, so the seed string was the whole input, and each stage of the allocation
 was a separate step from it.
 
