@@ -87,6 +87,11 @@ const projects = defineCollection({
          Set true and the head takes the picture's own proportions at full
          column width instead. */
       heroWhole: z.boolean().default(false),
+      /* No picture in the head at all. For a project whose opening image is
+         really several images with something between them, which the head's
+         single `<img>` cannot express: the row goes at the top of the body
+         instead, where the article's own media patterns can build it. */
+      heroInBody: z.boolean().default(false),
       tone: z.enum(['dark', 'light', 'neutral']),
       /* Case study heads open in the viewer like every other picture on the
          page, because a cover is usually the project's own artwork and there

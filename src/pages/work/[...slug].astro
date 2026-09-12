@@ -101,7 +101,8 @@ const facts = [
       </div>
 
       {
-        COVERS_ENABLED && (
+        COVERS_ENABLED &&
+          !project.data.cover.heroInBody && (
           <figure class="cs__media" data-nozoom={project.data.cover.zoom ? undefined : 'true'}>
             <CoverMedia
               tone={project.data.cover.tone}
@@ -778,13 +779,10 @@ const facts = [
     color: var(--text);
   }
 
-  /* A point down. The italic here is always a product name sitting inside a
-     roman sentence, and at the same size the slant made it look larger than
-     the words around it. Relative, so it holds in a caption as well as in a
-     paragraph. */
+  /* The step down is in base.css, on `em`, because it applies everywhere the
+     site sets a title or a product name in italics. */
   .prose em {
     font-style: italic;
-    font-size: 0.945em;
   }
 
   /* Inline technical values, in the site's mono rather than the browser's.
@@ -947,6 +945,23 @@ const facts = [
 
   .media-pair > figure {
     margin-top: 0;
+  }
+
+  /* Bottom-aligned instead of top-aligned. `start` is right for a comparison,
+     which is read from the edge the pictures share; a run of editions at
+     different sizes is read from the floor they stand on. */
+  .media-pair[data-align='end'] {
+    align-items: end;
+  }
+
+  /* A connector between bottom-aligned pictures, centred on the shorter ones
+     rather than on the block. The wrapper is given the shorter picture's own
+     aspect ratio per instance, so bottom alignment hands it exactly that
+     height and the arrow lands on its middle. A bare element between figures
+     in a bottom-aligned row is a connector; nothing else is a `div` here. */
+  .media-pair[data-align='end'] > div {
+    display: grid;
+    place-items: center;
   }
 
   /* Out of the row on a phone, for the case where a row cannot work: a wide
