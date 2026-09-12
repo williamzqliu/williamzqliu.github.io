@@ -294,7 +294,7 @@ moving upward and forward.
     <figcaption>Earlier-stage results</figcaption>
   </figure>
 
-  <div class="media-pair" style="--pair-split: minmax(0, 1fr)">
+  <div class="media-pair" data-phone-row style="--pair-split: minmax(0, 1fr)">
     <figure>
       <video
         src="/media/barvision/gf-order-jury.mp4"
