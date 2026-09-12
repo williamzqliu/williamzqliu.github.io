@@ -170,27 +170,26 @@ reproduce that artwork. I took the reusable qualities out of it instead: dark su
 luminous accents, restrained glow, and a shared color vocabulary.
 
 **Typography across two scripts.** The community follows Western pop music in Chinese, so
-Chinese interface text sits beside English artist names, song titles, chart terminology,
-and event branding on the same page. Large display headings use Bebas Neue, Chinese text
-and body copy use DM Sans, and DM Mono carries dates and other data. Bebas Neue and DM
-Mono have no Chinese glyphs, so Chinese content needs a fallback that is chosen rather
-than whatever the browser reaches for, and stating that became an explicit rule across the
-site. The member renderer detects CJK characters and switches the face for exactly this
-reason.
+Chinese interface text sits beside English artist names, song titles, chart terminology, and
+event branding on the same page. I set large display headings in Bebas Neue, Chinese text and
+body copy in DM Sans, and dates and other data in DM Mono. Bebas Neue and DM Mono have no
+Chinese glyphs, so I made the Chinese fallback an explicit rule across the site rather than
+leaving it to whatever the browser reaches for. The member renderer detects CJK characters and
+switches the face for exactly this reason.
 
-**From campaign colors to interface colors.** The event palette becomes interface roles
-rather than decoration. Blue, pink, violet, and gold recur across headings, rankings,
-states, charts, and activity accents, while shared background and text values keep the
-data-heavy pages consistent. The implementation currently holds 65 CSS custom properties.
+**From campaign colors to interface colors.** I turned the event palette into interface roles
+rather than decoration. Blue, pink, violet, and gold recur across headings, rankings, states,
+charts, and activity accents, while shared background and text values keep the data-heavy pages
+consistent. The implementation currently holds 65 CSS custom properties.
 
-**Shared system, local identities.** BarboardLab works inside the shared system with its
-own color treatment, and a Barvision edition can keep its own palette in the hero area,
-while tables, navigation, typography, and the rest of the interface return to the common
-system. The pentagon mark recurs as a motif across those contexts. Consistency does not
-require every activity to look identical.
+**Shared system, local identities.** I let BarboardLab work inside the shared system with its
+own color treatment, and a Barvision edition keep its own palette in the hero area, while
+tables, navigation, typography, and the rest of the interface return to the common system. The
+pentagon mark recurs as a motif across those contexts. Consistency does not require every
+activity to look identical.
 
-The same Barvision 2026 visual language was also extended into the event's
-[live broadcast and control system](/work/barvision).
+I built the event's [live broadcast and control system](/work/barvision) on the same Barvision
+2026 visual language.
 
 </details>
 
@@ -286,18 +285,17 @@ files, but to make the community's history easier to return to and use again.
 <details>
 <summary>How the archive was rebuilt</summary>
 
-**Records across platforms and formats.** The material accumulated over many years rather
-than arriving as one dataset: Tieba-era records, spreadsheets, activity files, and
-member-produced videos hosted on platforms such as Bilibili. Different activities and
-different years preserved different levels of detail, so the first job was deciding which
-sources could become structured data and which could only stay as references or media.
-The point was never to copy every old artifact into the website. It was to rebuild the
-information people would want to return to.
+**Records across platforms and formats.** The material accumulated over many years rather than
+arriving as one dataset: Tieba-era records, spreadsheets, activity files, and member-produced
+videos hosted on platforms such as Bilibili. Different activities and different years preserved
+different levels of detail, so my first job was deciding which sources could become structured
+data and which could only stay as references or media. I was never trying to copy every old
+artifact into the website; I wanted to rebuild the information people would want to return to.
 
-A search result that returned one row per database record would bury the reader, because a
-song that survives several rounds is stored several times. Matches are grouped and collapsed
-to the appearance that went furthest, so a result is one song's run through one
-edition rather than one row per record.
+A search result that returned one row per database record would bury the reader, because a song
+that survives several rounds is stored several times. I group matches and collapse them to the
+appearance that went furthest, so a result is one song's run through one edition rather than
+one row per record.
 
 ```js
 // 同一届同一首歌的不同场次（半决赛 + 决赛）合并为一条，保留更后阶段（决赛优先）
@@ -314,21 +312,21 @@ hits = order.map(function (k) { return grp[k]; });
 
 <p class="code-note">The stage ladder reads GF, the grand final, above SF, a semi-final, above SC, the second chance round, above a qualifier or group stage. Insertion order is kept separately so collapsing does not reshuffle the results.</p>
 
-**From records to questions.** The same material is reorganized into different views
-depending on what someone is trying to find. What happened in this edition goes to the
-Barvision edition pages. Whether a song or an artist has appeared before goes to Barvision
-Stats. What a person has done goes to their member profile. What was on the chart in a
-given year goes to the annual chart archive. Deciding those four questions first, and
-letting the views follow from them, is the information architecture.
+**From records to questions.** I reorganized the same material into different views depending
+on what someone is trying to find. What happened in this edition goes to the Barvision edition
+pages. Whether a song or an artist has appeared before goes to Barvision Stats. What a person
+has done goes to their member profile. What was on the chart in a given year goes to the annual
+chart archive. I decided those four questions first and let the views follow from them, which
+is the information architecture.
 
 **Reconstructing incomplete history.** The original Barvision summary archive held 87
-podium-result rows across 15 editions. Reconstructing the records underneath them expanded
-that into 771 competition entries, 1,140 voter records, and 11,130 votes across 16
-editions, alongside 2,291 chart rows across 11 years in the annual archive. Completeness
-still varies by year and by activity. The interface distinguishes information that is
-missing from a value that is genuinely zero, and anonymous or unattributed entries stay
-unattributed rather than being assigned to a member who looks likely. An archive that
-hides its own gaps is harder to trust than one that shows them.
+podium-result rows across 15 editions. Reconstructing the records underneath them, I expanded
+that into 771 competition entries, 1,140 voter records, and 11,130 votes across 16 editions,
+alongside 2,291 chart rows across 11 years in the annual archive. Completeness still varies by
+year and by activity. I made the interface distinguish information that is missing from a value
+that is genuinely zero, and left anonymous or unattributed entries unattributed rather than
+assigning them to a member who looks likely. An archive that hides its own gaps is harder to
+trust than one that shows them.
 
 That distinction is a comparison against `null`, not a truthiness check, and it runs through
 every row of every member's chart history. Collapsing the two would have been easier
@@ -379,9 +377,9 @@ var assistRows = years.map(function (y) {
 
 ## Designing for small screens
 
-Barboard members often talk about music in WeChat, then leave the conversation briefly to
-check a chart result or song before sharing it back in the group. That made mobile access
-an important part of the website experience.
+Barboard members often talk about music in WeChat, then leave the conversation briefly to check
+a chart result or song before sharing it back in the group. I treated mobile access as a core
+part of the website experience because of it.
 
 On data-heavy pages, that was not always simple. Some Barvision scoreboards are more than
 1,100 pixels wide, so instead of shrinking everything, I changed how the information
@@ -422,13 +420,13 @@ cards, and controls move to more useful positions.
 <details>
 <summary>Responsive implementation details</summary>
 
-**Keeping wide scoreboards usable.** Several Barvision tables are wider than a phone
-screen and cannot honestly be made narrower, so the horizontal scroll is contained inside
-each table rather than let loose on the page. The columns that say who and what a row is
-stay in place while the score columns move under them, and a swipe hint appears only when
-the table actually exceeds the width available. The frozen positions are measured from the
-rendered columns with `getBoundingClientRect()` rather than assumed from fixed values,
-because the widths change with the content.
+**Keeping wide scoreboards usable.** Several Barvision tables are wider than a phone screen and
+cannot honestly be made narrower, so I contained the horizontal scroll inside each table rather
+than letting it loose on the page. The columns that say who and what a row is stay in place
+while the score columns move under them, and a swipe hint appears only when the table actually
+exceeds the width available. I measure the frozen positions from the rendered columns with
+`getBoundingClientRect()` rather than assuming fixed values, because the widths change with the
+content.
 
 ```js
 function colW(el) { return el ? el.getBoundingClientRect().width : 0; }
@@ -455,19 +453,18 @@ function stickyMatrixCols() {
 
 <p class="code-note">The same table measures 0 / 46 / 226 / 277px at a 1440px viewport and 0 / 46 / 111 / 162px at 390px, which is why one table serves both without a separate mobile layout. <code>getBoundingClientRect().width</code> returns fractional pixels where <code>offsetWidth</code> rounds; the rounding left sub-pixel gaps that made the frozen columns jitter during scroll.</p>
 
-**Changing components, not only dimensions.** Some Stats and Hall of Fame tables stop
-being tables on a small screen and become cards. Long member handles give way to shorter
-nicknames where the horizontal space is worth more than the full name. The BarboardLab
-search control leaves the desktop sidebar and sits above the chart. Member grids drop
-columns, and navigation becomes a drawer. Responsive work here meant changing what a
-component is and where it sits, not only its type size and spacing.
+**Changing components, not only dimensions.** Some Stats and Hall of Fame tables stop being
+tables on a small screen and become cards. Long member handles give way to shorter nicknames
+where the horizontal space is worth more than the full name. The BarboardLab search control
+leaves the desktop sidebar and sits above the chart. Member grids drop columns, and navigation
+becomes a drawer. I treated responsive work here as changing what a component is and where it
+sits, not only its type size and spacing.
 
-**Refining real browser behavior.** Several decisions only came from watching the pages
-run. Measuring widths as fractions rather than rounding them took the visible jitter out
-of the frozen columns. Frozen cells needed opaque backgrounds, or the scrolling content
-showed through them. `text-size-adjust: 100%` stopped Chrome inflating type in the wide
-scoreboards. Hover states and tooltips are suppressed where they mean nothing on a touch
-device.
+**Refining real browser behavior.** A few of these decisions I only found by watching the pages
+run. Measuring widths as fractions rather than rounding them took the visible jitter out of the
+frozen columns. Frozen cells needed opaque backgrounds, or the scrolling content showed through
+them. `text-size-adjust: 100%` stopped Chrome inflating type in the wide scoreboards. Hover
+states and tooltips are suppressed where they mean nothing on a touch device.
 
 </details>
 
@@ -519,10 +516,10 @@ device.
 
 ## Building live community tools
 
-barboard.space was not only built for looking back. It also became part of how Barboard
-ran its biggest event of 2026. Barvision Chongqing 2026 attracted the most participants
-and song entries in the event's history, while the site supported registration,
-information updates, schedules, and results throughout the season.
+I did not build barboard.space only for looking back. It also became part of how Barboard ran
+its biggest event of 2026. Barvision Chongqing 2026 attracted the most participants and song
+entries in the event's history, while the site supported registration, information updates,
+schedules, and results throughout the season.
 
 I also built recurring tools around BarboardLab and other community data, from weekly
 chart updates and search to interactive results and member records. Together, these
@@ -583,17 +580,17 @@ seasonal community activity.
 <details>
 <summary>How the live tools work</summary>
 
-**Keeping the weekly chart current.** BarboardLab publishes a new singles chart every
-week. A Python script retrieves the source data and reshapes it into a consistent JSON
-file, and a GitHub Actions workflow runs that on a schedule, so the home page and the
-BarboardLab pages read the updated file directly rather than waiting on anyone to publish
-it. The same run can refresh related home page content, such as the current issue
-information. The workflow has run on its schedule through the project period.
+**Keeping the weekly chart current.** BarboardLab publishes a new singles chart every week. I
+wrote a Python script that retrieves the source data and reshapes it into a consistent JSON
+file, and a GitHub Actions workflow runs it on a schedule, so the home page and the BarboardLab
+pages read the updated file directly rather than waiting on anyone to publish it. The same run
+can refresh related home page content, such as the current issue information. The workflow has
+run on its schedule through the project period.
 
-The upstream source sits behind bot protection and sometimes answers 403. The job treats
-that as a normal outcome rather than a failure: it writes nothing, exits zero, and leaves
-last week's chart in place, so the site serves the most recent chart it successfully
-fetched instead of publishing an empty one.
+The upstream source sits behind bot protection and sometimes answers 403. I made the job treat
+that as a normal outcome rather than a failure: it writes nothing, exits zero, and leaves last
+week's chart in place, so the site serves the most recent chart it successfully fetched instead
+of publishing an empty one.
 
 ```python
 try:
@@ -604,19 +601,18 @@ try:
     resp.raise_for_status()
 ```
 
-**Designing interaction around the data.** Displaying the chart is the easy half. Search
-filters the current chart by song or artist. Computed highlight cards surface the things
-people actually look for, such as the highest debut, the longest-charting song, the
-biggest rise and the biggest fall, and selecting one takes you straight to that row in the
-chart. The Barvision interfaces use sorting, filtering and tabbed views where the
-information rewards being explored directly, and a member record can be exported as an
-image to share. The point is that the data is not only shown; the interface gives people
-something to do with it.
+**Designing interaction around the data.** Displaying the chart is the easy half. I added a
+search that filters the current chart by song or artist, and computed highlight cards for the
+things people actually look for, such as the highest debut, the longest-charting song, the
+biggest rise and the biggest fall, where selecting one takes you straight to that row. The
+Barvision interfaces use sorting, filtering and tabbed views where the information rewards
+being explored directly, and a member record can be exported as an image to share. The point is
+that the data is not only shown; the interface gives people something to do with it.
 
 The odds board highlights the best few values in each column, which is under-specified the
-moment values tie. Sorting and slicing would pick arbitrarily and imply a ranking the
-numbers do not support, so the highlight walks the sorted values in tie groups and includes
-a group only if the whole group still fits.
+moment values tie. Sorting and slicing would pick arbitrarily and imply a ranking the numbers
+do not support, so I walk the sorted values in tie groups and include a group only if the whole
+group still fits.
 
 ```js
 function tieHighlight(entries, N) {
@@ -636,13 +632,13 @@ function tieHighlight(entries, N) {
 <p class="code-note">Four predictors tied for third means none of them is marked, which is the honest answer. The same function drives both highlight systems on the board.</p>
 
 **Handling a live event over time.** Barvision 2026 was not one page, it was a state that
-changed across the summer, and the site carried a real season rather than a rehearsal of
-one. The submission page read differently before registration opened, while submissions
-were active, and after it closed. Validation and confirmation happened in the browser, and
-EmailJS carried the submission itself, so a song could be entered without a server
-standing behind the form. A local receipt meant someone returning on the same device could
-see what they had already sent. Other surfaces moved with the competition too, including
-the season status, the odds board, and the results as they were published.
+changed across the summer, and the site carried a real season rather than a rehearsal of one.
+The submission page read differently before registration opened, while submissions were active,
+and after it closed. I kept validation and confirmation in the browser and let EmailJS carry
+the submission itself, so a song could be entered without a server standing behind the form. A
+local receipt meant someone returning on the same device could see what they had already sent.
+Other surfaces moved with the competition too, including the season status, the odds board, and
+the results as they were published.
 
 </details>
 

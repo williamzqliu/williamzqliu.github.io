@@ -87,7 +87,7 @@ full column would read as a claim the picture is not making.
 ### Figure pair — `.media-pair`
 
 ```html
-<div class="media-pair" data-abreast>…two <figure>s…</div>
+<div class="media-pair">…two <figure>s…</div>
 ```
 
 **Use for** two images in a meaningful relationship: before/after,
@@ -97,13 +97,19 @@ mattered; the media shows what changed.
 **Standard.** Equal columns, tops aligned, no crop, no card, no shadow, no
 badges, no arrows, no slider. Each half opens in the lightbox independently.
 
-**Modifiers.** Default stacks below 640px. `data-abreast` keeps the row at
-every width (12px gutter on a phone, 24px above) for pictures that mean nothing
-apart. `--pair-split` (passed as an inline style, like the mosaic's) sets the
-column ratio: give differently shaped pictures the ratio of their own aspects
-and they come out the same height with nothing cropped. The two work together,
-so a row set abreast with a split holds both its shape and its single height
-down to the phone.
+**Modifiers.** The row holds at every width, phones included: a 12px gutter on
+a phone and 24px above. Stacking spends a whole phone screen on one frame and
+turns a comparison into a memory test, so it is the exception rather than the
+default. `data-stack` takes a pair out of the row below 640px, and the only
+case that needs it is a wide frame beside a column that subdivides again.
+There the outer pair stacks and the inner one takes `data-phone-row`, which
+turns a column back into a row below 640px: `--pair-split` holds one value, and
+that pair needs one track on a desktop and several on a phone.
+
+`--pair-split` (passed as an inline style, like the mosaic's) sets the column
+ratio and takes as many ratios as there are frames: give differently shaped
+pictures the ratio of their own aspects and they come out the same height with
+nothing cropped.
 
 **A sequence that arrives as one image stays one image.** Five panel states
 exported as a single figure are one `<figure>` with one caption below, not five
@@ -116,8 +122,8 @@ children of the `.media-pair`, with one `<figcaption>` under it: three photos
 of one session are one picture as far as the reader is concerned, and three
 captions would ask them to tell the frames apart. `--pair-split` takes as many
 ratios as there are frames, so masters exported at one height come out in a row
-at one height, and `data-abreast` keeps them in that row on a phone — split
-across three screens they stop being one moment. Comgrand's Section 02 has the
+at one height, and the row holds on a phone — split across three screens
+they stop being one moment. Comgrand's Section 02 has the
 three-frame form.
 
 **Don't** put two unrelated images together to save vertical space.
@@ -565,6 +571,32 @@ finished, read it once against this standard and report anything that fails
 before moving to the next section. Fixing one sentence is cheap; a full-site
 pass is not. A project joins the reviewed set once its final section has passed
 this check.
+
+**Agency, checked in the same pass.** A case study is an account of decisions
+someone made. Prose that describes the artifact without naming who chose it
+reads as a report on something found rather than something built, and the
+decisions are the only part a reader cannot get from the pictures.
+
+Every paragraph should carry at least one sentence that says what I decided,
+built, changed, or rejected. Consequences and descriptions can stay agentless
+— *the icons had to shrink to fit*, *populations vary* — but a decision
+cannot. The failure is usually a sentence whose subject is the artifact where
+the point is the choice: *The first version used one fixed-width row* for *I
+gave each country one fixed-width row*; *The countries run left to right* where
+the order was picked; *was designed to*, *it was decided*, *the approach taken*.
+
+On a team project, `we` is for what the team did and `I` for what I did. Do not
+use `we` to blur which was which, and do not use it at all on a solo project.
+
+**Do not claim a decision that was not yours.** Agency is accuracy before it is
+credit. A teammate's choice, a client's constraint, a reviewer's call and a
+participant's behaviour all stay in their own subjects, and a paragraph about
+one of them is supposed to read agentless. Where the reader might otherwise
+assume the work is yours, say where it came to you instead of taking it.
+
+**Do not overcorrect.** A run of sentences all opening `I` is its own problem.
+One owned decision per paragraph is usually enough; the sentences around it can
+describe the thing.
 
 ---
 

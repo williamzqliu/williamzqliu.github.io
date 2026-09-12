@@ -177,11 +177,11 @@ activities.
 <!-- Three frames of one session, so `--pair-split` carries the pictures' own
      aspect ratios, 0.73, 1.297 and 0.73. All three masters are 592px tall, so
      the ratios put them in a row at one height with nothing cropped. One
-     caption, because it is one moment, and `data-abreast` so the row holds at
+     caption, because it is one moment, and the row holds at
      every width: split across three screens they stop being one moment. -->
 
 <figure>
-  <div class="media-pair" data-abreast style="--pair-split: 0.73fr 1.297fr 0.73fr">
+  <div class="media-pair" style="--pair-split: 0.73fr 1.297fr 0.73fr">
     <img
       src="/media/comgrand/codesign-01.webp"
       data-nozoom
@@ -551,8 +551,8 @@ iteration would have to work on.
 **Losing the ring mattered more once it carried sensitive functions.** Participants varied in how
 easily they adapted to wearing and using the ring, and concern about losing it came up
 repeatedly. Because the
-concept combined payment, identity, and medical alert functions, loss and security would
-need to be treated as core design constraints in a future iteration.
+concept combined payment, identity, and medical alert functions, I would have to treat
+loss and security as core design constraints in a future iteration.
 
 </details>
 
