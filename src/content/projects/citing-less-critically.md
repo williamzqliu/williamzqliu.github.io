@@ -101,7 +101,7 @@ three stages, from reconstruction to bibliographic matching.
 
 ## Rebuilding the framework after peer review
 
-The submitted framework included the full experimental pipeline, but that completeness
+The submitted framework included the full experimental pipeline, and that completeness
 made the figure harder to scan. During peer review, one reviewer called out the problem
 directly: **"Figure 1 is too visually dense."**
 
@@ -117,7 +117,8 @@ directly: **"Figure 1 is too visually dense."**
   <figcaption><strong>Submitted version.</strong> Framework submitted for peer review.</figcaption>
 </figure>
 
-I rebuilt the figure without stripping away the research logic. I separated the three
+The redesign came to me after review, and I rebuilt the figure without stripping away
+the research logic. I separated the three
 stages, clarified the parallel human and LLM paths, and simplified the visual hierarchy so
 the main steps remained clear within a restrained, publication-ready layout.
 
@@ -198,8 +199,8 @@ measured paths through a coauthorship network. I designed Figure 4a to turn that
 metric into a worked comparison between an original citation and an LLM-generated
 replacement.
 
-Instead of presenting the final score on its own, the figure traces the paths that produce
-it, so readers can see how the measure is built before they interpret the results.
+Instead of presenting the final score on its own, I traced the paths that produce it, so
+readers can see how the measure is built before they interpret the results.
 
 <figure>
   <img

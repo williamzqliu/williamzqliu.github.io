@@ -119,7 +119,7 @@ blocks.
      the documented way to put several frames under a single caption. No new
      CSS: both columns and the stack are the pair pattern with a split. -->
 
-<div class="media-pair" style="--pair-split: calc(75% + 3.3px) 1fr">
+<div class="media-pair" data-stack style="--pair-split: calc(75% + 3.3px) 1fr">
   <figure>
     <img
       src="/media/barvision/gf-cover.webp"
@@ -168,8 +168,8 @@ refracted light, and glow. Rather than giving every stage a separate look, I kep
 visual language consistent and shifted its color across the competition.
 
 The semi-finals shifted between magenta and cyan-green, and the Grand Final used
-blue-violet as its base. The same system extended into the broadcast graphics. Each stage
-could feel distinct without breaking the overall identity.
+blue-violet as its base. I carried the same system into the broadcast graphics, so each
+stage could feel distinct without breaking the overall identity.
 
 <!-- STILL TO COME: two broadcast frames, the jury board in purple beside the
      televote board in cyan, which is what proves the identity reached the live
@@ -216,16 +216,16 @@ could feel distinct without breaking the overall identity.
 <!-- The two ends of the show, as a row. Both masters are 16:9, so the pair
      needs no split. Same video treatment the Collaboration Map uses in Inside
      the Institution: muted, looping, autoplaying, `playsinline` so a phone
-     does not take it fullscreen. `data-abreast` keeps the two side by side on
-     a phone as well: they are the two ends of one show, and stacked they stop
-     reading as a pair.
+     does not take it fullscreen. The pair holds its row on a phone too, which
+     is the default now: they are the two ends of one show, and stacked they
+     stop reading as a pair.
 
      The closing clip is encoded at half speed rather than slowed in script:
      every frame of the 60fps master is kept and laid out at 30fps, so the file
      itself is the 0.5x version and the lightbox plays it at the same rate the
      page does. Re-export from the master and the speed comes back. -->
 
-<div class="media-pair" data-abreast>
+<div class="media-pair">
   <figure>
     <video
       src="/media/barvision/gf-opening-loop.mp4"
@@ -278,7 +278,7 @@ moving upward and forward.
      on a cut. Image to image, never through black. See the note in
      media-src/ for the recipe. -->
 
-<div class="media-pair" style="--pair-split: calc(66.6667% + 17.2px) 1fr">
+<div class="media-pair" data-stack style="--pair-split: calc(66.6667% + 17.2px) 1fr">
   <figure>
     <video
       src="/media/barvision/earlier-stage-results.mp4"
@@ -434,9 +434,9 @@ return it to the same position would add motion without adding information.
   <figcaption>Grand Final: Tele Vote</figcaption>
 </figure>
 
-Televote scores counted upward instead of appearing at once. The count slowed noticeably
-as a score approached or overtook the current leader, so the timing itself built the
-suspense.
+I made the televote scores count upward instead of appearing at once, and slowed the
+count as a score approached or overtook the current leader, so the timing itself built
+the suspense.
 
 <!-- MEDIA STILL TO COME. The handoff into the televote, then the televote itself.
      The count-up pacing is the point, so the clip has to run long enough for
@@ -483,7 +483,7 @@ and more dramatic.
        left = 3/4 of the block + two gutters x 16/9
             = calc(75% + 3.3px) -->
 
-<div class="media-pair" style="--pair-split: calc(75% + 3.3px) 1fr">
+<div class="media-pair" data-stack style="--pair-split: calc(75% + 3.3px) 1fr">
   <figure>
     <video
       src="/media/barvision/final-results.mp4"
@@ -729,7 +729,7 @@ the interface, and the completed allocation became a full result board.
   <figcaption>Seed input screen</figcaption>
 </figure>
 
-**One public seed.** The draw ran on a seeded generator rather than on the browser's
+**One public seed.** I ran the draw on a seeded generator rather than on the browser's
 own randomness, so the seed string was the whole input, and each stage of the allocation
 was a separate step from it.
 
