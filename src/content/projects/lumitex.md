@@ -5,7 +5,7 @@ dates: "Sep 2023 – Nov 2023"
 blurb: "An AR reading-aid prototype shaped by research with children with dyslexia and their parents."
 tags: ["interactive"]
 tracks: ["design"]
-published: false
+published: true
 archive: true
 archiveLabel: "AR design"
 compact: true

@@ -5,7 +5,7 @@ dates: "Oct 2023 – Nov 2023"
 blurb: "A projection installation that responds to visitors' presence and interaction using Kinect, particles, and emoji."
 tags: ["interactive"]
 tracks: ["design"]
-published: false
+published: true
 archive: true
 archiveLabel: "Interactive installation"
 compact: true
