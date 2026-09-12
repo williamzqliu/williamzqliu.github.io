@@ -52,6 +52,13 @@ const projects = defineCollection({
        all. This is the narrower case: a file that builds, is edited locally,
        and is simply not ready to be read yet. */
     published: z.boolean().default(false),
+    /* The long-form case study is the default: a numbered narrative with a
+       contents rail beside it. A small visual project is the other shape —
+       show the artifact, say how to read it, show enough iteration to prove
+       judgement, stop. Two sections do not need a rail, and the rail is more
+       interface than the navigation is worth. Opt in per project; every other
+       project renders exactly as it did. */
+    compact: z.boolean().default(false),
     stack: z.array(z.string()).default([]),
     /* Presentation order lives in lib/projects.ts, not here. `paper`,
        `poster` and `thesis` take a path as well as a URL, because those are
@@ -74,6 +81,12 @@ const projects = defineCollection({
          — supplies its own, and falls back to `wide` when it does not. */
       heroWide: z.string().optional(),
       heroMobile: z.string().optional(),
+      /* The head crops to a banner, which is what a photograph or a screen
+         wants. A drawn artifact is the other case: a unit chart cropped to
+         2.1 : 1 loses the composition that is the whole point of counting it.
+         Set true and the head takes the picture's own proportions at full
+         column width instead. */
+      heroWhole: z.boolean().default(false),
       tone: z.enum(['dark', 'light', 'neutral']),
       /* Case study heads open in the viewer like every other picture on the
          page, because a cover is usually the project's own artwork and there

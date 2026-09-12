@@ -18,9 +18,10 @@ interface Props {
    * `responsive` is the listing card's 16:9. `hero` is the case study head: a
    * portrait-friendly ratio on a phone, 16:9 on a tablet, a wide banner on a
    * desktop (SPEC §9 asked for full bleed here; the head now sits on the
-   * content grid instead).
+   * content grid instead). `natural` imposes no box at all — the picture keeps
+   * its own proportions and the column decides the width.
    */
-  ratio?: 'responsive' | 'hero';
+  ratio?: 'responsive' | 'hero' | 'natural';
   label?: string;
   /** Omit to draw the placeholder plate. */
   src?: string;
@@ -87,6 +88,21 @@ const loop = /\.(mp4|webm)$/i.test(src ?? '');
      together. */
   .cover[data-ratio='responsive'] {
     aspect-ratio: 16 / 9;
+  }
+
+  /* No frame: the picture sets its own height, so nothing is cropped. For a
+     chart that is the difference between a graphic and a band of one — the
+     composition is the content. The plate still needs a shape when there is no
+     asset yet, so it borrows the head's. */
+  .cover[data-ratio='natural']:not([data-asset]) {
+    aspect-ratio: 16 / 9;
+  }
+
+  .cover[data-ratio='natural'][data-asset] picture,
+  .cover[data-ratio='natural'][data-asset] video,
+  .cover[data-ratio='natural'][data-asset] img {
+    height: auto;
+    object-fit: contain;
   }
 
   /* The case study head, phone first. 16:9 rather than something closer to
