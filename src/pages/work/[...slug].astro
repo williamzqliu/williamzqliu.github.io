@@ -929,42 +929,54 @@ const facts = [
      come to different heights, and levelling them would mean letterboxing one
      or cutting the other. `align-items: start` puts their tops on one line,
      which is the edge the comparison is read from. */
+  /* A row at every width, phones included. Stacking spends a whole phone
+     screen on one frame at a time, and it turns a comparison into a memory
+     test: by the time the second picture arrives the first is gone. Narrower
+     is the lesser cost.
+
+     `--pair-split` sets the columns, and takes as many ratios as there are
+     frames. Give them the ratio of the pictures' own aspects and they come out
+     the same height with nothing cropped. Same mechanism as the mosaic's
+     `--mosaic-split`, passed from the content file. */
   .media-pair {
     display: grid;
-    gap: var(--sp-24);
+    grid-template-columns: var(--pair-split, repeat(2, minmax(0, 1fr)));
+    align-items: start;
+    gap: var(--sp-12);
   }
 
   .media-pair > figure {
     margin-top: 0;
   }
 
-  /* Opt-in: a pair that has to be read as a pair. Two states of one panel mean
-     nothing apart — stacked, the second is a screen away from the first, and
-     the reader is comparing a picture with a memory. Narrower on a phone is
-     the lesser cost.
+  /* Out of the row on a phone, for the case where a row cannot work: a wide
+     frame beside a column that subdivides again leaves the inner frames at
+     seventy-odd pixels, which is not a picture of anything. The outer pair
+     stacks and the inner one stays a row, which is the arrangement that fits.
+     Opt-in, so a plain pair never loses its row. */
+  @media (max-width: 639px) {
+    .media-pair[data-stack] {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-24);
+    }
+  }
 
-     `--pair-split` applies here too, so a row of three frames of one moment
-     holds its shape and its single height at every width instead of coming
-     apart into three pictures on a phone. Without the variable this is the
-     equal-column pair it has always been. */
-  .media-pair[data-abreast] {
-    grid-template-columns: var(--pair-split, repeat(2, minmax(0, 1fr)));
-    align-items: start;
-    gap: var(--sp-12);
+  /* The other half of `data-stack`, and the reason both exist. In a mosaic the
+     inner pair is a column beside the wide frame, which `--pair-split` holds at
+     one track; on a phone the outer pair stacks and the inner one becomes the
+     row under it. One value cannot be both, so the phone case is an attribute.
+     `grid-auto-flow` rather than a column count, so it does not care how many
+     frames are in the nest. */
+  @media (max-width: 639px) {
+    .media-pair[data-phone-row] {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: var(--sp-12);
+    }
   }
 
   @media (min-width: 640px) {
-    /* Equal columns unless the instance says otherwise. `--pair-split` is for
-       two pictures of different shapes that should come out the same height:
-       give the columns the ratio of the pictures' own aspects and nothing has
-       to be cropped to line their bottoms up. Same mechanism as the mosaic's
-       `--mosaic-split`, passed from the content file. */
     .media-pair {
-      grid-template-columns: var(--pair-split, repeat(2, minmax(0, 1fr)));
-      align-items: start;
-    }
-
-    .media-pair[data-abreast] {
       gap: var(--sp-24);
     }
   }
@@ -992,27 +1004,6 @@ const facts = [
     margin-top: 0;
   }
 
-  /* A nested column that becomes a row on a phone. Three frames stacked under
-     a full-width one run the block off the bottom of the screen, and the
-     reader scrolls past a caption that is still claiming them as one group.
-     Side by side under the big frame they stay that group, and the block keeps
-     the shape it has on a desktop.
-
-     Opt-in, because the two-frame nest in the same article wants the opposite:
-     two frames stacked are still readable on a phone, and each of them carries
-     its own caption. `grid-auto-flow` rather than a column count, so the rule
-     does not care how many frames are in the nest.
-
-     Matched on the attribute alone: a nested pair sits inside a figure in one
-     arrangement and directly inside the outer pair in the other, and the
-     opt-in is what carries the intent either way. */
-  @media (max-width: 639px) {
-    .prose .media-pair[data-phone-row] {
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-      gap: var(--sp-12);
-    }
-  }
 
   /* A caption sits under the left edge of its picture, which is right until
      the picture has no left edge. The network plate is a circle on a
