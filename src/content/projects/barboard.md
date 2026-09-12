@@ -118,10 +118,11 @@ Barboard a place of its own that people could return to.
 ## Shaping the visual system
 
 Barboard already had its own identity, but barboard.space took shape during Barvision
-Chongqing 2026, the community's largest event. I had designed that edition around
-Chongqing's river confluence and cyber-lit nightscape, using liquid neon, wave-like
-forms, and blue-violet light. I carried that visual language into the website so the new
-portal felt connected to the community's biggest live moment.
+Chongqing 2026, the community's largest event, whose
+[identity I had already designed](/work/barvision#echoing-confluence) around the city's
+river confluence. Carrying that language into the website was the obvious move, and the
+work was turning something made for one season into something the community could keep
+using.
 
 <figure>
   <img
@@ -135,10 +136,15 @@ portal felt connected to the community's biggest live moment.
   <figcaption>The visual language of Barvision Chongqing 2026 carries into the website through its palette, typography, and atmospheric treatment. The left half is the event key visual, not the site.</figcaption>
 </figure>
 
-From there, I simplified it into a reusable web system: small Chinese labels paired with
-large English display headings, a dark base, and shared accent colors across members,
-charts, events, and archives, while BarboardLab and individual Barvision editions kept
-their own visual character.
+So I took the reusable qualities out and left the artwork behind: dark surfaces,
+luminous accents, restrained glow, and one shared colour vocabulary. On top of those,
+small Chinese labels paired with large English display headings, and shared accents
+running across members, charts, events, and archives.
+
+The system has to hold sixteen editions that look nothing alike. Each one keeps its own
+palette and key visual in the hero area, and BarboardLab keeps its own colour treatment,
+while tables, navigation, typography, and the rest of the interface return to the common
+system. Consistency does not require every activity to look identical.
 
 <figure>
   <img
@@ -152,22 +158,8 @@ their own visual character.
   <figcaption>Individual Barvision editions keep their own palettes and key visuals while sharing the same underlying page system.</figcaption>
 </figure>
 
-> **System principle**
->
-> Turn a seasonal visual language into a system that could outlast the season.
->
-> The website carried the atmosphere of Barvision Chongqing 2026 into reusable typography,
-> color, and interface rules for the wider community.
-
 <details>
 <summary>Visual system details</summary>
-
-**From Barvision 2026 to the web.** The Chongqing edition was built around the meeting of
-the Jialing and Yangtze rivers, which let water ripples and sound-wave interference stand
-for each other. Its identity used dark surfaces, liquid neon, refraction, and glow on a
-blue-violet base, with each stage introducing its own accent colors. The website does not
-reproduce that artwork. I took the reusable qualities out of it instead: dark surfaces,
-luminous accents, restrained glow, and a shared color vocabulary.
 
 **Typography across two scripts.** The community follows Western pop music in Chinese, so
 Chinese interface text sits beside English artist names, song titles, chart terminology, and
@@ -180,16 +172,8 @@ switches the face for exactly this reason.
 **From campaign colors to interface colors.** I turned the event palette into interface roles
 rather than decoration. Blue, pink, violet, and gold recur across headings, rankings, states,
 charts, and activity accents, while shared background and text values keep the data-heavy pages
-consistent. The implementation currently holds 65 CSS custom properties.
-
-**Shared system, local identities.** I let BarboardLab work inside the shared system with its
-own color treatment, and a Barvision edition keep its own palette in the hero area, while
-tables, navigation, typography, and the rest of the interface return to the common system. The
-pentagon mark recurs as a motif across those contexts. Consistency does not require every
-activity to look identical.
-
-I built the event's [live broadcast and control system](/work/barvision) on the same Barvision
-2026 visual language.
+consistent, and the pentagon mark recurs wherever an activity takes a colour treatment of its
+own. The implementation currently holds 65 CSS custom properties.
 
 </details>
 
@@ -275,13 +259,6 @@ files, but to make the community's history easier to return to and use again.
   </div>
 </div>
 
-> **Archive principle**
->
-> Preserving history also means making it possible to find again.
->
-> Bringing scattered records into connected views made more than a decade of community
-> activity easier to revisit.
-
 <details>
 <summary>How the archive was rebuilt</summary>
 
@@ -289,8 +266,7 @@ files, but to make the community's history easier to return to and use again.
 arriving as one dataset: Tieba-era records, spreadsheets, activity files, and member-produced
 videos hosted on platforms such as Bilibili. Different activities and different years preserved
 different levels of detail, so my first job was deciding which sources could become structured
-data and which could only stay as references or media. I was never trying to copy every old
-artifact into the website; I wanted to rebuild the information people would want to return to.
+data and which could only stay as references or media.
 
 A search result that returned one row per database record would bury the reader, because a song
 that survives several rounds is stored several times. I group matches and collapse them to the
@@ -319,14 +295,14 @@ has done goes to their member profile. What was on the chart in a given year goe
 chart archive. I decided those four questions first and let the views follow from them, which
 is the information architecture.
 
-**Reconstructing incomplete history.** The original Barvision summary archive held 87
-podium-result rows across 15 editions. Reconstructing the records underneath them, I expanded
-that into 771 competition entries, 1,140 voter records, and 11,130 votes across 16 editions,
-alongside 2,291 chart rows across 11 years in the annual archive. Completeness still varies by
-year and by activity. I made the interface distinguish information that is missing from a value
-that is genuinely zero, and left anonymous or unattributed entries unattributed rather than
-assigning them to a member who looks likely. An archive that hides its own gaps is harder to
-trust than one that shows them.
+**Reconstructing incomplete history.** The archive I started from held 87 podium-result rows
+across 15 editions. Rebuilding the records underneath them produced the counts in the strip
+above, plus 1,140 voter records and 2,291 chart rows.
+
+Completeness still varies by year and by activity. I made the interface distinguish
+information that is missing from a value that is genuinely zero, and left anonymous entries
+unattributed rather than assigning them to whoever looks likely. An archive that hides its own
+gaps is harder to trust than one that shows them.
 
 That distinction is a comparison against `null`, not a truthiness check, and it runs through
 every row of every member's chart history. Collapsing the two would have been easier
@@ -410,13 +386,6 @@ cards, and controls move to more useful positions.
   <figcaption>Where column relationships are less important, desktop tables become mobile cards instead of being compressed.</figcaption>
 </figure>
 
-> **Responsive principle**
->
-> Preserve the information, change the presentation.
->
-> A smaller screen should change how dense content is arranged, not simply make everything
-> smaller.
-
 <details>
 <summary>Responsive implementation details</summary>
 
@@ -461,8 +430,7 @@ becomes a drawer. I treated responsive work here as changing what a component is
 sits, not only its type size and spacing.
 
 **Refining real browser behavior.** A few of these decisions I only found by watching the pages
-run. Measuring widths as fractions rather than rounding them took the visible jitter out of the
-frozen columns. Frozen cells needed opaque backgrounds, or the scrolling content showed through
+run. Frozen cells needed opaque backgrounds, or the scrolling content showed through
 them. `text-size-adjust: 100%` stopped Chrome inflating type in the wide scoreboards. Hover
 states and tooltips are suppressed where they mean nothing on a touch device.
 
@@ -516,15 +484,15 @@ states and tooltips are suppressed where they mean nothing on a touch device.
 
 ## Building live community tools
 
-I did not build barboard.space only for looking back. It also became part of how Barboard ran
-its biggest event of 2026. Barvision Chongqing 2026 attracted the most participants and song
-entries in the event's history, while the site supported registration, information updates,
-schedules, and results throughout the season.
+I did not build barboard.space only for looking back. Barvision Chongqing 2026 was the
+largest edition since the contest relaunched in 2023, with 40 participants across 38
+competing entries, and the site carried registration, information updates, schedules and
+results through the whole season. The broadcast that season ran on
+[a separate system I built for the same edition](/work/barvision).
 
-I also built recurring tools around BarboardLab and other community data, from weekly
-chart updates and search to interactive results and member records. Together, these
-features turned the site from an archive into an active portal for both ongoing and
-seasonal community activity.
+Around it I built the recurring tools: weekly chart updates and search, interactive
+results, member records. Those are what turn an archive into a portal that is worth
+opening between events as well as during one.
 
 <figure>
   <img
@@ -570,22 +538,14 @@ seasonal community activity.
   </figure>
 </div>
 
-> **Live season**
->
-> Barvision 2026 became the largest edition in the event's history.
->
-> barboard.space supported registration, event information, and results throughout the
-> season.
-
 <details>
 <summary>How the live tools work</summary>
 
 **Keeping the weekly chart current.** BarboardLab publishes a new singles chart every week. I
 wrote a Python script that retrieves the source data and reshapes it into a consistent JSON
 file, and a GitHub Actions workflow runs it on a schedule, so the home page and the BarboardLab
-pages read the updated file directly rather than waiting on anyone to publish it. The same run
-can refresh related home page content, such as the current issue information. The workflow has
-run on its schedule through the project period.
+pages read the updated file directly rather than waiting on anyone to publish it. The workflow
+has run on its schedule through the project period.
 
 The upstream source sits behind bot protection and sometimes answers 403. I made the job treat
 that as a normal outcome rather than a failure: it writes nothing, exits zero, and leaves last
@@ -601,13 +561,12 @@ try:
     resp.raise_for_status()
 ```
 
-**Designing interaction around the data.** Displaying the chart is the easy half. I added a
-search that filters the current chart by song or artist, and computed highlight cards for the
-things people actually look for, such as the highest debut, the longest-charting song, the
-biggest rise and the biggest fall, where selecting one takes you straight to that row. The
-Barvision interfaces use sorting, filtering and tabbed views where the information rewards
-being explored directly, and a member record can be exported as an image to share. The point is
-that the data is not only shown; the interface gives people something to do with it.
+<p class="code-note">Exiting zero rather than raising is what keeps the run green. A failed workflow would send a notification every time the upstream source refused a request, which is not a thing anyone needs to know about.</p>
+
+**Designing interaction around the data.** The highlight cards beside the chart are computed
+rather than chosen: highest debut, longest-charting song, biggest rise, biggest fall,
+recomputed every week from the same file the table reads. Nobody has to spot them and write
+them down, and selecting one jumps to that row.
 
 The odds board highlights the best few values in each column, which is under-specified the
 moment values tie. Sorting and slicing would pick arbitrarily and imply a ranking the numbers
@@ -631,9 +590,8 @@ function tieHighlight(entries, N) {
 
 <p class="code-note">Four predictors tied for third means none of them is marked, which is the honest answer. The same function drives both highlight systems on the board.</p>
 
-**Handling a live event over time.** Barvision 2026 was not one page, it was a state that
-changed across the summer, and the site carried a real season rather than a rehearsal of one.
-The submission page read differently before registration opened, while submissions were active,
+**Handling a live event over time.** The site carried a state that changed across the summer
+rather than one fixed page. The submission page read differently before registration opened, while submissions were active,
 and after it closed. I kept validation and confirmation in the browser and let EmailJS carry
 the submission itself, so a song could be entered without a server standing behind the form. A
 local receipt meant someone returning on the same device could see what they had already sent.
@@ -682,24 +640,15 @@ the results as they were published.
 
 ## Looking ahead
 
-Barvision 2026 was an encouraging first test of what barboard.space could become. It was the
-largest edition in the event's history by both participants and song entries, while
-the site served as a central portal for registration, updates, schedules, and results. I
-cannot separate how much of that growth came from the site itself, but it showed that the
-portal could support an active community moment rather than only preserve the past.
+Barvision 2026 was the first real test of what barboard.space could become, and I cannot
+separate how much of that season's growth came from the site. What it did show is that
+the portal could carry a live community moment rather than only preserve a finished one.
 
-Next, I want to make that role more complete: connect currently separate archives through
-better search, fill gaps in older activities, improve accessibility and maintenance, and
-better understand how members use the site over time. The goal is not to turn barboard.space
-into another social network, but to make it a stronger shared reference point for a
+Next: connect the separate archives through better search, fill the gaps in older
+activities, improve accessibility and maintenance, and find out how members actually use
+the site over time. Not another social network. A stronger shared reference point for a
 community that has been around for more than a decade.
 
-> **Next direction**
->
-> More complete, more connected, easier to maintain.
->
-> Better search, fuller archives, accessibility, and lightweight usage measurement are the
-> next priorities.
 
 <!-- PARKED from the previous draft of this section, which this rewrite
      replaces. Not published elsewhere on the page. Too implementation-heavy
