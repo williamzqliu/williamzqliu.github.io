@@ -116,7 +116,8 @@
     flex: none;
   }
 
-  .lb[data-zoomed] .lb__img {
+  .lb[data-zoomed] .lb__img,
+  .lb[data-zoomed] .lb__vid {
     max-width: none;
     max-height: none;
     /* A haul across a large picture should not select the caption on the way. */
@@ -134,11 +135,13 @@
   @media (hover: hover) and (pointer: fine) {
     /* Two states, and the cursor is the whole affordance — no toolbar, no
        percentage. */
-    .lb__img {
+    .lb__img,
+    .lb__vid {
       cursor: zoom-in;
     }
 
-    .lb[data-zoomed] .lb__img {
+    .lb[data-zoomed] .lb__img,
+    .lb[data-zoomed] .lb__vid {
       cursor: zoom-out;
     }
 
@@ -146,7 +149,8 @@
        the dialog as well as the picture: the drag captures the pointer on the
        dialog, so the dialog's own cursor is the one the window shows. */
     .lb[data-hauling],
-    .lb[data-hauling] .lb__img {
+    .lb[data-hauling] .lb__img,
+    .lb[data-hauling] .lb__vid {
       cursor: grabbing;
     }
   }
@@ -369,6 +373,12 @@
   const SOURCES =
     '.prose img:not([data-nozoom]), .prose video:not([data-nozoom]), .cs__media:not([data-nozoom]) img';
 
+  // What counts as the picture rather than the scrim around it: clicking or
+  // double-tapping either one zooms, and everything outside them closes. A
+  // clip is as worth enlarging as a screenshot when it is a twenty-six-row
+  // scoreboard.
+  const MEDIA = '[data-lightbox-img], [data-lightbox-vid]';
+
   let listeners: AbortController | undefined;
 
   function initLightbox() {
@@ -407,6 +417,7 @@
     const unzoomDetail = () => {
       delete dialog.dataset.zoomed;
       frame.style.width = '';
+      clip.style.width = '';
       dialog.scrollTo(0, 0);
     };
 
@@ -415,12 +426,17 @@
         unzoomDetail();
         return;
       }
+      // Whichever of the two is on screen. A clip carries its own size in
+      // `videoWidth`, the way a picture carries it in `naturalWidth`.
+      const showingClip = !clip.hidden;
+      const media: HTMLElement = showingClip ? clip : frame;
+      const own = showingClip ? clip.videoWidth : frame.naturalWidth;
       // Natural size, or twice the fitted size when the file is small — the
       // point of the second click is that it is a real change.
-      const fitted = frame.getBoundingClientRect().width;
+      const fitted = media.getBoundingClientRect().width;
       if (!fitted) return;
       dialog.dataset.zoomed = 'true';
-      frame.style.width = `${Math.round(Math.max(frame.naturalWidth, fitted * 2))}px`;
+      media.style.width = `${Math.round(Math.max(own, fitted * 2))}px`;
       // Open on the middle of the picture rather than its corner.
       requestAnimationFrame(() => {
         dialog.scrollTo({
@@ -611,7 +627,7 @@
         }
         // The picture itself is the zoom control on a mouse or trackpad; the
         // scrim around it still closes.
-        if (fine.matches && (event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) {
+        if (fine.matches && (event.target as HTMLElement | null)?.closest(MEDIA)) {
           toggleDetail();
           return;
         }
@@ -620,7 +636,7 @@
         // what every other photo viewer on a phone zooms with. Only the
         // picture waits — the scrim around it closes on the first tap, so
         // leaving is never slower than it was.
-        if (!fine.matches && (event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) {
+        if (!fine.matches && (event.target as HTMLElement | null)?.closest(MEDIA)) {
           if (tapTimer) {
             window.clearTimeout(tapTimer);
             tapTimer = undefined;
@@ -902,7 +918,7 @@
       'pointerdown',
       (event) => {
         if (event.pointerType !== 'mouse' || !dialog.dataset.zoomed) return;
-        if (!(event.target as HTMLElement | null)?.closest('[data-lightbox-img]')) return;
+        if (!(event.target as HTMLElement | null)?.closest(MEDIA)) return;
         hauling = true;
         haulX = event.clientX;
         haulY = event.clientY;
