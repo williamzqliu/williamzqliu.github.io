@@ -101,7 +101,7 @@ The original *INCOME/OUTCOME* infographic compares three income groups across ca
 
 Before designing the page, I tested three possible arguments. Two depended on relationships I could not support with comparable public data: whether DUI risk changes with income, and how DUI affects different kinds of families.
 
-The third had public data on both sides. I took the national estimate of DUI-related losses and translated it into an illustrative per-household figure of $2,354, then compared that with rent, food, health coverage, an auto loan, and tuition. Data availability, not preference, decided which argument I could defend.
+The third had public data on both sides. I took the national estimate of DUI-related losses and translated it into an illustrative per-household figure of $2,354, then compared that with rent, food, health coverage, an auto loan, and tuition. I chose that argument because the data existed to support it, not because it was the one I liked most.
 
 <!-- The three sketches as three pictures rather than one composite: equal
      columns because they share an aspect, and `data-width="prose"` so the row
@@ -142,7 +142,7 @@ The third had public data on both sides. I took the national estimate of DUI-rel
 
 I structured the infographic as a sequence of scales, running from the national estimate down to one household and its monthly bills, and ending on the human consequences of alcohol-impaired crashes.
 
-Studio critique then changed the visual hierarchy. I reduced the amount of competing color, gave red, yellow, and dark blue distinct roles, increased the prominence of $2,354 and 283, simplified chart labels, and opened up the spacing for print.
+Studio critique then changed the visual hierarchy. I reduced the amount of competing color, gave red, yellow, and dark blue distinct roles, and opened up the spacing for print.
 
 
 <!-- MEDIA STILL TO COME. The head carries the finished poster whole, so what
