@@ -5,7 +5,7 @@ dates: "Jan 2025 – Apr 2025"
 blurb: "A poster introducing information design to Chinese parents navigating the Gaokao and university application process."
 tags: ["information-design"]
 tracks: ["design"]
-published: false
+published: true
 # Same shape as the other information design projects: no contents rail, so
 # the article column runs the full width and the figures get it.
 compact: true

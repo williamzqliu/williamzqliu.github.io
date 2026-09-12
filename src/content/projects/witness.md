@@ -5,7 +5,7 @@ dates: "Dec 2024"
 blurb: "A mind map of a visual cognition course, sequenced by the running order of a Katy Perry song."
 tags: ["information-design"]
 tracks: ["design"]
-published: false
+published: true
 archive: true
 archiveLabel: "Information design"
 compact: true
