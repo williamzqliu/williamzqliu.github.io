@@ -162,6 +162,19 @@ label,
   line-height: var(--lh-body-lg);
 }
 
+/* ---------- Italic ----------
+   Italic runs one pixel down. A slant reads larger than the roman beside it at
+   the same size, so the two only look level when the italic is a step smaller.
+   A pixel rather than a ratio: the correction is optical, and an optical
+   correction is the same size in a caption as it is in a paragraph.
+
+   `1em` in a font-size resolves against the parent, so this is the parent's
+   size less one pixel wherever it lands. Set once here because every italic on
+   the site is the same thing, a title or a product name inside roman text. */
+em {
+  font-size: calc(1em - 1px);
+}
+
 /* ---------- Section label ----------
    The resume's section device: caps, letterspaced, hairline rule under the
    full column width (PROFILE, SKILLS, SELECTED PROJECTS).
