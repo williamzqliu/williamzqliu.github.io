@@ -113,6 +113,63 @@ const options = ['all', ...deriveTags(projects), ...(archive.length ? ['archive'
     if (archiveSection) archiveSection.hidden = !showingArchive;
   }
 
+  /* `all` is the resting state rather than a filter: the primary list with the
+     archive below it, which is what the server renders. Every other value
+     hides one of the two. Both the click handler and the restore go through
+     here so they cannot drift apart. */
+  function show(filter: string) {
+    const archiveSection = document.querySelector<HTMLElement>('[data-archive-section]');
+    apply(filter);
+    if (filter === 'all' && archiveSection) archiveSection.hidden = false;
+  }
+
+  /* Which filter the reader chose is view state, not an address, so it lives
+     in sessionStorage rather than in the URL: one tab, cleared when the tab
+     closes, and never inherited by a link someone shares.
+
+     It exists because the filter was being lost on the way back. Opening a
+     project and pressing Back re-renders /work from the server, where every
+     row is visible and every chip is unpressed, so a reader who had narrowed
+     the list to one subject landed in the full list and had to narrow it
+     again. */
+  const KEY = 'work:filter';
+
+  function stored(): string | null {
+    try {
+      return sessionStorage.getItem(KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function remember(filter: string) {
+    try {
+      sessionStorage.setItem(KEY, filter);
+    } catch {
+      /* Private mode or a storage quota. The filter still works for this
+         page; it just will not survive the trip. */
+    }
+  }
+
+  /* Restore before paint. `astro:after-swap` is where the theme does the same
+     thing, and for the same reason: the incoming document is the server's, so
+     without this there is a frame of the unfiltered list. */
+  function restore() {
+    const chips = document.querySelectorAll<HTMLButtonElement>('.filterrow__chip');
+    if (!chips.length) return;
+
+    const saved = stored();
+    // A tag can disappear from the data between visits, so the chip has to
+    // exist before its filter is trusted.
+    const chip = saved
+      ? document.querySelector<HTMLButtonElement>(`.filterrow__chip[data-filter="${saved}"]`)
+      : null;
+    if (!chip || saved === 'all') return;
+
+    for (const other of chips) other.setAttribute('aria-pressed', String(other === chip));
+    show(saved as string);
+  }
+
   function bind() {
     const chips = document.querySelectorAll<HTMLButtonElement>('.filterrow__chip');
     if (!chips.length) return;
@@ -134,18 +191,13 @@ const options = ['all', ...deriveTags(projects), ...(archive.length ? ['archive'
         }
 
         const filter = chip.dataset.filter ?? 'all';
+        remember(filter);
         const primaryList = document.querySelector<HTMLElement>('[data-filter-list]');
         const fade = [primaryList, archiveSection].filter(Boolean) as HTMLElement[];
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const commit = () => {
-          if (filter === 'all' && archiveSection) {
-            // `all` is the resting state: primary list plus the archive below.
-            apply('all');
-            archiveSection.hidden = false;
-          } else {
-            apply(filter);
-          }
+          show(filter);
           for (const el of fade) delete el.dataset.fading;
         };
 
@@ -161,8 +213,13 @@ const options = ['all', ...deriveTags(projects), ...(archive.length ? ['archive'
     }
   }
 
-  document.addEventListener('astro:page-load', bind);
+  document.addEventListener('astro:after-swap', restore);
+  document.addEventListener('astro:page-load', () => {
+    bind();
+    restore();
+  });
   bind();
+  restore();
 </script>
 
 <style>
