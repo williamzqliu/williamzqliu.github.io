@@ -8,12 +8,12 @@ import NextProject from '../../components/NextProject.astro';
 import ProjectCredits from '../../components/ProjectCredits.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
 import Lightbox from '../../components/Lightbox.astro';
-import { projectLinks, hasCaseStudy, nextStep } from '../../lib/projects';
+import { projectLinks, hasCaseStudy, nextStep, isPublic } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
 // SPEC §7 — only projects with body content get a case study page.
 export async function getStaticPaths() {
-  const projects = (await getCollection('projects', ({ data }) => !data.draft)).filter(
+  const projects = (await getCollection('projects', isPublic)).filter(
     hasCaseStudy
   );
 
@@ -968,9 +968,37 @@ const facts = [
 
   /* A row inside one figure, under one caption: three frames of a single
      moment are one picture as far as the reader is concerned. The figure
-     already carries the space above, so the row starts flush with it. */
-  .prose figure > .media-pair {
+     already carries the space above, so the row starts flush with it.
+
+     Same for a pair nested inside a pair, which is how a column of captioned
+     frames sits beside a single one. `.prose .media-pair` is a descendant
+     selector, so without this the inner row took the block margin again and
+     started 32px below the column next to it. */
+  .prose figure > .media-pair,
+  .prose .media-pair > .media-pair {
     margin-top: 0;
+  }
+
+  /* A nested column that becomes a row on a phone. Three frames stacked under
+     a full-width one run the block off the bottom of the screen, and the
+     reader scrolls past a caption that is still claiming them as one group.
+     Side by side under the big frame they stay that group, and the block keeps
+     the shape it has on a desktop.
+
+     Opt-in, because the two-frame nest in the same article wants the opposite:
+     two frames stacked are still readable on a phone, and each of them carries
+     its own caption. `grid-auto-flow` rather than a column count, so the rule
+     does not care how many frames are in the nest.
+
+     Matched on the attribute alone: a nested pair sits inside a figure in one
+     arrangement and directly inside the outer pair in the other, and the
+     opt-in is what carries the intent either way. */
+  @media (max-width: 639px) {
+    .prose .media-pair[data-phone-row] {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: var(--sp-12);
+    }
   }
 
   /* A caption sits under the left edge of its picture, which is right until
@@ -2084,10 +2112,51 @@ const facts = [
     }
   }
 
+  /* Eleven 1080p loops on one page is eleven simultaneous decodes, and a
+     browser runs all of them whether or not they are on screen. That, not the
+     file size, is what makes a long media section stutter, so the fix is to
+     decode less rather than to ship less: only the clips in view play, the
+     rest hold their frame and cost nothing. Resolution is untouched, because
+     the sharpness is the reason they are 1920 in the first place.
+
+     `autoplay` stays in the markup so the clips still run with no JavaScript;
+     this only takes the ones that are nowhere near the reader back out. */
+  let watching: IntersectionObserver | undefined;
+
+  function playVisibleClips() {
+    watching?.disconnect();
+    watching = undefined;
+
+    const clips = Array.from(document.querySelectorAll<HTMLVideoElement>('.prose video[autoplay]'));
+    if (clips.length === 0) return;
+
+    // A fixed lead rather than a share of the viewport: a clip starts a couple
+    // of hundred pixels before it arrives, which is enough for a decoder to
+    // spin up and short enough that a dense media section does not end up
+    // running six of them at once.
+    watching = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const clip = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) void clip.play().catch(() => {});
+          else clip.pause();
+        }
+      },
+      { rootMargin: '200px 0px' }
+    );
+
+    for (const clip of clips) {
+      clip.pause();
+      watching.observe(clip);
+    }
+  }
+
   document.addEventListener('astro:page-load', () => {
     initToc();
     smoothDisclosures();
+    playVisibleClips();
   });
   initToc();
   smoothDisclosures();
+  playVisibleClips();
 </script>

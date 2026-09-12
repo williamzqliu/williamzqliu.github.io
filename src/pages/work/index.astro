@@ -21,8 +21,10 @@ const archive = await archiveProjects();
 
 // Subject filters come from the primary set only, so a tag that exists solely
 // in the archive never shows up as a subject. `archive` is appended as a status
-// filter, not derived.
-const options = ['all', ...deriveTags(projects), 'archive'];
+// filter, not derived, and only when there is an archive to filter to: with
+// publication gating it is possible for every archive project to be unpublished,
+// and a chip that selects nothing is a broken control.
+const options = ['all', ...deriveTags(projects), ...(archive.length ? ['archive'] : [])];
 ---
 
 <Base
