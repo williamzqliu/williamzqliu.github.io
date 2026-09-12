@@ -39,6 +39,11 @@ const heroSrc = shippedMedia(project.data.cover.heroWide ?? project.data.cover.w
 const heroCaption = heroSrc ? project.data.cover.caption : undefined;
 const sections = headings.filter((heading) => heading.depth === 2);
 
+/* A compact project skips the rail. Two sections are quicker to scroll past
+   than to navigate, and the rail is the one piece of chrome the shorter shape
+   cannot carry. */
+const showToc = sections.length > 0 && !project.data.compact;
+
 // Three fields, the same three on every project: when, what I did, and what
 // came of it. Read by name rather than by position, so a project missing one
 // simply shows two — and the timeline comes from `dates`, which is already the
@@ -100,7 +105,7 @@ const facts = [
           <figure class="cs__media" data-nozoom={project.data.cover.zoom ? undefined : 'true'}>
             <CoverMedia
               tone={project.data.cover.tone}
-              ratio="hero"
+              ratio={project.data.cover.heroWhole ? 'natural' : 'hero'}
               src={heroSrc}
               mobileSrc={shippedMedia(project.data.cover.heroMobile)}
               alt={project.data.cover.alt}
@@ -111,13 +116,16 @@ const facts = [
         )
       }
 
-      <div class="cs__body" data-totop-from>
+      {/* `data-solo` when there is no contents rail: the desktop grid keeps a
+          200px column for it, and without this the article would be set in
+          that column instead of beside it. */}
+      <div class="cs__body" data-totop-from data-solo={showToc ? undefined : 'true'}>
         {
           /* One list, two presentations: a sticky column on desktop, and a
              collapsed disclosure on narrow screens. `open` is in the markup so
              the list is reachable with no JavaScript; the script closes it
              below the desktop breakpoint. */
-          sections.length > 0 && (
+          showToc && (
             <details class="cs__toc" open>
               <summary class="cs__tocsum">
                 <span class="cs__tocsum-label">Section</span>
@@ -541,6 +549,11 @@ const facts = [
       grid-template-columns: 200px minmax(0, 1fr);
       gap: var(--sp-64);
       align-items: start;
+    }
+
+    /* No rail, no column for one. */
+    .cs__body[data-solo] {
+      grid-template-columns: minmax(0, 1fr);
     }
 
     /* Clears the sticky header, or the first item sits underneath it. The
