@@ -41,6 +41,13 @@ const projects = defineCollection({
     /* Portfolio status, kept separate from the subject tags: archived work is
        reachable but never mixed into the primary view. */
     archive: z.boolean().default(false),
+    /* What the archive row calls this project, where `tags` would be too
+       coarse to be useful. The four tag values are a filter vocabulary shared
+       across the site, so `interactive` has to cover a projection
+       installation, an AR reading aid and a game system; the archive row is
+       one line and can afford to be specific. Display only: the filters still
+       read `tags`. */
+    archiveLabel: z.string().optional(),
     draft: z.boolean().default(false),
     /* The publication gate, and the one thing that decides whether a project
        reaches the deployed site. It defaults to false on purpose: a project

@@ -7,6 +7,7 @@ tags: ["information-design"]
 tracks: ["design"]
 published: false
 archive: true
+archiveLabel: "Information design"
 compact: true
 draft: false
 stack:
