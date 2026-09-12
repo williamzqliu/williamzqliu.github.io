@@ -5,7 +5,7 @@ dates: "Sep 2024"
 blurb: "A redesign that reframes national DUI losses through the scale of everyday household expenses."
 tags: ["information-design"]
 tracks: ["design"]
-published: false
+published: true
 compact: true
 featured: 11
 draft: false
