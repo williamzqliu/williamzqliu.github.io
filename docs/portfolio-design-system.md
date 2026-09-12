@@ -286,7 +286,7 @@ When a change is requested, in this order:
 1. Can an existing **token** carry it?
 2. Can an existing **shared component** carry it?
 3. Can a **modifier** on an existing component carry it
-   (`data-abreast`, `data-caption="center"`, `data-ground="paper"`,
+   (`data-stack`, `data-caption="center"`, `data-ground="paper"`,
    `--mosaic-split`)?
 4. Is it genuinely **project-specific**? Then keep it local — a data attribute
    or a CSS custom property passed from the content file.
