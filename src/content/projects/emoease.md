@@ -5,6 +5,7 @@ dates: "Oct 2023 – Nov 2023"
 blurb: "A projection installation that turns the room’s body language into emojis, using Kinect."
 tags: ["interactive"]
 tracks: ["design"]
+published: false
 archive: true
 draft: false
 stack:

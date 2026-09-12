@@ -5,6 +5,7 @@ dates: Jun 2026 – Jul 2026
 blurb: "An interactive map of AI ethics literature: keyword co-occurrence and the journals that carry it."
 tags: [networks, interactive]
 tracks: [design, engineering]
+published: false
 featured: 3
 stack:
   - Svelte 5

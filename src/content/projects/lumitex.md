@@ -5,6 +5,7 @@ dates: "Sep 2023 – Nov 2023"
 blurb: "An AR reading aid for dyslexic children, built from research in a Hangzhou primary school."
 tags: ["interactive"]
 tracks: ["design"]
+published: false
 archive: true
 draft: false
 stack:

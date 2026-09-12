@@ -5,6 +5,7 @@ dates: "Sep 2020 – Mar 2021"
 blurb: "A fan-made Hearthstone expansion: 130 cards, three new mechanics, balanced by hand."
 tags: ["interactive"]
 tracks: ["design"]
+published: false
 archive: true
 draft: false
 stack: []

@@ -5,6 +5,7 @@ dates: "Dec 2024"
 blurb: "A course-summary mind map tracing a Katy Perry song, line by line, onto the stages of visual perception."
 tags: ["information-design"]
 tracks: ["design"]
+published: false
 archive: true
 draft: false
 stack:

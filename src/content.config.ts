@@ -42,6 +42,16 @@ const projects = defineCollection({
        reachable but never mixed into the primary view. */
     archive: z.boolean().default(false),
     draft: z.boolean().default(false),
+    /* The publication gate, and the one thing that decides whether a project
+       reaches the deployed site. It defaults to false on purpose: a project
+       that has not been through its editorial pass cannot go public by
+       omission, only by someone writing `published: true` after reading both
+       its card and its case study.
+
+       Not the same thing as `draft`, which says a file should not build at
+       all. This is the narrower case: a file that builds, is edited locally,
+       and is simply not ready to be read yet. */
+    published: z.boolean().default(false),
     stack: z.array(z.string()).default([]),
     /* Presentation order lives in lib/projects.ts, not here. `paper`,
        `poster` and `thesis` take a path as well as a URL, because those are

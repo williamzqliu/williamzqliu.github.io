@@ -3,6 +3,22 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 export type Project = CollectionEntry<'projects'>;
 export type Track = 'design' | 'engineering';
 
+/**
+ * The one publication rule. Every query below reads the collection through
+ * this, so a card and a case study route can never disagree about whether a
+ * project is public: there is no second place to forget.
+ *
+ * `published` defaults to false in the schema, so a project reaches the
+ * deployed site only when its frontmatter says so outright. `draft` is the
+ * older, blunter flag — a file that should not build at all — and it still
+ * applies.
+ *
+ * Publication is an editorial decision, not something derived: nothing here
+ * looks at media-src/, at file dates, at whether a cover exists, or at how
+ * long the body is.
+ */
+export const isPublic = (entry: Project): boolean => !entry.data.draft && entry.data.published;
+
 export interface ProjectLink {
   label: string;
   href: string;
@@ -42,10 +58,10 @@ const LINK_LABELS: Record<(typeof LINK_ORDER)[number], string> = {
 export async function landingProjects(): Promise<Project[]> {
   const entries = await getCollection(
     'projects',
-    ({ data }) =>
-      !data.draft &&
-      data.featured !== undefined &&
-      (data.tracks.includes('design') || data.tracks.includes('engineering'))
+    (entry) =>
+      isPublic(entry) &&
+      entry.data.featured !== undefined &&
+      (entry.data.tracks.includes('design') || entry.data.tracks.includes('engineering'))
   );
 
   return entries.sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0));
@@ -59,7 +75,8 @@ export async function landingProjects(): Promise<Project[]> {
 export async function featuredProjects(track: Track): Promise<Project[]> {
   const entries = await getCollection(
     'projects',
-    ({ data }) => !data.draft && data.tracks.includes(track) && data.featured !== undefined
+    (entry) =>
+      isPublic(entry) && entry.data.tracks.includes(track) && entry.data.featured !== undefined
   );
   return entries.sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0));
 }
@@ -169,7 +186,7 @@ function byRecency(a: Project, b: Project): number {
 
 /** Everything publishable, newest first. */
 export async function allProjects(): Promise<Project[]> {
-  const entries = await getCollection('projects', ({ data }) => !data.draft);
+  const entries = await getCollection('projects', isPublic);
   return entries.sort(byRecency);
 }
 
@@ -192,7 +209,7 @@ function pinRank(project: Project): number {
  * that share a year still read in the order they finished.
  */
 export async function curatedProjects(): Promise<Project[]> {
-  const entries = await getCollection('projects', ({ data }) => !data.draft && !data.archive);
+  const entries = await getCollection('projects', (entry) => isPublic(entry) && !entry.data.archive);
   return entries.sort((a, b) => pinRank(a) - pinRank(b) || byRecency(a, b));
 }
 
@@ -201,7 +218,7 @@ export async function curatedProjects(): Promise<Project[]> {
  * under `all`. Newest first, because there is no curation to respect.
  */
 export async function archiveProjects(): Promise<Project[]> {
-  const entries = await getCollection('projects', ({ data }) => !data.draft && data.archive);
+  const entries = await getCollection('projects', (entry) => isPublic(entry) && entry.data.archive);
   return entries.sort(byRecency);
 }
 
@@ -237,7 +254,7 @@ export type NextStep =
  * project, and only pages that exist are offered.
  */
 export async function nextStep(current: Project): Promise<NextStep> {
-  const entries = (await getCollection('projects', ({ data }) => !data.draft)).filter(hasCaseStudy);
+  const entries = (await getCollection('projects', isPublic)).filter(hasCaseStudy);
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
 
   const seat = FEATURED_SEQUENCE.indexOf(current.id);

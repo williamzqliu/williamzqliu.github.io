@@ -5,6 +5,7 @@ dates: Jan 2025 – Apr 2025
 blurb: A scrollytelling piece on the migrant deaths that happen within sight of Lampedusa.
 tags: [narrative, interactive]
 tracks: [design, engineering]
+published: false
 featured: 5
 stack:
   - D3.js
