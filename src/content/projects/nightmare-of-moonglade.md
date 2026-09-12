@@ -7,6 +7,7 @@ tags: ["interactive"]
 tracks: ["design"]
 published: false
 archive: true
+archiveLabel: "Game systems"
 draft: false
 stack: []
 links:

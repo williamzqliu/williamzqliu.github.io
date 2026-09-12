@@ -20,7 +20,15 @@ const { projects } = Astro.props;
     projects.map((project) => {
       const href = caseStudyHref(project);
       const title = project.data.title;
-      const categories = project.data.tags.join(', ');
+      /* `tags` is a filter vocabulary, not a description: four values shared
+         across the whole site so the chips on /work mean something. An archive
+         row is the only place a project gets one line to say what it is, and
+         `interactive` covers a projection installation, an AR reading aid and
+         a game system alike. `archiveLabel` lets a row name itself; without
+         one the tags stand in, de-hyphenated the way the schema says they are
+         meant to display. */
+      const categories =
+        project.data.archiveLabel ?? project.data.tags.join(', ').replace(/-/g, ' ');
 
       return (
         <li class="arch__row" data-linked={href ? 'true' : undefined}>
