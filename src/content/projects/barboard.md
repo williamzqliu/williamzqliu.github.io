@@ -5,6 +5,7 @@ dates: May 2026 – Aug 2026
 blurb: A web portal and archive for a long-running Chinese music community, bringing members, charts, events, and history together.
 tags: [interactive]
 tracks: [engineering]
+published: true
 featured: 7
 stack:
   - HTML
@@ -46,6 +47,10 @@ credits:
   team:
     - people:
         - Zhuoqi Liu
+  note: Selected coding tasks were supported by Claude Code.
+  # One line behind the disclosure is not worth closing, so the note sits in
+  # the open credits as the last row.
+  collapse: false
 ---
 
 ## From Tieba to barboard.space

@@ -5,6 +5,7 @@ dates: Jul 2025 – May 2026
 blurb: An interactive research tool for exploring how co-authorship connects scholars, departments, and research centers within a university.
 tags: [networks, interactive]
 tracks: [design, engineering]
+published: true
 featured: 1
 stack:
   - D3.js
@@ -91,8 +92,8 @@ communities.
 <figure>
   <video
     src="/media/inside-the-institution/collaboration-map.mp4"
-    width="1440"
-    height="712"
+    width="1920"
+    height="950"
     autoplay
     muted
     loop
@@ -121,8 +122,8 @@ communities.
 <figure>
   <video
     src="/media/inside-the-institution/bridging-scholars.mp4"
-    width="1440"
-    height="712"
+    width="1920"
+    height="950"
     autoplay
     muted
     loop
@@ -543,4 +544,4 @@ If I started again, I would define the data model and analytical terms earlier. 
 still keep the tool exploratory rather than guide users toward one story. Participants
 compared unexpected units, questioned bibliometric impact, and caught an analytical
 mismatch I had missed. Those moments convinced me that data, analysis, and interface
-cannot be treated as separate handoffs.
+cannot be treated as separate steps.
