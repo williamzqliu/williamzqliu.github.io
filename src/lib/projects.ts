@@ -16,8 +16,19 @@ export type Track = 'design' | 'engineering';
  * Publication is an editorial decision, not something derived: nothing here
  * looks at media-src/, at file dates, at whether a cover exists, or at how
  * long the body is.
+ *
+ * `astro dev` is the exception, and it has to be: a project cannot be edited
+ * against its own card and case study page if the flag that hides it from the
+ * deployed site also hides it from the person writing it. So the dev server
+ * shows everything and the build shows only what is published. `import.meta
+ * .env.DEV` is false in `astro build`, which is what deploys, so nothing
+ * unpublished can reach the site through this.
+ *
+ * `npm run preview` serves the build, so it shows the deployed set. That is
+ * the one to check before flipping a flag.
  */
-export const isPublic = (entry: Project): boolean => !entry.data.draft && entry.data.published;
+export const isPublic = (entry: Project): boolean =>
+  !entry.data.draft && (entry.data.published || import.meta.env.DEV);
 
 export interface ProjectLink {
   label: string;
