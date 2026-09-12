@@ -94,6 +94,13 @@ const projects = (await landingProjects()).slice(0, 6);
           ))
         }
       </div>
+
+      {/* The label that closes the list, set like the one that opens it. The
+          section is now bookended by the two strong rules, with the lighter
+          per-row dividers inside them. */}
+      <a class="work__more section-label" href="/work" data-astro-prefetch>
+        Explore all work
+      </a>
     </div>
   </section>
 </Base>
@@ -243,6 +250,27 @@ const projects = (await landingProjects()).slice(0, 6);
      above the first one — two lines a few pixels apart. Drop the first. */
   .work__list > :global(.prow:first-child) {
     border-top: 0;
+  }
+
+  /* Same type as `Selected work`, with the rule moved to the other side: this
+     one is a floor rather than a ceiling. The padding swaps with it, so the
+     label sits the same distance from its line as the heading does from
+     theirs, and `--rule-strong` matches the opening rule rather than the
+     lighter dividers between rows. */
+  .work__more {
+    padding-top: var(--sp-32);
+    padding-bottom: 0;
+    border-top: var(--rule-hair) solid var(--rule-strong);
+    border-bottom: 0;
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .work__more:hover,
+    .work__more:active {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
   }
 
   .work__head {
