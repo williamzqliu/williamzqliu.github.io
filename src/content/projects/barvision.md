@@ -811,20 +811,17 @@ recompute the draw from them and compare it with what they had watched.
 
 ## Building for Future Editions
 
-Barvision is an annual event, so I did not want the 2026 production to end as a one-off
-system. After the show, I separated what belonged specifically to Chongqing from what
-could carry forward: the allocation logic, the scoring flow, the cue structure, the reveal
-patterns, and the reusable animation components.
+Barvision is an annual event, so the 2026 production had to be a foundation rather than a
+one-off. After the show I separated what belonged to Chongqing from what could carry
+forward: the allocation and scoring logic, the cue structure, and the reveal and animation
+patterns.
 
 Earlier editions relied on manually arranged PowerPoint layers, duplicated visual states,
-and position values that had to be adjusted screen by screen. Moving the production into
-HTML, CSS, and JavaScript turned much of that repeated setup into reusable code and data.
-Future editions can keep the underlying draw and scoring logic while replacing the visual
-package and importing a new set of competition data.
+and position values adjusted screen by screen. Moving the production into HTML, CSS, and
+JavaScript turned that repeated setup into reusable code and data. A future edition
+replaces the visual package and the competition data rather than rebuilding the show.
 
-That shift changed the goal from producing one polished broadcast to building a foundation
-the event can keep improving. After the 2026 season, I published the full results to
-Barboard's permanent archive on
+After the 2026 season I published the full results to Barboard's permanent archive on
 [barboard.space](/work/barboard#making-history-searchable), so the live event joins the
 community's longer history.
 
