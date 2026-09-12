@@ -13,6 +13,7 @@ featured: 13
 draft: false
 stack:
   - Figma
+  - Adobe Illustrator
 links: {}
 cover:
   # A card of its own rather than a slice off the poster: the poster is 2:3
@@ -38,6 +39,7 @@ credits:
     - Bilingual typesetting
   tools:
     - Figma
+    - Adobe Illustrator
   team:
     - group: Design
       people:
@@ -150,17 +152,20 @@ Version 04 shows that structure before the content was filled in. Two columns we
   </figure>
 </div>
 
-<!-- TODO(fact), before this can be published:
+<!-- CLOSED, so a later pass does not raise them again:
 
-     1. The sources. They are printed in the poster's top right corner and are
-        not legible to me at this resolution. If they should also be readable
-        on the page, they belong in a short `Sources` paragraph at the end of
-        the article, the way the other information design projects carry
-        theirs.
-     2. Tools beyond Figma, if any.
-     3. Where the cover illustration came from. It is not in the poster's
-        style, so if it is licensed or generated rather than drawn, credits
-        needs a note the way Witness carries one for its stock vector.
+     Tools. Figma and Adobe Illustrator, both now in `stack` and in credits.
+
+     The cover illustration. Asked whether it needed a provenance note in
+     credits the way Witness carries one; the answer was no. Recorded here
+     rather than dropped, so the question is not reopened.
+
+     The sources. They turned out to be the course reading list rather
+     than data sources, eleven titles from Buchanan to Sless printed under
+     `Designed by Zhuoqi Liu` in the top right corner. Nothing on this page
+     states a figure that needs citing, so there is no `Sources` paragraph to
+     write; the poster carries its own bibliography and the head shows it at
+     full size.
 
      REMOVED: three detail crops of the Chinese poster, one per column, which
      sat under a third numbered section. That section is now the unnumbered
