@@ -7,7 +7,13 @@ dist/
 .DS_Store
 Thumbs.db
 CLAUDE.md
-.claude/
+# Two of these travel with the repo, because they describe the project rather
+# than the machine: `launch.json` is how the preview server is started and
+# `settings.json` turns off the co-author trailer. `settings.local.json` is a
+# per-machine permission allowlist and stays local.
+.claude/*
+!.claude/launch.json
+!.claude/settings.json
 
 # media-src/ is the raw archive: whatever came out of the camera, the screen
 # recorder or the export dialog, named after the file it produces in
