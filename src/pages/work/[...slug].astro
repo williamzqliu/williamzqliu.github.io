@@ -623,6 +623,23 @@ const facts = [
     font-size: var(--fs-copy);
   }
 
+  /* The same modifier on a table. A table of six columns takes the whole
+     article column by default, because most of them are evidence; one that is
+     three rows of small numbers is a statement inside the argument and belongs
+     on the paragraphs' own edges.
+
+     `--measure` is in `ch` and resolves against the element's own font size, so
+     the width is stated at the copy size here and the cells are handed their
+     own size back below — the same handoff `table[data-ranked]` makes. */
+  .prose > table[data-width='prose'] {
+    max-width: var(--measure);
+    font-size: var(--fs-copy);
+  }
+
+  .prose > table[data-width='prose'] td {
+    font-size: var(--fs-body);
+  }
+
   /* A new section is recognisable from the space above it alone: five times
      the gap between paragraphs. */
   .prose h2 {
@@ -1116,6 +1133,581 @@ const facts = [
      large. */
   .prose > .media-mosaic + p {
     margin-top: var(--sp-32);
+  }
+
+  /* A set of cards, as a rail pushed sideways rather than a grid read
+     downwards. A hundred and twenty-eight frames in the article column would
+     be twenty-odd rows deep and nobody reads a card catalogue that way: what
+     a reader wants is to travel along the set and stop at one. Scroll snap on
+     the x axis, so a push lands on a card instead of between two.
+
+     One fixed height and natural widths. Every frame is cropped to its own
+     card, so a single card and a card with the token it makes keep their own
+     proportions and neither is letterboxed to match the other. Three heights
+     rather than a column count: the card is the unit here, and how many fit
+     is whatever the viewport allows.
+
+     `tabindex` makes the rail a focus stop, which is what gives a keyboard
+     the arrow keys inside it. The lightbox already picks these up as article
+     images, so a card that is too small to read is one click from full size. */
+  .card-rail {
+    display: flex;
+    /* Bottom-aligned, so a token standing shorter than the card that makes it
+       still stands on the same floor. */
+    align-items: flex-end;
+    gap: var(--sp-12);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    /* No scroll snap. It was here to land a push on a card rather than between
+       two, and on a hundred and forty-four frames of eight different widths
+       that is not what it did: every push ended in a tug as the rail pulled
+       itself to the nearest centre, which is the one thing a catalogue should
+       not do. A rail you flick through wants to coast.
+
+       `smooth` instead, so the scrolls that are jumps — an arrow key, a press
+       on the line below — glide rather than cut. A drag has to track the
+       finger, so the script asks for `instant` on those. */
+    scroll-behavior: smooth;
+    /* Room above the cards for the hovered one to rise and grow into: eight
+       pixels of lift plus two per cent of a 440px card is under seventeen, so
+       twenty-four clears it. The rail scrolls on x, which makes it a clipping
+       box on y as well, so without this the lift would be cut off at the top
+       edge. The figure gives up its own margin for it below, so the space over
+       the cards is this and not both — which is also the gap a phone sees,
+       where there is no pointer and nothing to make room for. */
+    padding-top: var(--sp-24);
+    /* The browser's scrollbar is off: the line under the rail says the same
+       thing in the page's own terms, and two indicators 8px apart read as one
+       thick smudge. */
+    scrollbar-width: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-rail {
+      scroll-behavior: auto;
+    }
+  }
+
+  .card-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* The rail's scrollbar, redrawn. A fill growing from the left was the
+     header's gesture, and on a figure it was the wrong one: a line that only
+     ever gets longer says how far you have come, not that you can take hold of
+     it. A thumb as wide as the fraction of the rail on screen says both, and
+     says it the way every scrollbar a reader has ever used says it.
+
+     The bar itself is the target — 18px, because neither a finger nor a mouse
+     can hit 2px — and the two lines inside it are the indicator, centred in
+     it. Under the pointer they double to 4px: twice `--rule-heavy` rather than
+     a new weight, and the growth is what answers `can I drag this`. */
+  .card-rail__bar {
+    position: relative;
+    margin-top: var(--sp-12);
+    height: 18px;
+    cursor: pointer;
+    /* A drag along the bar is a scrub, not a page scroll. */
+    touch-action: none;
+  }
+
+  /* The track. */
+  .card-rail__bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: var(--rule-heavy);
+    transform: translateY(-50%);
+    background: var(--rule);
+    transition: height var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* The thumb. `--rail-span` is how much of the rail is on screen and
+     `--rail-at` is where it has got to, both set from the script in pixels;
+     translating it rather than setting `left` keeps the move off the layout. */
+  .card-rail__thumb {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--rail-span, 0);
+    height: var(--rule-heavy);
+    background: var(--accent);
+    transform: translate(var(--rail-at, 0px), -50%);
+    cursor: grab;
+    transition: height var(--dur-hover-out) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-rail__bar:hover::before,
+    .card-rail__bar:hover .card-rail__thumb {
+      height: 4px;
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* Held. The grown state stays for the length of the drag, pointer inside the
+     bar or not, because pointer capture means the drag is still live. */
+  .card-rail__bar[data-dragging],
+  .card-rail__bar[data-dragging] .card-rail__thumb {
+    cursor: grabbing;
+  }
+
+  .card-rail__bar[data-dragging]::before,
+  .card-rail__bar[data-dragging] .card-rail__thumb {
+    height: 4px;
+  }
+
+  /* Hidden until the script has measured the rail: a full-width accent line
+     under a rail that does not scroll would read as a section rule. */
+  .card-rail__bar[hidden] {
+    display: none;
+  }
+
+  /* Two class names, because `.prose img` sets a full-width block and would
+     otherwise stretch every card to the article. The height is a property
+     rather than a literal so a token can be stated as a fraction of it. */
+  .card-rail {
+    --card-h: 300px;
+  }
+
+  .prose .card-rail img {
+    position: relative;
+    flex: none;
+    width: auto;
+    height: var(--card-h);
+    max-width: none;
+    /* Grows off the floor it stands on, so the bottoms of the row stay in
+       line and only the top of the hovered card moves. */
+    transform-origin: bottom center;
+    transition: transform var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* A card comes forward under the pointer: eight pixels up and two per cent
+     larger. Every one of them opens in the lightbox and nothing else said so,
+     and on a rail of a hundred and forty-four frames the answer has to be
+     visible at a glance rather than on inspection. It leans over its
+     neighbours by a few pixels while it is up, so it takes a layer with it.
+     Desktop only, like every other hover on the site. */
+  @media (hover: hover) and (pointer: fine) {
+    .prose .card-rail img:hover {
+      transform: translateY(-8px) scale(1.02);
+      /* Under the class menu's panel, which is 2. */
+      z-index: 1;
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* A token or a Hero Power: made during a game rather than collected, and it
+     sits beside the card that makes it rather than in its own place in the
+     order. Four fifths the height and half a gap closer, which is the
+     difference the game itself draws when it shows you one. It is not a snap
+     target either — a push along the rail should land on a card. */
+  .prose .card-rail img[data-token] {
+    height: calc(var(--card-h) * 0.8);
+    margin-left: calc(var(--sp-12) * -0.5);
+  }
+
+  @media (min-width: 640px) {
+    .card-rail {
+      --card-h: 380px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-rail {
+      --card-h: 440px;
+    }
+  }
+
+  /* The rail's filters: a class, and a mana cost. Two controls rather than one
+     because the set has two axes a reader actually asks along, and because
+     the game's own collection is filtered the same way.
+
+     The chips take the work filters' treatment — nav size, medium weight, an
+     accent underline on the pressed one — because they do the same job and a
+     second look for it would be a second vocabulary. Not the same component:
+     `FilterRow` styles its own markup and a content file cannot render it,
+     and the two rows do not share a reason to change together.
+
+     One line, never wrapped. Eleven costs in two rows read as two kinds of
+     thing, and they are one kind: a scale. It takes the whole article column
+     rather than the prose measure to get there, which is the same exception a
+     figure takes.
+
+     Below 1024 it scrolls inside the column rather than bleeding to the page
+     edges the way the work page's row does: this one has an article around
+     it, and a row that escaped the column would not line up with anything. */
+  /* The row itself never scrolls and never clips: the class menu's panel is
+     absolutely positioned, and an ancestor with `overflow` on either axis
+     clips it out of existence. Below 1024 the cost chips scroll inside their
+     own group instead, which is the part that runs long — and the menu is left
+     outside any scroller, so its panel can hang below the row. */
+  .card-picker {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    /* The prose column is a start-aligned flex column, so without these two
+       the row is sized by its content and pushes the page sideways instead of
+       letting the group inside it scroll. */
+    align-self: stretch;
+    min-width: 0;
+    gap: var(--sp-16);
+    margin-top: var(--sp-24);
+  }
+
+  /* As wide as the article, not as wide as a line of prose — the row only
+     fits on one line at the full column. */
+  .prose > .card-picker {
+    max-width: 100%;
+  }
+
+  /* The two groups read as two controls, so the gap between them is wider than
+     the gap inside either. */
+  .card-picker__group {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--sp-12);
+  }
+
+  /* Names the axis, as a stamp rather than a heading — the same plate the
+     resume's `Updated` stamp is set on, because it is doing the same job:
+     labelling the thing beside it without competing with it. The class control
+     needs no stamp of its own, since its closed state reads `All classes`; its
+     label is there for a screen reader and hidden with `.vh`.
+
+     The 0.75rem step above 640px is the resume's own, kept literal so the two
+     stamps are the same size rather than nearly the same. */
+  .card-picker__label {
+    flex: none;
+    padding: 5px var(--sp-8);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  @media (min-width: 640px) {
+    .card-picker__label {
+      font-size: 0.75rem;
+    }
+  }
+
+  /* The class menu. A trigger that reads as the work filters' chips do, and a
+     panel that opens under it. Relative, so the panel is positioned on the
+     trigger rather than on the row. */
+  .card-picker__menu {
+    position: relative;
+    flex: none;
+  }
+
+  .card-picker__trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-8);
+    padding: var(--sp-8) 0;
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    transition:
+      color var(--dur-hover-out) var(--ease-out),
+      border-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* The caret, drawn rather than shipped: a square rotated to a corner, which
+     turns to point up while the panel is open. Two lines would need two
+     elements; one border on one pseudo needs none. */
+  .card-picker__trigger::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-right: var(--rule-hair) solid currentColor;
+    border-bottom: var(--rule-hair) solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .card-picker__trigger[aria-expanded='true']::after {
+    transform: translateY(1px) rotate(225deg);
+  }
+
+  /* Filtering, not just open: the closed control has to show that the rail is
+     cut, or a reader who scrolled away cannot tell. */
+  .card-picker__trigger[data-filtering] {
+    color: var(--accent);
+    border-bottom-color: currentColor;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-picker__trigger:hover {
+      color: var(--text);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .card-picker__trigger[data-filtering]:hover {
+      color: var(--accent);
+    }
+  }
+
+  /* The panel. Over the rail rather than pushing it: a control that moved the
+     thing it filters would make the reader chase it.
+
+     `--surface` and a hairline, which is the only raised plane the site has.
+     No shadow and no radius: there are none anywhere else. */
+  .card-picker__list {
+    position: absolute;
+    z-index: 2;
+    top: calc(100% + var(--sp-4));
+    left: 0;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--sp-4) 0;
+    /* Not quite opaque, and blurred behind: the panel is the only thing on the
+       site that floats over something else, and a plate that lets the cards
+       underneath show through as a haze says it is floating without needing
+       the shadow the system does not have.
+
+       Blur first, translucency second. Ten per cent of a card wall showing
+       through unblurred is contrast noise under 14px type, so where the filter
+       is unavailable the plate goes solid instead. */
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border: var(--rule-hair) solid var(--rule);
+    /* The script animates these two; these are the shut values, so a panel
+       that is shown before the animation starts does not flash open. */
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  .card-picker__list[hidden] {
+    display: none;
+  }
+
+  /* Shutting: still on the page for the length of the animation, but no longer
+     something a pointer can land on. */
+  .card-picker__list[data-closing] {
+    pointer-events: none;
+  }
+
+  @supports not (backdrop-filter: blur(2px)) {
+    .card-picker__list {
+      background: var(--surface);
+    }
+  }
+
+  .card-picker__option {
+    position: relative;
+    padding: var(--sp-8) var(--sp-16);
+    text-align: left;
+    white-space: nowrap;
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    transition:
+      color var(--dur-hover-out) var(--ease-out),
+      background-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* The chosen class, marked with the accent rule the nav marks a current page
+     with — turned on its side, and opening from the middle out. The rule
+     belongs to what is selected; hover is the wash and the ink, and nothing
+     else. Following the nav rather than inventing a second grammar for the
+     same distinction. */
+  .card-picker__option::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--rule-heavy);
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform var(--dur-draw) var(--ease-out);
+  }
+
+  .card-picker__option[aria-pressed='true'] {
+    color: var(--accent);
+  }
+
+  .card-picker__option[aria-pressed='true']::before {
+    transform: scaleY(1);
+  }
+
+  /* Desktop only. A row that lights up under the pointer is how a menu says
+     which row the click will land on, and a touch screen has no pointer to
+     light it for — the site gives touch no hover state anywhere. */
+  @media (hover: hover) and (pointer: fine) {
+    .card-picker__option:hover {
+      color: var(--text);
+      /* Ink at low strength rather than a named fill: it lands the same step
+         above the plate in both themes, which a second surface colour would
+         not. */
+      background-color: color-mix(in srgb, var(--text) 7%, transparent);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .card-picker__option[aria-pressed='true']:hover {
+      color: var(--accent);
+      background-color: color-mix(in srgb, var(--accent) 9%, transparent);
+    }
+
+    /* The trigger's hairline comes up to full ink with it, so the closed
+       control answers the pointer as much as the open one does. */
+    .card-picker__trigger:hover {
+      border-bottom-color: var(--rule-strong);
+    }
+
+    .card-picker__trigger[data-filtering]:hover {
+      border-bottom-color: currentColor;
+    }
+  }
+
+  .card-picker__chip {
+    position: relative;
+    flex: none;
+    white-space: nowrap;
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    /* Reaches the 44px tap target on type this small. */
+    padding-block: var(--sp-12);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* As wide as the word, opening from the middle out: the nav's gesture. */
+  .card-picker__chip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--sp-8);
+    height: var(--rule-heavy);
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--dur-draw) var(--ease-out);
+  }
+
+  .card-picker__chip[aria-pressed='true'] {
+    color: var(--accent);
+  }
+
+  .card-picker__chip[aria-pressed='true']::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-picker__chip:hover {
+      color: var(--text);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .card-picker__chip[aria-pressed='true']:hover {
+      color: var(--accent);
+    }
+  }
+
+  /* Digits, not words: they need less air than the work page's chips, and a
+     run of eleven with word spacing between them reads as eleven controls
+     rather than one scale.
+
+     This is the group that takes what is left of the row and scrolls when the
+     eleven do not fit. The rail under it is the block whose scrollbar means
+     something, so this one is hidden and the half-visible chip at the right
+     edge is the affordance — the same bargain the work page's filter row
+     makes. */
+  .card-picker__group--cost {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: var(--sp-16);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .card-picker__group--cost::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Clears both filters. Set like the menu triggers rather than like a chip:
+     it is not a state to be in, it is a way out of one, and a chip that could
+     never be pressed-looking would be the only one on the page. It is only in
+     the document while there is something to clear, so it has no disabled
+     state to draw either. */
+  .card-picker__reset {
+    flex: none;
+    margin-left: auto;
+    padding: var(--sp-8) 0;
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    border-bottom: var(--rule-hair) solid var(--rule);
+    transition:
+      color var(--dur-hover-out) var(--ease-out),
+      border-color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .card-picker__reset[hidden] {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-picker__reset:hover {
+      color: var(--text);
+      border-bottom-color: var(--rule-strong);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* One cost control per width. The chips are a scale and want a wide screen;
+     the menu is one line and wants a phone. */
+  @media (max-width: 639px) {
+    .card-picker__group--cost {
+      display: none;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .card-picker__group--costmenu,
+    /* A wide screen has both ways out on screen already: press the lit chip
+       again, or pick `All classes`. A third control for what two already do
+       would be the one that pushes the row off one line. */
+    .card-picker__reset {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-picker {
+      gap: var(--sp-32);
+    }
+  }
+
+  /* The rail's own top padding is the space under the picker: it has to be
+     inside the rail's box to be somewhere the hover can grow, so the figure
+     would otherwise add a second gap on top of it. */
+  .card-picker + figure {
+    margin-top: 0;
+  }
+
+  /* `hidden` alone loses to `.prose img { display: block }`, so a filtered
+     card would keep its space in the rail and the row would read as gaps. */
+  .prose .card-rail img[hidden] {
+    display: none;
   }
 
   /* A drawn metric, set the way the rest of the page's metadata is set: a mono
@@ -2170,12 +2762,350 @@ const facts = [
     }
   }
 
+  /* The rail, cut by class and by mana cost. Every card carries the classes it
+     belongs to in `data-class` and its cost in `data-cost`, so a dual-class
+     card answers to either of its classes and the two filters are read
+     together: a card shows when it passes both.
+
+     Nothing is removed and nothing is re-ordered. The rail ships in its
+     reading order — cost first, then class, then hero, minion, spell, weapon —
+     and filtering only hides, so the order a reader learns is the order they
+     keep.
+
+     Cost has two controls, a row of chips and a menu, one of which is hidden at
+     any width. They are not two states: both write the same variable and
+     `apply` writes back to both, so whichever one a reader is looking at is
+     the one that is right.
+
+     Every listener is hung off one controller, aborted on the way in. This
+     runs once on load and again on every view transition, and two of the
+     listeners are on `document`: without the abort they would stack up a page
+     at a time. Same reason, same shape as the table of contents above. */
+  let cardListeners: AbortController | undefined;
+
+  function initCardPicker() {
+    cardListeners?.abort();
+    cardListeners = undefined;
+
+    const picker = document.querySelector<HTMLElement>('.card-picker');
+    const rail = document.querySelector<HTMLElement>('.card-rail');
+    if (!picker || !rail) return;
+
+    cardListeners = new AbortController();
+    const { signal } = cardListeners;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const chips = Array.from(
+      picker.querySelectorAll<HTMLButtonElement>('.card-picker__chip[data-cards-cost]')
+    );
+    const classOptions = Array.from(
+      picker.querySelectorAll<HTMLButtonElement>('.card-picker__option[data-cards-value]')
+    );
+    const costOptions = Array.from(
+      picker.querySelectorAll<HTMLButtonElement>('.card-picker__option[data-cards-cost]')
+    );
+    const reset = picker.querySelector<HTMLButtonElement>('[data-cards-reset]');
+    const cards = Array.from(rail.querySelectorAll<HTMLImageElement>('img'));
+    const bar = rail.parentElement?.querySelector<HTMLElement>('[data-cards-bar]');
+    const thumb = bar?.querySelector<HTMLElement>('.card-rail__thumb');
+
+    let wantClass = 'all';
+    let wantCost = 'all';
+
+    /* Hidden when the rail fits: a full-width accent rule under something that
+       does not move is a section boundary, not a position.
+
+       The thumb is as wide a fraction of the track as the visible rail is of
+       the whole rail, floored at 48px so there is always something to take
+       hold of, and it travels the track minus its own width — which is what
+       puts its right edge on the track's right edge at the end. */
+    const MIN_THUMB = 48;
+
+    const measure = () => {
+      if (!bar || !thumb) return;
+      const travel = rail.scrollWidth - rail.clientWidth;
+      bar.hidden = travel < 2;
+      if (bar.hidden) return;
+      const track = bar.clientWidth;
+      const span = Math.max(MIN_THUMB, (track * rail.clientWidth) / rail.scrollWidth);
+      const at = Math.min(1, Math.max(0, rail.scrollLeft / travel));
+      thumb.style.setProperty('--rail-span', `${span}px`);
+      thumb.style.setProperty('--rail-at', `${at * (track - span)}px`);
+    };
+
+    /* The menus. One routine for both, because a dropdown that opened
+       differently from the dropdown beside it would read as a different kind
+       of control. Opacity and a 4px rise, over the duration and curve the
+       article's disclosures use.
+
+       Hidden on a timer rather than on the animation's `finish` event. A
+       document that is not being rendered — a background tab, a hidden pane —
+       does not run animation frames, so an event-driven close can strand a
+       panel at opacity 0 with its buttons still in the tab order. A timer runs
+       either way, and `running` is what decides whether it still applies, so a
+       re-open before it lands is a no-op. `data-closing` takes the panel out
+       of the pointer's way for the same reason. */
+    type Menu = {
+      trigger: HTMLButtonElement;
+      list: HTMLElement;
+      kind: string;
+      running?: Animation;
+    };
+
+    const menus: Menu[] = Array.from(picker.querySelectorAll<HTMLElement>('.card-picker__menu'))
+      .map((menu) => {
+        const trigger = menu.querySelector<HTMLButtonElement>('[data-cards-menu]');
+        const list = menu.querySelector<HTMLElement>('[data-cards-list]');
+        if (!trigger || !list) return undefined;
+        return { trigger, list, kind: trigger.dataset.cardsMenu ?? '' };
+      })
+      .filter((menu): menu is Menu => Boolean(menu));
+
+    const frames = (out: boolean) => [
+      { opacity: out ? '1' : '0', transform: `translateY(${out ? '0' : '-4px'})` },
+      { opacity: out ? '0' : '1', transform: `translateY(${out ? '-4px' : '0'})` },
+    ];
+
+    const shut = (menu: Menu, focusTrigger = false) => {
+      if (menu.list.hidden) return;
+      menu.running?.cancel();
+      menu.trigger.setAttribute('aria-expanded', 'false');
+      menu.list.dataset.closing = 'true';
+      const animation = menu.list.animate(frames(true), {
+        duration: reduced.matches ? 0 : DISCLOSURE_MS,
+        easing: DISCLOSURE_EASE,
+      });
+      menu.running = animation;
+      window.setTimeout(
+        () => {
+          if (menu.running !== animation) return;
+          menu.list.hidden = true;
+          delete menu.list.dataset.closing;
+          menu.running = undefined;
+        },
+        reduced.matches ? 0 : DISCLOSURE_MS
+      );
+      if (focusTrigger) menu.trigger.focus();
+    };
+
+    const shutAll = (except?: Menu) => {
+      for (const menu of menus) if (menu !== except) shut(menu);
+    };
+
+    const open = (menu: Menu) => {
+      shutAll(menu);
+      menu.running?.cancel();
+      menu.list.hidden = false;
+      delete menu.list.dataset.closing;
+      menu.trigger.setAttribute('aria-expanded', 'true');
+      menu.running = menu.list.animate(frames(false), {
+        duration: reduced.matches ? 0 : DISCLOSURE_MS,
+        easing: DISCLOSURE_EASE,
+        fill: 'forwards',
+      });
+    };
+
+    const apply = () => {
+      for (const card of cards) {
+        const classes = (card.dataset.class ?? '').split(' ');
+        card.hidden =
+          (wantClass !== 'all' && !classes.includes(wantClass)) ||
+          (wantCost !== 'all' && card.dataset.cost !== wantCost);
+      }
+      for (const chip of chips) {
+        chip.setAttribute('aria-pressed', String(chip.dataset.cardsCost === wantCost));
+      }
+      for (const option of classOptions) {
+        option.setAttribute('aria-pressed', String(option.dataset.cardsValue === wantClass));
+      }
+      for (const option of costOptions) {
+        option.setAttribute('aria-pressed', String(option.dataset.cardsCost === wantCost));
+      }
+      // Both triggers read their own chosen option's label, so the hidden one
+      // is already right when a resize reveals it.
+      for (const menu of menus) {
+        const cost = menu.kind === 'cost';
+        const want = cost ? wantCost : wantClass;
+        const chosen = (cost ? costOptions : classOptions).find(
+          (option) => (cost ? option.dataset.cardsCost : option.dataset.cardsValue) === want
+        );
+        if (chosen) menu.trigger.textContent = chosen.textContent;
+        menu.trigger.toggleAttribute('data-filtering', want !== 'all');
+      }
+      if (reset) reset.hidden = wantClass === 'all' && wantCost === 'all';
+      // The reader asked for a different set; the old scroll position belongs
+      // to the old one. `instant`, because gliding forty thousand pixels back
+      // to the start is not a transition, it is a wait.
+      rail.scrollTo({ left: 0, behavior: 'instant' });
+      measure();
+    };
+
+    for (const menu of menus) {
+      menu.trigger.addEventListener(
+        'click',
+        () => {
+          if (menu.trigger.getAttribute('aria-expanded') === 'true') shut(menu);
+          else open(menu);
+        },
+        { signal }
+      );
+    }
+
+    for (const option of [...classOptions, ...costOptions]) {
+      option.addEventListener(
+        'click',
+        () => {
+          if (option.dataset.cardsValue) wantClass = option.dataset.cardsValue;
+          else wantCost = option.dataset.cardsCost ?? 'all';
+          apply();
+          const owner = menus.find((menu) => menu.list.contains(option));
+          if (owner) shut(owner, true);
+        },
+        { signal }
+      );
+    }
+
+    // A chip that is already pressed turns the filter off again. `Any` is a
+    // chip too, but it sits at the far left of eleven, and the pointer is
+    // already on the one that is lit. The menu does not do this: a dropdown
+    // always has a value chosen, and picking the chosen one again should only
+    // close it.
+    for (const chip of chips) {
+      chip.addEventListener(
+        'click',
+        () => {
+          const cost = chip.dataset.cardsCost ?? 'all';
+          wantCost = cost === wantCost ? 'all' : cost;
+          apply();
+        },
+        { signal }
+      );
+    }
+
+    /* Both filters off, in one press. It takes itself out of the document on
+       the way, so the focus has to go somewhere first: the class trigger, which
+       is where a reader who has just cleared everything would start again. */
+    reset?.addEventListener(
+      'click',
+      () => {
+        const held = document.activeElement === reset;
+        wantClass = 'all';
+        wantCost = 'all';
+        apply();
+        if (held) menus.find((menu) => menu.kind === 'class')?.trigger.focus();
+      },
+      { signal }
+    );
+
+    // Escape shuts the one the focus is in, and any stray open panel with it;
+    // a click or a focus that lands outside shuts them all, which is what a
+    // reader expects of a dropdown.
+    picker.addEventListener(
+      'keydown',
+      (event) => {
+        if ((event as KeyboardEvent).key !== 'Escape') return;
+        const owner = menus.find(
+          (menu) =>
+            menu.list.contains(document.activeElement) || menu.trigger === document.activeElement
+        );
+        if (owner) shut(owner, true);
+        shutAll(owner);
+      },
+      { signal }
+    );
+    document.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (!picker.contains(event.target as Node)) shutAll();
+      },
+      { signal }
+    );
+    document.addEventListener(
+      'focusin',
+      (event) => {
+        if (!picker.contains(event.target as Node)) shutAll();
+      },
+      { signal }
+    );
+
+    /* Dragging the line scrolls the rail, because the scrollbar it replaced
+       could be dragged. Two starts, and they have to behave differently:
+       grabbing the thumb holds the point on the thumb that was grabbed, so it
+       does not jump out from under the pointer, while pressing the bare track
+       puts the thumb's middle where the press landed. Pointer capture, so a
+       drag that wanders off an 18px bar keeps working — which is most drags. */
+    let grabbed = 0;
+    let dragging = false;
+
+    const scrub = (event: PointerEvent) => {
+      if (!bar || !thumb) return;
+      const box = bar.getBoundingClientRect();
+      const span = thumb.getBoundingClientRect().width;
+      const room = box.width - span;
+      if (room <= 0) return;
+      const at = Math.min(1, Math.max(0, (event.clientX - box.left - grabbed) / room));
+      // A drag has to be under the finger on the frame it happens, so it opts
+      // out of the rail's `smooth`. A press that is not a drag keeps it.
+      rail.scrollTo({
+        left: at * (rail.scrollWidth - rail.clientWidth),
+        behavior: dragging ? 'instant' : 'smooth',
+      });
+    };
+
+    bar?.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (!thumb) return;
+        const onThumb = event.target === thumb;
+        const span = thumb.getBoundingClientRect().width;
+        grabbed = onThumb ? event.clientX - thumb.getBoundingClientRect().left : span / 2;
+        bar.dataset.dragging = 'true';
+        // Scrub first, and as a press rather than a drag: the pointer has not
+        // moved yet, so this one glides. Capture is what keeps a wandering
+        // drag alive, but it throws if the pointer is already gone, and the
+        // press should still have moved the rail.
+        dragging = false;
+        scrub(event);
+        dragging = true;
+        try {
+          bar.setPointerCapture(event.pointerId);
+        } catch {
+          delete bar.dataset.dragging;
+        }
+      },
+      { signal }
+    );
+    bar?.addEventListener(
+      'pointermove',
+      (event) => {
+        if (bar.hasPointerCapture(event.pointerId)) scrub(event);
+      },
+      { signal }
+    );
+    for (const done of ['pointerup', 'pointercancel'] as const) {
+      bar?.addEventListener(
+        done,
+        () => {
+          dragging = false;
+          delete bar.dataset.dragging;
+        },
+        { signal }
+      );
+    }
+
+    rail.addEventListener('scroll', measure, { passive: true, signal });
+    window.addEventListener('resize', measure, { signal });
+    apply();
+  }
+
   document.addEventListener('astro:page-load', () => {
     initToc();
     smoothDisclosures();
     playVisibleClips();
+    initCardPicker();
   });
   initToc();
   smoothDisclosures();
   playVisibleClips();
+  initCardPicker();
 </script>
