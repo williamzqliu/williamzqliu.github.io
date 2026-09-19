@@ -1918,6 +1918,20 @@ const facts = [
     text-transform: uppercase;
   }
 
+  /* The scale a figure is on, riding with the figure rather than waiting in the
+     label under it: `6.13` on its own is not a number anyone can place. Set
+     like the label and not like the figure, because it is a label — the number
+     is the only thing in the cell that should be loud. The value is mono and
+     this is not, so the family has to be stated back. */
+  .stat-strip .stat-strip__unit {
+    margin-left: var(--sp-4);
+    font-family: var(--font-body);
+    font-size: calc(var(--fs-small) + 1px);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0;
+    color: var(--text-2);
+  }
+
   /* A pixel over the caption size: these two lines are read, not glanced at,
      and at 13 they sat a step too far below the number. */
   .stat-strip .stat-strip__label {
