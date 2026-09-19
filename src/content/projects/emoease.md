@@ -67,25 +67,22 @@ credits:
 
 I started EmoEase with a personal question: **why did social media sometimes leave me anxious even when I knew much of what I was seeing was curated or exaggerated?**
 
-The research pointed somewhere more specific: people were often affected before they realised it.
+A survey of 106 people pointed somewhere more specific: they were often affected before they realised it.
 
-<!-- The figures are only in the strip, which is what the strip is for: the
-     sentence above says what the answers mean and the strip says how many.
-     Saying both in prose and in the strip was saying it twice. Not in it: the four unlabelled rating scales, which the pattern
-     rules out anyway, and the MBTI tags on the interviewees.
+<!-- Two percentages, and only percentages. The sample size is a count rather
+     than a rate, and a strip that puts `106` beside `72.6%` invites the eye to
+     compare three numbers that are not the same kind of thing. The count is in
+     the sentence above, where it belongs to the survey rather than to the
+     findings. Not in the strip either: the four unlabelled rating scales, which
+     the pattern rules out anyway, and the MBTI tags on the interviewees.
 
      No `__note` row under the percentages. The note is for the count a
      percentage came from, and those counts are not in the record; deriving
      `77 of 106` by multiplying back would print a rounded number as an exact
-     one. Order is the order the section argues in: the sample, the answer
-     anyone would expect, then the one that makes it a design problem. -->
+     one. Order is the order the section argues in: the answer anyone would
+     expect, then the one that makes it a design problem. -->
 
-<div class="stat-strip" data-cols="3">
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">106</p>
-    <p class="stat-strip__label">Survey respondents</p>
-  </div>
-
+<div class="stat-strip">
   <div class="stat-strip__cell">
     <p class="stat-strip__value">72.6%</p>
     <p class="stat-strip__label">Disturbed by over-packaged content</p>
