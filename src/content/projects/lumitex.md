@@ -81,7 +81,14 @@ I began the project after briefly wondering whether my own difficulty with dense
      aimed at a run of quotes all making the same point, which is a results
      chapter; here the difference between them is the point. -->
 
-<div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
+<!-- `data-stack` on a phone, which is the one opt-out the row has. A picture
+     at a third of a phone screen is a small picture; a paragraph at a third of
+     a phone screen is a ladder of one and two words, and the longest word in
+     these three is wider than the column it is in. The rule that a row beats
+     stacking is a rule about pictures, and this is the case it was written to
+     make an exception for. -->
+
+<div class="media-pair" data-stack style="--pair-split: repeat(3, minmax(0, 1fr))">
   <blockquote class="participant-quote">
     <p>“I hope that parents will create an environment in which their children can build up their self-confidence.”</p>
     <cite>Adult with dyslexia, 22</cite>
