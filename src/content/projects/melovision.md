@@ -1,11 +1,11 @@
 ---
-title: MeloVision
+title: Melovision
 year: 2023
 dates: Jul 2023 – Oct 2023
 blurb: A music discovery concept that renders each song as a generative form driven by its own audio.
 tags: [interactive]
 tracks: [design]
-published: false
+published: true
 featured: 10
 stack:
   - TouchDesigner
@@ -13,6 +13,11 @@ stack:
 links:
   demo: https://www.youtube.com/watch?v=Pem2er8I3Mc
 cover:
+  # One generated form on the project's dark ground, rendered wide rather than
+  # cropped out of a board. The head has to say generative music visualization
+  # before it says anything else, which rules out both the old title slide and
+  # the three-phone app shot: the first says presentation, the second says app.
+  # 16:9, and the head's 2.1:1 banner takes it without touching the form.
   wide: /media/melovision/cover-wide.webp
   tone: dark
   alt: A generative sphere in teal and violet, its surface warped and striped by the audio of a single song.
@@ -20,147 +25,339 @@ quickFacts:
   - label: "Role"
     value: "Designer & Researcher"
   - label: "Outcome"
-    value: "Visual system, app, brand identity, and print"
+    value: "Generative visual system and music-discovery prototype"
+credits:
+  skills:
+    - Interaction design
+    - User research
+    - Generative design
+    - Information visualization
+    - Visual identity
+  tools:
+    - TouchDesigner
+    - Figma
+  # `Roles` rather than `Team`, and `Portfolio guidance` rather than `Faculty
+  # guidance`, following comgrand, emoease and lumitex: the same tutor on the
+  # same 2023 application portfolio, advising on how the work was presented
+  # rather than teaching a course it was made for.
+  teamLabel: Roles
+  team:
+    - group: Design and research
+      people:
+        - Zhuoqi Liu
+    - group: Portfolio guidance
+      people:
+        - Vince Ye
+  collapse: false
 ---
 
-## The question
+<!-- No intro paragraph. The head carries the title, the blurb and one large
+     generated form, which is the whole premise stated in a picture; a sentence
+     between that and Section 01 would be a second opening. The question the
+     project started from now opens the section that answers it. -->
 
-Streaming was supposed to solve music discovery. Everything ever recorded, one search
-away, and an algorithm that learns what you like. And yet finding a song that actually
-matches your taste feels harder than it did when you had to buy albums.
+## Making recommendations visible
 
-The question I started from was whether the recommendation mechanism is the cause
-rather than the cure. Does it widen what you hear, or narrow it?
+Recommendation systems save time. I started from a question about the cost: do they also narrow what listeners hear, and hide how a recommendation is made?
 
-## Three answers that all contradict each other
+A survey of 105 listeners rated the recommendation mechanism. Convenience and satisfaction came apart.
 
-I surveyed 105 people, 90.5% of them between 18 and 30, and interviewed six across
-three groups I chose specifically because they should disagree.
+<!-- Two ratings, and only ratings. The sample size is a count rather than a
+     rate, so it sits in the sentence above; a strip holding `105` beside `6.13`
+     would invite the eye to compare two numbers that are not the same kind of
+     thing. The three percentages below stay in prose for the same reason: they
+     are a list of wants, measured a third way.
 
-**Listeners** said the recommendations are too samey. One put it plainly: there are so
-many homogeneous types of song coming through that it gets boring.
+     The scale rides with each figure as `/ 10` rather than waiting in the
+     label, which is how the percentages on EmoEase carry their own sign. It is
+     set like the label, so the number stays the loud thing in the cell. -->
 
-**Independent musicians** said the mechanism is not neutral. Platforms will let indie
-artists pay to promote toward unfamiliar listeners, and an indie artist has no budget
-to do that. So the recommendation surface is partly an advertising surface, and the
-people who cannot buy it are invisible on it.
+<div class="stat-strip">
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">6.13<span class="stat-strip__unit">/ 10</span></p>
+    <p class="stat-strip__label">Convenience</p>
+  </div>
 
-**Algorithm engineers** described the same system from inside and did not disagree with
-either complaint. One said the mechanism resolves differences in individual preference
-into paradigms, forming a fixed preference chain preset. That is a description of
-exactly what the listeners were complaining about, offered as how the thing works.
+  <div class="stat-strip__cell">
+    <p class="stat-strip__value">5.30<span class="stat-strip__unit">/ 10</span></p>
+    <p class="stat-strip__label">Satisfaction with what it recommended</p>
+  </div>
+</div>
 
-Three groups, three positions, all internally consistent and mutually incompatible.
-That is what made this a design problem rather than a complaint. Nobody is doing
-anything wrong; the structure produces the outcome.
+What people wanted was not more recommendations. 66.7% chose a system that noticed when their preferences changed, 55.2% more diverse genres, and 51.4% less time auditioning songs before deciding whether they liked them.
 
-## What the survey actually said
+Six interviews showed the same system from three sides. Listeners found the recommendations repetitive, independent musicians struggled to reach listeners who did not already follow them, and algorithm engineers explained how the system reduces individual preferences into reusable patterns.
 
-The numbers pointed somewhere more specific than "recommendations are bad".
+So I did not set out to build a better recommender. I set out to make both the song and the listener's preferences easier to read.
 
-People rated the mechanism 6.13 out of 10 for convenience and 5.30 for satisfaction
-with what it pushed them. So it saves effort and fails at accuracy, and those are not
-the same problem.
+<!-- No figure here, decided against. The three interview positions are a
+     label each on `panel-2-research-survey`, and the labels only make sense
+     sitting over the six persona cards they head. The paragraph above already
+     names all three, and the strip carries the numbers. A crop of the whole
+     block would be the research dashboard this restructure removed. -->
 
-The expectations data confirmed it. 66.7% wanted the mechanism to detect changes in
-their preferences more sensitively. 55.2% wanted to try diverse genres and escape the
-cocoon. 51.4% wanted to spend less time auditioning songs to find out whether they
-liked them.
+## Turning a song into a form
 
-Read together: people do not want more recommendations. They want their own
-preferences to become visible and adjustable, and they want to know what a song is
-like before spending three minutes finding out.
+I took cymatics as the starting point. Sound vibration already produces visible patterns, so a form generated from a song follows from the music rather than decorating it.
 
-That reframing is what the design is for. Not a better recommender. A way of showing
-a song that lets you decide about it in a second.
+I gave each song three independent layers: shape for genre, colour for emotion, and surface texture from its audio spectrum.
 
-## Cymatics
+**Shape carries genre.** Eight geometries, one per genre group. I made it the coarsest of the three layers, so it is the one read first.
 
-Cymatics is the phenomenon where sound vibration passing through a medium forms
-visible geometric patterns. It gave me two things at once.
+**Colour carries emotion.** An emotion wheel sets it, and this is the one layer I let the listener override by hand.
 
-Physically, it justifies the whole premise: a form generated from a song's own audio is
-not an illustration of the song, it is a consequence of it. The mapping can be
-principled rather than decorative.
+**Texture carries the spectrum.** The audio drives it: low frequencies push the surface into depth, middle frequencies run vertically through the form, high frequencies cross it horizontally.
 
-Metaphorically, cymatic patterns look like threads wound into a shell, which is what an
-information cocoon looks like if you had to draw one. The concept the research
-identified and the visual language the design uses come from the same image, which is
-also why the logo is a sound wave, a set of cocoon threads, and a music ball combined.
+<!-- Shape and colour side by side: two layers, one figure each, and the
+     columns take their own aspects so the pair comes out level with nothing
+     cropped. Texture has no figure of its own — the three spheres on the board
+     are labelled surface, colour block and depth, which is not the vocabulary
+     the paragraph above uses, and the synthesis diagram in the disclosure shows
+     the frequency mapping properly. -->
 
-## The encoding system
+<div class="media-pair" style="--pair-split: 1.737fr 1.056fr">
+  <figure>
+    <img
+      src="/media/melovision/shape-system.webp"
+      alt="Eight generated forms in two rows of four, each labelled with a genre. Pop, R&amp;B, Latin and country on the top row are rounded and banded; indie, electric and dance, rock and metal, and rap and hip hop below are faceted blocks and open wireframe cages."
+      width="1200"
+      height="691"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Eight geometries, one per genre group</figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/media/melovision/colour-system.webp"
+      alt="The emotion wheel. About forty terms sit in rings inside a colour disc, from irate, upset and frustrated in the reds through anxious and worried, to chill, satisfied and pleased in the greens and depressed, grief and disappointed in the blues. Six labels ring it: angry, amazed, afraid, happy, sad and agitated."
+      width="760"
+      height="719"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>The wheel, and the layer a listener can change</figcaption>
+  </figure>
+</div>
 
-Each song becomes one form, and three independent layers decide what it looks like.
+The frequency mapping is the part I would defend hardest. Bass is felt as weight, midrange carries the vocal and melodic body, treble is detail and edge: each band shapes the form the way the ear already treats it. I can give a reason for every assignment and I have tested none of them.
 
-**Shape carries genre.** Eight geometries for eight genres: pop, R&B, Latin, country,
-indie, electric and dance, rock and metal, rap and hip hop. Shape is the coarsest
-signal and the one you read first from across a room.
+<table data-width="prose">
+  <thead>
+    <tr>
+      <th>Reading</th>
+      <th>Drives</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Spectral centroid</td><td>Mood tone</td></tr>
+    <tr><td>Low frequency</td><td>Depth of the surface</td></tr>
+    <tr><td>Middle frequency</td><td>Vertical texture</td></tr>
+    <tr><td>High frequency</td><td>Horizontal texture</td></tr>
+  </tbody>
+</table>
 
-**Colour carries emotion.** An emotion wheel of roughly forty terms organised into
-eight sectors, from irate and distraught through to calm and pleased. Colour is where a
-listener's own associations do the work, so this layer is deliberately the one they can
-also control by hand.
+Because the layers are independent, two songs in one genre share a shape and diverge in colour and surface. I ran nine released tracks through the whole pipeline to check the system made forms you could tell apart rather than nine versions of one object.
 
-**Texture carries the spectrum.** The audio drives it directly. Spectral centroid maps
-to the mood tone. Low frequencies map to depth, middle frequencies to vertical
-texture, high frequencies to horizontal texture.
+<!-- The result, at prose width rather than the full column. Nothing else in
+     the section is wider than the measure now, and a figure that breaks out
+     reads as the section's own conclusion rather than as one more example; the
+     labels inside it are small at this size, which the lightbox answers. -->
 
-Those frequency assignments are the part I would defend hardest. They are not
-arbitrary pairings: bass is felt as weight and depth, so it displaces the surface;
-midrange carries the vocal and melodic body, so it runs vertically through the form;
-treble is detail and edge, so it scratches across it. Each mapping has a reason you can
-state, which is the difference between an encoding system and a look.
+<figure data-width="prose">
+  <img
+    src="/media/melovision/song-forms.webp"
+    alt="One large generated form labelled As It Was, and nine smaller ones in a three by three grid. Each of the nine sits under its track title, artist and genre and over its own waveform strip, running from Anti-Hero as pop to Roman Holiday as rock and metal. No two are alike in shape, colour or surface."
+    width="1600"
+    height="1128"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Nine tracks, and the one the demo runs on</figcaption>
+</figure>
 
-Because the layers are independent, two pop songs share a shape and diverge completely
-in colour and surface. Nine real tracks were rendered through the full pipeline, from
-Anti-Hero to HUMBLE. to Roman Holiday, which is how I checked the system produced
-distinguishable results rather than nine variations of the same object.
+<details>
+<summary>How the forms are generated</summary>
 
-## Giving the controls back
+**Audio in.** The track is read as audio rather than as metadata, so the form comes from the recording.
 
-The interface is the part that answers the research directly.
+**Spectrum analysis.** The signal is split into its frequency bands and a spectral centroid.
 
-The Explore panel puts three handles in front of the listener at once: pick a genre,
-pick a mood from the colour wheel, add or remove tags. If the song that comes back is
-wrong, there is a refresh next to it.
+**Parameter extraction.** Each band becomes a number, and the spectral centroid becomes the mood tone.
 
-That is a deliberate inversion. The complaint the research surfaced was not that the
-machine chooses badly, it was that the machine chooses invisibly and you cannot argue
-with it. So the design makes the preference model into a control surface rather than a
-black box, and treats rejecting a suggestion as a normal thing to do rather than a
-signal to be silently absorbed.
+**Geometry and surface.** The numbers displace the genre geometry and work its surface; the emotion layer sets the colour.
 
-The project extended past the app into a promotion site and printed invitation cards,
-and then into a room. I generated the song forms as video in TouchDesigner and
-projected them into a darkened space, to find out what a music ball is like at room
-scale instead of on a phone.
+**Rendering.** TouchDesigner generates the form in real time, which is what let it run as video at room scale later.
 
-Worth being precise about what that was: a projection. Nothing in the room responded
-to anyone. The panel I made at the time labelled it an interactive space, which
-overstates it, and the honest description is that it was a spatial test of the concept.
+</details>
 
-It was still the most useful hour of the project. On a phone a generated form reads as
-album art, which is a thing you glance at. At three metres across in a dark room it
-reads as an object, which is a thing two people stand in front of and argue about. The
-research had found that listening became a private feed; seeing the difference between
-those two scales is what convinced me the form had to exist somewhere other than
-inside the app.
+## Giving listeners control
 
-## What this does not prove
+So I turned the preference model into a set of controls. Rather than let the system infer everything silently, I put genre, mood and tags in front of the listener, with a way to reject what comes back and ask for another.
 
-The 105 responses and six interviews establish that the problem is real and describe
-its shape. They say nothing about whether my solution works.
+That reverses what the research found. The system still recommends music, but the listener can see what shaped the recommendation and change it.
 
-Nobody tested MeloVision. There is no study asking whether a listener can actually
-read genre off a shape, whether the emotion colours match anyone's associations but
-mine, or whether choosing music by looking at forms is faster than listening to
-thirty-second previews. The whole premise rests on an assumption I did not check.
+I carried the same visual language into an identity, a promotion site and printed invitations, as one system in other media rather than separate outcomes.
 
-I would run that study before building any more of it, and I would expect it to break
-at least one of the three layers. My guess is colour survives, because people have
-strong existing associations, and shape does not, because eight abstract geometries have
-no inherent connection to eight genres and would have to be learned. Learning eight
-arbitrary symbols is a cost, and the whole point was to reduce cost.
+<!-- The prototype at full width because it is the section's argument, and the
+     app and the identity under it at half, because they are the sentence about
+     the system extending and nothing more. One figure each: a second identity
+     figure would be the branding section this restructure removed. -->
 
-That is the thing I would want to find out, and it is why the project is a concept
-rather than a proposal.
+<figure>
+  <img
+    src="/media/melovision/explore-panel.webp"
+    alt="The prototype with the Explore panel open. A row of genre tiles runs across the top, a mood wheel sits below on the left and a list of tags on the right. Under them is the track that came back, Billions by Caroline Polachek, with its generated form and a refresh control. Four notes point at the controls: choose a genre, choose a mood colour from the palette, add tags, and refresh if you do not like the song."
+    width="1800"
+    height="1053"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Genre, mood and tags, the track they return and a way to reject it</figcaption>
+</figure>
+
+<div class="media-pair" style="--pair-split: 1.096fr 1.276fr">
+  <figure>
+    <img
+      src="/media/melovision/app-screens.webp"
+      alt="Three phone screens. A getting-started screen carrying the logo, an Explore screen with a generated form above the player, and a code scanner."
+      width="1000"
+      height="912"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Onboarding, Explore and the code scanner</figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/media/melovision/identity.webp"
+      alt="The identity. The logo is given as an equation of three parts: a sound wave, cocoon threads and a music ball. Below it the logotype in two weights, four genre tiles, the typeface Outfit in bold and extra light, and three colours: a yellow, a green and a violet."
+      width="1200"
+      height="941"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>The logo, built from a wave, cocoon threads and a music ball</figcaption>
+  </figure>
+</div>
+
+## From screen to room
+
+I projected the forms at room scale to see whether they still worked outside the app. The projection was not interactive; it was a spatial test.
+
+The change in scale mattered. On a phone a music form behaved like album art. At several metres wide it became something people could stand in front of, compare and discuss, which is what convinced me the form had a use beyond a private recommendation feed.
+
+<!-- The projection moving, because the thing this page argues for is a form
+     generated from audio in real time, and a still is the one frame that
+     cannot show it. Cut from the 49-second recording: 6 seconds out of the
+     stretch after everyone had left the shot, with the tail cross-faded into
+     the head so the wrap is an ordinary frame step rather than a cut. The
+     dissolve hides in the form itself, which is diffuse and churning.
+
+     Muted and looping, and `playVisibleClips()` in the page script starts it
+     200px before it arrives and pauses it on the way out. -->
+
+<figure>
+  <video
+    src="/media/melovision/projection-loop.mp4"
+    width="1120"
+    height="630"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-label="A generated form projected onto a dark wall, turning and churning in place, with five smaller forms floating in a grid to the right of it."
+  ></video>
+  <figcaption>Spatial projection test</figcaption>
+</figure>
+
+<!-- The closing callout, which is the pattern for exactly this: the author's
+     voice, set apart from the narrative, as the last block of the case study.
+     `data-close` puts the label in the accent rather than the quiet grey, and
+     the docs allow it once and only as the closing block — being the end is
+     what earns the colour.
+
+     Not a heading: `.prose h2` carries the section counter, so one here would
+     number itself 05 and turn four sections into five. Not a bold-lead
+     paragraph either, which is what it was: at eighty words it read as a sixth
+     paragraph of Section 04 rather than as the page putting its own case down. -->
+
+<blockquote data-close>
+  <p><strong>What remains untested</strong></p>
+  <p>The research established the problem, not the solution.</p>
+  <p>I never tested whether anyone could read genre off a shape, whether the emotion colours matched associations beyond my own, or whether the forms made choosing music faster. Shape is the weakest of the three: eight geometries have no inherent connection to eight genres, so a listener would have to learn them, which is the cost the project set out to remove.</p>
+</blockquote>
+
+<!-- MEDIA, and where each figure came from. The boards were re-exported at
+     7680x2688, which is what made these crops possible; at the first export
+     they were 1920 wide and every one of them would have been upscaled three
+     to five times.
+
+     Every figure is now an export of the component itself rather than a crop
+     out of a board, which is why none of them is upscaled and why the aspect
+     ratios in the two `--pair-split` values below are the components' own.
+
+     cover-wide         cover-wide.png
+     shape-system       genre-shape.png
+     colour-system      emotion-colors.png
+     song-forms         rendering.png
+
+     OUT of Section 02: `waveforms.png`, the four-arrow mapping diagram. At
+     2.6:1 it set its own width and it carried eight words and four arrows,
+     which a prose-width table holds with less furniture. `media-src` still
+     holds it.
+     explore-panel      website-screenshot.png
+     app-screens        app-screenshot.png
+     identity           visual-identity.png
+     projection-loop    melovision-music-interactive-space.mp4, 26.20s to 33.20s
+
+     OUT of Section 04: the one still of the projection with a person standing
+     in it. The loop above it is the same test and shows the forms moving,
+     which is the thing a still cannot carry; two frames of one projection was
+     the second one earning its place on scale alone. The consequence is that
+     nothing on the page now pictures a person in front of the work, so the
+     sentence about standing in front of it rests on the prose. `panel-9` still
+     holds the frame if that ever needs reversing.
+
+     WHAT THE OLD BOARDS HELD, and what happened to it. The application panels
+     were: inspiration, primary research, competitive analysis, design strategy,
+     design development, visual identity, final outcome, reflection. The four
+     sections here take the argument out of them; the boards themselves are
+     source material and are not shipped whole. Specifically dropped: the
+     competitive-analysis table, the recommendation-algorithm diagram, the HMW
+     blocks, the strategy mind map, the branding board, the promotion site, the
+     invitation cards, and the reflection paragraph on panel 9.
+
+     `Interactive Space` was the old panel's name for Section 04. It is wrong —
+     nothing in the room responded to anyone — and the section is now called
+     what it was.
+
+     THIRD-PARTY MATERIAL. Nothing on this page carries a streaming service's
+     interface or marks: `panel-1` is app screenshots and `panel-3` is the
+     NetEase, QQ Music, Spotify and Apple Music comparison, and both are out.
+     No album artwork and no artist photography anywhere. The nine-track figure
+     prints titles and artists, which is what was analysed rather than what is
+     being promoted, and the prose no longer names any of them.
+
+     NOT USED, and still in media-src:
+
+     `prototype.webp` is the same Explore view as `explore-panel` without the
+     four callout notes, at 1024 wide. The annotated crop won on both counts:
+     it is 1800 wide and it labels the controls, which saves the prose from
+     describing every one of them.
+
+     OPEN, and not a blocker:
+
+     1. `tags: [interactive]`. CONTENT-AUDIT.md §C3 has this one unsettled: the
+        project is a brand system and print (`graphic`) as much as a spatial
+        piece (`interactive`). Left as it was found.
+     2. Two verbatim interview quotations are in the previous draft and are not
+        on the page: a listener on homogeneous recommendations, and an engineer
+        on preferences resolving into a fixed preference chain preset. They
+        would carry Section 01 as a `.participant-quote` pair if the third
+        position can be quoted too; two out of three positions quoted and one
+        paraphrased would read as a gap.
+     3. Section 04 rests on one photograph. If the demo recording holds a
+        steady stretch of the projection, a second frame or a seamless loop
+        would carry `people could stand in front of it` better than a still. -->
