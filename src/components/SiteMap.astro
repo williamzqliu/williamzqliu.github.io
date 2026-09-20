@@ -58,18 +58,14 @@
   // and in the fallback. This is the part that only makes sense while the map
   // is live: how to read a code and how to work the thing.
   function resting(_d: MapData) {
-    const touch =
-      'ontouchstart' in window
-        ? '<p>Two fingers move the map. One finger scrolls the page past it.</p>'
-        : '';
     return (
       '<p class="smap__side-head">Reading the map</p>' +
       '<p>A marker is a short code: three letters for the station, then the' +
       ' parcel\u2019s number, largest parcel first. MAL-1 is Malden Center #1.</p>' +
       '<p>Zoom in to separate the parcels that share a station and to read the' +
       ' names in full.</p>' +
-      touch +
-      '<p class="smap__cue">Select any parcel for its figures.</p>'
+      '<p class="smap__cue">Select any parcel for its figures, and the map' +
+      ' itself to put it down again.</p>'
     );
   }
 
@@ -206,7 +202,10 @@
         fillColor: '#6E685A',
         fillOpacity: 0.9,
       }).addTo(map);
-      dot.on('click', () => select(s, null));
+      dot.on('click', (e) => {
+        L.DomEvent.stopPropagation(e.originalEvent);
+        select(s, null);
+      });
       dots.push(dot);
     }
 
@@ -243,9 +242,10 @@
         // the only marker the reader is looking for underneath another.
         zIndexOffset: s.wins.length ? 1000 : 0,
       }).addTo(map);
-      marker.on('click keypress', () =>
-        select(s, marker.getElement() as HTMLElement | null)
-      );
+      marker.on('click keypress', (e) => {
+        if (e.originalEvent) L.DomEvent.stopPropagation(e.originalEvent);
+        select(s, marker.getElement() as HTMLElement | null);
+      });
     }
 
     const bounds = L.latLngBounds(data.sites.map((s) => [s.lat, s.lng]));
@@ -319,23 +319,13 @@
       // readable from the DOM, which is what makes them checkable.
       host.dataset.wheel = on ? 'on' : 'off';
     };
+    // Anywhere on the map that is not a parcel puts the open one down, which
+    // is the gesture a reader tries before looking for a control.
+    map.on('click', clearSelection);
+
     canvas.addEventListener('mouseenter', () => wheel(true));
     canvas.addEventListener('mouseleave', () => wheel(false));
     wheel(false);
-
-    // A full-width map on a phone is a scroll trap: a finger dragged upwards
-    // pans the map and the page stays where it is. One finger scrolls past,
-    // two fingers pan, which is the behaviour an embedded map is expected to
-    // have. Pinch zoom is already two-fingered and is left alone.
-    if ('ontouchstart' in window) {
-      const byTouchCount = (e: TouchEvent) => {
-        if (e.touches.length > 1) map.dragging.enable();
-        else map.dragging.disable();
-      };
-      map.dragging.disable();
-      canvas.addEventListener('touchstart', byTouchCount, { passive: true });
-      canvas.addEventListener('touchend', byTouchCount, { passive: true });
-    }
 
     host.dataset.state = 'ready';
   }
