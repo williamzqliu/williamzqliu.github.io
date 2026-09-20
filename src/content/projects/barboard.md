@@ -390,8 +390,8 @@ cards, and controls move to more useful positions.
 <summary>Responsive implementation details</summary>
 
 **Keeping wide scoreboards usable.** Several Barvision tables are wider than a phone screen and
-cannot honestly be made narrower, so I contained the horizontal scroll inside each table rather
-than letting it loose on the page. The columns that say who and what a row is stay in place
+cannot honestly be made narrower, so each table keeps its horizontal scroll to itself and
+never hands it to the page. The columns that say who and what a row is stay in place
 while the score columns move under them, and a swipe hint appears only when the table actually
 exceeds the width available. I measure the frozen positions from the rendered columns with
 `getBoundingClientRect()` rather than assuming fixed values, because the widths change with the
@@ -426,8 +426,8 @@ function stickyMatrixCols() {
 tables on a small screen and become cards. Long member handles give way to shorter nicknames
 where the horizontal space is worth more than the full name. The BarboardLab search control
 leaves the desktop sidebar and sits above the chart. Member grids drop columns, and navigation
-becomes a drawer. I treated responsive work here as changing what a component is and where it
-sits, not only its type size and spacing.
+becomes a drawer. Each of those is a different component in a different place, arrived at by
+asking what the small screen needs on its own terms.
 
 **Refining real browser behavior.** A few of these decisions I only found by watching the pages
 run. Frozen cells needed opaque backgrounds, or the scrolling content showed through
@@ -548,9 +548,8 @@ pages read the updated file directly rather than waiting on anyone to publish it
 has run on its schedule through the project period.
 
 The upstream source sits behind bot protection and sometimes answers 403. I made the job treat
-that as a normal outcome rather than a failure: it writes nothing, exits zero, and leaves last
-week's chart in place, so the site serves the most recent chart it successfully fetched instead
-of publishing an empty one.
+that as a normal outcome: it writes nothing, exits zero, and leaves last week's chart in
+place, so the site keeps serving the most recent chart it managed to fetch.
 
 ```python
 try:

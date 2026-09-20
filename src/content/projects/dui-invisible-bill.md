@@ -36,6 +36,12 @@ credits:
   tools:
     - Figma
     - Adobe Illustrator
+  # `Roles` rather than `Team`: one person made it and one person taught the
+  # course it was made for, which is not a collaboration and should not be
+  # labelled as one. Same call as comgrand, emoease, lumitex and melovision,
+  # which say `Portfolio guidance` because the advice there was on how the work
+  # was presented rather than on a course.
+  teamLabel: Roles
   team:
     - group: Design
       people:
@@ -158,7 +164,7 @@ Studio critique then changed the visual hierarchy. I reduced the amount of compe
      Masters into media-src/dui-invisible-bill/; nothing is referenced until
      the processed file is in public/media/dui-invisible-bill/. -->
 
-**Data note.** The $296 billion figure is a comprehensive national cost estimate that includes quality-of-life valuations, not money directly paid by households. Dividing it by the number of U.S. households is a rhetorical comparison used to make the scale legible, not an estimate of what each household actually pays. The loss estimate is from 2019, while the household count is from 2022. Every figure carries a numbered source, printed along the bottom edge of the poster.
+**Data note.** The $296 billion figure is a comprehensive national cost estimate that includes quality-of-life valuations. Dividing it by the number of U.S. households makes the scale legible, and it is a rhetorical comparison rather than an estimate of what any household actually pays. The loss estimate is from 2019, while the household count is from 2022. Every figure carries a numbered source, printed along the bottom edge of the poster.
 
 <!-- PARKED from the long-form draft this restructure replaces. None of it is
      published elsewhere on the page.

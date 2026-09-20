@@ -54,6 +54,10 @@ credits:
     # `*name*` sets a named service in italics, as the prose does. Two APIs in
     # one entry rather than two of the five slots.
     - Scholarly APIs (OpenAlex and ORCID)
+  # `Roles` rather than `Team`. Three people advised and one did the work, so
+  # `Team` would read as four collaborators and claim a share of the research
+  # for people who guided it instead.
+  teamLabel: Roles
   team:
     - group: Research, analysis and design
       people:
