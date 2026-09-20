@@ -15,6 +15,9 @@ stack:
   - GitHub Actions
 links:
   demo: https://nu-center-for-design.github.io/Polygraphs_AI_Ethics_Network/
+  # NOT for CODE_LINKS_ENABLED. The repository belongs to the centre and is
+  # private, so this URL 404s for anyone signed out. It stays as the record of
+  # where the work lives; the demo above is the public artifact.
   code: https://github.com/NU-Center-for-Design/Polygraphs_AI_Ethics_Network
 cover:
   wide: /media/polygraphs/cover-wide.webp
