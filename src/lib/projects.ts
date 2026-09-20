@@ -40,15 +40,21 @@ export interface ProjectLink {
 const LINK_ORDER = ['demo', 'thesis', 'paper', 'poster', 'spotlight', 'code'] as const;
 
 /**
- * Repositories are parked until the code is ready to be read. One switch
- * rather than one edit per project: the hrefs stay in frontmatter, so this
- * comes back by flipping a boolean.
+ * Repositories are parked until the code is ready to be read, and readiness
+ * turned out to be per repository rather than per site: one of the four is a
+ * collaborator's, one 404s, and the rest are at different stages of being
+ * worth opening. So the switch is a set of slugs instead of a boolean, and a
+ * repository joins it the day someone has actually read it through.
+ *
+ * The hrefs stay in frontmatter either way. A project not named here keeps its
+ * `code:` line and simply does not show it, which is what makes the URL
+ * survive until the repository is ready.
  *
  * It covers the listing rows as well as the case study pages — hiding the
  * link on the page while leaving it on the card that opens the page would not
  * hide anything.
  */
-const CODE_LINKS_ENABLED = false;
+const CODE_LINKS_ENABLED = new Set<string>(['tod-boston']);
 
 /** The default name for a kind. Frontmatter overrides it where the link is a
     named thing rather than an instance of a kind. */
@@ -116,7 +122,7 @@ export function deriveTags(projects: Project[]): string[] {
 /** The schema keys links by kind; the UI wants an ordered list. */
 function build(project: Project, kinds: readonly (typeof LINK_ORDER)[number][]): ProjectLink[] {
   return kinds.flatMap((key) => {
-    if (key === 'code' && !CODE_LINKS_ENABLED) return [];
+    if (key === 'code' && !CODE_LINKS_ENABLED.has(project.id)) return [];
     const value = project.data.links[key];
     if (!value) return [];
     return typeof value === 'string'

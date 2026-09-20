@@ -358,9 +358,14 @@
      and evidence, and enlarging a face adds nothing a reader needs; the
      viewer is for artifacts whose detail is part of the reading, which is
      system maps, blueprints, wireframes, interface screens and product
-     close-ups. */
-  .prose img:not([data-nozoom]),
-  .prose video:not([data-nozoom]),
+     close-ups.
+
+     The attribute covers descendants too, so a block that owns its own images
+     can opt the whole block out with one mark. A live map is the case that
+     needed it: its tiles are `<img>` elements in the prose and every one of
+     them matched. */
+  .prose img:not([data-nozoom]):not([data-nozoom] *),
+  .prose video:not([data-nozoom]):not([data-nozoom] *),
   .cs__media:not([data-nozoom]) img {
     cursor: zoom-in;
   }
@@ -369,8 +374,12 @@
 <script>
   // Opening is delegated from the document, so images that arrive with a new
   // page (ClientRouter swaps the body) need no re-binding of their own.
+  // Kept in step with the cursor rule above, which is what promises a reader
+  // that a click will open something.
   const SOURCES =
-    '.prose img:not([data-nozoom]), .prose video:not([data-nozoom]), .cs__media:not([data-nozoom]) img';
+    '.prose img:not([data-nozoom]):not([data-nozoom] *),' +
+    ' .prose video:not([data-nozoom]):not([data-nozoom] *),' +
+    ' .cs__media:not([data-nozoom]) img';
 
   // What counts as the picture rather than the scrim around it: clicking or
   // double-tapping either one zooms, and everything outside them closes. A

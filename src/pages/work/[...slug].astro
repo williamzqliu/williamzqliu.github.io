@@ -8,6 +8,7 @@ import NextProject from '../../components/NextProject.astro';
 import ProjectCredits from '../../components/ProjectCredits.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
 import Lightbox from '../../components/Lightbox.astro';
+import SiteMap from '../../components/SiteMap.astro';
 import { projectLinks, hasCaseStudy, nextStep, isPublic } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
@@ -181,6 +182,10 @@ const facts = [
   </article>
 
   <Lightbox />
+  {/* Behaviour only. It looks for a `[data-sitemap]` container in the prose and
+      loads Leaflet as a split chunk when one scrolls near, so a case study
+      without a map pays nothing for this. */}
+  <SiteMap />
 </Base>
 
 <style>
@@ -638,6 +643,40 @@ const facts = [
 
   .prose > table[data-width='prose'] td {
     font-size: var(--fs-body);
+  }
+
+  /* One row of a comparison table carrying the accent, for the case where a
+     table has a baseline row the others should be read against. The ranked
+     table's own rule says every row reads the same, and that still holds there:
+     a ranking carries its emphasis through position. This is the other case,
+     where the rows are alternatives and one of them is the null assumption. */
+  .prose table tr[data-accent] td {
+    color: var(--accent);
+  }
+
+  /* The other half of the same idea. `data-accent` marks the row the rest are
+     read against; this marks a row that is not one of them at all, a reading
+     from outside the table's own set, and it is the last row for that reason.
+     A rule above it and the quiet tone, which is as much as it needs: the
+     column headings still apply to it, so it is not a separate table. */
+  .prose table tr[data-outside] td {
+    border-top: var(--rule-hair) solid var(--rule-strong);
+    color: var(--text-3);
+  }
+
+  /* One divider for the group, and only one per group. */
+  .prose table tr[data-outside] + tr[data-outside] td {
+    border-top-color: var(--rule);
+  }
+
+  /* And painted on the row above as well. Under `border-collapse: collapse` the
+     upper cell's bottom border and the lower cell's top border meet on the same
+     line; they are the same width and style here, so the upper one wins and the
+     group break came out in the faint rule while the head above it used the
+     strong one. Stating it on both ends makes the line the head's line whichever
+     side the browser decides to paint. */
+  .prose table tr:not([data-outside]):has(+ tr[data-outside]) td {
+    border-bottom: var(--rule-hair) solid var(--rule-strong);
   }
 
   /* A new section is recognisable from the space above it alone: five times
@@ -1842,6 +1881,143 @@ const facts = [
 
   .tier-key__item svg {
     flex: none;
+  }
+
+  /* A sensitivity range per indicator: how far one weight can move before the
+     model picks a different community. The bar is the span that keeps the
+     answer, the dot is the weight actually used, and the distance between the
+     dot and the nearer end of the bar is the whole point — five rows make that
+     distance comparable at a glance, which is what a table of the same numbers
+     cannot do.
+
+     Drawn in CSS rather than as an SVG so the labels are real text at the
+     page's own size. An SVG scales its type with the viewBox, and at 339px
+     these labels would land near six pixels. `.formula` and `.tier-key` are
+     the two generated visuals the system already has; neither is a plotted
+     range, so this is the third and it is deliberately the same materials:
+     body face, prose width, hairlines, one accent. */
+  .weight-range {
+    margin-top: var(--sp-8);
+    font-size: var(--fs-copy);
+  }
+
+  .weight-range__row {
+    display: grid;
+    /* The name column is sized to the longest label rather than to a fraction,
+       so the tracks all start on the same edge and the bars stay comparable. */
+    grid-template-columns: 10rem minmax(0, 1fr) 2.5rem;
+    align-items: center;
+    gap: var(--sp-12);
+    padding: var(--sp-8) 0;
+    border-top: var(--rule-hair) solid var(--rule);
+  }
+
+  .weight-range__row:last-child {
+    border-bottom: var(--rule-hair) solid var(--rule);
+  }
+
+  /* `.prose p` carries a size, a line-height, a colour and a top margin, and
+     it outranks a single class. Both labels in here are cells in a diagram
+     rather than copy, so they have to say so at the same weight. */
+  .prose .weight-range__name {
+    margin: 0;
+    font-size: var(--fs-body);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+  }
+
+  /* 0 to 50% of the total weight. Everything interesting happens below half:
+     no single indicator carrying more than that is a weighting anyone would
+     defend, and stretching the axis to 100 would squeeze all five bars into
+     the left third. */
+  .weight-range__track {
+    position: relative;
+    height: 1.25rem;
+  }
+
+  /* The axis itself, so an empty stretch still reads as a measured distance
+     rather than as nothing. */
+  .weight-range__track::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: var(--rule-hair);
+    background: var(--rule);
+  }
+
+  .weight-range__band {
+    position: absolute;
+    top: 50%;
+    left: var(--from);
+    right: calc(100% - var(--to));
+    height: 6px;
+    transform: translateY(-50%);
+    border-radius: 3px;
+    /* Declared twice: without `color-mix` the bar still has to be visible
+       against the axis hairline it sits on. */
+    background: var(--rule);
+    background: color-mix(in srgb, var(--text) 22%, transparent);
+  }
+
+  .weight-range__mark {
+    position: absolute;
+    top: 50%;
+    left: var(--at);
+    width: 9px;
+    height: 9px;
+    margin-left: -4.5px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Mono, because this column is read down as a set of magnitudes. */
+  .prose .weight-range__margin {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-mono);
+    line-height: var(--lh-small);
+    text-align: right;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .weight-range__scale {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr) 2.5rem;
+    gap: var(--sp-12);
+    margin-top: var(--sp-8);
+  }
+
+  .weight-range__ticks {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-mono);
+    color: var(--text-3);
+  }
+
+  /* On a phone the name column would leave the tracks about ninety pixels
+     wide, which is not enough for a bar to carry a length. The name goes above
+     its own track instead and the whole row keeps full width. */
+  @media (max-width: 639px) {
+    .weight-range__row,
+    .weight-range__scale {
+      grid-template-columns: minmax(0, 1fr) 2.5rem;
+    }
+
+    .weight-range__name {
+      grid-column: 1 / -1;
+      margin-bottom: var(--sp-4);
+    }
+
+    .weight-range__ticks {
+      grid-column: 1;
+    }
   }
 
   .tier-key__item span {
