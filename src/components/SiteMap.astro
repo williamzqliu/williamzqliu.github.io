@@ -188,10 +188,20 @@
       side.innerHTML = detail(s, data.total);
     }
 
-    // The parcels the dominance step discarded. Held in a list because their
-    // size follows the zoom: a four-pixel dot reads on a regional view and
-    // disappears into a street map at zoom sixteen, where the basemap has its
-    // own grey shapes at that size.
+    // The parcels the dominance step discarded. Two objects each: the circle a
+    // reader sees, and an empty 30-pixel marker carrying the tap.
+    //
+    // An SVG shape is hit-tested against the shape itself, so a four-pixel dot
+    // is a nine-pixel target and a finger never lands on one. A grid of taps
+    // across the map at phone size hit a numbered marker 114 times and a grey
+    // dot not once. The catcher is a marker rather than a wider invisible
+    // circle because a marker is a DOM element in the marker pane, which is
+    // the same thing the numbered parcels already use and the same thing that
+    // already takes a tap reliably.
+    //
+    // The visible dots are held in a list because their size follows the zoom:
+    // four pixels reads on a regional view and disappears into a street map at
+    // zoom sixteen, where the basemap has its own grey shapes at that size.
     const dots: ReturnType<typeof L.circleMarker>[] = [];
     for (const s of data.sites) {
       if (s.frontier || s.named) continue;
@@ -201,12 +211,22 @@
         weight: 1,
         fillColor: '#6E685A',
         fillOpacity: 0.9,
+        interactive: false,
       }).addTo(map);
-      dot.on('click', (e) => {
+      dots.push(dot);
+
+      const catcher = L.marker([s.lat, s.lng], {
+        icon: L.divIcon({ className: 'smap__catch', html: '',
+                          iconSize: [30, 30], iconAnchor: [15, 15] }),
+        keyboard: false,
+        // Under the numbered markers: where a pill sits over a grey dot the
+        // pill is the thing worth opening.
+        zIndexOffset: -1000,
+      }).addTo(map);
+      catcher.on('click', (e) => {
         L.DomEvent.stopPropagation(e.originalEvent);
         select(s, null);
       });
-      dots.push(dot);
     }
 
     // The numbered ones last, so they sit above the field they came out of.
