@@ -555,6 +555,49 @@ conventions that have no home there.
 - Product names keep their own capitalisation; view names (Collaboration Map,
   Bridging Scholars) are proper nouns of the tool and stay plain.
 
+**Short sentences, but not as beats.** *The answers disagree.* *They are not
+slow.* *It had.* A three-word sentence parked at the end of a paragraph is a
+drum hit, and a page of them reads as somebody performing rather than
+explaining. The problem is the position, not the length: a short sentence in
+the middle of a paragraph is just a clear one.
+
+The same goes for verbless fragments used as openers — *One stage.*
+*Four problems.* *Worth testing.* They save three words and cost the reader the
+sense that a person is talking to them.
+
+Write it the way it would be said standing next to the work. *So the rebuild
+runs in a single stage.* *I found four problems, and each has a number behind
+it.*
+
+```bash
+# sentences of five words or fewer, which is where to start looking
+grep -oE '(^|[.!?] )[^.!?]{1,34}[.!?]' src/content/projects/<slug>.md
+```
+
+**The corrective construction, on a budget.** *X, not Y.* *A rather than B.*
+*It is not this, it is that.* Defining a thing by what it is not is a real move
+and sometimes the only honest one, because a reader who expects Y needs Y
+cleared out of the way before X will land. Used twice a page it is emphasis.
+Used twelve times it is a tic, and a recognisable one: it makes every sentence
+sound like it is correcting somebody.
+
+It hides in synonyms. `rather than` is the same construction wearing a coat,
+and it is the most common form by a distance. So is `instead of`, and so is a
+sentence that opens by denying something nobody claimed.
+
+Roughly one per four hundred words, and never two in a paragraph. Before
+reaching for it, check whether the positive statement alone is clearer: *A Green
+Line trip drags because it stops so often* says everything that *what makes a
+trip slow is the number of stops, not the speed between them* says, in fewer
+words and without the correction.
+
+Zero is not the target either. A page with none has usually had a pass that
+flattened its contrasts.
+
+```bash
+grep -oEi 'rather than|, not [a-z]|instead of|it (is|was) not' src/content/projects/<slug>.md | wc -l
+```
+
 **One-pass comprehension.** A sentence should be understandable on the first
 read. The reader should not have to return to its beginning, split it mentally,
 hold several clauses open, or translate an abstract phrase into what it actually

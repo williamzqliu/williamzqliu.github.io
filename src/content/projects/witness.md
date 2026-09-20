@@ -43,6 +43,12 @@ credits:
     - Editorial layout
   tools:
     - Figma
+  # `Roles` rather than `Team`: one person made it and one person taught the
+  # course it was made for, which is not a collaboration and should not be
+  # labelled as one. Same call as comgrand, emoease, lumitex and melovision,
+  # which say `Portfolio guidance` because the advice there was on how the work
+  # was presented rather than on a course.
+  teamLabel: Roles
   team:
     - group: Design
       people:

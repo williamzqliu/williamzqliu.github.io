@@ -46,6 +46,10 @@ credits:
   tools:
     - Excel
     - Adobe Photoshop
+  # `Roles` rather than `Team`, which is what one person on their own is. The
+  # row still earns its place: without it the page cannot say which parts are
+  # mine.
+  teamLabel: Roles
   team:
     - group: Design
       people:
