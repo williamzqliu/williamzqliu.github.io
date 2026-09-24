@@ -770,6 +770,30 @@ const facts = [
     text-transform: uppercase;
   }
 
+  /* A step inside a section: the heading face at the title size, one weight
+     under the section heading and with no rule or number, so it reads as part
+     of the section rather than as the start of another. Space above it and
+     little below, so it belongs to the text it heads. Not in the table of
+     contents, which reads only the `h2`s. */
+  .prose h3 {
+    margin-top: var(--sp-48);
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: var(--fs-title);
+    line-height: 1.3;
+    font-weight: var(--fw-strong);
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .prose h2 + h3 {
+    margin-top: var(--sp-24);
+  }
+
+  .prose h3 + p {
+    margin-top: var(--sp-8);
+  }
+
   .prose p {
     margin-top: var(--sp-16);
     font-size: var(--fs-copy);
@@ -2903,6 +2927,23 @@ const facts = [
   const DISCLOSURE_MS = 320;
   const DISCLOSURE_EASE = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
 
+  // Scroll anchoring is off for the whole page while any disclosure moves.
+  // Each block already opts itself out, but that only moves the browser on to
+  // the next candidate: with the block before it opted out too, and scrolled
+  // above the viewport, the first candidate left is below the one opening, and
+  // holding that still pushed the page down by the panel's height, so the
+  // block appeared to open upwards. It has to be off before the height is
+  // measured: reading `scrollHeight` lays the page out with the block open,
+  // and the anchor correction is made during that layout. On `body`, not
+  // `html`: in Chrome the root's value made the credits disclosure, which
+  // was fine before, open upwards instead.
+  let gliding = 0;
+
+  function holdAnchor(on: boolean) {
+    gliding = Math.max(0, gliding + (on ? 1 : -1));
+    document.body.style.overflowAnchor = gliding ? 'none' : '';
+  }
+
   function smoothDisclosures() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const blocks = document.querySelectorAll<HTMLDetailsElement>(
@@ -2923,17 +2964,29 @@ const facts = [
         running = undefined;
       };
 
+      // The caller holds the anchor (see `holdAnchor`); this releases it.
       const glide = (from: number, to: number, done?: () => void) => {
         details.style.overflow = 'hidden';
         const animation = details.animate(
           [{ height: `${from}px` }, { height: `${to}px` }],
           { duration: DISCLOSURE_MS, easing: DISCLOSURE_EASE }
         );
+        // Released once per animation, however it ends, so a click that
+        // cancels one mid-glide cannot leave anchoring off.
+        let held = true;
+        const release = () => {
+          if (held) holdAnchor(false);
+          held = false;
+        };
         animation.addEventListener('finish', () => {
           done?.();
           settle();
+          release();
         });
-        animation.addEventListener('cancel', settle);
+        animation.addEventListener('cancel', () => {
+          settle();
+          release();
+        });
         return animation;
       };
 
@@ -2941,6 +2994,7 @@ const facts = [
         if (reduced.matches) return;
         event.preventDefault();
         running?.cancel();
+        holdAnchor(true);
 
         const box = window.getComputedStyle(details);
         const borders =
