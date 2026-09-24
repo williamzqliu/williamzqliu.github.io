@@ -11,7 +11,6 @@ stack:
   - Svelte
   - D3
   - SVG
-  - Python
 links:
   demo: https://nu-center-for-design.github.io/Polygraphs_AI_Ethics_Network/
   # NOT for CODE_LINKS_ENABLED. The repository belongs to the centre and is
@@ -41,7 +40,6 @@ credits:
     - Svelte
     - D3
     - SVG
-    - Python
   team:
     - group: Visualization
       people:
