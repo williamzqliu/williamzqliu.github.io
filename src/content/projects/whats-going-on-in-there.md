@@ -5,8 +5,8 @@ dates: Nov 2024 – Dec 2024
 blurb: A collaborative exhibit that uses cards, colour-coded rubber bands and a physical brain map to help college students reflect on sleep and caffeine habits.
 tags: [interactive]
 tracks: [design]
+category: interfaces-experiences
 published: true
-featured: 6
 stack:
   - Figma
   - FigJam

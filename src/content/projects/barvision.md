@@ -5,8 +5,8 @@ dates: Jun 2026 – Aug 2026
 blurb: A live song contest I organized, art-directed, hosted, and operated, with a custom broadcast system for its three-hour grand final.
 tags: [interactive, narrative]
 tracks: [design, engineering]
+category: interfaces-experiences
 published: true
-featured: 4
 stack:
   - HTML
   - CSS

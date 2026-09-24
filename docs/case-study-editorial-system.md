@@ -39,14 +39,14 @@ Every part below is optional except the head and the body.
 
 | Part | What it is | Owner |
 | --- | --- | --- |
-| Frontmatter | title, dates, blurb, tags, tracks, stack, links, cover, quickFacts | `src/content/projects/<slug>.md`, validated by `src/content.config.ts` |
+| Frontmatter | title, dates, blurb, tags, tracks, category (or `archive: true`), stack, links, cover, quickFacts | `src/content/projects/<slug>.md`, validated by `src/content.config.ts` |
 | Head | title, summary, stack chips, outbound links | `pages/work/[...slug].astro` |
 | Quick facts | Timeline / Role / Outcome, read by name from `quickFacts` | `components/QuickFacts.astro` |
 | Hero | `cover.heroWide ?? cover.wide`, with `cover.caption` under it | `components/CoverMedia.astro` |
 | Section menu / TOC | derived from the `h2`s — nothing to maintain | `[...slug].astro` |
 | Body sections | `## ` headings and prose | the markdown file |
 | Optional depth | `<details>` | the markdown file |
-| Hand-off | next project, or back to selected work | `components/NextProject.astro` |
+| Hand-off | next project in the list the reader came from, then Explore all work | `components/NextProject.astro`, `components/ExploreAllWork.astro` |
 
 Sections are numbered by a CSS counter on `.prose h2`. Renaming, reordering or
 inserting a section needs no other edit: the numbers and the menu follow.
@@ -666,7 +666,7 @@ sequence. Keep the rest for the thesis.
 3. `public/media/<slug>/` for everything else, semantic filenames.
 4. External links in `links:`; the kind supplies the label, or pass
    `{ href, label }` for a named artifact.
-5. Check the card: title, blurb (≤130 chars), stack, tags, tracks, and which
+5. Check the card: title, blurb (≤130 chars), stack, tags, tracks, category, and which
    single link `cardLinks()` will surface.
 6. Decide the narrative spine for *this* project. Do not copy another one's.
 7. Decide what finished work appears early, and where.

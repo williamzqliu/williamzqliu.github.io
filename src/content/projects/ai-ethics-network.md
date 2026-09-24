@@ -5,8 +5,8 @@ dates: Jun 2026 – Jul 2026
 blurb: "An interactive tool for exploring how topics and journals connect across AI ethics research."
 tags: [networks, interactive]
 tracks: [design, engineering]
+category: data-research
 published: true
-featured: 3
 stack:
   - Svelte
   - D3

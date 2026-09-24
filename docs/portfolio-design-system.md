@@ -145,9 +145,10 @@ orthogonal and must never be folded into a width query.
 | `KeywordTags` | `components/KeywordTags.astro` | stack chips | `ProjectRow`, case study head | `items`, `limit`, `emphasise` |
 | `QuickFacts` | `components/QuickFacts.astro` | Timeline / Role / Outcome | case study head | |
 | `ExtArrow` | `components/ExtArrow.astro` | the ↗ mark | four link sites | |
-| `NextProject` | `components/NextProject.astro` | end-of-page hand-off | case study | destination decided by `nextStep()` |
+| `NextProject` | `components/NextProject.astro` | end-of-page hand-off | case study | destination decided by `nextStep()`: Selected Work, the main list and the archive each loop within themselves |
+| `ExploreAllWork` | `components/ExploreAllWork.astro` | link to /work | homepage, under every case study's hand-off | |
 | `Hero`, `HomeIntro`, `IdentityLine` | `components/` | homepage opening | `pages/index.astro`, `pages/about.astro` | |
-| `FilterRow`, `ArchiveList` | `components/` | work-index UI | `pages/work/index.astro` | |
+| `FilterRow`, `ArchiveList` | `components/` | work-index UI | `pages/work/index.astro` | all work, the categories in `CATEGORIES`, archive, in lower case; one row, scrolled where it does not fit |
 | `Lightbox` | `components/Lightbox.astro` | the image/video viewer | case study | one implementation, site-wide |
 
 **When not to create another one:** if a pattern exists once, leave it where it

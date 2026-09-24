@@ -37,7 +37,13 @@ const projects = defineCollection({
        in every frontmatter file. */
     tags: z.array(z.enum(['networks', 'interactive', 'narrative', 'information-design'])),
     tracks: z.array(z.enum(['design', 'engineering'])).min(1),
-    featured: z.number().optional(),
+    /* The one public category a main project is filed under on /work. One
+       each, by the main kind of work, while `tags` stay free to say what else
+       a project shows. Required for every project that is not archived:
+       checked below, since it depends on `archive`. Where each project sits
+       in the lists is not here: see SELECTED_ORDER and MAIN_ORDER in
+       lib/projects.ts. */
+    category: z.enum(['data-research', 'interfaces-experiences', 'visual-storytelling']).optional(),
     /* Portfolio status, kept separate from the subject tags: archived work is
        reachable but never mixed into the primary view. */
     archive: z.boolean().default(false),
@@ -136,6 +142,9 @@ const projects = defineCollection({
         collapse: z.boolean().default(true),
       })
       .optional(),
+  }).refine((data) => data.archive || data.category !== undefined, {
+    message: 'A project that is not archived needs a `category`.',
+    path: ['category'],
   }),
 });
 

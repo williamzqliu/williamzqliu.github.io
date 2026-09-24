@@ -11,8 +11,8 @@ blurb: A model that ranks 251 development sites beside MBTA stations, and tests 
 # `interactive` is for on this site.
 tags: [information-design]
 tracks: [engineering]
+category: data-research
 published: true
-featured: 8
 stack:
   - Python
   - pandas

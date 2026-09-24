@@ -1,0 +1,64 @@
+---
+// "Explore all work": the label that closes the homepage's Selected Work and
+// ends a case study. One component so the two stay the same link, set the
+// same way: a section label in the same ink and tracking as Selected work,
+// taking the accent on hover. On the homepage it is a floor, under a
+// hairline; `bare` drops the line and the padding for a case study, where it
+// follows the next project with space alone between them.
+//
+// The line and the space belong to the wrapper, and the link is only as wide
+// as its words: a link the width of the page lit up from anywhere along the
+// row, and took a click from the empty right half of it.
+
+interface Props {
+  bare?: boolean;
+}
+
+const { bare = false } = Astro.props;
+---
+
+<div class:list={['more', { 'more--bare': bare }]}>
+  <a class="more__link section-label" href="/work" data-astro-prefetch>Explore all work</a>
+</div>
+
+<style>
+  .more {
+    padding-top: var(--sp-32);
+    border-top: var(--rule-hair) solid var(--rule-strong);
+  }
+
+  /* Two classes, so it holds whichever order the styles arrive in: in
+     `astro dev` they can load after `.more`, and one class then lost. */
+  .more.more--bare {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .more__link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0;
+    border-bottom: 0;
+    letter-spacing: var(--ls-label-wide);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* A full tap height over the words and no wider than them. */
+  .more__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: var(--tap);
+    transform: translateY(-50%);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .more__link:hover,
+    .more__link:active {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+</style>

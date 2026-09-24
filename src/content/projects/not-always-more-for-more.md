@@ -5,9 +5,10 @@ dates: "Mar 2025 – Apr 2025"
 blurb: "A unit chart comparing life expectancy, population, and per-capita health spending across ten countries in 2022."
 tags: ["information-design"]
 tracks: ["design"]
+archive: true
+archiveLabel: "Information design"
 published: true
 compact: true
-featured: 12
 draft: false
 stack:
   - Figma

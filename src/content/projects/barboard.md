@@ -5,8 +5,8 @@ dates: May 2026 – Aug 2026
 blurb: A web portal and archive for a long-running Chinese music community, bringing members, charts, events, and history together.
 tags: [interactive]
 tracks: [engineering]
+category: interfaces-experiences
 published: true
-featured: 7
 stack:
   - HTML
   - CSS

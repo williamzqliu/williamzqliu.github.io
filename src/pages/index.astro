@@ -3,16 +3,13 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import HomeIntro from '../components/HomeIntro.astro';
 import ProjectRow from '../components/ProjectRow.astro';
-import { landingProjects, cardLinks, caseStudyHref } from '../lib/projects';
+import ExploreAllWork from '../components/ExploreAllWork.astro';
+import { selectedProjects, cardLinks, caseStudyHref } from '../lib/projects';
 import { shippedMedia } from '../lib/media';
 
-// SPEC §9 — the design-track landing page. Adding a project is one markdown
-// file in src/content/projects/; nothing on this page needs to change.
-// SPEC §1 and §9: the union of both tracks, sorted by `featured`, sliced to
-// six. The slice has to be explicit — without it the page renders every
-// featured project. Order and membership are set by `featured` in the content
-// files, so this page needs no edit when the curation changes.
-const projects = (await landingProjects()).slice(0, 6);
+// Selected Work: the projects and order in SELECTED_ORDER (lib/projects.ts).
+// A curation change is an edit there; nothing on this page changes with it.
+const projects = await selectedProjects();
 ---
 
 <Base
@@ -77,7 +74,9 @@ const projects = (await landingProjects()).slice(0, 6);
       and the heading's own rule (container width) is the divider. */}
   <section class="work" aria-labelledby="selected-work">
     <div class="container">
-      <div class="work__list">
+      {/* `data-loop` tells a case study opened from here to hand on within
+          Selected Work. See the script at the foot of the page. */}
+      <div class="work__list" data-loop="selected">
         {
           projects.map((project) => (
             <ProjectRow
@@ -98,9 +97,7 @@ const projects = (await landingProjects()).slice(0, 6);
       {/* The label that closes the list, set like the one that opens it. The
           section is now bookended by the two strong rules, with the lighter
           per-row dividers inside them. */}
-      <a class="work__more section-label" href="/work" data-astro-prefetch>
-        Explore all work
-      </a>
+      <ExploreAllWork />
     </div>
   </section>
 </Base>
@@ -130,10 +127,14 @@ const projects = (await landingProjects()).slice(0, 6);
   }
 
   /* The whole label area is the target, not the letters. */
+  /* Only as wide as the label and its arrow. It used to be a flex row the
+     width of the heading, so the hover lit it from anywhere along the rule
+     and the empty right of the row took the click. */
   .work__jump {
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    letter-spacing: var(--ls-label-wide);
     gap: var(--sp-8);
     /* A label-sized heading still needs a clickable band. */
     padding-block: var(--sp-8);
@@ -250,27 +251,6 @@ const projects = (await landingProjects()).slice(0, 6);
      above the first one — two lines a few pixels apart. Drop the first. */
   .work__list > :global(.prow:first-child) {
     border-top: 0;
-  }
-
-  /* Same type as `Selected work`, with the rule moved to the other side: this
-     one is a floor rather than a ceiling. The padding swaps with it, so the
-     label sits the same distance from its line as the heading does from
-     theirs, and `--rule-strong` matches the opening rule rather than the
-     lighter dividers between rows. */
-  .work__more {
-    padding-top: var(--sp-32);
-    padding-bottom: 0;
-    border-top: var(--rule-hair) solid var(--rule-strong);
-    border-bottom: 0;
-    transition: color var(--dur-hover-out) var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .work__more:hover,
-    .work__more:active {
-      color: var(--accent);
-      transition-duration: var(--dur-hover-in);
-    }
   }
 
   .work__head {
@@ -392,4 +372,9 @@ const projects = (await landingProjects()).slice(0, 6);
   });
   bind();
   paintTop();
+</script>
+
+<script>
+  import { rememberLoop } from '../lib/loop';
+  rememberLoop();
 </script>

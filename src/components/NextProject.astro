@@ -31,16 +31,11 @@ const { label, title, href, year } = Astro.props;
 </nav>
 
 <style>
-  /* A shade off full strength. It still reads as the page's closing boundary,
-     but at full --rule-strong it was the darkest thing on the page and pulled
-     the eye before the project it introduces. */
-  .next {
-    border-top: var(--rule-heavy) solid color-mix(in srgb, var(--rule-strong) 80%, var(--bg));
-  }
+  /* The rule above this block is the case study's (`.cs__next`). */
 
   /* No surface of its own. The whole block stays clickable, but the hover is
-     scoped to the title's row — the padding above and below it, and the label,
-     do not light the row up from a distance. */
+     scoped to the label and the title's row: the padding above and below them
+     does not light the block up from a distance. */
   .next__link {
     position: relative;
     display: block;
@@ -49,22 +44,25 @@ const { label, title, href, year } = Astro.props;
     padding-block: calc(var(--sp-32) - 2px) var(--sp-32);
   }
 
-  /* The same register as a case study's metadata labels — Role, Timeline,
-     Outcome — because this is the same kind of label: a small word naming what
-     the thing under it is. */
+  /* Set like Explore all work under it and Selected work on the homepage,
+     in the section label's type and wider tracking, but in the year's quieter
+     ink: it names what the title is, and the title is what is read. */
   .next__label {
+    /* As wide as its words, so it lights only when pointed at. A block
+       still, so the line box around it does not move the title. */
     display: block;
+    width: fit-content;
     /* Nudged up out of the flow rather than by a margin: the title below it
        stays exactly where it is, and only the label moves. */
     position: relative;
     top: -4px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: var(--fw-mono);
-    line-height: var(--lh-micro);
-    letter-spacing: 0.06em;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);  /* the year's weight */
+    line-height: var(--lh-small);
+    letter-spacing: var(--ls-label-wide);
     text-transform: uppercase;
     color: var(--text-3);
+    transition: color var(--dur-hover-out) var(--ease-out);
   }
 
   .next__row {
@@ -74,7 +72,9 @@ const { label, title, href, year } = Astro.props;
     align-items: baseline;
     justify-content: space-between;
     gap: var(--sp-24);
-    margin-top: var(--sp-8);
+    /* 20px of air between the label's letters and the title's capitals, so
+       the two read as one thing. */
+    margin-top: 5px;
   }
 
   /* Colour is the only thing that changes here: no weight step, no underline,
@@ -103,22 +103,23 @@ const { label, title, href, year } = Astro.props;
 
   /* Keyboard focus reads the same as hover — focus lands on the link, which
      has no pointer position to scope it to. */
+  .next__link:focus-visible .next__label,
   .next__link:focus-visible .next__title,
   .next__link:focus-visible .next__year {
     color: var(--accent);
   }
 
+  /* The label lights with the title: pointing at either lights both, and
+     the year with them. */
   @media (hover: hover) and (pointer: fine) {
-    .next__row:hover .next__title,
-    .next__row:hover .next__year {
+    .next__link:has(.next__label:hover, .next__row:hover) :is(.next__label, .next__title, .next__year) {
       color: var(--accent);
       transition-duration: var(--dur-hover-in);
     }
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .next__row:active .next__title,
-    .next__row:active .next__year {
+    .next__link:has(.next__label:active, .next__row:active) :is(.next__label, .next__title, .next__year) {
       color: var(--accent);
       transition-duration: var(--dur-press);
     }
