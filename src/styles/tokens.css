@@ -163,7 +163,7 @@
   --ls-label: 0.09em;
   /* Wider, for the section labels that are also links: Selected work, Explore
      all work, and a case study's NEXT PROJECT. */
-  --ls-label-wide: 0.16em;
+  --ls-label-wide: 0.14em;
 
   /* One measure scale. Every text block picks one of these, so ragged edges
      line up across the page instead of each block wrapping at its own width. */
