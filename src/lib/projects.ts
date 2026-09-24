@@ -197,6 +197,17 @@ const MAIN_ORDER = [
   'whats-going-on-in-there',
 ];
 
+// Newest first, except where two pairs are swapped by hand.
+const ARCHIVE_ORDER = [
+  'not-always-more-for-more',
+  'dont-skip-this-major',
+  'dui-invisible-bill',
+  'witness',
+  'emoease',
+  'lumitex',
+  'nightmare-of-moonglade',
+];
+
 function byOrder(order: string[]) {
   const rank = (project: Project) => {
     const index = order.indexOf(project.id);
@@ -222,11 +233,11 @@ export async function curatedProjects(): Promise<Project[]> {
 
 /**
  * The archive: `archive: true`. A status, not a category: these never appear
- * under All work. Newest first, because there is no curation to respect.
+ * under All work. In the archive order.
  */
 export async function archiveProjects(): Promise<Project[]> {
   const entries = await getCollection('projects', (entry) => isPublic(entry) && entry.data.archive);
-  return entries.sort(byRecency);
+  return entries.sort(byOrder(ARCHIVE_ORDER));
 }
 
 /**
