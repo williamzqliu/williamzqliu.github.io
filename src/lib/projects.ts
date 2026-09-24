@@ -248,7 +248,7 @@ export async function archiveProjects(): Promise<Project[]> {
 const FEATURED_SEQUENCE = [
   'inside-the-institution',
   'citing-less-critically',
-  'polygraphs',
+  'ai-ethics-network',
   'barvision',
   'ripples-into-silence',
   'whats-going-on-in-there',
