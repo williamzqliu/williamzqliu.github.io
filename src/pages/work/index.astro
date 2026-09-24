@@ -74,7 +74,7 @@ const options = [
             Archive
           </h2>
           <p class="archive__note">
-            Projects kept outside the main list, each still open in full.
+            Additional projects and explorations.
           </p>
           <ArchiveList projects={archive} />
         </div>
@@ -277,10 +277,12 @@ const options = [
     padding-block: var(--sp-64) var(--sp-32);
   }
 
+  /* Set as Explore all work is: the same label at the same wide tracking. */
   .archive__heading {
     /* The label's own rule is the divider; no second line above it. */
     border-bottom: 0;
     padding-bottom: 0;
+    letter-spacing: var(--ls-label-wide);
   }
 
   .archive__note {
