@@ -13,7 +13,11 @@ stack:
   - JavaScript
   - Python
 links:
-  demo: https://nu-info-design.github.io/mapping-movement/ripples-into-silence/index.html
+  # The course remote only the faculty can publish to is replaced by my own.
+  # The account's user site carries a custom domain, so a project page is
+  # served under that domain rather than under github.io.
+  demo: https://williamzqliu.com/ripples-into-silence/
+  code: https://github.com/williamzqliu/ripples-into-silence
 cover:
   wide: /media/ripples-into-silence/cover-wide.webp
   tone: dark
@@ -23,6 +27,30 @@ quickFacts:
     value: "Information Designer & Developer"
   - label: "Outcome"
     value: "Interactive scrollytelling piece built from IOM Missing Migrants data"
+credits:
+  skills:
+    - Information design
+    - Data visualization
+    - Scrollytelling
+    - Interaction design
+    - Creative development
+  tools:
+    - D3.js
+    - JavaScript
+    - Python
+    - SVG
+  # `Roles` rather than `Team`: one person made this, and the second row is
+  # the tutor of the course it was made for rather than a collaborator.
+  teamLabel: Roles
+  team:
+    - group: Design and development
+      people:
+        - Zhuoqi Liu
+    - group: Faculty guidance
+      people:
+        - Todd Linkner
+  # Two rows, which is not enough to be worth closing.
+  collapse: false
 ---
 
 ## The version that did not work
