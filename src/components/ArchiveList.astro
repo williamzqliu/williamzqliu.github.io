@@ -62,6 +62,11 @@ const { projects } = Astro.props;
     border-bottom: var(--rule-hair) solid var(--rule);
   }
 
+  /* The list ends on its last project, not on a rule. */
+  .arch__row:last-child {
+    border-bottom: 0;
+  }
+
   .arch__row[data-linked] {
     cursor: pointer;
   }
