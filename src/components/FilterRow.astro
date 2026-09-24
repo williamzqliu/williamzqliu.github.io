@@ -1,19 +1,24 @@
 ---
-// Subject filters plus one status filter. Values are the data values
-// (`information-design`), labels are the readable form (`information design`).
+// The filter row on /work: all work, the public categories, and the archive.
+// The page builds the options, so this component only renders them; values
+// are what the page's script filters on, labels are what the reader sees, in
+// lower case like the rest of the row's register.
 //
 // Progressive enhancement: with JS off every row stays visible and the chips
 // simply do nothing. The filtering script lives on the page that owns the rows,
 // because only that page knows what it is filtering.
 
+interface Option {
+  value: string;
+  label: string;
+}
+
 interface Props {
-  /** Data values, in order. `all` and `archive` are handled by the page. */
-  options: string[];
+  options: Option[];
   active?: string;
 }
 
 const { options, active = 'all' } = Astro.props;
-const label = (value: string) => value.replace(/-/g, ' ');
 ---
 
 <div class="filterrow" role="group" aria-label="Filter projects">
@@ -24,10 +29,10 @@ const label = (value: string) => value.replace(/-/g, ' ');
           <button
             type="button"
             class="filterrow__chip"
-            data-filter={option}
-            aria-pressed={option === active ? 'true' : 'false'}
+            data-filter={option.value}
+            aria-pressed={option.value === active ? 'true' : 'false'}
           >
-            {label(option)}
+            {option.label.toLowerCase()}
           </button>
         </li>
       ))
@@ -36,15 +41,31 @@ const label = (value: string) => value.replace(/-/g, ' ');
 </div>
 
 <style>
-  /* Wraps above 640px, scrolls sideways below it (SPEC §6). The half-visible
-     chip at the right edge is the affordance, so the row is deliberately not
-     padded to hide it. */
+  /* One row at every width, scrolled sideways where it does not fit: the five
+     entries are one set, and wrapping would split the categories from the
+     archive. The half-visible chip at the edge is the affordance, so the row
+     is deliberately not padded to hide it. */
+  .filterrow {
+    align-self: stretch;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .filterrow::-webkit-scrollbar {
+    display: none;
+  }
+
   .filterrow__list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    width: max-content;
     align-items: center;
     gap: var(--sp-4) var(--sp-24);
   }
+
+
 
   .filterrow__chip {
     position: relative;
@@ -56,6 +77,7 @@ const label = (value: string) => value.replace(/-/g, ' ');
     color: var(--text-2);
     /* Reaches the 44px minimum tap target even though the type is small. */
     padding-block: var(--sp-12);
+    white-space: nowrap;
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
@@ -107,37 +129,13 @@ const label = (value: string) => value.replace(/-/g, ' ');
     }
   }
 
-  /* One row on a phone, scrolled rather than wrapped. The scroller bleeds to
-     the page edges so the last chip can reach the middle of the screen and
-     keeps its full tap area, and the padding puts the first chip back on the
-     page's own left edge. */
+  /* On a phone the scroller bleeds to the page edges, so the last chip can
+     reach the middle of the screen and keeps its full tap area, and the
+     padding puts the first chip back on the page's own left edge. */
   @media (max-width: 639px) {
     .filterrow {
-      /* The row lives in a `align-items: flex-start` column, so without these
-         two it is sized by its own content and pushes the page sideways
-         instead of scrolling inside itself. */
-      align-self: stretch;
-      min-width: 0;
       margin-inline: calc(var(--pad) * -1);
       padding-inline: var(--pad);
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      scrollbar-width: none;
-    }
-
-    .filterrow::-webkit-scrollbar {
-      display: none;
-    }
-
-    .filterrow__list {
-      flex-wrap: nowrap;
-      /* Otherwise the flex line shrinks to the scroller and the chips wrap
-         their own text. */
-      width: max-content;
-    }
-
-    .filterrow__chip {
-      white-space: nowrap;
     }
   }
 

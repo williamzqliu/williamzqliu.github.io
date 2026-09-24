@@ -5,11 +5,12 @@ import Base from '../../layouts/Base.astro';
 import CoverMedia from '../../components/CoverMedia.astro';
 import QuickFacts from '../../components/QuickFacts.astro';
 import NextProject from '../../components/NextProject.astro';
+import ExploreAllWork from '../../components/ExploreAllWork.astro';
 import ProjectCredits from '../../components/ProjectCredits.astro';
 import KeywordTags from '../../components/KeywordTags.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import SiteMap from '../../components/SiteMap.astro';
-import { projectLinks, hasCaseStudy, nextStep, isPublic } from '../../lib/projects';
+import { projectLinks, hasCaseStudy, nextStep, homeLoop, isSelected, isPublic } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
 // SPEC §7 — only projects with body content get a case study page.
@@ -30,7 +31,11 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content, headings } = await render(project);
 
-const next = await nextStep(project);
+// The hand-off for the list this project belongs to, and for a Selected Work
+// project a second one for the homepage's loop. The page shows the one for
+// the list the reader came from; see the script at the foot of the page.
+const next = await nextStep(project, homeLoop(project));
+const selectedNext = isSelected(project) ? await nextStep(project, 'selected') : undefined;
 
 const links = projectLinks(project);
 
@@ -163,20 +168,31 @@ const facts = [
       <ProjectCredits credits={project.data.credits} />
 
       <div class="cs__next">
+        <div class="cs__handoff">
         {
-          next.kind === 'project' ? (
-            <NextProject
-              label={next.label}
-              title={next.project.data.title}
-              year={next.project.data.year}
-              href={`/work/${next.project.id}`}
-            />
-          ) : (
-            /* End of the curated sequence: out to the full list, not back to
-               the start and not down into the archive. */
-            <NextProject title="Explore all work" href="/work" />
+          [
+            { step: next, loop: 'default' },
+            ...(selectedNext ? [{ step: selectedNext, loop: 'selected' }] : []),
+          ].map(({ step, loop }) =>
+            step.kind === 'project' ? (
+              <div data-next={loop} hidden={loop !== 'default'}>
+                <NextProject
+                  label={step.label}
+                  title={step.project.data.title}
+                  year={step.project.data.year}
+                  href={`/work/${step.project.id}`}
+                />
+              </div>
+            ) : null
           )
         }
+        </div>
+        {/* Always there, under the next project and separated from it by
+            space alone. Outside the hand-off's link, which is the whole block
+            and cannot hold another. */}
+        <div class="cs__more">
+          <ExploreAllWork bare />
+        </div>
       </div>
     </div>
   </article>
@@ -529,8 +545,23 @@ const facts = [
     color: var(--accent);
   }
 
+  /* One rule above the hand-off, a shade off full strength: it still reads
+     as the page's closing boundary, but at full --rule-strong it was the
+     darkest thing on the page and pulled the eye before the project it
+     introduces. Explore all work follows under it with no rule of its own:
+     space separates the two, so the end of the page is this one line and
+     the footer's. */
   .cs__next {
     margin-top: var(--sp-96);
+    border-top: var(--rule-heavy) solid color-mix(in srgb, var(--rule-strong) 80%, var(--bg));
+  }
+
+  /* 45px from the bottom of the title's letters to these: close enough to
+     read as the hand-off's second choice, with more air left before the
+     footer than above it. Pulled up into the hand-off's bottom padding. */
+  .cs__more {
+    margin-top: -3px;
+  }
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -2694,6 +2725,24 @@ const facts = [
 </style>
 
 <script>
+  import { storedLoop } from '../../lib/loop';
+
+  /* A Selected Work project carries two hand-offs: its own list's, which the
+     server shows, and the homepage's, hidden. Opened from the homepage, the
+     page swaps to the homepage's, so Next project keeps the reader inside
+     Selected Work. */
+  function chooseNext() {
+    const selected = document.querySelector<HTMLElement>('[data-next="selected"]');
+    const fallback = document.querySelector<HTMLElement>('[data-next="default"]');
+    if (!selected || !fallback) return;
+    const fromHome = storedLoop() === 'selected';
+    selected.hidden = !fromHome;
+    fallback.hidden = fromHome;
+  }
+
+  document.addEventListener('astro:after-swap', chooseNext);
+  chooseNext();
+
   // The table of contents, the header's progress bar and the URL hash all read
   // from one thing: the window's scroll position. Nothing here keeps its own
   // idea of where the reader is, so the three cannot drift apart.

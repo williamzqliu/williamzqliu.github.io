@@ -68,56 +68,17 @@ const LINK_LABELS: Record<(typeof LINK_ORDER)[number], string> = {
 };
 
 /**
- * Landing page membership (SPEC §1): `tracks` includes design OR engineering,
- * sorted by `featured`. The union is computed from the data rather than kept as
- * a hand-written list. Callers apply the slice.
+ * The public categories on /work, in the order the filter row shows them. One
+ * per main project (`category` in frontmatter); the archive is a status, not a
+ * category, and has none.
  */
-export async function landingProjects(): Promise<Project[]> {
-  const entries = await getCollection(
-    'projects',
-    (entry) =>
-      isPublic(entry) &&
-      entry.data.featured !== undefined &&
-      (entry.data.tracks.includes('design') || entry.data.tracks.includes('engineering'))
-  );
+export const CATEGORIES = [
+  { value: 'data-research', label: 'Data & research' },
+  { value: 'interfaces-experiences', label: 'Interfaces & experiences' },
+  { value: 'visual-storytelling', label: 'Visual storytelling' },
+] as const;
 
-  return entries.sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0));
-}
-
-/**
- * Featured projects for one track, in `featured` order (SPEC §7).
- * `featured` present = landing page. Absent = archive only.
- * `draft: true` never reaches a build.
- */
-export async function featuredProjects(track: Track): Promise<Project[]> {
-  const entries = await getCollection(
-    'projects',
-    (entry) =>
-      isPublic(entry) && entry.data.tracks.includes(track) && entry.data.featured !== undefined
-  );
-  return entries.sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0));
-}
-
-/**
- * Reading order for the filter row, most central subject first. The *set* of
- * filters is still derived from the data (SPEC §7) — this only decides the
- * order, and any tag missing from here lands after the known ones,
- * alphabetically, rather than disappearing.
- */
-const TAG_ORDER = ['networks', 'interactive', 'narrative', 'information-design'] as const;
-
-/**
- * Filter categories are derived from the data, never hardcoded (SPEC §7): a
- * tag added in frontmatter shows up in the filter row on the next build.
- */
-export function deriveTags(projects: Project[]): string[] {
-  const present = [...new Set(projects.flatMap((project) => project.data.tags))];
-  const rank = (tag: string) => {
-    const index = TAG_ORDER.indexOf(tag as (typeof TAG_ORDER)[number]);
-    return index === -1 ? TAG_ORDER.length : index;
-  };
-  return present.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
-}
+export type Category = (typeof CATEGORIES)[number]['value'];
 
 /** The schema keys links by kind; the UI wants an ordered list. */
 function build(project: Project, kinds: readonly (typeof LINK_ORDER)[number][]): ProjectLink[] {
@@ -192,13 +153,11 @@ function endStamp(project: Project): number {
 }
 
 /**
- * Newest first, to the month. `featured` only breaks exact ties, and the id
- * breaks the rest — a comparator has to be total, and two archive projects
- * that finished in the same month have no `featured` between them.
+ * Newest first, to the month, and the id breaks exact ties: a comparator has
+ * to be total, and two archive projects can finish in the same month.
  */
 function byRecency(a: Project, b: Project): number {
-  const rank = (project: Project) => project.data.featured ?? Number.MAX_SAFE_INTEGER;
-  return endStamp(b) - endStamp(a) || rank(a) - rank(b) || a.id.localeCompare(b.id);
+  return endStamp(b) - endStamp(a) || a.id.localeCompare(b.id);
 }
 
 /** Everything publishable, newest first. */
@@ -208,31 +167,62 @@ export async function allProjects(): Promise<Project[]> {
 }
 
 /**
- * A deliberate exception to the chronology: /work opens with these, in this
- * order, whenever they finished. Kept here rather than in the content files
- * because it is a presentation decision, not a fact about the work.
+ * Where the curated projects sit, written out: these are presentation
+ * decisions, not facts about the work, so they live here and not in the
+ * content files. Selected Work is the homepage; the main order is /work's.
+ * The two differ on purpose (Barvision comes before Citing Less Critically on
+ * the homepage and after it on /work), so one number per project could not
+ * hold both.
+ *
+ * A published project missing from a list is not dropped: it follows the
+ * listed ones, newest first, so adding a project never makes it vanish.
  */
-const PINNED = ['inside-the-institution'];
+const SELECTED_ORDER = [
+  'inside-the-institution',
+  'barboard',
+  'barvision',
+  'citing-less-critically',
+];
 
-function pinRank(project: Project): number {
-  const index = PINNED.indexOf(project.id);
-  return index === -1 ? PINNED.length : index;
+const MAIN_ORDER = [
+  'inside-the-institution',
+  'barboard',
+  'citing-less-critically',
+  'barvision',
+  'ai-ethics-network',
+  'ripples-into-silence',
+  'tod-boston',
+  'comgrand',
+  'melovision',
+  'whats-going-on-in-there',
+];
+
+function byOrder(order: string[]) {
+  const rank = (project: Project) => {
+    const index = order.indexOf(project.id);
+    return index === -1 ? order.length : index;
+  };
+  return (a: Project, b: Project) => rank(a) - rank(b) || byRecency(a, b);
 }
 
-/**
- * The primary list: everything not marked `archive`, newest first after the
- * pins. /work is a browse view, so it is chronological in every filter —
- * `featured` only ranks the homepage. Ordering is by end month, so projects
- * that share a year still read in the order they finished.
- */
+/** Selected Work on the homepage: the listed projects only, in that order. */
+export async function selectedProjects(): Promise<Project[]> {
+  const entries = await getCollection(
+    'projects',
+    (entry) => isPublic(entry) && !entry.data.archive && SELECTED_ORDER.includes(entry.id)
+  );
+  return entries.sort(byOrder(SELECTED_ORDER));
+}
+
+/** The main list on /work: everything not archived, in the main order. */
 export async function curatedProjects(): Promise<Project[]> {
   const entries = await getCollection('projects', (entry) => isPublic(entry) && !entry.data.archive);
-  return entries.sort((a, b) => pinRank(a) - pinRank(b) || byRecency(a, b));
+  return entries.sort(byOrder(MAIN_ORDER));
 }
 
 /**
- * The archive: `archive: true`. A status, not a subject — these never appear
- * under `all`. Newest first, because there is no curation to respect.
+ * The archive: `archive: true`. A status, not a category: these never appear
+ * under All work. Newest first, because there is no curation to respect.
  */
 export async function archiveProjects(): Promise<Project[]> {
   const entries = await getCollection('projects', (entry) => isPublic(entry) && entry.data.archive);
@@ -240,66 +230,41 @@ export async function archiveProjects(): Promise<Project[]> {
 }
 
 /**
- * Editorial order for the six Selected Work projects, written out rather than
- * derived. Reading one flagship project leads to the next flagship project,
- * and the last one leads out of the sequence instead of looping — so this is a
- * list someone decided, not a consequence of dates or file order.
+ * The three loops a case study can hand on to, one per list a reader can have
+ * come from. Selected Work loops within itself, the main list within its ten,
+ * and the archive within its own; each wraps from its last project to its
+ * first. A project in Selected Work is also in the main list, so its page
+ * carries both hand-offs and the one for the list the reader came from is
+ * shown (see `[...slug].astro`); every other page has one.
  */
-const FEATURED_SEQUENCE = [
-  'inside-the-institution',
-  'citing-less-critically',
-  'ai-ethics-network',
-  'barvision',
-  'ripples-into-silence',
-  'whats-going-on-in-there',
-];
+export type Loop = 'selected' | 'main' | 'archive';
 
-/**
- * What comes after a case study. `all-work` is the end of the featured
- * sequence: it hands the reader to /work rather than dropping them into the
- * archive or starting the sequence over.
- */
 export type NextStep =
   | { kind: 'project'; label: string; project: Project }
   | { kind: 'all-work' };
 
-/**
- * The recommendation respects the three tiers rather than the array order.
- * Featured follows the curated sequence; archive stays inside the archive; a
- * primary project goes to the most recent non-archive project it shares a
- * subject with. Nothing outside the archive can ever recommend an archive
- * project, and only pages that exist are offered.
- */
-export async function nextStep(current: Project): Promise<NextStep> {
-  const entries = (await getCollection('projects', isPublic)).filter(hasCaseStudy);
-  const byId = new Map(entries.map((entry) => [entry.id, entry]));
+export async function nextStep(current: Project, loop: Loop): Promise<NextStep> {
+  const lists = {
+    selected: selectedProjects,
+    main: curatedProjects,
+    archive: archiveProjects,
+  };
+  const members = (await lists[loop]()).filter(hasCaseStudy);
+  const index = members.findIndex((entry) => entry.id === current.id);
+  if (index === -1 || members.length < 2) return { kind: 'all-work' };
+  return {
+    kind: 'project',
+    label: loop === 'archive' ? 'Next in archive' : 'Next project',
+    project: members[(index + 1) % members.length],
+  };
+}
 
-  const seat = FEATURED_SEQUENCE.indexOf(current.id);
-  if (seat !== -1) {
-    const following = FEATURED_SEQUENCE.slice(seat + 1)
-      .map((id) => byId.get(id))
-      .find((entry): entry is Project => entry !== undefined);
-    return following
-      ? { kind: 'project', label: 'Next project', project: following }
-      : { kind: 'all-work' };
-  }
+/** The loop a project belongs to when there is no list to have come from. */
+export function homeLoop(project: Project): Loop {
+  return project.data.archive ? 'archive' : 'main';
+}
 
-  if (current.data.archive) {
-    // A loop of its own, so the archive never spills into the main work.
-    const loop = entries.filter((entry) => entry.data.archive).sort(byRecency);
-    const index = loop.findIndex((entry) => entry.id === current.id);
-    if (loop.length < 2 || index === -1) return { kind: 'all-work' };
-    return { kind: 'project', label: 'Next in archive', project: loop[(index + 1) % loop.length] };
-  }
-
-  const primary = entries
-    .filter((entry) => !entry.data.archive && entry.id !== current.id)
-    .sort(byRecency);
-  const related = primary.find((entry) =>
-    entry.data.tags.some((tag) => current.data.tags.includes(tag))
-  );
-  const following = related ?? primary[0];
-  return following
-    ? { kind: 'project', label: 'Next project', project: following }
-    : { kind: 'all-work' };
+/** Whether a project is on the homepage, and so can be reached from it. */
+export function isSelected(project: Project): boolean {
+  return !project.data.archive && SELECTED_ORDER.includes(project.id);
 }

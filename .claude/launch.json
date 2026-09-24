@@ -30,6 +30,18 @@
         "D:/Work/ripples-into-silence"
       ],
       "port": 8099
+    },
+    {
+      "name": "site-built-4322",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "4322"
+      ],
+      "port": 4322
     }
   ]
 }

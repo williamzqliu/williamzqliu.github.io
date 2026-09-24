@@ -5,8 +5,8 @@ dates: Jul 2025 – May 2026
 blurb: An interactive research tool for exploring how co-authorship connects scholars, departments, and research centers within a university.
 tags: [networks, interactive]
 tracks: [design, engineering]
+category: data-research
 published: true
-featured: 1
 stack:
   - D3.js
   - HTML Canvas

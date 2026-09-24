@@ -5,8 +5,8 @@ dates: Jul 2023 – Oct 2023
 blurb: A music discovery concept that renders each song as a generative form driven by its own audio.
 tags: [interactive]
 tracks: [design]
+category: visual-storytelling
 published: true
-featured: 10
 stack:
   - TouchDesigner
   - Figma

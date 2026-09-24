@@ -5,8 +5,8 @@ dates: "Nov 2025 – Aug 2026"
 blurb: "An EMNLP 2026 study of how LLMs reshape scientific citation. I designed two of its figures and built its bibliographic matching pipeline."
 tags: ["networks"]
 tracks: ["design", "engineering"]
+category: data-research
 published: true
-featured: 2
 draft: false
 stack:
   - Figma
