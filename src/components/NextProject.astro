@@ -44,9 +44,8 @@ const { label, title, href, year } = Astro.props;
     padding-block: calc(var(--sp-32) - 2px) var(--sp-32);
   }
 
-  /* Set like Explore all work under it and Selected work on the homepage,
-     in the section label's type and wider tracking, but in the year's quieter
-     ink: it names what the title is, and the title is what is read. */
+  /* Set like Explore all work under it and Selected work on the homepage:
+     the section label's type, weight, ink and wider tracking. */
   .next__label {
     /* As wide as its words, so it lights only when pointed at. A block
        still, so the line box around it does not move the title. */
@@ -57,11 +56,11 @@ const { label, title, href, year } = Astro.props;
     position: relative;
     top: -4px;
     font-size: var(--fs-small);
-    font-weight: var(--fw-medium);  /* the year's weight */
+    font-weight: var(--fw-strong);
     line-height: var(--lh-small);
     letter-spacing: var(--ls-label-wide);
     text-transform: uppercase;
-    color: var(--text-3);
+    color: var(--text);
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
@@ -86,7 +85,10 @@ const { label, title, href, year } = Astro.props;
     line-height: var(--lh-display);
     font-weight: var(--fw-display);
     letter-spacing: -0.015em;
-    color: var(--text);
+    /* A step lighter than the year's ink: #837D6F on the light page, 3.8 : 1,
+       which a title at this size carries. The year stays at --text-3, since
+       at 13px it needs the contrast. */
+    color: color-mix(in srgb, var(--text-3) 85%, var(--bg));
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
