@@ -85,9 +85,8 @@ const { label, title, href, year } = Astro.props;
     line-height: var(--lh-display);
     font-weight: var(--fw-display);
     letter-spacing: -0.015em;
-    /* A step lighter than the year's ink: #837D6F on the light page, 3.8 : 1,
-       which a title at this size carries. The year stays at --text-3, since
-       at 13px it needs the contrast. */
+    /* A step lighter than --text-3: #837D6F on the light page, 3.8 : 1. The
+       year below takes the same ink, so the row is one tone. */
     color: color-mix(in srgb, var(--text-3) 85%, var(--bg));
     transition: color var(--dur-hover-out) var(--ease-out);
   }
@@ -98,7 +97,7 @@ const { label, title, href, year } = Astro.props;
     font-size: var(--fs-small);
     font-weight: var(--fw-medium);
     line-height: var(--lh-small);
-    color: var(--text-3);
+    color: color-mix(in srgb, var(--text-3) 85%, var(--bg));
     font-variant-numeric: tabular-nums;
     transition: color var(--dur-hover-out) var(--ease-out);
   }
