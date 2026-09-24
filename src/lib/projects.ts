@@ -54,7 +54,7 @@ const LINK_ORDER = ['demo', 'thesis', 'paper', 'poster', 'spotlight', 'code'] as
  * link on the page while leaving it on the card that opens the page would not
  * hide anything.
  */
-const CODE_LINKS_ENABLED = new Set<string>(['tod-boston']);
+const CODE_LINKS_ENABLED = new Set<string>(['tod-boston', 'ripples-into-silence']);
 
 /** The default name for a kind. Frontmatter overrides it where the link is a
     named thing rather than an instance of a kind. */
