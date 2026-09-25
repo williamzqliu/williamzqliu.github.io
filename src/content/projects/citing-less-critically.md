@@ -2,7 +2,9 @@
 title: "Citing Less Critically"
 year: 2026
 dates: "Nov 2025 – Aug 2026"
-blurb: "An EMNLP 2026 study of how LLMs reshape scientific citation. I designed two of its figures and built its bibliographic matching pipeline."
+# One blurb for the head and both cards. The detail of what I did is carried
+# by the opening of Section 01.
+blurb: "Scientific figure design and citation matching for an EMNLP 2026 study of human and LLM citation behavior."
 tags: ["networks"]
 tracks: ["design", "engineering"]
 category: data-research
@@ -26,7 +28,7 @@ cover:
   alt: "A human hand and a robot hand each holding out a reference card toward the same empty citation bracket on a page of text, between stacks of books labelled HUMAN and LLM."
 quickFacts:
   - label: "Role"
-    value: "Scientific Figure Designer & Research Contributor"
+    value: "Scientific figure design, citation matching & annotation review"
   - label: "Outcome"
     value: "Accepted to the EMNLP 2026 Main Conference (third author)"
 # Order is the editorial decision here, not an alphabet. Network analysis is
@@ -35,11 +37,12 @@ credits:
   skills:
     - Scientific figure design
     - Information design
-    - Research data engineering
-    - Research validation
+    - Bibliographic data matching
+    - Research annotation
   tools:
     - Figma
-    - Python (pandas)
+    - Python
+    - pandas
     - Dimensions
   # Three rows in total, so there is nothing worth putting behind a control.
   collapse: false
@@ -55,245 +58,188 @@ credits:
 ---
 
 <!--
-Attribution must stay visible in the row blurb, not only here. I am the third
-author of five, and Human annotator 3 in the paper's Table 7. Yixuan Liu and
-Lin Chen contributed equally; that marker is theirs and not mine, and it is
-kept here rather than on the page so it is available if a formal author line
-is ever needed. The research question, the masked-citation design, the
-LLM-as-judge procedure and the coauthorship-network analysis are other
-people's work. My contributions are the two figures named below, the
-citation-matching pipeline, and one of three human annotation passes.
+I am the third author of five, and Human annotator 3 in the paper's Table 7.
+Yixuan Liu and Lin Chen contributed equally; that marker is theirs and not
+mine, and it is kept here rather than on the page. The research question, the
+masked-citation design, the LLM-as-judge procedure and the coauthorship-network
+analysis are other people's work. Yixuan Liu made the submitted Figure 1. My
+contributions are the post-review rebuild of Figure 1, Figure 5a, the
+citation-matching pipeline, taking part in the unmatched-title review, and one
+of three human annotation passes.
 
-Cover is a rendered scene, not a redrawn figure. Figures 1 and 4a ship as
-their own exports in Sections 02 and 04; neither is a screenshot of the PDF.
+The cover is a rendered scene, not a redrawn figure. Figures 1 and 5a ship as
+their own exports; neither is a screenshot of the PDF.
 -->
 
-## Explaining the research framework
+## Rebuilding the research framework
 
-Scientific citations can support, contrast with, or simply mention prior research.
-Our team asked whether LLMs make the same citation choices as human authors when filling
-the same citation position.
+Our team studied whether LLMs preserve human citation choices and intent when
+reconstructing a masked citation sentence. In this controlled task, the models produced
+fewer contrasting citations than the human-written baseline.
 
-To make the experimental design easier to follow, I designed a three-stage visual
-framework for our team's method. It keeps the human and LLM paths side by side across all
-three stages, from reconstruction to bibliographic matching.
-
-<ol class="process-steps">
-  <li>
-    <p class="process-steps__num">01</p>
-    <p class="process-steps__name">Reconstruct</p>
-    <p class="process-steps__note">Mask the original citation sentence and ask an LLM to reconstruct it with the same number of citations.</p>
-  </li>
-
-  <li>
-    <p class="process-steps__num">02</p>
-    <p class="process-steps__name">Classify</p>
-    <p class="process-steps__note">Label the original and LLM-generated citations as supporting, contrasting, or mentioning.</p>
-  </li>
-
-  <li>
-    <p class="process-steps__num">03</p>
-    <p class="process-steps__name">Ground</p>
-    <p class="process-steps__note">Match each cited work to a canonical record in Dimensions so its metadata can be analyzed.</p>
-  </li>
-</ol>
-
-
-## Rebuilding the framework after peer review
-
-The submitted framework included the full experimental pipeline, and that completeness
-made the figure harder to scan. During peer review, one reviewer called out the problem
-directly: **"Figure 1 is too visually dense."**
-
-<figure>
-  <img
-    src="/media/citing-less-critically/submitted-figure-1.webp"
-    alt="The submitted framework figure: three sentence panels across the top, a judging row beneath them and a Dimensions row below that, with the stages, the arrows and the supporting detail all drawn at the same weight."
-    width="1024"
-    height="548"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption><strong>Submitted version.</strong> Framework submitted for peer review.</figcaption>
-</figure>
-
-The redesign came to me after review, and I rebuilt the figure without stripping away
-the research logic. I separated the three
-stages, clarified the parallel human and LLM paths, and simplified the visual hierarchy so
-the main steps remained clear within a restrained, publication-ready layout.
-
-After peer review, our team refined the framework through six rounds of feedback before
-reaching the final version.
+I designed the final framework figure to explain how the study reconstructs citation
+sentences, classifies their intent, and matches references to bibliographic records.
+Blue and red labels identify the human and LLM-generated material throughout the three
+stages.
 
 <figure>
   <img
     src="/media/citing-less-critically/final-figure-1.webp"
-    alt="The published framework figure. Stage 1 puts the original citation sentence, the masked version and the LLM-generated version side by side with their reference lists. Stage 2 sends both the original and generated sentences to an LLM judge, which returns supporting, contrasting or mentioning. Stage 3 matches both sets of references in Dimensions and carries team size, publication year and citation impact into the three research questions."
+    alt="Three vertically stacked stages show citation masking and reconstruction, parallel intent labeling of original and LLM-generated sentences, and Dimensions matching followed by downstream analysis."
     width="3200"
     height="2333"
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Final version.</strong> Framework after peer review and six rounds of team feedback.</figcaption>
+  <figcaption><strong>Figure 1.</strong> Follow the human and LLM-generated material through reconstruction, intent labeling, and bibliographic matching.</figcaption>
 </figure>
 
+The submitted figure was created by Yixuan Liu. During peer review, a reviewer noted:
+**“Figure 1 is too visually dense.”** I then rebuilt the figure through six rounds of
+team feedback; the final version was used in the camera-ready manuscript.
 
-## Matching citations to reliable records
+I organized the method into three horizontal bands, giving each stage a heading and a
+consistent top-to-bottom reading order. Within the labeling stage, I kept the original
+and generated sentences on separate, parallel paths so readers could follow both through
+the same judging procedure.
 
-Before our team could compare what humans and LLMs cited, each reference had to be
-matched to a reliable bibliographic record. I built the pipeline that connected citation
-data to canonical records in Dimensions, giving our team consistent metadata for later
-analysis.
-
-For the human-written baseline, the pipeline matched **115,278 of 132,913 citation
-positions (86.7%)**.
-
-<div class="stat-strip" data-cols="3">
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">132,913</p>
-    <p class="stat-strip__label">Human citation positions</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">115,278</p>
-    <p class="stat-strip__label">Matched to Dimensions</p>
-  </div>
-
-  <div class="stat-strip__cell">
-    <p class="stat-strip__value">86.7%</p>
-    <p class="stat-strip__label">Match rate</p>
-  </div>
-</div>
-
-This echoed a challenge in
-[*Inside the Institution*](/work/inside-the-institution), where I reconciled scholar
-identities across inconsistent data sources. In both projects, reliable matching had to
-come before reliable analysis.
-
-<details>
-<summary>How the matching pipeline worked</summary>
-
-**Matching strategy.** I built the final pipeline to match references by DOI first, then
-fall back to title matching when the DOI was missing or malformed. Successful matches were
-replaced with canonical Dimensions metadata, while unmatched references were excluded
-from downstream analysis. I built the matching logic conservatively to reduce the risk of
-attaching incorrect metadata to downstream analysis.
-
-**Why matching quality mattered.** Using the same grounding process, our team found an
-86.7% match rate for human-written citations, while the six LLMs ranged from 39.5% to
-81.9%. To understand the unmatched outputs more closely, our team manually audited 100
-unmatched titles from GPT-5.1 and 100 from Claude-3.5-Haiku. Among them, 79% of the GPT-5.1 titles and 97% of the
-Claude-3.5-Haiku titles fell into the paper's combined hallucination category, which
-includes fabricated works and real works with substantially garbled titles.
-
-I had built an earlier development version against OpenAlex at a smaller scale. That was
-an exploratory build, not the pipeline reported in the paper.
-
-</details>
-
-
-## Making social distance visible
-
-To compare how socially close cited authors were to the authors citing them, our team
-measured paths through a coauthorship network. I designed Figure 4a to turn that abstract
-metric into a worked comparison between an original citation and an LLM-generated
-replacement.
-
-Instead of presenting the final score on its own, I traced the paths that produce it, so
-readers can see how the measure is built before they interpret the results.
+I also reduced the emphasis on surrounding text while retaining the citation sentences
+and reference lists needed to understand the example. In the final stage, I condensed
+the branching analysis details into a single row linking matched records, metadata, and
+the three research questions.
 
 <figure>
   <img
-    src="/media/citing-less-critically/final-figure-4a.webp"
-    alt="Two worked rows. In each, a citing paper and a cited paper are shown with their first and last authors, the four shortest paths between those author pairs are traced through the coauthorship network, and the four lengths are averaged. The original row averages 2.25; the LLM-generated row averages 3."
-    width="2374"
-    height="1431"
+    src="/media/citing-less-critically/submitted-figure-1.webp"
+    alt="Submitted framework with original, masked, and generated sentence panels across the top and long connectors leading to intent labeling and Dimensions matching below."
+    width="1024"
+    height="548"
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Figure 4a.</strong> Worked comparison of the social-distance measure for an original citation and an LLM-generated replacement.</figcaption>
+  <figcaption><strong>Submitted framework by Yixuan Liu.</strong> Long connectors link sentence reconstruction, intent labeling, and bibliographic matching across the figure.</figcaption>
 </figure>
 
 <details>
-<summary>How social distance is calculated</summary>
+<summary>Framework iteration</summary>
 
-For each citation, our team paired the first and last authors of the citing paper with
-the first and last authors of the cited paper, producing four author pairs. We then found
-the shortest path between each pair in the coauthorship network and averaged those four
-path lengths into one score for the paper pair.
+My first substantial redesign separated the method into three stages, with intent
+labeling and bibliographic matching placed side by side beneath reconstruction. I later
+stacked all three stages vertically and simplified the final analysis row, keeping the
+reading direction consistent.
 
-In Figure 4a, the original example produces &#10216;d&#10217; = 2.25, while the
-LLM-generated example produces &#10216;d&#10217; = 3.
+<figure>
+  <img
+    src="/media/citing-less-critically/revised-figure-1.webp"
+    alt="Intermediate framework redesign with reconstruction across the top and two separately bounded stages for intent labeling and bibliographic matching side by side below."
+    width="3200"
+    height="1675"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption><strong>Intermediate redesign.</strong> The stages are separated, but the reading direction still shifts from downward to sideways.</figcaption>
+</figure>
+
+The final figure retains a worked citation example alongside the method. This preserves
+the detail needed to inspect the experiment, although the sentence-level text still
+requires enlargement at smaller display sizes.
 
 </details>
 
+## Explaining social distance
 
-## Validating citation intent with human readers
+The study also compares how closely citing and cited authors are connected through
+coauthorship. I designed Figure 5a to show how the distance measure is calculated.
 
-Because our team used an LLM to classify citation intent, we also needed a human
-check. I helped define the three annotation categories and served as one of three
-independent human annotators.
+I arranged each example from left to right: identify the first and last authors, trace
+the four author-pair paths through the network, then average their lengths. Repeating
+this structure for an original citation and an LLM-generated replacement lets readers
+compare the calculation step by step.
 
-<ul class="process-steps">
-  <li>
-    <p class="process-steps__name">Supporting</p>
-    <p class="process-steps__note">Builds on prior work as evidence, method, or aligned findings.</p>
-  </li>
-
-  <li>
-    <p class="process-steps__name">Contrasting</p>
-    <p class="process-steps__note">Positions prior work as a competing approach, disagreement, or baseline.</p>
-  </li>
-
-  <li>
-    <p class="process-steps__name">Mentioning</p>
-    <p class="process-steps__note">Uses prior work for background, definitions, or general acknowledgment.</p>
-  </li>
-</ul>
-
-Across a 90-position validation set, the human labels moved in the same direction, with
-fewer citations classified as contrasting. The primary LLM judge agreed with the
-human-majority label in **73% of cases**, giving our team an independent check on the
-automated classification.
+<figure>
+  <img
+    src="/media/citing-less-critically/final-figure-5a.webp"
+    alt="Two rows compare an original citation with an LLM-generated replacement. Each row identifies first and last authors, traces four coauthorship paths, and averages their lengths, yielding illustrative distances of 2.25 and 3."
+    width="2576"
+    height="1536"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption><strong>Figure 5a.</strong> Four author-pair path lengths produce each average; 2.25 and 3 are illustrative values, not study-wide results.</figcaption>
+</figure>
 
 <details>
-<summary>Validation details</summary>
+<summary>Distance calculation</summary>
 
-Our team assembled a stratified 90-position validation set to compare automated intent
-labels with independent human judgments.
+The first and last authors of the citing paper are paired with the first and last
+authors of the cited paper, giving four author pairs. The measure averages the shortest
+coauthorship-path lengths between those pairs.
 
-I was one of three annotators. We independently labeled the selected original citation
-sentences and the corresponding GPT-5.1 reconstructions without seeing the automated
-labels or cited-paper identities.
-
-Across the original citations, the primary LLM judge agreed with the human-majority
-labels in 73% of cases, with Cohen's &#954; = 0.60. Our human annotations of the
-reconstructed citations also reproduced the broader movement away from contrasting
-labels.
+The diagram explains this calculation. The network analysis was conducted by the
+research team; my contribution was its visual explanation. Coauthorship distance
+describes connections in the recorded network and does not directly measure personal
+familiarity or favoritism.
 
 </details>
 
-<!-- PARKED from the previous draft of this section. Not in the copy above and
-     not published elsewhere on the page. Delete once these facts have a home
-     or have been ruled out.
+## Matching citation records
 
-     That validation set is load-bearing. It answers the most obvious
-     objection to the paper, which is that an LLM judge might simply read
-     LLM-written prose as warmer. The warming appears in all three humans'
-     labels too, in the same direction, so it is a property of the rewritten
-     sentences rather than a judge preference.
--->
+I built the pipeline that linked human and LLM-generated references to Dimensions
+records for downstream analysis. It matched references by DOI first, then used
+normalized titles when DOI matching failed.
 
+For the human baseline, **115,278 of 132,913 citation slots matched a Dimensions
+record**, a coverage rate of 86.7%. Each slot represents one cited work at a citation
+position, so repeated citations to the same paper are counted separately. Unmatched
+references were excluded from downstream analysis.
 
-## Outcome and takeaway
+I also participated in reviewing 200 unmatched titles and calibrating the pipeline. The
+review distinguished missed matches, real works with inaccurate titles, and fabricated
+references, helping separate matching failures from problems in the generated
+citations.
 
-The paper was accepted to the EMNLP 2026 Main Conference, with me as third author. It was
-the first paper I contributed to that was accepted for publication, and my first
-experience working as part of a research team through a full peer-review cycle.
+<details>
+<summary>Matching and unmatched references</summary>
 
-What stayed with me most was how research quality is built collectively. I learned that
-contributing well does not mean owning every part of a project. It means making my part
-rigorous enough to support the work around it, whether that means resolving data
-carefully, making a complex method easier to inspect, or checking an automated result
-against human judgment. The project also showed me how naturally my design and technical
-skills can work together in a research setting.
+The title fallback used exact matching after normalization. Successful matches supplied
+canonical metadata from Dimensions; author names were not used as matching keys because
+of formatting variation. The reported match rate measures coverage, not the accuracy of
+every matched record.
+
+For the unmatched-reference review reported in Appendix E, the team sampled 100 titles
+from GPT-5.1 and 100 from Claude-3.5-Haiku. I participated in the human review and
+pipeline calibration; the audit also used Claude Opus 4.8 with web search.
+
+The review separated three outcomes: a real record the pipeline had missed, a real work
+with a substantially inaccurate title, and a fabricated reference. The paper groups the
+latter two as hallucinations. These categories describe the sampled unmatched titles,
+not all citations generated by either model.
+
+</details>
+
+## Checking citation intent
+
+I helped refine the annotation definitions and served as one of three independent human
+annotators, labeling citations as supporting, contrasting, or mentioning. We worked
+without seeing the automated labels or cited-paper identities.
+
+This check examined whether the shift toward fewer contrasting citations also appeared
+in human judgments. It did in the evaluated GPT-5.1 pairs, providing supporting evidence
+beyond the automated labels within this validation sample.
+
+<details>
+<summary>Human validation</summary>
+
+The validation set contained 90 original citation sentences, stratified across the three
+intent categories. On these sentences, the primary LLM judge agreed with the
+human-majority label in 73% of cases, with Cohen’s κ = 0.60.
+
+The before-and-after comparison used the 77 of those 90 positions for which GPT-5.1
+returned a citation sentence. Each human annotator classified a smaller share of the
+reconstructed sentences as contrasting than of the originals.
+
+These are two related checks with different denominators: agreement on the 90 original
+sentences, and change in intent across 77 original–reconstructed pairs. The sample does
+not establish labeling accuracy across the full corpus or every model.
+
+</details>
