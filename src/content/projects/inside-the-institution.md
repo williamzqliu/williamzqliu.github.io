@@ -96,6 +96,9 @@ into the same dataset.
 Explore the overall network, narrow it to an organizational unit, and inspect a
 scholar’s collaborators.
 
+I used a force-directed layout to organize scholars by their coauthorship connections,
+with affiliation shown through color.
+
 <figure>
   <video
     src="/media/inside-the-institution/collaboration-map.mp4"
@@ -115,6 +118,9 @@ scholar’s collaborators.
 
 Browse departments and research centers, then inspect their membership and
 collaboration measures.
+
+I used a tiled layout to give departments and research centers distinct areas that
+readers could browse and compare.
 
 <figure>
   <video
@@ -136,6 +142,9 @@ collaboration measures.
 Explore connections between network communities, then select a community to inspect
 the scholars linking it to others.
 
+I explored depth as an encoding channel, placing communities on a shared plane and
+elevating scholars who connect them.
+
 <!-- The recording shows the 3D community view, not the department score, so
      the caption describes what is on screen rather than the cross-unit
      measures. -->
@@ -155,6 +164,9 @@ the scholars linking it to others.
 </figure>
 
 ## Building the dataset
+
+The initial dataset identified scholars but lacked the departmental and research-center
+affiliations needed for organizational comparisons.
 
 I manually curated faculty and research-unit records, including primary appointments,
 additional affiliations, and employment status and years. I connected these records to
@@ -177,7 +189,7 @@ collaborate.
 
 The prototype includes units selected for this research dataset, rather than a complete
 historical record of the university. Faculty identities were matched to OpenAlex
-records; 266 roster entries had no main OpenAlex ID in the supplied dataset.
+records; 266 roster entries had no main OpenAlex ID in the project dataset.
 
 For faculty with multiple departmental affiliations, I used the designated primary
 department. Departmental affiliation took precedence when someone also belonged to a
@@ -232,10 +244,42 @@ institution and individual relationships.
 
 ### Keeping details in context
 
-An earlier version put the scholar profile on a separate page. Feedback showed that
-this interrupted orientation and repeated information. I moved the profile into a side
-panel beside the map so readers could inspect a person while retaining the surrounding
-network.
+Earlier versions linked from the side panel to a separate scholar profile. I brought
+profile details and Direct, 1-Hop, and 2-Hop controls into the panel beside the map, so
+readers could inspect a scholar and explore nearby connections in the same view.
+
+<!-- Two details from two versions of the panel, not the same region before and
+     after: the foot of the earlier one, and the top of the later one. Both are
+     500px crops at one scale. The pair is held to 23rem a frame so the tall
+     crops stay under a screen, and stacks on a phone, where side by side the
+     type came out too small to read. -->
+<figure>
+  <div class="media-pair" data-stack style="--pair-split: repeat(2, minmax(0, 23rem))">
+    <figure>
+      <img
+        src="/media/inside-the-institution/side-panel-version-earlier.webp"
+        alt="The foot of an earlier scholar panel: research interests grouped by field, with an Open Scholar Profile button beneath them."
+        width="500"
+        height="932"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Earlier: separate profile link</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="/media/inside-the-institution/side-panel-version-revised.webp"
+        alt="A later scholar panel: Direct, 1-Hop and 2-Hop ego-network controls above the research interests."
+        width="500"
+        height="932"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Revised: local network controls</figcaption>
+    </figure>
+  </div>
+  <figcaption>Details from two side-panel versions: a profile link and the later Direct, 1-Hop, and 2-Hop controls.</figcaption>
+</figure>
 
 <figure>
   <img
@@ -248,6 +292,47 @@ network.
   />
   <figcaption>Moving the profile beside the map keeps the scholar’s relationships in view.</figcaption>
 </figure>
+
+<details>
+<summary>Navigation across views</summary>
+
+Earlier versions placed view navigation, sub-navigation, and search together in the
+header. I flattened the navigation and moved scholar search into the Collaboration Map
+to distinguish switching views from exploring within a view.
+
+<!-- One column, so neither strip is shrunk to fit beside the other. Both crops
+     are at one scale, and the narrower one is held to its share of the wider
+     one's width (552 of 944) so the two headers' type comes out the same size. -->
+<figure>
+  <div class="media-pair" style="--pair-split: minmax(0, 1fr)">
+    <figure>
+      <img
+        src="/media/inside-the-institution/navigation-version-earlier.webp"
+        alt="An earlier header: three view tabs, with Collaboration Map and Ego Network buttons as a second level beneath them."
+        width="552"
+        height="196"
+        style="width: 58.47%"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Earlier: nested navigation</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="/media/inside-the-institution/navigation-version-revised.webp"
+        alt="The revised header: one flat row of views, from Overview and Collaboration Map to Methods and Credits."
+        width="944"
+        height="156"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Revised: flat navigation</figcaption>
+    </figure>
+  </div>
+  <figcaption>View navigation stays in the header; scholar search sits within the Collaboration Map.</figcaption>
+</figure>
+
+</details>
 
 ### Choosing an organizational measure
 
@@ -340,17 +425,17 @@ different approach.
 
 <dl class="issue-response">
   <div>
-    <dt>Participants needed clearer explanations of visual encodings and available interactions.</dt>
+    <dt>Encoding and interaction guidance</dt>
     <dd><strong>Updated.</strong> I revised the legend and added interaction guidance after the study. These changes have not been validated in a follow-up study.</dd>
   </div>
 
   <div>
-    <dt>Several participants questioned the usability of the 3D interaction.</dt>
+    <dt>3D navigation</dt>
     <dd><strong>Planned.</strong> A 2D alternative remains a next step; the prototype still uses the 3D view.</dd>
   </div>
 
   <div>
-    <dt>Participants brought different meanings to “bridging,” including organizational and topic boundaries.</dt>
+    <dt>Meaning of “bridging”</dt>
     <dd><strong>Unresolved.</strong> The definition remains unresolved in the prototype. The next revision needs to make the measured boundary explicit wherever the score appears.</dd>
   </div>
 </dl>
