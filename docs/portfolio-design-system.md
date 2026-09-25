@@ -54,8 +54,8 @@ for visitors who have not chosen.
 | `--tone-dark`, `--tone-light`, `--tone-neutral` (+ `-ink`) | cover placeholder plates; also outside the theme |
 
 Hard-coded hex belongs in exactly two places: `tokens.css`, and inside a drawn
-figure that reproduces another product's colour (the gold `#A4804A` bridge
-rings in Inside the Institution, which is that tool's colour, not this site's).
+figure that reproduces another product's colour, which is that tool's colour,
+not this site's.
 
 ### Typography — `src/styles/tokens.css` (scale) + component styles (roles)
 
@@ -338,7 +338,7 @@ phone while every other pair stacks.
 | section menu / desktop TOC | `src/pages/work/[...slug].astro` (`.cs__toc*` + the script) |
 | all case-study prose styling | `src/pages/work/[...slug].astro`, the `is:global` block |
 | figure, caption, media widths | same block: `.prose figure`, `.prose figcaption`, `.prose > *` |
-| two-up, mosaic, formula, tier key | same block: `.media-pair`, `.media-mosaic`, `.formula`, `.tier-key` |
+| two-up, mosaic, formula | same block: `.media-pair`, `.media-mosaic`, `.formula` |
 | accordion look and the +/− | same block: `.prose details`, `.prose summary` |
 | callout | same block: `.prose blockquote:not(.participant-quote)` |
 | participant quote, issue → response | same block: `.participant-quote`, `.issue-response` |

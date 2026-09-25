@@ -141,19 +141,19 @@ that belongs together steps together.
 **Don't** use it as a gallery. Three images that do not describe one moment are
 three figures.
 
-### Generated editorial visual — `.formula`, `.tier-key`
+### Generated editorial visual — `.formula`
 
 Drawn in HTML/CSS/SVG rather than exported: formulas, encoding keys, small
 diagrams, compact charts.
 
 **Standard.** Prose width, never the media column. Body face; a key's label is
 caption-size, `--text-3`, one weight up. A metric is named inside its equation
-(`Bridge score = …`), never as a heading above it. No border inside a
+(`Score = …`), never as a heading above it. No border inside a
 disclosure — it already has two. Give the block `font-size: var(--fs-copy)` or
 `--measure` (in `ch`) resolves narrow.
 
-**Don't** invent a new visual language per project: reuse these two classes
-before writing a third.
+**Don't** invent a new visual language per project: reuse this class before
+writing another.
 
 ### Accordion — `<details>` / `<summary>`
 
@@ -167,7 +167,7 @@ clickable, keyboard-reachable with the site focus ring, mono micro label,
 hairline above and below, `+` / `−` crossfading on the right, no card, no
 nested scrolling. One per section as a rule; never nested.
 
-**Label it specifically** — `Bridge score details`, `Data curation details`.
+**Label it specifically** — `How the score is defined`, `Distance calculation`.
 Never `Read more`.
 
 **A disclosure ends its section.** Nothing essential goes after one: no
@@ -201,8 +201,8 @@ from a study participant belongs in a participant quote instead.
 
 **Use for** exact evidence from a research participant or user, where the
 wording itself carries something a paraphrase would lose: what they noticed,
-what they doubted, how they diagnosed a problem. Inside the Institution has two
-— one discovery in 07, one critique in 08.
+what they doubted, how they diagnosed a problem. Lumitex's user study uses
+three, one per participant.
 
 **Standard.** A native `<blockquote class="participant-quote">` holding a `<p>`
 and a `<cite>`. A 2px accent rule on the left with 20px of padding, the
@@ -228,7 +228,7 @@ is not a results chapter.
 
 **Use for** findings that each point at one concrete change, where the pairing
 is the information. Inside the Institution has exactly one, carrying the three
-interface problems from the study and what each one asks for.
+findings from its study and where each one stands.
 
 **Standard.** A native `<dl>` with one `<div>` per pair, `<dt>` for the issue and
 `<dd>` for the response, at prose width. Two columns from 640px so a pair reads
@@ -244,8 +244,8 @@ pairing is legible without one.
 ### Stat strip — `.stat-strip`
 
 **Use for** a small group of numbers the section is built on, where scanning
-them beats reading them in a sentence. Inside the Institution has exactly one,
-carrying two figures.
+them beats reading them in a sentence. Barboard, Melovision and TOD Boston
+each have one.
 
 **Standard.** Prose width, closed by a hairline above and below with 24px of
 air inside them. Three levels: a mono value two pixels under `--fs-display`
@@ -256,8 +256,8 @@ takes over. No fill, no corners, no shadow, no icon, no chart.
 
 Two columns by default. `data-cols="3"` takes a third, above 640px only:
 below that the phone rule wraps them instead, because three 28px figures do
-not fit a phone column without touching. Citing Less Critically's grounding
-section uses the three-column form.
+not fit a phone column without touching. Lumitex and TOD Boston use the
+three-column form.
 
 `data-grid` is for a strip that wraps into rows: four cells two by two, six
 cells three by two, and so on. It closes the dividers into a cross rather than
@@ -381,9 +381,7 @@ gallery come off the same selector, so a marked picture never shows a
 `zoom-in` cursor that leads nowhere.
 
 Currently marked: Comgrand's two grandmother photographs and the three
-co-design frames. Inside the Institution's think-aloud photograph is not
-marked, because the participant is shot from behind and the picture is really
-of the interface on the screen.
+co-design frames.
 
 `data-nozoom` on `.cs__media` does the same job for a case-study head.
 
@@ -416,14 +414,14 @@ system document. Nothing needs a per-project width rule.
 ## Process steps — `.process-steps`
 
 **Use for** the stages of a method, where the order is part of the content and
-each stage has a name worth scanning for. Citing Less Critically uses one, for
-the study's three stages.
+each stage has a name worth scanning for. Comgrand uses it throughout, for
+its service stages and its design changes.
 
 **Standard.** One `<li>` per item holding `.process-steps__name` and
 `.process-steps__note`, with `.process-steps__num` above them when the items
 are a sequence. `<ol>` when the order is the content and the numbers are drawn;
-`<ul>` when the items are parallel and unnumbered, as the design changes in
-Citing Less Critically's Section 02 are. Prose width, a single hairline above,
+`<ul>` when the items are parallel and unnumbered, as most of Comgrand's
+are. Prose width, a single hairline above,
 three equal columns from 640px with the stat strip's inset divider between
 them, one column on a phone where space separates them. The article's list
 marker and indent are turned off.
@@ -462,7 +460,7 @@ The end-credit frame every case study closes with. Rendered by
 frontmatter.
 
 **Why a component and not a markdown pattern.** `.participant-quote`,
-`.issue-response`, `.formula` and `.tier-key` are one-off editorial shapes
+`.issue-response` and `.formula` are one-off editorial shapes
 written into the content file where they are used. Credits is the opposite: the
 same structured fields, the same markup and the same three-breakpoint
 recomposition at the end of every project. One shared component; not one per

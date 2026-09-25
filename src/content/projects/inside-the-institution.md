@@ -51,8 +51,7 @@ credits:
     - Python
     - Three.js
     - HTML Canvas
-    # `*name*` sets a named service in italics, as the prose does. Two APIs in
-    # one entry rather than two of the five slots.
+    # Two APIs in one entry rather than two of the five slots.
     - Scholarly APIs (OpenAlex and ORCID)
   # `Roles` rather than `Team`. Three people advised and one did the work, so
   # `Team` would read as four collaborators and claim a share of the research

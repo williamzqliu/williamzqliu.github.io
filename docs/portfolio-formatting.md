@@ -17,9 +17,8 @@ projects.
 ## Italics
 
 Italics are for the titles of standalone works: books, reports, exhibitions,
-published visualizations, games. Inside the Institution italicises *Sanctuary*
-and *150 Years of Nature*; DUI's Invisible Bill italicises *INCOME/OUTCOME*,
-the published infographic it critiques.
+published visualizations, games. DUI's Invisible Bill italicises
+*INCOME/OUTCOME*, the published infographic it critiques.
 
 **Software is not a work.** No italics for software, services, databases,
 programming tools or AI models. Gephi, D3.js, OpenAlex, ORCID, Dimensions,
@@ -70,9 +69,8 @@ An interface label is ordinary text in its own capitalization: Direct, 1-Hop,
 
 No raw URLs in prose. A link is a phrase.
 
-An internal project reference can be either the project title, as Citing Less
-Critically links [*Inside the Institution*](/work/inside-the-institution), or a
-descriptive phrase, as Barboard links
+An internal project reference can be either the project title, as Barvision
+links [Barboard](/work/barboard), or a descriptive phrase, as Barboard links
 [live broadcast and control system](/work/barvision). Both are allowed. Pick
 whichever the sentence wants.
 
