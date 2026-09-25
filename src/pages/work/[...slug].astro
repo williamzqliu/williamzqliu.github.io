@@ -1815,19 +1815,6 @@ const facts = [
     margin-top: var(--sp-24);
   }
 
-  /* The body face, in the caption's size and colour — this labels the key the
-     way a figcaption labels a picture. Two class names because `.prose p` sets
-     the copy size and would otherwise win. */
-  .tier-key .tier-key__title {
-    margin-top: var(--sp-4);
-    font-size: var(--fs-small);
-    /* One step up from body copy. At caption size in the quietest ink, regular
-       weight reads as an afterthought rather than as the name of the key. */
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-small);
-    color: var(--text-3);
-  }
-
   /* Wraps to the next line on a phone rather than scrolling sideways: the
      three terms are words, not symbols, and a ratio that has to be scrolled
      is not a ratio anyone reads. */
@@ -1902,42 +1889,6 @@ const facts = [
     }
   }
 
-  /* The key to the ring, at the size and opacity the map draws it. Four steps,
-     quietest first, so the row reads as one scale rather than four states. */
-  /* `--measure` is in `ch`, which resolves against this element's own font
-     size, not the paragraphs'. Without the body size here the key came out
-     124px narrower than the prose it sits under. */
-  .tier-key {
-    margin-top: var(--sp-32);
-    padding-top: var(--sp-16);
-    border-top: var(--rule-hair) solid var(--rule);
-    font-size: var(--fs-copy);
-  }
-
-  .tier-key__row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--sp-16) var(--sp-12);
-    margin-top: var(--sp-12);
-  }
-
-  @media (min-width: 640px) {
-    .tier-key__row {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--sp-24);
-    }
-  }
-
-  .tier-key__item {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-8);
-  }
-
-  .tier-key__item svg {
-    flex: none;
-  }
-
   /* A sensitivity range per indicator: how far one weight can move before the
      model picks a different community. The bar is the span that keeps the
      answer, the dot is the weight actually used, and the distance between the
@@ -1947,10 +1898,10 @@ const facts = [
 
      Drawn in CSS rather than as an SVG so the labels are real text at the
      page's own size. An SVG scales its type with the viewBox, and at 339px
-     these labels would land near six pixels. `.formula` and `.tier-key` are
-     the two generated visuals the system already has; neither is a plotted
-     range, so this is the third and it is deliberately the same materials:
-     body face, prose width, hairlines, one accent. */
+     these labels would land near six pixels. `.formula` is the other
+     generated visual the system has; it is not a plotted range, so this is a
+     second one, deliberately in the same materials: body face, prose width,
+     hairlines, one accent. */
   .weight-range {
     margin-top: var(--sp-8);
     font-size: var(--fs-copy);
@@ -2073,15 +2024,6 @@ const facts = [
     .weight-range__ticks {
       grid-column: 1;
     }
-  }
-
-  .tier-key__item span {
-    font-family: var(--font-mono);
-    font-size: var(--fs-micro);
-    font-weight: var(--fw-mono);
-    letter-spacing: 0.04em;
-    color: var(--text-2);
-    text-transform: uppercase;
   }
 
   /* Two numbers the section is built on, framed the way this page frames a
