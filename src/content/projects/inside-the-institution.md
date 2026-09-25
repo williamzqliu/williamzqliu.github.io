@@ -93,11 +93,9 @@ into the same dataset.
 
 ### Collaboration Map
 
-Explore the overall network, narrow it to an organizational unit, and inspect a
-scholar’s collaborators.
-
-I used a force-directed layout to organize scholars by their coauthorship connections,
-with affiliation shown through color.
+I used a force-directed layout to show coauthorship connections, with color indicating
+primary affiliation. Readers can filter by organizational unit and select a scholar to
+inspect their collaborators.
 
 <figure>
   <video
@@ -116,11 +114,8 @@ with affiliation shown through color.
 
 ### Research Units
 
-Browse departments and research centers, then inspect their membership and
-collaboration measures.
-
-I used a tiled layout to give departments and research centers distinct areas that
-readers could browse and compare.
+I grouped departments and research centers into a tiled layout so readers could start
+with an organizational unit, then inspect its members and collaboration measures.
 
 <figure>
   <video
@@ -139,11 +134,8 @@ readers could browse and compare.
 
 ### Bridging Scholars
 
-Explore connections between network communities, then select a community to inspect
-the scholars linking it to others.
-
-I explored depth as an encoding channel, placing communities on a shared plane and
-elevating scholars who connect them.
+I explored a 3D layout to show connections between network communities. Readers can
+select a community to inspect its connections and the scholars linking it to others.
 
 <!-- The recording shows the 3D community view, not the department score, so
      the caption describes what is on screen rather than the cross-unit
@@ -165,19 +157,17 @@ elevating scholars who connect them.
 
 ## Building the dataset
 
-The initial dataset identified scholars but lacked the departmental and research-center
-affiliations needed for organizational comparisons.
+The initial dataset identified scholars but lacked the affiliations needed to compare
+departments and research centers. I manually curated faculty and research-unit records,
+including primary appointments, additional affiliations, employment status, and years at
+Northeastern. I then connected these records to OpenAlex publication data and built a
+pipeline for identity checks, publication reconciliation, coauthorship ties, and
+unit-level summaries.
 
-I manually curated faculty and research-unit records, including primary appointments,
-additional affiliations, and employment status and years. I connected these records to
-publication data from OpenAlex and built a pipeline for identity checks, publication
-reconciliation, coauthorship edges, and unit-level summaries.
-
-The organizational records cover 11 colleges, 46 departments, and 64 research centers.
-The roster includes current, retired, and former faculty.
-
-I recorded primary and additional affiliations separately. The scholar panel displays
-both departmental and research-center affiliations.
+The organizational records cover 11 colleges, 46 departments, and 64 research centers,
+with a roster of current, retired, and former faculty. I recorded primary and additional
+affiliations separately; the scholar panel displays both departmental and
+research-center affiliations.
 
 Coauthorship captures only part of collaboration. Missing publication records and
 differences in how disciplines publish also affect who appears connected. An
@@ -244,42 +234,40 @@ institution and individual relationships.
 
 ### Keeping details in context
 
-Earlier versions linked from the side panel to a separate scholar profile. I brought
-profile details and Direct, 1-Hop, and 2-Hop controls into the panel beside the map, so
-readers could inspect a scholar and explore nearby connections in the same view.
+Earlier versions linked from the side panel to a separate scholar profile. I
+consolidated scholar details in the panel beside the map and added Direct, 1-Hop, and
+2-Hop controls, bringing profile inspection and local network exploration into the same
+view.
 
 <!-- Two details from two versions of the panel, not the same region before and
      after: the foot of the earlier one, and the top of the later one. Both are
      500px crops at one scale. The pair is held to 23rem a frame so the tall
-     crops stay under a screen, and stacks on a phone, where side by side the
-     type came out too small to read. -->
-<figure>
-  <div class="media-pair" data-stack style="--pair-split: repeat(2, minmax(0, 23rem))">
-    <figure>
-      <img
-        src="/media/inside-the-institution/side-panel-version-earlier.webp"
-        alt="The foot of an earlier scholar panel: research interests grouped by field, with an Open Scholar Profile button beneath them."
-        width="500"
-        height="932"
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption>Earlier: separate profile link</figcaption>
-    </figure>
-    <figure>
-      <img
-        src="/media/inside-the-institution/side-panel-version-revised.webp"
-        alt="A later scholar panel: Direct, 1-Hop and 2-Hop ego-network controls above the research interests."
-        width="500"
-        height="932"
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption>Revised: local network controls</figcaption>
-    </figure>
-  </div>
-  <figcaption>Details from two side-panel versions: a profile link and the later Direct, 1-Hop, and 2-Hop controls.</figcaption>
-</figure>
+     crops stay under a screen, and stays a row on a phone as well, so the two
+     are read side by side there too. -->
+<div class="media-pair" style="--pair-split: repeat(2, minmax(0, 23rem))">
+  <figure>
+    <img
+      src="/media/inside-the-institution/side-panel-version-earlier.webp"
+      alt="The foot of an earlier scholar panel: research interests grouped by field, with an Open Scholar Profile button beneath them."
+      width="500"
+      height="932"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Earlier: separate profile link</figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/media/inside-the-institution/side-panel-version-revised.webp"
+      alt="A later scholar panel: Direct, 1-Hop and 2-Hop ego-network controls above the research interests."
+      width="500"
+      height="932"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Revised: local network controls</figcaption>
+  </figure>
+</div>
 
 <figure>
   <img
@@ -300,37 +288,37 @@ Earlier versions placed view navigation, sub-navigation, and search together in 
 header. I flattened the navigation and moved scholar search into the Collaboration Map
 to distinguish switching views from exploring within a view.
 
-<!-- One column, so neither strip is shrunk to fit beside the other. Both crops
-     are at one scale, and the narrower one is held to its share of the wider
-     one's width (552 of 944) so the two headers' type comes out the same size. -->
-<figure>
-  <div class="media-pair" style="--pair-split: minmax(0, 1fr)">
-    <figure>
-      <img
-        src="/media/inside-the-institution/navigation-version-earlier.webp"
-        alt="An earlier header: three view tabs, with Collaboration Map and Ego Network buttons as a second level beneath them."
-        width="552"
-        height="196"
-        style="width: 58.47%"
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption>Earlier: nested navigation</figcaption>
-    </figure>
-    <figure>
-      <img
-        src="/media/inside-the-institution/navigation-version-revised.webp"
-        alt="The revised header: one flat row of views, from Overview and Collaboration Map to Methods and Credits."
-        width="944"
-        height="156"
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption>Revised: flat navigation</figcaption>
-    </figure>
-  </div>
-  <figcaption>View navigation stays in the header; scholar search sits within the Collaboration Map.</figcaption>
-</figure>
+<!-- Side by side from 640px, in columns of the crops' own widths (552 and
+     944): both are 184px tall, so they come out at one scale and one height.
+     On a phone the pair stacks, and the narrower crop is held to its share of
+     the wider one's width, the phone column less its 18px margins, so the
+     headers' type stays the same size there too. In the row `100%` is the
+     smaller value and wins. -->
+<div class="media-pair" data-stack style="--pair-split: 552fr 944fr">
+  <figure>
+    <img
+      src="/media/inside-the-institution/navigation-version-earlier.webp"
+      alt="An earlier header: three view tabs, with Collaboration Map and Ego Network buttons as a second level beneath them."
+      width="552"
+      height="184"
+      style="width: min(100%, calc((100vw - 36px) * 0.5847))"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Earlier: nested navigation</figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/media/inside-the-institution/navigation-version-revised.webp"
+      alt="The revised header: one flat row of views, from Overview and Collaboration Map to Methods and Credits."
+      width="944"
+      height="184"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Revised: flat navigation</figcaption>
+  </figure>
+</div>
 
 </details>
 
@@ -392,13 +380,13 @@ or postdoctoral researchers. Sessions combined open exploration with a task to f
 surprising connection, followed by a questionnaire.
 
 One participant noticed a scholar with a relatively low h-index but a high
-cross-department score. The measures drew attention to different aspects of that
-person’s research profile. This suggested a useful role for the tool: helping readers
-identify cases worth examining more closely.
+cross-department score. In this case, the score drew attention to a collaboration
+pattern that the h-index alone did not describe.
 
-Another participant questioned whether crossing departments necessarily meant crossing
-research topics. That distinction exposed a limit in the measure’s interpretation.
-Organizational distance and intellectual distance do not always align.
+Another participant questioned whether cross-department collaboration also meant
+collaboration across research topics. This highlighted a distinction the interface
+needed to explain: departmental affiliation does not directly indicate research-topic
+similarity.
 
 <details>
 <summary>Evaluation approach</summary>
@@ -443,13 +431,12 @@ different approach.
 ## Outcome and next steps
 
 The project produced an interactive prototype, an MFA thesis, and a poster presented at
-NetSci 2026. I brought institutional records and publication data into an interface
-where researchers could move between organizational patterns and individual
-collaboration profiles.
+NetSci 2026. I connected institutional records and publication data so researchers could
+explore collaboration across organizational units and individual scholars.
 
-The evaluation showed why those connections need explanation as well as navigation.
-Participants used the measures to notice unfamiliar patterns, but also questioned what
-crossing a department boundary meant. My next priorities are to clarify that
-definition, test a 2D alternative, and evaluate the revised guidance.
+The evaluation highlighted a remaining design problem: readers needed clearer
+explanations of what each measure represented, particularly the difference between
+departmental boundaries and research topics. My next priorities are to clarify the
+score’s definition and test a 2D alternative to the community view.
 
 [Explore the prototype](https://williamzqliu.com/neu-network-viz/)
