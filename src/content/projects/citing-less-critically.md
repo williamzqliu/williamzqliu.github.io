@@ -85,18 +85,32 @@ stages.
 <figure>
   <img
     src="/media/citing-less-critically/final-figure-1.webp"
-    alt="Three vertically stacked stages show citation masking and reconstruction, parallel intent labeling of original and LLM-generated sentences, and Dimensions matching followed by downstream analysis."
+    alt="Final framework redesigned by Zhuoqi Liu. Three vertically stacked stages show citation masking and reconstruction, parallel intent labeling of original and LLM-generated sentences, and Dimensions matching followed by downstream analysis."
     width="3200"
     height="2333"
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Figure 1.</strong> Follow the human and LLM-generated material through reconstruction, intent labeling, and bibliographic matching.</figcaption>
+  <figcaption><strong>Final framework redesigned by me (Figure 1).</strong> Read from top to bottom: citation reconstruction, intent labeling, and bibliographic matching.</figcaption>
 </figure>
 
-The submitted figure was created by Yixuan Liu. During peer review, a reviewer noted:
-**“Figure 1 is too visually dense.”** I then rebuilt the figure through six rounds of
-team feedback; the final version was used in the camera-ready manuscript.
+### Earlier version and redesign
+
+The earlier version below was created by Yixuan Liu. A reviewer described it as “too
+visually dense.” I rebuilt the figure through six rounds of team feedback, producing the
+final version shown above for the paper’s final manuscript.
+
+<figure>
+  <img
+    src="/media/citing-less-critically/submitted-figure-1.webp"
+    alt="Earlier framework created by Yixuan Liu, before Zhuoqi Liu’s redesign, with original, masked, and generated sentence panels across the top and long connectors leading to intent labeling and Dimensions matching below."
+    width="1024"
+    height="548"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption><strong>Earlier framework by Yixuan Liu.</strong> Before my redesign. Trace the connectors between reconstruction, intent labeling, and bibliographic matching.</figcaption>
+</figure>
 
 I organized the method into three horizontal bands, giving each stage a heading and a
 consistent top-to-bottom reading order. Within the labeling stage, I kept the original
@@ -107,18 +121,6 @@ I also reduced the emphasis on surrounding text while retaining the citation sen
 and reference lists needed to understand the example. In the final stage, I condensed
 the branching analysis details into a single row linking matched records, metadata, and
 the three research questions.
-
-<figure>
-  <img
-    src="/media/citing-less-critically/submitted-figure-1.webp"
-    alt="Submitted framework with original, masked, and generated sentence panels across the top and long connectors leading to intent labeling and Dimensions matching below."
-    width="1024"
-    height="548"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption><strong>Submitted framework by Yixuan Liu.</strong> Long connectors link sentence reconstruction, intent labeling, and bibliographic matching across the figure.</figcaption>
-</figure>
 
 <details>
 <summary>Framework iteration</summary>
@@ -131,13 +133,13 @@ reading direction consistent.
 <figure>
   <img
     src="/media/citing-less-critically/revised-figure-1.webp"
-    alt="Intermediate framework redesign with reconstruction across the top and two separately bounded stages for intent labeling and bibliographic matching side by side below."
+    alt="Intermediate framework redesign by Zhuoqi Liu, with reconstruction across the top and two separately bounded stages for intent labeling and bibliographic matching side by side below."
     width="3200"
     height="1675"
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Intermediate redesign.</strong> The stages are separated, but the reading direction still shifts from downward to sideways.</figcaption>
+  <figcaption><strong>Intermediate redesign by me.</strong> The stages are separated, but the reading direction still shifts from downward to sideways.</figcaption>
 </figure>
 
 The final figure retains a worked citation example alongside the method. This preserves
@@ -159,13 +161,13 @@ compare the calculation step by step.
 <figure>
   <img
     src="/media/citing-less-critically/final-figure-5a.webp"
-    alt="Two rows compare an original citation with an LLM-generated replacement. Each row identifies first and last authors, traces four coauthorship paths, and averages their lengths, yielding illustrative distances of 2.25 and 3."
+    alt="Social-distance diagram designed by Zhuoqi Liu. Two rows compare an original citation with an LLM-generated replacement. Each row identifies first and last authors, traces four coauthorship paths, and averages their lengths, yielding illustrative distances of 2.25 and 3."
     width="2576"
     height="1536"
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Figure 5a.</strong> Four author-pair path lengths produce each average; 2.25 and 3 are illustrative values, not study-wide results.</figcaption>
+  <figcaption><strong>Social-distance diagram designed by me (Figure 5a).</strong> Four author-pair path lengths produce each average; 2.25 and 3 are illustrative values, not study-wide results.</figcaption>
 </figure>
 
 <details>
