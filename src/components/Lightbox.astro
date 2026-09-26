@@ -480,11 +480,14 @@
         const from = source.currentTime;
         clip.src = source.currentSrc || source.src;
         clip.setAttribute('aria-label', source.getAttribute('aria-label') ?? '');
+        // A clip the reader has paused, or one held on its poster for reduced
+        // motion, opens paused on the same frame rather than starting itself.
+        const held = Boolean(source.dataset.held);
         clip.addEventListener(
           'loadedmetadata',
           () => {
             clip.currentTime = from;
-            void clip.play().catch(() => {});
+            if (!held) void clip.play().catch(() => {});
           },
           { once: true }
         );

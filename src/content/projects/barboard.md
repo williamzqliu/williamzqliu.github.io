@@ -109,15 +109,24 @@ Readers can look up a song directly or jump from a weekly highlight, such as the
 longest-charting song, to its row. Search includes songs beyond the initially displayed
 list, and a highlight can reveal a row that has not yet been expanded.
 
+<!-- Recorded from a local copy of the production site (barboard.space
+     7c5f6d7), BarboardLab issue 141. The pointer is a marker drawn for the
+     recording, since headless Chrome paints none; the scroll and the violet
+     row are the page's own. The poster is the opening frame at 2x. -->
 <figure>
-  <img
-    src="/media/barboard/bbl-current-chart.webp"
-    alt="The weekly chart page: ranked rows with album artwork, position movement and per-track figures in the main column, and a sidebar with a search field and highlight cards such as the biggest riser and the longest-charting song."
-    width="2880"
-    height="1800"
-    loading="lazy"
-    decoding="async"
-  />
+  <video
+    src="/media/barboard/bbl-highlight-demo.mp4"
+    poster="/media/barboard/bbl-highlight-poster.webp"
+    width="1440"
+    height="900"
+    muted
+    loop
+    playsinline
+    controls
+    preload="none"
+    data-controls
+    aria-label="The weekly chart with its highlight cards beside it. The pointer selects the biggest-drop card, Fire Away at number 95; the chart loads its remaining rows, scrolls down and marks that row."
+  ></video>
   <figcaption>Selecting a weekly highlight locates its song within the full ranking.</figcaption>
 </figure>
 
@@ -130,8 +139,9 @@ rankings. The 2026 event area also links to playlists and replay videos after vo
 closed.
 
 For readers looking for a particular song, I built a separate search across editions,
-with modes for song, artist, member, and language. A song that progressed through
-several rounds appears once, with its furthest stage reached. Links lead back to the
+with modes for song, artist, member, and language. Within each edition, repeated round
+records for the same song and submitting member are combined into one search result
+showing the furthest stage reached. Links lead back to the
 relevant edition and the member who submitted it.
 
 On mobile, the search results become individual cards.
@@ -139,27 +149,35 @@ On mobile, the search results become individual cards.
 <figure>
   <img
     src="/media/barboard/stats-responsive.webp"
-    alt="The same search results on desktop and on a phone. The desktop version is a seven-column table; on the phone each result becomes its own card, led by a large rank number."
-    width="3332"
-    height="1848"
+    alt="The same search for Love on desktop and on a phone, in song mode with 17 matches. The desktop shows the mode tabs, the search field and a table of the first six results; the phone shows the same controls and the first three results as cards."
+    width="2810"
+    height="1134"
     loading="lazy"
     decoding="async"
   />
-  <figcaption>A search result links the song to its contest edition and submitting member; on mobile, it becomes a self-contained card.</figcaption>
+  <figcaption>The same search appears as a table on desktop and as individual cards on mobile, with links to each edition and submitting member.</figcaption>
 </figure>
 
 Voting tables retain their grid because readers need to compare scores across songs and
 voters. I pinned the identifying columns while the remaining scores scroll horizontally.
 
+<!-- Real scrolling of the table's own container, desktop first and then the
+     phone, recorded separately and placed on one canvas. The poster is the
+     same frame at 2x: the 2026 Grand Final jury scoreboard, unscrolled. -->
 <figure>
-  <img
-    src="/media/barboard/scoreboard-responsive.webp"
-    alt="The same voting scoreboard on desktop and on a phone. On both, the leftmost columns naming each entry stay fixed while the grid of individual voter scores continues off to the right."
-    width="3332"
-    height="1848"
-    loading="lazy"
-    decoding="async"
-  />
+  <video
+    src="/media/barboard/scoreboard-scroll-demo.mp4"
+    poster="/media/barboard/scoreboard-responsive.webp"
+    width="1678"
+    height="880"
+    muted
+    loop
+    playsinline
+    controls
+    preload="none"
+    data-controls
+    aria-label="The 2026 Grand Final jury scoreboard on desktop and on a phone. Each table scrolls sideways in turn: the voter score columns move while the entry, member, total and jury columns stay in place."
+  ></video>
   <figcaption>Entry identifiers remain visible while the voting columns scroll horizontally.</figcaption>
 </figure>
 
@@ -274,20 +292,19 @@ broadcast system are documented in the [Barvision case study](/work/barvision/).
 <figure>
   <img
     src="/media/barboard/edition-theme-system.webp"
-    alt="Four edition pages for different years of the contest in a two by two grid. The layout is the same in all four while the colour palette and background artwork change between them."
-    width="2508"
-    height="1374"
+    alt="The tops of four edition pages in a two by two grid, for Qiqihar 2023, Tonghua 2024, Jinzhong 2025 and Chongqing 2026. Each keeps the same navigation bar and hero layout, with the city, the year and the contest logo, while the artwork and colours change."
+    width="2988"
+    height="1404"
     loading="lazy"
     decoding="async"
   />
-  <figcaption>Edition artwork and colors vary around consistent navigation and data-table styling.</figcaption>
+  <figcaption>Each edition uses its own artwork and colors within a shared navigation and hero layout.</figcaption>
 </figure>
 
 The published site combines a historical archive with ongoing community activity. A
 scheduled Python workflow retrieves the weekly chart and updates both its ranking data
 and the homepage announcement. Historical contest and annual-chart records follow
-separate import processes. The implementation uses front-end pages, data-update scripts,
-and third-party form delivery. I have not yet evaluated how members use the search and
+separate import processes. I have not yet evaluated how members use the search and
 archive features over time.
 
 <details>

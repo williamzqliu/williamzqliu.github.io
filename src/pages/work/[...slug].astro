@@ -1004,6 +1004,72 @@ const facts = [
     height: auto;
   }
 
+  /* A demonstration clip and its one control (see `addClipToggle`). The
+     button sits in the clip's lower right corner, over dark footage in every
+     case it is used, so it takes a dark plate of its own rather than the
+     page's colours. A full tap target, square like everything else here. */
+  .prose .clip {
+    position: relative;
+  }
+
+  .clip__toggle {
+    position: absolute;
+    right: var(--sp-12);
+    bottom: var(--sp-12);
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 0;
+    border: var(--rule-hair) solid rgb(255 255 255 / 0.28);
+    background: rgb(8 8 18 / 0.72);
+    color: #fff;
+    cursor: pointer;
+    transition: background var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Two bars when it is playing, a triangle when it is not. */
+  .clip__toggle::before {
+    content: '';
+    width: 12px;
+    height: 14px;
+    background: currentColor;
+    clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0);
+  }
+
+  .clip__toggle[data-state='paused']::before {
+    clip-path: polygon(8% 0, 100% 50%, 8% 100%);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .clip__toggle:hover {
+      background: rgb(8 8 18 / 0.9);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* On a phone the clip is about 340px wide and a 44px plate covered part of
+     the table it is showing, so the plate shrinks and the tap area does not:
+     the invisible band around it keeps the full target. */
+  @media (max-width: 639px) {
+    .clip__toggle {
+      right: var(--sp-8);
+      bottom: var(--sp-8);
+      width: 32px;
+      height: 32px;
+    }
+
+    .clip__toggle::before {
+      transform: scale(0.8);
+    }
+
+    .clip__toggle::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+    }
+  }
+
   /* Ink on a transparent ground gets the ground it was drawn on, dark theme
      included — see `--paper` in tokens.css. Opt-in per image: an export with
      its own background does not need one. */
@@ -2973,18 +3039,20 @@ const facts = [
     watching?.disconnect();
     watching = undefined;
 
-    const clips = Array.from(document.querySelectorAll<HTMLVideoElement>('.prose video[autoplay]'));
+    const clips = Array.from(
+      document.querySelectorAll<HTMLVideoElement>('.prose video[autoplay], .prose video[data-controls]')
+    );
     if (clips.length === 0) return;
 
     // A fixed lead rather than a share of the viewport: a clip starts a couple
     // of hundred pixels before it arrives, which is enough for a decoder to
     // spin up and short enough that a dense media section does not end up
-    // running six of them at once.
+    // running six of them at once. A clip the reader has paused stays paused.
     watching = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const clip = entry.target as HTMLVideoElement;
-          if (entry.isIntersecting) void clip.play().catch(() => {});
+          if (entry.isIntersecting && !clip.dataset.held) void clip.play().catch(() => {});
           else clip.pause();
         }
       },
@@ -2993,8 +3061,49 @@ const facts = [
 
     for (const clip of clips) {
       clip.pause();
+      if (clip.hasAttribute('data-controls')) addClipToggle(clip);
       watching.observe(clip);
     }
+  }
+
+  /* A demonstration clip, as opposed to a loop that only sets a scene: the
+     reader can stop it, and with reduced motion it waits on its poster until
+     they start it. Opt-in with `data-controls`. The markup carries native
+     `controls` and no `autoplay`, so with no JavaScript the clip is a poster
+     with a play button; this swaps the native bar for one quiet button. */
+  function addClipToggle(clip: HTMLVideoElement) {
+    if (clip.dataset.toggle) return;
+    clip.dataset.toggle = 'true';
+    clip.controls = false;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) clip.dataset.held = 'true';
+
+    const frame = document.createElement('div');
+    frame.className = 'clip';
+    clip.before(frame);
+    frame.append(clip);
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'clip__toggle';
+    frame.append(button);
+
+    const paint = () => {
+      const held = Boolean(clip.dataset.held);
+      button.setAttribute('aria-label', held ? 'Play demonstration' : 'Pause demonstration');
+      button.dataset.state = held ? 'paused' : 'playing';
+    };
+
+    button.addEventListener('click', () => {
+      if (clip.dataset.held) {
+        delete clip.dataset.held;
+        void clip.play().catch(() => {});
+      } else {
+        clip.dataset.held = 'true';
+        clip.pause();
+      }
+      paint();
+    });
+    paint();
   }
 
   /* The rail, cut by class and by mana cost. Every card carries the classes it
