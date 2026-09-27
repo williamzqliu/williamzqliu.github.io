@@ -26,8 +26,7 @@ cover:
   # page: the navigation links, back link and meta line are left out, and the
   # chart shows places 1 to 5 without the asterisked 4* row. The
   # banner is the head on a desktop; the 16:9 version, composed with safe
-  # margins for the card's hover zoom, is the card and the phone head. The
-  # logo plate (cover-wide.webp) is no longer shown.
+  # margins for the card's hover zoom, is the card and the phone head.
   wide: /media/barboard/cover-annual.webp
   heroWide: /media/barboard/hero-annual.webp
   heroMobile: /media/barboard/cover-annual.webp
