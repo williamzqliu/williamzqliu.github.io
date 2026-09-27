@@ -110,9 +110,10 @@ longest-charting song, to its row. Search includes songs beyond the initially di
 list, and a highlight can reveal a row that has not yet been expanded.
 
 <!-- Recorded from a local copy of the production site (barboard.space
-     7c5f6d7), BarboardLab issue 141. The pointer is a marker drawn for the
-     recording, since headless Chrome paints none; the scroll and the violet
-     row are the page's own. The poster is the opening frame at 2x. -->
+     053e56f), BarboardLab issue 141. The pointer is a marker drawn for the
+     recording, since headless Chrome paints none, and the site's Back to top
+     button was hidden in the recording only; the scroll and the violet row are
+     the page's own. The poster is the opening frame. -->
 <figure>
   <video
     src="/media/barboard/bbl-highlight-demo.mp4"
@@ -144,26 +145,37 @@ records for the same song and submitting member are combined into one search res
 showing the furthest stage reached. Links lead back to the
 relevant edition and the member who submitted it.
 
-On mobile, the search results become individual cards.
+The same search uses a table on desktop and individual cards on mobile, keeping each
+song’s edition and submitting member accessible in both layouts.
 
+<!-- Desktop and phone recorded separately in song mode and composited with
+     typing starting on the same frame. The phone pane is scaled 1.075 so both
+     windows are the same height with the mode tabs on one line. The poster is
+     the opening frame, both inputs empty. -->
 <figure>
-  <img
-    src="/media/barboard/stats-responsive.webp"
-    alt="The same search for Love on desktop and on a phone, in song mode with 17 matches. The desktop shows the mode tabs, the search field and a table of the first six results; the phone shows the same controls and the first three results as cards."
-    width="2810"
-    height="1134"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The same search appears as a table on desktop and as individual cards on mobile, with links to each edition and submitting member.</figcaption>
+  <video
+    src="/media/barboard/stats-search-demo.mp4"
+    poster="/media/barboard/stats-search-poster.webp"
+    width="1442"
+    height="566"
+    muted
+    loop
+    playsinline
+    controls
+    preload="none"
+    data-controls
+    aria-label="The query love is typed into the song search on desktop and mobile. Matching entries appear as table rows on desktop and cards on mobile."
+  ></video>
+  <figcaption>Typing ‘love’ filters the same archive into table rows on desktop and individual cards on mobile.</figcaption>
 </figure>
 
 Voting tables retain their grid because readers need to compare scores across songs and
 voters. I pinned the identifying columns while the remaining scores scroll horizontally.
 
 <!-- Real scrolling of the table's own container, desktop first and then the
-     phone, recorded separately and placed on one canvas. The poster is the
-     same frame at 2x: the 2026 Grand Final jury scoreboard, unscrolled. -->
+     phone, recorded separately and placed on one canvas at one scale, with the
+     two scoreboards' top edges on the same line. The poster is the opening
+     frame: the 2026 Grand Final jury scoreboard, unscrolled. -->
 <figure>
   <video
     src="/media/barboard/scoreboard-scroll-demo.mp4"
@@ -204,59 +216,39 @@ People provide a different route through the same history. I built a directory
 searchable by nickname or account name, with filters for community groups and
 participation in a particular Barvision edition.
 
+Each profile brings together contest participation and personal year-end charts in
+separate sections. Readers can follow a member’s contest results and ranking history,
+then explore their annual selections and contributions to the community charts.
+
+Personal charts initially show the top three songs. Readers can expand a year to see its
+full Top 10, then collapse it to continue through the archive.
+
+<!-- One desktop session on a local copy of the production site (barboard.space
+     053e56f): a search in the member directory, a real click through to
+     member 7, and the page scrolled to its foot. The pointer is a marker
+     drawn for the recording, and the site's Back to top button was hidden in
+     the recording only. The poster is the top of the member page. -->
 <figure>
-  <img
-    src="/media/barboard/member-directory.webp"
-    alt="The member directory with name search, community-group and Barvision filters, the member count, and cards linking to individual profiles."
-    width="2360"
-    height="1572"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Name search and activity filters lead to individual members’ records.</figcaption>
+  <video
+    src="/media/barboard/member-journey-demo.mp4"
+    poster="/media/barboard/member-journey-poster.webp"
+    width="1440"
+    height="900"
+    muted
+    loop
+    playsinline
+    controls
+    preload="none"
+    data-controls
+    aria-label="A member search for williw_ opens their profile. The page scrolls through contest results and ranking history, then expands and collapses the 2023 personal Top 10 before continuing to the bottom."
+  ></video>
+  <figcaption>Searching for a member leads to their contest history and personal year-end charts, where each list expands from three songs to ten.</figcaption>
 </figure>
 
 I linked historical records through stable member IDs, accounting for changing nicknames
-and jointly submitted songs. This lets the same person’s participation appear together
-across editions and activities.
-
-Each profile keeps contest participation and personal year-end charts in separate
-sections. The Barvision section combines results, a sortable song table, and a ranking
-history. The year-end section shows available personal Top 10 lists and how many of that
-member’s selections appeared in the community’s combined rankings.
-
-<!-- Both profile crops are member 7, captured from the live site at 1440 by
-     900 and 2x: the first from the name down to the end of the ranking
-     history, the second from the year-end heading to the end of the expanded
-     2023 Top 10. -->
-<figure>
-  <img
-    src="/media/barboard/member-profile.webp"
-    alt="A member profile: the member’s name and edition badges, then the Barvision section with summary figures, a sortable table of their contest entries and results, and a line chart of their placing in each edition."
-    width="2360"
-    height="2690"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Contest results and ranking history remain grouped under the member who submitted the songs.</figcaption>
-</figure>
-
-<figure>
-  <img
-    src="/media/barboard/member-annual-records.webp"
-    alt="The year-end section of the same member’s profile, showing contribution counts and an expanded personal Top 10 list."
-    width="2360"
-    height="2360"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The same profile connects personal year-end selections with their presence in the community chart.</figcaption>
-</figure>
-
-I used in-page navigation to connect the sections and expandable lists to keep several
-years of personal charts manageable. Where source material is incomplete, the profile
-identifies the missing records. Members can also export their Barvision ranking history
-or complete contest record as an image.
+and jointly submitted songs. Where source material is incomplete, the profile identifies
+the missing records. Members can also export their Barvision ranking history or complete
+contest record as an image.
 
 <details>
 <summary>Personal records and exports</summary>

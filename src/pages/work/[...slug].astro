@@ -1012,6 +1012,10 @@ const facts = [
     position: relative;
   }
 
+  .clip__toggle[hidden] {
+    display: none;
+  }
+
   .clip__toggle {
     position: absolute;
     right: var(--sp-12);
@@ -3092,6 +3096,12 @@ const facts = [
       button.setAttribute('aria-label', held ? 'Play demonstration' : 'Pause demonstration');
       button.dataset.state = held ? 'paused' : 'playing';
     };
+
+    // A clip that cannot load is its poster, and a control would only claim
+    // there is something to play.
+    clip.addEventListener('error', () => {
+      button.hidden = true;
+    });
 
     button.addEventListener('click', () => {
       if (clip.dataset.held) {
