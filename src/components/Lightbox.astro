@@ -56,6 +56,10 @@
         the viewer is the same object, only bigger. */}
     <video class="lb__vid" data-lightbox-vid muted loop playsinline preload="metadata" hidden
     ></video>
+    {/* Only for a demonstration clip (`data-controls` on the page's video):
+        the same button the page puts on it, in the same corner of the clip.
+        The script keeps it on that corner as the clip is fitted or zoomed. */}
+    <button class="lb__play" type="button" data-lightbox-play hidden></button>
     <figcaption class="lb__cap" data-lightbox-cap hidden></figcaption>
   </figure>
 </dialog>
@@ -278,6 +282,70 @@
     right: var(--sp-16);
   }
 
+  /* The page's clip button (`.clip__toggle` in [...slug].astro), repeated:
+     a dark plate over the footage, two bars or a triangle, full tap target.
+     `left` and `top` come from the script, which puts it 12px in from the
+     clip's lower right corner. */
+  .lb__figure {
+    position: relative;
+  }
+
+  .lb__play {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 0;
+    border: var(--rule-hair) solid rgb(255 255 255 / 0.28);
+    background: rgb(8 8 18 / 0.72);
+    color: #fff;
+    cursor: pointer;
+    transition: background var(--dur-hover-out) var(--ease-out);
+  }
+
+  .lb__play[hidden] {
+    display: none;
+  }
+
+  .lb__play::before {
+    content: '';
+    width: 12px;
+    height: 14px;
+    background: currentColor;
+    clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0);
+  }
+
+  .lb__play[data-state='paused']::before {
+    clip-path: polygon(8% 0, 100% 50%, 8% 100%);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lb__play:hover {
+      background: rgb(8 8 18 / 0.9);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
+  /* As on the page: a smaller plate on a phone, the full target kept by an
+     invisible band around it. */
+  @media (max-width: 639px) {
+    .lb__play {
+      width: 32px;
+      height: 32px;
+    }
+
+    .lb__play::before {
+      transform: scale(0.8);
+    }
+
+    .lb__play::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+    }
+  }
+
   .lb__step {
     top: 50%;
     transform: translateY(-50%);
@@ -336,6 +404,7 @@
       top: var(--sp-24);
       right: var(--sp-24);
     }
+
 
     .lb__step--prev {
       left: var(--sp-16);
@@ -397,7 +466,8 @@
     const frame = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]');
     const clip = dialog?.querySelector<HTMLVideoElement>('[data-lightbox-vid]');
     const caption = dialog?.querySelector<HTMLElement>('[data-lightbox-cap]');
-    if (!dialog || !frame || !clip || !caption) return;
+    const play = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-play]');
+    if (!dialog || !frame || !clip || !caption || !play) return;
 
     listeners = new AbortController();
     const { signal } = listeners;
@@ -454,6 +524,44 @@
       });
     };
 
+    // Offsets inside the figure, so the entrance scale and a pinch do not
+    // throw it off; re-run whenever the clip changes size.
+    const placePlay = () => {
+      if (play.hidden || clip.hidden) return;
+      const inset = window.matchMedia('(max-width: 639px)').matches ? 8 : 12;
+      play.style.left = `${clip.offsetLeft + clip.offsetWidth - play.offsetWidth - inset}px`;
+      play.style.top = `${clip.offsetTop + clip.offsetHeight - play.offsetHeight - inset}px`;
+    };
+    const sizing = new ResizeObserver(placePlay);
+    sizing.observe(clip);
+    signal.addEventListener('abort', () => sizing.disconnect());
+    window.addEventListener('resize', placePlay, { signal });
+
+    const paintPlay = (held: boolean) => {
+      play.dataset.state = held ? 'paused' : 'playing';
+      play.setAttribute('aria-label', held ? 'Play demonstration' : 'Pause demonstration');
+    };
+
+    // Stopping or starting the enlarged clip is the reader's choice for that
+    // clip, so the page's copy takes the same state and its own button is
+    // repainted: closing the viewer does not undo it.
+    const togglePlay = () => {
+      const source = gallery[index];
+      if (!source || !isClip(source)) return;
+      const hold = !clip.paused;
+      if (hold) {
+        clip.pause();
+        source.dataset.held = 'true';
+        source.pause();
+      } else {
+        void clip.play().catch(() => {});
+        delete source.dataset.held;
+        void source.play().catch(() => {});
+      }
+      source.dispatchEvent(new Event('clipheld'));
+      paintPlay(hold);
+    };
+
     const render = () => {
       const source = gallery[index];
 
@@ -483,6 +591,9 @@
         // A clip the reader has paused, or one held on its poster for reduced
         // motion, opens paused on the same frame rather than starting itself.
         const held = Boolean(source.dataset.held);
+        play.hidden = !source.hasAttribute('data-controls');
+        paintPlay(held);
+        placePlay();
         clip.addEventListener(
           'loadedmetadata',
           () => {
@@ -492,6 +603,7 @@
           { once: true }
         );
       } else {
+        play.hidden = true;
         clip.pause();
         clip.hidden = true;
         clip.removeAttribute('src');
@@ -627,6 +739,10 @@
         // would step it and then close the viewer.
         if (threw) {
           threw = false;
+          return;
+        }
+        if ((event.target as HTMLElement | null)?.closest('[data-lightbox-play]')) {
+          togglePlay();
           return;
         }
         const step = (event.target as HTMLElement | null)?.closest<HTMLElement>(
@@ -784,7 +900,7 @@
       'pointerdown',
       (event) => {
         if (event.pointerType === 'mouse') return;
-        if ((event.target as HTMLElement | null)?.closest('[data-lightbox-close]')) return;
+        if ((event.target as HTMLElement | null)?.closest('[data-lightbox-close], [data-lightbox-play]')) return;
         touches.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
         if (touches.size === 2) {

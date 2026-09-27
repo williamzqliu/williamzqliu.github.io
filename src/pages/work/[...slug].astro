@@ -3097,6 +3097,9 @@ const facts = [
       button.dataset.state = held ? 'paused' : 'playing';
     };
 
+    // The viewer can stop or start the same clip; it says so with this.
+    clip.addEventListener('clipheld', () => paint());
+
     // A clip that cannot load is its poster, and a control would only claim
     // there is something to play.
     clip.addEventListener('error', () => {
