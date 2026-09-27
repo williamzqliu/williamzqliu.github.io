@@ -183,11 +183,8 @@ and looping backgrounds.
 The grand final needed to move between dense result screens and individual moments of
 anticipation. I designed the sequence around three tasks: recognizing an entry,
 following a change in rank, and understanding what the final challenger needed to win.
-
-<!-- The one source note for the broadcast excerpts in this section. It does
-     not apply to the loops in Section 02 or to the draw. -->
-
-<p class="code-note">Edited live-broadcast excerpts, with selected passages re-recorded to address an audio interruption and presentation pauses.</p>
+The clips below are edited excerpts from the live final, with selected passages
+re-recorded to address an audio interruption and presentation pauses.
 
 ### Recognizing each entry
 
@@ -318,7 +315,7 @@ to win, and expands the scale near the leader so a small difference remains visi
     data-nozoom
     aria-label="The final duel: the current leader and the last challenger side by side with their totals, a scale between them, and a line above saying how many points the challenger needs to win."
   ></video>
-  <figcaption>The challenger’s remaining points to win stay visible throughout the final count.</figcaption>
+  <figcaption>The final duel shows how many points the challenger needs to take the lead.</figcaption>
 </figure>
 
 After the final duel, the broadcast returned to the complete standings. Staged entrances
