@@ -75,9 +75,9 @@ information appeared, how rankings changed, and how each reveal unfolded. Eurovi
 provided a production reference, while the community’s entries and my role as both host
 and operator shaped the design.
 
-I initially planned to introduce the browser player for the semi-final, but its more
-complex running order could not be completed within the available time. The semi-final
-used PowerPoint; the custom player was used for the live grand final.
+The semi-final remained in PowerPoint because its more complex running order could not
+be implemented within the available time. I introduced the browser player for the grand
+final.
 
 ## Echoing Confluence
 
@@ -88,7 +88,7 @@ ripples, interference patterns, and refracted light.
 <figure>
   <img
     src="/media/barvision/gf-cover.webp"
-    alt="The Grand Final key visual: the Barvision wordmark, its V a pentagon, over curved streaks of violet, magenta and cyan light, with Song Contest and Chongqing 2026 set beneath it."
+    alt="The Grand Final key visual: the Barvision wordmark, its V a pentagon, over curved streaks of violet, magenta and cyan light, with Song Contest and Chongqing 2026 beneath it and Grand Final in iridescent lettering below."
     width="2560"
     height="1440"
     loading="lazy"
@@ -187,8 +187,7 @@ following a change in rank, and understanding what the final challenger needed t
 <!-- The one source note for the broadcast excerpts in this section. It does
      not apply to the loops in Section 02 or to the draw. -->
 
-Broadcast excerpts are edited from the live final. Selected passages were re-recorded to
-address an audio interruption and presentation pauses.
+<p class="code-note">Edited live-broadcast excerpts, with selected passages re-recorded to address an audio interruption and presentation pauses.</p>
 
 ### Recognizing each entry
 
@@ -232,7 +231,7 @@ leaderboard. The 12-point award received a longer pause and a distinct visual tr
     data-loop
     aria-label="The jury board during voting: twenty-six rows carrying running totals, a juror’s name on the right, and their points landing on the receiving entries while the rows reorder around them."
   ></video>
-  <figcaption>The reveal separates the score recipients, updated totals, and ranking changes into successive moments.</figcaption>
+  <figcaption>Points are revealed on the right before totals and ranks update on the left.</figcaption>
 </figure>
 
 ### Making rank changes legible
@@ -258,7 +257,7 @@ movement.
     data-loop
     aria-label="The leaderboard reordering as scores arrive: rows sliding out sideways, the rows below falling into the gaps they leave, and the promoted rows sliding back in at their new ranks."
   ></video>
-  <figcaption>A three-beat reorder makes room for promoted entries while preserving the direction of the ranking.</figcaption>
+  <figcaption>Promoted entries move out, displaced rows fall, and promoted entries return at their new ranks.</figcaption>
 </figure>
 
 <details>
@@ -294,7 +293,7 @@ leaderboard settled.
     data-loop
     aria-label="The televote in cyan: an entrant’s score counting up to a large figure on the right while the board reorders around the row it belongs to."
   ></video>
-  <figcaption>The count slows near leading totals, then the updated score passes into the leaderboard.</figcaption>
+  <figcaption>The count slows as an entry approaches the leading totals.</figcaption>
 </figure>
 
 For the last reveal, I adapted Eurovision’s head-to-head format to focus on the current
@@ -319,7 +318,7 @@ to win, and expands the scale near the leader so a small difference remains visi
     data-nozoom
     aria-label="The final duel: the current leader and the last challenger side by side with their totals, a scale between them, and a line above saying how many points the challenger needs to win."
   ></video>
-  <figcaption>The final duel focuses attention on the remaining points needed to win.</figcaption>
+  <figcaption>The challenger’s remaining points to win stay visible throughout the final count.</figcaption>
 </figure>
 
 After the final duel, the broadcast returned to the complete standings. Staged entrances
@@ -339,7 +338,7 @@ closing results to the host city.
     data-loop
     aria-label="The grand final results over night footage of Chongqing: the final standings entering column by column, then the winning entry marked at the top."
   ></video>
-  <figcaption>The final standings return through a staged entrance over night footage of Chongqing.</figcaption>
+  <figcaption>The final standings enter column by column over night footage of Chongqing.</figcaption>
 </figure>
 
 <details>
@@ -432,9 +431,6 @@ accidentally accumulated score.
 A media watchdog attempts to restart interrupted playback. A separate performance mode
 pauses decorative video layers to reduce load while retaining the main scoring display.
 
-These mechanisms support operation, but do not guarantee uninterrupted playback or
-restore the show’s position after a page reload.
-
 </details>
 
 ## Making the Draw Reproducible
@@ -495,11 +491,11 @@ The browser player was used for the live grand final, including the final duel. 
 background-music interruption showed that audio continuity needed more explicit checks
 alongside the visual transitions rehearsed during development.
 
-For future editions, my goal is to refresh the visual package and contest data while
-keeping the core playback logic largely intact. The 2026 system provides a starting
-point, but still contains edition-specific layouts, timing choices, and cue behavior.
-Reuse across editions remains to be tested.
+For future editions, I want to retain the core playback logic while refreshing the
+visual package and contest data. The next step is to separate the remaining
+edition-specific layouts, timing, and cue behavior, then test that approach in another
+production.
 
-After the season, I published the results to [Barboard’s permanent
-archive](/work/barboard/), connecting the live event with the community’s longer
-history.
+After the season, I published the [full results on
+Barboard](https://barboard.space/barvision/2026/), connecting the live event with the
+community’s longer history.
