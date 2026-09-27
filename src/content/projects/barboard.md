@@ -104,10 +104,9 @@ Their supporting figures differ: weekly charts show movement, peak position, wee
 the chart, and current points; annual charts show combined points and how many member
 lists included each song.
 
-I added search and linked highlights to support different ways of exploring a ranking.
-Readers can look up a song directly or jump from a weekly highlight, such as the
-longest-charting song, to its row. Search includes songs beyond the initially displayed
-list, and a highlight can reveal a row that has not yet been expanded.
+I added search for finding a specific song and linked highlights for exploring notable
+chart changes. Both work beyond the initially displayed rows. In the example below,
+selecting the biggest drop reveals the remaining entries and brings the song into view.
 
 <!-- Recorded from a local copy of the production site (barboard.space
      053e56f), BarboardLab issue 141. The pointer is a marker drawn for the
@@ -145,8 +144,9 @@ records for the same song and submitting member are combined into one search res
 showing the furthest stage reached. Links lead back to the
 relevant edition and the member who submitted it.
 
-The same search uses a table on desktop and individual cards on mobile, keeping each
-song’s edition and submitting member accessible in both layouts.
+Search results can be read independently, so I presented them as individual cards on
+mobile. Each card keeps the song, result, edition, and submitting member together, while
+desktop readers can scan the same fields in a table.
 
 <!-- Desktop and phone recorded separately in song mode and composited with
      typing starting on the same frame. The phone pane is scaled 1.075 so both
@@ -169,8 +169,9 @@ song’s edition and submitting member accessible in both layouts.
   <figcaption>Typing ‘love’ filters the same archive into table rows on desktop and individual cards on mobile.</figcaption>
 </figure>
 
-Voting tables retain their grid because readers need to compare scores across songs and
-voters. I pinned the identifying columns while the remaining scores scroll horizontally.
+Voting records require comparison across entries and voters, so I retained the grid on
+mobile. Identifying columns stay fixed while the individual scores scroll horizontally,
+keeping each score connected to its entry.
 
 <!-- Real scrolling of the table's own container, desktop first and then the
      phone, recorded separately and placed on one canvas at one scale, with the
@@ -196,9 +197,7 @@ voters. I pinned the identifying columns while the remaining scores scroll horiz
 <details>
 <summary>Search and score records</summary>
 
-I grouped search records by edition, member, artist, and song, retaining the record from
-the furthest competition stage. Detailed results remain on the edition pages, where
-readers can inspect each round separately.
+Detailed round-by-round results remain on the edition pages.
 
 The 2026 import preserves published score values and includes checks against individual
 jury votes. Approval-vote rounds retain their published ties and are excluded from
@@ -216,12 +215,14 @@ People provide a different route through the same history. I built a directory
 searchable by nickname or account name, with filters for community groups and
 participation in a particular Barvision edition.
 
-Each profile brings together contest participation and personal year-end charts in
-separate sections. Readers can follow a member’s contest results and ranking history,
-then explore their annual selections and contributions to the community charts.
+I linked historical records through stable member IDs, accounting for changing nicknames
+and jointly submitted songs. Each profile brings a member’s contest results and ranking
+history together with their personal year-end selections and contributions to the
+community charts.
 
-Personal charts initially show the top three songs. Readers can expand a year to see its
-full Top 10, then collapse it to continue through the archive.
+Contest records and personal charts remain in separate sections. To keep several years
+of selections manageable, each available personal list initially shows three songs and
+expands to its full Top 10.
 
 <!-- One desktop session on a local copy of the production site (barboard.space
      053e56f): a search in the member directory, a real click through to
@@ -242,13 +243,11 @@ full Top 10, then collapse it to continue through the archive.
     data-controls
     aria-label="A member search for williw_ opens their profile. The page scrolls through contest results and ranking history, then expands and collapses the 2023 personal Top 10 before continuing to the bottom."
   ></video>
-  <figcaption>Searching for a member leads to their contest history and personal year-end charts, where each list expands from three songs to ten.</figcaption>
+  <figcaption>A member search connects contest history with personal year-end charts; available lists expand from three songs to ten.</figcaption>
 </figure>
 
-I linked historical records through stable member IDs, accounting for changing nicknames
-and jointly submitted songs. Where source material is incomplete, the profile identifies
-the missing records. Members can also export their Barvision ranking history or complete
-contest record as an image.
+Where source material is incomplete, the profile identifies the missing records. Members
+can also export their Barvision ranking history or complete contest record as an image.
 
 <details>
 <summary>Personal records and exports</summary>
@@ -268,9 +267,8 @@ sheet; otherwise it downloads as a PNG.
 ## A shared interface across editions
 
 I built the contest pages around a shared renderer and separate data files for each
-edition. The renderer accommodates changes in competition structure, including separate
-song categories, semifinals, finals, and approval-vote rounds. This keeps page behavior
-consistent while preserving each edition’s rules and results.
+edition. The renderer handles differences in competition structure and voting formats,
+keeping page behavior consistent while preserving each edition’s rules and results.
 
 For the recent editions shown here, I designed the event identities and translated them
 into theme settings for artwork, colors, and hero treatments. Shared navigation,
@@ -293,12 +291,6 @@ broadcast system are documented in the [Barvision case study](/work/barvision/).
   <figcaption>Each edition uses its own artwork and colors within a shared navigation and hero layout.</figcaption>
 </figure>
 
-The published site combines a historical archive with ongoing community activity. A
-scheduled Python workflow retrieves the weekly chart and updates both its ranking data
-and the homepage announcement. Historical contest and annual-chart records follow
-separate import processes. I have not yet evaluated how members use the search and
-archive features over time.
-
 <details>
 <summary>Data updates and event support</summary>
 
@@ -307,10 +299,9 @@ a week after its chart date. I wrote a Python script to retrieve the published r
 and convert them into JSON. Scheduled GitHub Actions runs update the chart data, homepage
 ticker, and dated announcement together.
 
-Fetch failures leave the previous chart data in place. The current workflow does not
-reliably distinguish a new issue, an unchanged issue, and a handled fetch failure in its
-success status. Historical contest and annual-chart records follow separate import
-processes.
+If a chart request fails, the script retains the previous data so the page remains
+available. A next improvement is to distinguish a newly published issue from an
+unchanged chart or a failed request, and notify the maintainer after repeated failures.
 
 During Barvision 2026, the submission page used different states before registration
 opened, while submissions were accepted, and after registration closed. Browser-side
@@ -319,3 +310,8 @@ delivery. The receipt applies to the same browser and device. After the event, p
 and replay links remain available.
 
 </details>
+
+The published site brings historical records and ongoing community activity into one
+place. Weekly charts are retrieved on a schedule, while contest and year-end archives
+follow separate import processes. I have not yet evaluated how members use the search
+and archive features over time.
