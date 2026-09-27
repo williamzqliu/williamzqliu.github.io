@@ -3044,7 +3044,9 @@ const facts = [
     watching = undefined;
 
     const clips = Array.from(
-      document.querySelectorAll<HTMLVideoElement>('.prose video[autoplay], .prose video[data-controls]')
+      document.querySelectorAll<HTMLVideoElement>(
+        '.prose video[autoplay], .prose video[data-controls], .prose video[data-loop], .prose video[data-player]'
+      )
     );
     if (clips.length === 0) return;
 
@@ -3052,10 +3054,20 @@ const facts = [
     // of hundred pixels before it arrives, which is enough for a decoder to
     // spin up and short enough that a dense media section does not end up
     // running six of them at once. A clip the reader has paused stays paused.
+    // A `data-player` clip is a long excerpt with the browser's own controls:
+    // it only ever starts when the reader starts it, and stops when they
+    // scroll away from it. A `data-loop` clip is a loop with no control of
+    // its own: it plays in view like an `autoplay` one, is not fetched until
+    // then, and under reduced motion stays on its poster.
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     watching = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const clip = entry.target as HTMLVideoElement;
+          if (clip.hasAttribute('data-player') || (still && clip.hasAttribute('data-loop'))) {
+            if (!entry.isIntersecting) clip.pause();
+            continue;
+          }
           if (entry.isIntersecting && !clip.dataset.held) void clip.play().catch(() => {});
           else clip.pause();
         }

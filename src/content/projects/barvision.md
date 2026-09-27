@@ -2,7 +2,7 @@
 title: Barvision Chongqing 2026
 year: 2026
 dates: Jun 2026 – Aug 2026
-blurb: A live song contest I organized, art-directed, hosted, and operated, with a custom broadcast system for its three-hour grand final.
+blurb: I organized, designed, hosted, and operated a community song contest, creating its visual identity and a browser-based system for the live grand final.
 tags: [interactive, narrative]
 tracks: [design, engineering]
 category: interfaces-experiences
@@ -27,9 +27,9 @@ cover:
   alt: The contest title card, showing the Barvision wordmark, its V replaced by a pentagon, over curved streaks of cyan, violet and magenta light, above the lines Song Contest and Chongqing 2026.
 quickFacts:
   - label: "Role"
-    value: "Organizer, Art Director, Host & Broadcast Systems Designer"
+    value: "Event organization, visual & motion design, broadcast interaction design, hosting & live operation"
   - label: "Outcome"
-    value: "Three live broadcasts, including a verifiable allocation draw and a three-hour grand final run from a purpose-built browser system"
+    value: "Delivered three live broadcasts, including a reproducible allocation draw and a three-hour grand final operated through a custom browser player."
 credits:
   skills:
     - Art direction
@@ -45,801 +45,461 @@ credits:
     - Figma
     - FFmpeg
     - OBS
-  # Two named groups with the same person in both, so `Team` would claim a
+  # Named groups with the same person in each, so `Team` would claim a
   # collaboration that did not happen. Same shape and same label as Comgrand.
   teamLabel: Roles
   team:
-    - group: Organization, art direction and hosting
+    - group: Event organization, hosting & live operation
       people:
         - Zhuoqi Liu
-    - group: Broadcast design, development and live production
+    - group: Visual identity, posters, cards & motion design
+      people:
+        - Zhuoqi Liu
+    - group: Broadcast interaction design & implementation review
       people:
         - Zhuoqi Liu
   specialThanks:
     - Barboard members
-  note: Selected coding tasks were supported by Claude Code.
+  note: I led the design decisions and implementation review. Claude Code handled most of the code implementation.
 ---
 
-## Reimagining the Broadcast
+## From Slides to a Live Show
 
-Inspired by Eurovision, Barvision is an annual song contest within
-[Barboard](/work/barboard#from-tieba-to-barboardspace). The 2026 edition brought together
-40 participants across 38 competing entries. As the previous year's winner, I organized,
-art-directed, hosted, and operated the Chongqing edition.
+Inspired by Eurovision, Barvision is an annual song contest within the Barboard
+community. The 2026 edition brought together 40 participants across 38 competing
+entries. As the previous year’s winner, I took responsibility for organizing, designing,
+hosting, and operating the Chongqing edition.
 
-Earlier editions relied largely on PowerPoint, which limited motion and live score
-presentation. For 2026, I wanted the Bilibili broadcasts to feel closer to a produced
-live show than a sequence of slides.
+Earlier editions relied largely on PowerPoint. For 2026, I wanted more control over how
+information appeared, how rankings changed, and how each reveal unfolded. Eurovision
+provided a production reference, while the community’s entries and my role as both host
+and operator shaped the design.
 
-I used Eurovision 2024 as a production reference and built the Grand Final around an
-HTML/CSS-based broadcast system. That gave me more control over animation, ranking
-changes, and reveal pacing.
-
-<!-- PARKED from the previous draft of this section, which this rewrite
-     replaces. None of it is published elsewhere on the page. Delete once each
-     fact has a home in Sections 02 to 06 or has been ruled out.
-
-     1. The borrowed format, and the statement that none of it is my
-        invention: a jury vote and a public televote scored separately, points
-        awarded on a 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 ladder, semi-finals feeding
-        a grand final, a host city on the branding, a Running Order. The name
-        comes from the same place. Section 05 is where the reveal structure is
-        due to be explained, so the ladder and the two-act vote probably belong
-        there; the acknowledgement itself needs a home wherever the format is
-        first described in detail.
-
-     2. My standing in the community: core member of Barboard.
-
-     3. Terms: no one was paid, and the reason given was wanting the community
-        to have it. Nothing on the page currently says the work was unpaid.
-
-     4. The claim that what is mine is everything between the borrowed format
-        and the finished broadcast. The old draft sized that broadcast at two
-        hours; the Outcome now says three, so the number does not survive the
-        move without being checked.
--->
+I initially planned to introduce the browser player for the semi-final, but its more
+complex running order could not be completed within the available time. The semi-final
+used PowerPoint; the custom player was used for the live grand final.
 
 ## Echoing Confluence
 
-The 2026 identity began with its host city, Chongqing. I used the confluence of the
-Jialing and Yangtze rivers as a visual metaphor for sound. Under the theme
-*Echoing Confluence*, overlapping ripples and interference patterns became the event's
-core visual language. The promo posters carried that language into a modular grid of color
-blocks.
+The identity began with Chongqing, where the Jialing and Yangtze rivers meet. Under the
+theme Echoing Confluence, I translated that meeting of currents into overlapping
+ripples, interference patterns, and refracted light.
 
-<!-- The key visual beside the three stage posters, as one block.
+<figure>
+  <img
+    src="/media/barvision/gf-cover.webp"
+    alt="The Grand Final key visual: the Barvision wordmark, its V a pentagon, over curved streaks of violet, magenta and cyan light, with Song Contest and Chongqing 2026 set beneath it."
+    width="2560"
+    height="1440"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>The Grand Final key visual translates the river-confluence concept into overlapping fields of light.</figcaption>
+</figure>
 
-     Every master is 16:9, so a tall left column is not available: three 16:9
-     frames stacked come to three times the height of one, plus two inner
-     gutters. An `fr` ratio only balances that at one viewport, because the
-     gutters are fixed pixels while the columns are not, so the split is solved
-     instead: left = 3/4 of the block + two gutters x 16/9.
+Eurovision 2024’s posters were the main reference for the promotional layouts. I
+developed the Chongqing edition’s posters around the Echoing Confluence concept, using a
+modular grid, ripple imagery, and a coordinated palette across the three broadcasts.
 
-     The right column is a figure holding a one-column `.media-pair`, which is
-     the documented way to put several frames under a single caption. No new
-     CSS: both columns and the stack are the pair pattern with a split. -->
-
-<div class="media-pair" data-stack style="--pair-split: calc(75% + 3.3px) 1fr">
+<!-- The three posters in the order the season ran, one row at every width. -->
+<div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
   <figure>
     <img
-      src="/media/barvision/gf-cover.webp"
-      alt="The Grand Final key visual: the Barvision wordmark, its V a pentagon, over curved streaks of violet, magenta and cyan light, with Song Contest and Chongqing 2026 set beneath it."
+      src="/media/barvision/poster-allocation-draw.webp"
+      alt="The poster system in blue and violet: Allocation Draw in white over a ripple field, the wordmark at the centre, and July 24 with a Beijing time of 21:00 on yellow."
       width="2560"
       height="1440"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Grand Final cover</figcaption>
+    <figcaption>Allocation Draw</figcaption>
   </figure>
-
   <figure>
-    <div class="media-pair" data-phone-row style="--pair-split: minmax(0, 1fr)">
-      <img
-        src="/media/barvision/poster-grand-final.webp"
-        alt="A poster built from colour blocks: the Barvision wordmark on blue, the theme name on purple, Grand Final in white over an orange and magenta ripple field, and August 22 with a Beijing time of 21:00 on yellow."
-        width="2560"
-        height="1440"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/media/barvision/poster-semi-final.webp"
-        alt="The same poster system in orange and magenta: Semi-Final and Second Chance in white over a ripple field, the wordmark on purple, and August 8 with a Beijing time of 21:00 on yellow."
-        width="2560"
-        height="1440"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/media/barvision/poster-allocation-draw.webp"
-        alt="The same poster system in blue and violet: Allocation Draw in white over a ripple field, the wordmark at the centre, and July 24 with a Beijing time of 21:00 on yellow."
-        width="2560"
-        height="1440"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-    <figcaption>Promo posters</figcaption>
+    <img
+      src="/media/barvision/poster-semi-final.webp"
+      alt="The same poster system in orange and magenta: Semi-Final and Second Chance in white over a ripple field, the wordmark on purple, and August 8 with a Beijing time of 21:00 on yellow."
+      width="2560"
+      height="1440"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Semi-Final</figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/media/barvision/poster-grand-final.webp"
+      alt="The same poster system in colour blocks: the Barvision wordmark on blue, the theme name on purple, Grand Final in white over an orange and magenta ripple field, and August 22 with a Beijing time of 21:00 on yellow."
+      width="2560"
+      height="1440"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>Grand Final</figcaption>
   </figure>
 </div>
 
-I built the system around a liquid-neon material defined by dark water-like surfaces,
-refracted light, and glow. Rather than giving every stage a separate look, I kept the
-visual language consistent and shifted its color across the competition.
+For the screen graphics, dark surfaces and luminous color provided a consistent setting
+for both motion and dense information. I created all of the posters, key visuals, cards,
+and looping backgrounds.
 
-The semi-finals shifted between magenta and cyan-green, and the Grand Final used
-blue-violet as its base. I carried the same system into the broadcast graphics, so each
-stage could feel distinct without breaking the overall identity.
-
-<!-- STILL TO COME: two broadcast frames, the jury board in purple beside the
-     televote board in cyan, which is what proves the identity reached the live
-     system and did not stop at posters. Masters go in media-src/barvision/;
-     nothing is referenced until the processed file is really in
-     public/media/barvision/. -->
-
-<!-- PARKED in this revision, out of the copy above:
-
-     1. Warm orange-yellow for the breakthrough rounds. The colour system now
-        names only the semi-finals and the Grand Final, so the first stage of
-        the run has no hue on the page.
-
-     2. The custom Barvision wordmark and its pentagon motif, which the
-        previous draft named here. The cover alt text describes the wordmark,
-        but no body copy currently credits it. -->
-
-<!-- PARKED from the previous draft of this section, which this rewrite
-     replaces. None of it is published elsewhere on the page, and the first
-     item is the strongest argument the old draft made.
-
-     1. Participant marks. Eurovision can assume nations: every competitor
-        arrives with a flag, a three-letter code and a name the audience
-        already knows, and a flag stays legible at any size, survives being
-        reproduced twenty-six times on one screen, and identifies a competitor
-        without a photograph. A forty-person online contest has none of that,
-        because participants are usernames, which are long, visually
-        undifferentiated and useless at the size a twenty-six-row leaderboard
-        forces. The solution was one Chinese character per participant as
-        their mark, each drawn from their own handle: 韩, 海, 星, 柠, 威, 松,
-        泰, 猴 and so on. One character reads at any size, holds its shape in
-        a small square, and sits beside a photograph without competing with it.
-
-     2. What that decision bought. With every competitor carrying a mark, a
-        leaderboard could hold twenty-six rows in three columns and stay
-        scannable, and a reveal screen could show cumulative standings and
-        incoming points at once without either half turning to mush. This is
-        the constraint that shaped the leaderboard, so it may belong with
-        Section 05 rather than here.
--->
-
-## On Air
-
-<!-- The two ends of the show, as a row. Both masters are 16:9, so the pair
-     needs no split. Same video treatment the Collaboration Map uses in Inside
-     the Institution: muted, looping, autoplaying, `playsinline` so a phone
-     does not take it fullscreen. The pair holds its row on a phone too, which
-     is the default now: they are the two ends of one show, and stacked they
-     stop reading as a pair.
-
-     The closing clip is encoded at half speed rather than slowed in script:
-     every frame of the 60fps master is kept and laid out at 30fps, so the file
-     itself is the 0.5x version and the lightbox plays it at the same rate the
-     page does. Re-export from the master and the speed comes back. -->
-
+<!-- The two ends of the show. The closing clip is encoded at half speed
+     rather than slowed in script, so the file is the 0.5x version and the
+     lightbox plays it at the rate the page does. -->
 <div class="media-pair">
   <figure>
     <video
       src="/media/barvision/gf-opening-loop.mp4"
+      poster="/media/barvision/gf-opening-loop-poster.webp"
       width="1920"
       height="1080"
-      autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="none"
+      data-loop
       aria-label="The opening title sequence: orange neon Grand Final lettering running away across a dark floor plane, with the Barvision wordmark and Song Contest, Chongqing 2026 held still at the center."
     ></video>
-    <figcaption>Grand Final opening</figcaption>
+    <figcaption>Opening loop</figcaption>
   </figure>
-
   <figure>
     <video
       src="/media/barvision/gf-ending-loop.mp4"
+      poster="/media/barvision/gf-ending-loop-poster.webp"
       width="1920"
       height="1080"
-      autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="none"
+      data-loop
       aria-label="The closing sequence: cyan neon See You Next Year lettering sliding past on a dark wall, with the Barvision wordmark held still at the center."
     ></video>
-    <figcaption>Grand Final closing</figcaption>
+    <figcaption>Closing loop</figcaption>
   </figure>
 </div>
 
-Across the Grand Final, I used motion to guide attention and keep the visual rhythm
-moving upward and forward.
+## Making Results Easy to Follow
 
-<!-- The dense boards this section is about, as one block. Every master is
-     16:9, so two stacked on the right come to twice the height of one on the
-     left, plus a gutter and a second caption. An `fr` ratio only balances that
-     at one viewport, because the gutter and the captions are fixed pixels
-     while the columns are not. The split is solved for instead:
+The grand final needed to move between dense result screens and individual moments of
+anticipation. I designed the sequence around three tasks: recognizing an entry,
+following a change in rank, and understanding what the final challenger needed to win.
 
-       left = 2/3 of the block + (caption + gutter) x 16/9
-            = calc(66.6667% + 17.2px)
+<!-- The one source note for the broadcast excerpts in this section. It does
+     not apply to the loops in Section 02 or to the draw. -->
 
-     which lands the two columns on the same line at every width, with nothing
-     cropped. The right column is a nested one-column `.media-pair`. No new
-     CSS.
+Broadcast excerpts are edited from the live final. Selected passages were re-recorded to
+address an audio interruption and presentation pauses.
 
-     All three are seamless loops: the tail cross-dissolves into the head over
-     0.5s, so the browser's hard loop point falls inside a dissolve rather than
-     on a cut. Image to image, never through black. See the note in
-     media-src/ for the recipe. -->
+### Recognizing each entry
 
-<div class="media-pair" data-stack style="--pair-split: calc(66.6667% + 17.2px) 1fr">
-  <figure>
-    <video
-      src="/media/barvision/earlier-stage-results.mp4"
-      width="1920"
-      height="1080"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-label="A results board building up on a lit stage: rows of entrants, each with a single Chinese character, an artist photo, a song title and a line of scores, arriving in two columns under the heading Scoreboard."
-    ></video>
-    <figcaption>Earlier-stage results</figcaption>
-  </figure>
+I gave each entry a compact identifier: a single Chinese character associated with its
+submitting member, paired with an image of the artist or band. This kept the 26-entry
+scoreboard compact while providing a consistent visual reference across running-order
+and scoring screens.
 
-  <div class="media-pair" data-phone-row style="--pair-split: minmax(0, 1fr)">
-    <figure>
-      <video
-        src="/media/barvision/gf-order-jury.mp4"
-        width="1920"
-        height="1080"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        aria-label="The jury vote running order in purple: twenty-six entrants in two columns, each row a Chinese character, an artist photo, a song title and a score of zero."
-      ></video>
-      <figcaption>Grand Final order: Jury Vote</figcaption>
-    </figure>
-    <figure>
-      <video
-        src="/media/barvision/gf-order-tele.mp4"
-        width="1920"
-        height="1080"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        aria-label="The same board for the televote act in cyan, the rows now carrying the jury totals and reordered by them."
-      ></video>
-      <figcaption>Grand Final order: Tele Vote</figcaption>
-    </figure>
-  </div>
-</div>
+<figure>
+  <video
+    src="/media/barvision/gf-order-jury.mp4"
+    poster="/media/barvision/gf-order-jury-poster.webp"
+    width="1920"
+    height="1080"
+    muted
+    loop
+    playsinline
+    preload="none"
+    data-loop
+    aria-label="The jury vote running order in purple: twenty-six entrants in two columns, each row a Chinese character, an artist photo, a song title and a score of zero."
+  ></video>
+  <figcaption>Compact entry identifiers connect the running-order screen with the scoreboard used during the reveal.</figcaption>
+</figure>
 
-The earlier-stage results and the running-order screens carried dense information, so I
-staged how each layer entered the frame instead of showing everything at once. I gave each
-member a compact nameplate: a single Chinese character paired with a photo of the artist
-or band behind their entry. This gave the 26-row scoreboard a consistent visual anchor
-without spending space on full usernames.
+### Following the points
 
-<!-- MEDIA STILL TO COME. The screens that carry the dense information this paragraph
-     is about, in broadcast order. Looping clips where a sequence exists,
-     stills only where nothing moves. One caption per clip, not per frame.
-     Captions, in order:
-       Wildcard Round results
-       Non-qualified results
-       Second Chance results
-       Grand Final running order -->
-
-<!-- Full column width, the default for a figure that is the section's own
-     evidence. Seamless loop, same recipe as the block above. -->
+Jury scores were loaded before the broadcast and revealed live. Each scoring stage first
+identified the recipients, then updated their totals, and finally reordered the
+leaderboard. The 12-point award received a longer pause and a distinct visual treatment.
 
 <figure>
   <video
     src="/media/barvision/jury-vote.mp4"
+    poster="/media/barvision/jury-vote-poster.webp"
     width="1920"
     height="1080"
-    autoplay
     muted
     loop
     playsinline
-    preload="metadata"
-    aria-label="The jury board during voting: twenty-six rows carrying running totals, a juror's name on the right, and their twelve points landing on one entry while the rows reorder around it."
+    preload="none"
+    data-loop
+    aria-label="The jury board during voting: twenty-six rows carrying running totals, a juror’s name on the right, and their points landing on the receiving entries while the rows reorder around them."
   ></video>
-  <figcaption>Grand Final: Jury Vote</figcaption>
+  <figcaption>The reveal separates the score recipients, updated totals, and ranking changes into successive moments.</figcaption>
 </figure>
 
-During the jury vote, scores arrived live and the leaderboard reordered as each juror
-reported. I gave the 12-point award its own visual effect so each juror's top score landed
-as a distinct moment.
+### Making rank changes legible
 
-<details>
-<summary>How the leaderboard reorders</summary>
+I designed the reorder as three beats: entries gaining points and changing rank move
+out, displaced rows fall into the gaps, and the promoted entries return at their new
+positions. Entries whose rank stays unchanged remain in place.
 
-<!-- Inside a disclosure the figure is already capped at the measure by
-     `.prose > *`, so it needs no modifier of its own. -->
+The two columns behave as connected stacks. A row passing the column boundary falls out
+of the left stack and re-enters above the right, preserving the downward direction of
+movement.
 
 <figure>
   <video
     src="/media/barvision/leaderboard-reorders.mp4"
+    poster="/media/barvision/leaderboard-reorders-poster.webp"
     width="1920"
     height="1080"
-    autoplay
     muted
     loop
     playsinline
-    preload="metadata"
+    preload="none"
+    data-loop
     aria-label="The leaderboard reordering as scores arrive: rows sliding out sideways, the rows below falling into the gaps they leave, and the promoted rows sliding back in at their new ranks."
   ></video>
-  <figcaption>Grand Final: Leaderboard Reorders</figcaption>
+  <figcaption>A three-beat reorder makes room for promoted entries while preserving the direction of the ranking.</figcaption>
 </figure>
 
-When a jury score changed the ranking, I did not let the rows simply jump to their new
-positions. I designed the reorder as a three-beat "gravity stack": promoted rows are
-pulled out, displaced rows fall into the gaps, and the promoted rows slide back into their
-new positions. The board settles like a stack of cards rather than re-sorting like a
-table.
+<details>
+<summary>Refining the reorder</summary>
 
-**Falls are timed by distance.** A row dropping six places takes longer than one dropping
-two, so the rows do not land together.
+I refined the movement to remove pauses and competing directions. Entries leave and
+return from the outer edge of their column, rather than crossing the center gap. Each
+column begins reinserting entries according to its own timing, overlapping the end of
+the fall so empty spaces do not linger.
 
-**A row leaving the bottom of the left column never crosses the center gap.** It keeps
-falling out of the left stack, re-enters above the right one, and drops into place, so the
-two columns read as one flow rather than two tables.
-
-**The columns do not wait for each other.** Each side starts reinserting once enough of its
-own collapse is done, so the beats overlap and neither side sits idle.
-
-A row that gains points without changing rank stays where it is. Moving it away only to
-return it to the same position would add motion without adding information.
+Fall duration increases with travel distance, with a cap on longer moves. Entries that
+gain points without changing rank stay in place, avoiding movement that would add no
+information.
 
 </details>
 
-<!-- CUT from this disclosure once the clip above was in place, on the rule
-     that prose should not describe what the reader can watch: the direction
-     and fading of the exits, the staggering and its roughly half-second span,
-     the temporary z-order that lets a moving row pass in front of a still one,
-     and the slower, more deliberate return. All of it is visible in the loop.
-     The four notes that remain are the ones the clip does not explain by
-     itself. -->
+### Pacing the final reveal
 
-<!-- NO CODE EXCERPT. The Barvision source is not in this repository, so there
-     is nothing to quote. -->
-
-<!-- Full column width, the section's own evidence. Seamless loop, same
-     recipe as the blocks above. -->
+For the audience scores, I used an upward count and slowed it near the leading totals. I
+tuned the timing for this edition, giving close results more time to unfold before the
+leaderboard settled.
 
 <figure>
   <video
     src="/media/barvision/tele-vote.mp4"
+    poster="/media/barvision/tele-vote-poster.webp"
     width="1920"
     height="1080"
-    autoplay
     muted
     loop
     playsinline
-    preload="metadata"
-    aria-label="The televote in cyan: an entrant's score counting up to a large figure on the right while the board reorders around the row it belongs to."
+    preload="none"
+    data-loop
+    aria-label="The televote in cyan: an entrant’s score counting up to a large figure on the right while the board reorders around the row it belongs to."
   ></video>
-  <figcaption>Grand Final: Tele Vote</figcaption>
+  <figcaption>The count slows near leading totals, then the updated score passes into the leaderboard.</figcaption>
 </figure>
 
-I made the televote scores count upward instead of appearing at once, and slowed the
-count as a score approached or overtook the current leader, so the timing itself built
-the suspense.
+For the last reveal, I adapted Eurovision’s head-to-head format to focus on the current
+leader and the final challenger. The screen shows how many points the challenger needs
+to win, and expands the scale near the leader so a small difference remains visible.
 
-<!-- MEDIA STILL TO COME. The handoff into the televote, then the televote itself.
-     The count-up pacing is the point, so the clip has to run long enough for
-     one score to slow near the leader.
-     Captions, in order:
-       Televote transition
-       Televote -->
-
-<!-- Full column width. Played at 1.25x, baked into the file rather than set
-     in script: the reveal runs ninety seconds live and the page is not the
-     broadcast. Seamless loop, same recipe as the blocks above. -->
-
+<!-- The whole reveal, played at 1.25x in the file. A reader starts it, and
+     can pause and seek with the browser's own controls; it does not play by
+     itself and does not open in the viewer, whose click would fight the
+     control bar. -->
 <figure>
   <video
     src="/media/barvision/final-duel.mp4"
+    poster="/media/barvision/final-duel-poster.webp"
     width="1920"
     height="1080"
-    autoplay
+    muted
+    playsinline
+    controls
+    preload="none"
+    data-player
+    data-nozoom
+    aria-label="The final duel: the current leader and the last challenger side by side with their totals, a scale between them, and a line above saying how many points the challenger needs to win."
+  ></video>
+  <figcaption>The final duel focuses attention on the remaining points needed to win.</figcaption>
+</figure>
+
+After the final duel, the broadcast returned to the complete standings. Staged entrances
+brought the entries back into view, while night footage of Chongqing connected the
+closing results to the host city.
+
+<figure>
+  <video
+    src="/media/barvision/final-results.mp4"
+    poster="/media/barvision/final-results-poster.webp"
+    width="1920"
+    height="1080"
     muted
     loop
     playsinline
-    preload="metadata"
-    aria-label="The final duel: the current leader and the last challenger side by side with their totals, and a line above saying how many points the challenger needs to win."
+    preload="none"
+    data-loop
+    aria-label="The grand final results over night footage of Chongqing: the final standings entering column by column, then the winning entry marked at the top."
   ></video>
-  <figcaption>Grand Final: Final Duel</figcaption>
+  <figcaption>The final standings return through a staged entrance over night footage of Chongqing.</figcaption>
 </figure>
 
-For the final reveal, I adapted the head-to-head format used at Eurovision 2026. Reducing
-the screen to the current leader and the final challenger made the ending easier to follow
-and more dramatic.
-
-<!-- MEDIA STILL TO COME. Final duel. Looping clip.
-     Caption: Final duel. -->
-
-<!-- The closing result and the recap screens the paragraph is about, in the
-     same shape Section 02 uses: one frame on the left, three stacked on the
-     right, one caption under each column.
-
-     Every asset is 16:9, so three stacked come to three times the height of
-     one, plus two inner gutters. An `fr` ratio only balances that at one
-     viewport, because the gutters are fixed pixels while the columns are not,
-     so the split is solved instead:
-
-       left = 3/4 of the block + two gutters x 16/9
-            = calc(75% + 3.3px) -->
-
-<div class="media-pair" data-stack style="--pair-split: calc(75% + 3.3px) 1fr">
-  <figure>
-    <video
-      src="/media/barvision/final-results.mp4"
-      width="1920"
-      height="1080"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-label="The closing result screen: the winning entry named above the final standings, over night footage of Chongqing."
-    ></video>
-    <figcaption>Grand Final: Final Results</figcaption>
-  </figure>
-
-  <figure>
-    <div class="media-pair" data-phone-row style="--pair-split: minmax(0, 1fr)">
-      <img
-        src="/media/barvision/live-scoreboard-1.webp"
-        alt="A recap screen headed 20 of 40 juries voted: twenty-six rows of running totals in three columns over night footage of a Chongqing temple roof."
-        width="2560"
-        height="1440"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/media/barvision/live-scoreboard-2.webp"
-        alt="A recap screen headed Jury vote results, the same three columns with the completed jury totals, over a night skyline."
-        width="2560"
-        height="1440"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/media/barvision/live-scoreboard-3.webp"
-        alt="A recap screen headed 18 of 26 tele votes revealed, the standings reordered by the combined score, over a night view of the city from above."
-        width="2560"
-        height="1440"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-    <figcaption>Recap screens</figcaption>
-  </figure>
-</div>
-
-At four recap points, I replaced the abstract broadcast background with looping night
-footage from recognizable parts of Chongqing. The city stayed present without competing
-with the results.
-
-<!-- MEDIA STILL TO COME. The recap screens on city footage.
-     Captions, in order:
-       Jury vote results
-       Televote recap
-       Final results -->
-
-<!-- NONE OF THE ABOVE EXISTS YET. The project ships one asset, the cover.
-     Everything here has to be exported from the Barvision source project as
-     looping video, masters into media-src/barvision/, processed files into
-     public/media/barvision/. Nothing is referenced until the processed file is
-     really there, so the section currently renders as prose only.
-
-     Open question on the televote block: the caption list names
-     `Televote transition`,
-     but the media grouping puts the transition with the running order, before
-     the jury vote. Placed here on the strength of the caption name, since the
-     jury act comes first and a transition into the jury vote would not be
-     called a televote transition. -->
-
-<!-- The running times both stand and measure different things: roughly
-     three hours counting the warm-up, two hours and twelve minutes for the
-     show proper. `Running the show` below still says 2:12. -->
-<!-- OVERLAP TO RESOLVE. `The reveal screens` and `Running the show` below have
-     not had their editorial pass yet, and both now say things this section
-     says: the reordering animation carrying the drama, the cumulative and
-     incremental halves of a reveal screen, twenty-six entries. When their turn
-     comes, the showcase should stay here and the layout and operating
-     arguments should stay there. -->
-
-<!-- PARKED from `Colour carries the phase`, the section this one replaced in
-     position 03. None of it is published elsewhere on the page.
-
-     1. Colour by voting act, inside the Grand Final. The jury vote is slow and
-        cumulative: forty jurors, each awarding ten sets of points, the
-        standings moving a little at a time. The televote is a countdown from
-        the bottom, where one large number can reorder everything. The show
-        encoded that difference in colour, purple and magenta through the jury
-        act and cyan and teal through the televote act, so a viewer joining
-        mid-stream knew which act they were in before reading a word. The two
-        voting acts are now described above without their colours, so this is
-        the piece most worth re-housing.
-
-     2. Backgrounds. The vote screens sat on rendered light while interstitial
-        screens sat on photographic night footage of Chongqing. The recap
-        paragraph above now carries the city footage; the rendered-light half
-        of the contrast is still unstated.
-
-     NOTE: item 1 is in tension with Section 02, which says the Grand Final used
-     blue-violet as its base. Both can be true, one being the stage hue and the
-     other the hue inside the act, but the page should say so somewhere. -->
-
-## Behind the Broadcast
-
-The show ran from a browser-based player. I structured its three hours as 26 cues and 242
-operator steps, and those steps controlled video playback, graphics, scoreboards, music,
-and transitions.
-
-Because I was both the on-air host and the sole operator, the broadcast window also had to
-serve as my control interface. A compact HUD showed the current cue and step, playback
-status, preload progress, and volume, and I could hide it from the OBS capture. I kept the
-core workflow keyboard-driven so I could move forward or back, jump between cues, and
-rehearse specific moments without leaving the player.
-
 <details>
-<summary>Making the player safe to run live</summary>
+<summary>Additional broadcast screens</summary>
 
-**Rebuildable scoring state.** Rather than carry a running scoreboard that could drift,
-the player rebuilt the standings for any step from the timeline. Stepping back, jumping
-ahead, and moving between cues therefore all arrived at the right scoreboard.
+<figure>
+  <video
+    src="/media/barvision/earlier-stage-results.mp4"
+    poster="/media/barvision/earlier-stage-results-poster.webp"
+    width="1920"
+    height="1080"
+    muted
+    loop
+    playsinline
+    preload="none"
+    data-loop
+    aria-label="Results boards for the earlier stages building up on a lit stage: the wildcard round, the entries that did not qualify, and the second chance round, each a two-column board of entrants with a Chinese character, an artist photo, a song title and scores."
+  ></video>
+  <figcaption>Earlier-stage results presented during the grand final.</figcaption>
+</figure>
 
-**Media watchdog.** Playback can stall in a long browser session, so a watchdog monitored
-it and recovered on its own rather than leaving it for me to catch while hosting.
+<figure>
+  <video
+    src="/media/barvision/gf-order-tele.mp4"
+    poster="/media/barvision/gf-order-tele-poster.webp"
+    width="1920"
+    height="1080"
+    muted
+    loop
+    playsinline
+    preload="none"
+    data-loop
+    aria-label="The running order for the televote in cyan, the rows carrying the jury totals and reordered by them."
+  ></video>
+  <figcaption>The running order before the televote, carrying the jury totals.</figcaption>
+</figure>
 
-**One-key safe mode.** If performance dropped, one keyboard shortcut disabled the
-decorative video layers. It was a fallback for a bad moment, not a second visual mode.
-
-**Preload and fallback.** Assets were preloaded before the show, and a missing file drew a
-labeled fallback rather than a blank frame.
+<figure>
+  <div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
+    <img
+      src="/media/barvision/live-scoreboard-1.webp"
+      alt="A recap screen headed 20 of 40 juries voted: twenty-six rows of running totals in three columns over night footage of a Chongqing temple roof."
+      width="2560"
+      height="1440"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/barvision/live-scoreboard-2.webp"
+      alt="A recap screen headed Jury vote results: the completed jury totals for all twenty-six entries in three columns, over a night skyline of Chongqing."
+      width="2560"
+      height="1440"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/barvision/live-scoreboard-3.webp"
+      alt="A recap screen headed 18 of 26 tele votes revealed, the standings reordered by the combined score, over a night view of the city from above."
+      width="2560"
+      height="1440"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption>Recap screens show the standings at checkpoints during the jury and audience-score reveals.</figcaption>
+</figure>
 
 </details>
 
-<!-- MEDIA STILL TO COME. Operator-facing only; the polished broadcast frames
-     belong to Section 03 and should not be repeated here.
+## Hosting and Operating the Show
 
-     1. the player with the HUD showing, so cue, step, playback status,
-        preload and volume are all readable,
-     2. the same moment with the HUD hidden, which is what went to air. The
-        pair is the argument: one surface, two purposes.
-     3. optional, a light annotation over (1) naming only the HUD regions.
-        Not a shortcut-key infographic.
+I was both the on-air host and the sole operator, so the player had to support the pace
+of presenting. I organized the grand final into 26 cues, with keyboard controls for
+advancing, stepping back, and moving between segments.
 
-     None of this is in the repo. Masters into media-src/barvision/, processed
-     files into public/media/barvision/. -->
+A compact HUD showed the current cue and step, playback status, preload progress, and
+volume. Some routine transitions advanced automatically, while recorded jury
+announcements retained manual control so I could follow the speaker’s pace.
 
-<!-- NO CODE EXCERPT. The brief asks for `stateAt()`, and the Barvision source
-     is not in this repository, so there is nothing to quote. Writing a
-     plausible-looking function would be inventing evidence. Paste the real
-     excerpt here and the code-block treatment is already in place. -->
+As each segment was completed, I rehearsed its playback and checked the animation
+transitions into and out of adjacent segments.
 
-<!-- OVERLAP TO RESOLVE. `Running the show` below still states the same
-     operator facts this section now states, and its state-replay and light
-     mode paragraphs restate two of the four safeguards above. That section has
-     not had its editorial pass yet. -->
+<details>
+<summary>Playback safeguards</summary>
 
-<!-- PARKED from `The reveal screens`, the section this one replaced in
-     position 04. None of it is published elsewhere on the page.
+The player rebuilds the scoring state from the timeline when moving backward or jumping
+to another step. This supports rehearsal and navigation without carrying forward an
+accidentally accumulated score.
 
-     1. What a reveal screen had to do at once. The left two thirds carried the
-        cumulative standings, all twenty-six entries with their running total
-        and the current leader in a highlighted frame; the right third carried
-        what was happening right now, which juror was voting, which entry was
-        receiving points, how much. A counter across the top said how far
-        through the act the show was: 3 / 40 JURIES, 5 / 26,
-        18 / 26 TELE VOTES REVEALED.
+A media watchdog attempts to restart interrupted playback. A separate performance mode
+pauses decorative video layers to reduce load while retaining the main scoring display.
 
-     2. Why both halves share a screen. A viewer needs to know what just
-        happened and what it did to the standings, and cutting between two
-        screens loses the connection. The reordering animation carries the
-        drama and only works if the before and after are in the same frame.
-        Section 03 now describes the reordering without this argument for it.
+These mechanisms support operation, but do not guarantee uninterrupted playback or
+restore the show’s position after a page reload.
 
-     3. Where the audience actually is. The stream runs on Bilibili, where live
-        comments overlay the lower right of the frame, so the player has a
-        toggle that draws a guide over that region and nothing load-bearing
-        gets designed into a space the platform is going to cover. This is a
-        layout constraint with no home anywhere on the page.
--->
+</details>
 
-## Designing for Trust
+## Making the Draw Reproducible
 
-<!-- Full column width. Seamless loop, same recipe as the clips in Section
-     03. -->
+I introduced a live allocation draw so members could see how entries were assigned to
+the semi-finals and to the first or second half of the running order.
+
+Following Eurovision’s pot-based format, the draw used a seed assembled from the date,
+time, and numbers contributed through live chat. With the same seed, ordered pot lists,
+and algorithm, the allocation can be reproduced.
 
 <figure>
   <video
     src="/media/barvision/allocation-draw.mp4"
+    poster="/media/barvision/allocation-draw-poster.webp"
     width="1920"
     height="1080"
-    autoplay
     muted
     loop
     playsinline
-    preload="metadata"
+    preload="none"
+    data-loop
     aria-label="The allocation draw in progress over night footage of Chongqing: five pots of entrants across the top, the two semi-finals below, and a card in the middle showing the entrant just drawn and the half they were assigned to."
   ></video>
-  <figcaption>Allocation Draw</figcaption>
+  <figcaption>The allocation draw reveals each assignment within the event’s visual system.</figcaption>
 </figure>
 
-Earlier editions had no live allocation draw, so I added one for 2026. Barvision is a
-community event: members bring songs they care about, and the way those songs are
-assigned can shape how fair the competition feels. I wanted members to see how those
-decisions were made, especially when an assignment or a later result was not what someone
-had hoped for.
+The result export records the seed and its SHA-256 hash alongside the allocation. This
+provides a record for checking the result against the draw procedure.
 
-<!-- Prose width: `data-width="prose"` is the existing modifier for a picture
-     that belongs with the sentences rather than standing as the section's
-     evidence. -->
-
-<figure data-width="prose">
-  <img
-    src="/media/barvision/allocation-results.webp"
-    alt="The completed allocation over night footage of Chongqing: Semi-Final 1 and Semi-Final 2 side by side, each split into a first half and a second half, with every entrant listed under its own mark."
-    width="1920"
-    height="1080"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Semi-Final draw results</figcaption>
-</figure>
-
-Following Eurovision's allocation-draw format, I grouped entries into pots, then assigned
-them to Semi-Final 1 or 2 and to the first or second half of the running order. I built
-the draw around a public seed, so the same input always reproduced the same allocation and
-members could verify the published result afterward. I also treated it as part of the
-broadcast rather than a backstage utility: the seed screen carried Chongqing's skyline into
-the interface, and the completed allocation became a full result board.
-
-<details>
-<summary>How the draw could be checked</summary>
-
-<!-- Inside a disclosure the figure is already capped at the measure by
-     `.prose > *`, so it needs no modifier of its own. -->
-
+<!-- Side by side at every width. Both are 16:9, so nothing is cropped; the
+     detail is read in the viewer. -->
 <figure>
-  <img
-    src="/media/barvision/draw-seed.webp"
-    alt="The seed screen: the five pots above the two empty semi-finals, and a row of six numbers in the centre being collected from the live chat below it."
-    width="1920"
-    height="1080"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Seed input screen</figcaption>
+  <div class="media-pair">
+    <img
+      src="/media/barvision/draw-seed.webp"
+      alt="The seed screen over the Chongqing skyline: the five pots across the top, the two empty semi-finals below them, seed input fields between the semi-finals, and the live chat underneath."
+      width="1920"
+      height="1080"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/barvision/allocation-results.webp"
+      alt="The completed allocation over night footage of Chongqing: Semi-Final 1 and Semi-Final 2 side by side, each split into a first half and a second half, with every entrant listed under its own mark."
+      width="1920"
+      height="1080"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption>The seed input and completed allocation provide the inputs and result of the draw.</figcaption>
 </figure>
 
-**One public seed.** I ran the draw on a seeded generator rather than on the browser's
-own randomness, so the seed string was the whole input, and each stage of the allocation
-was a separate step from it.
+## Lessons for the Next Edition
 
-**Published with the result.** When the draw completed, the seed and its hash were written
-out to the clipboard, to local storage, and as a downloadable text file. Anyone could
-recompute the draw from them and compare it with what they had watched.
+The browser player was used for the live grand final, including the final duel. One
+background-music interruption showed that audio continuity needed more explicit checks
+alongside the visual transitions rehearsed during development.
 
-</details>
+For future editions, my goal is to refresh the visual package and contest data while
+keeping the core playback logic largely intact. The 2026 system provides a starting
+point, but still contains edition-specific layouts, timing choices, and cue behavior.
+Reuse across editions remains to be tested.
 
-
-<!-- PARKED from `Verifiable fairness`, the section this one replaces.
-
-     1. The implementation, which the visible copy now deliberately keeps out:
-        a seeded pseudo-random generator built on a hand-written SHA-256 in
-        counter mode. The disclosure above describes what it bought without
-        naming the construction; add it back only if the section ever needs to
-        argue for the method rather than the result.
-
-     2. The conflict-of-interest line, which is the sharpest sentence the old
-        draft had and has no home now: for a community contest where I am both
-        the organiser and a competitor, publishing the seed was not optional.
-
-     3. The draw is the one show that computes its result rather than replaying
-        a recorded one, which is why it is the one place the audience had to
-        take something on trust.
--->
-
-<!-- PARKED from `Running the show`, which Section 04 replaced and which is now
-     removed. Most of it belongs with Show Day.
-
-     1. The three dates: the allocation draw on 24 July, the semi-final and
-        second chance round on 8 August, the grand final on 22 August. The
-        public replay link, https://www.bilibili.com/video/BV1eT8s6zEk6/, is
-        also in the frontmatter, so the page still reaches it.
-
-     2. The grand final runs two hours and twelve minutes. Sections 03 and 04
-        say three hours, which counts the warm-up. Whichever survives has to
-        say which one it is measuring.
-
-     3. Nothing is served. The data is inlined as globals so the page opens
-        over `file://`, which removes a local server as a thing that can fail
-        thirty seconds before going live.
-
-     4. The operator console has about twenty keys in three groups: advancing
-        and stepping back; jumping between cues and seeking within a video; and
-        a third group that exists purely because a live show cannot be
-        repeated, being a light mode that skips the large video files, master
-        volume, mute, background playback rate, and safe-area guides. Input
-        locks during transitions so a mistimed keypress cannot desynchronise
-        the show from itself.
-
-     5. The semi-final constraint: fifteen results would not exist until voting
-        closed, roughly thirty-one minutes before they had to be on screen.
-        Rather than edit code live, the show ships with a fill-in-the-blanks
-        data file, fifteen empty slots the operator types into during the
-        interval, then reloads.
--->
-
-<!-- PARKED from `Production notes`, the disclosure that hung off
-     `Verifiable fairness`. It describes the whole project rather than the
-     draw, so it belongs with Show Day if anywhere.
-
-     1. Plain HTML, CSS and JavaScript. No framework, no bundler, no build
-        step. Video and audio elements, CSS custom properties and animations
-        for transitions, Canvas 2D for the draw result export at 4K.
-
-     2. The three shows total about 23 GB of local assets: 281 images, 73 video
-        files, 43 audio files. Python tools around ffmpeg and ffprobe handle
-        loudness normalisation across performance clips, background
-        re-encoding, and baking seamless loops, because clips arriving from
-        twenty-six different sources do not match on level or format.
-
-     3. None of it is deployed. The playout system runs locally and is
-        captured, so the broadcast is the artefact and the code is the
-        instrument. That also means it is not in a public repository, which is
-        a real limitation of this case study: you can watch the shows, but you
-        cannot read the system.
--->
-
-## Building for Future Editions
-
-Barvision is an annual event, so the 2026 production had to be a foundation rather than a
-one-off. After the show I separated what belonged to Chongqing from what could carry
-forward: the allocation and scoring logic, the cue structure, and the reveal and animation
-patterns.
-
-Earlier editions relied on manually arranged PowerPoint layers, duplicated visual states,
-and position values adjusted screen by screen. Moving the production into HTML, CSS, and
-JavaScript turned that repeated setup into reusable code and data. A future edition
-replaces the visual package and the competition data rather than rebuilding the show.
-
-After the 2026 season I published the full results to Barboard's permanent archive on
-[barboard.space](/work/barboard#making-history-searchable), so the live event joins the
-community's longer history.
-
-<!-- PARKED from `What I would do differently`, the closing section this one
-     replaces. Neither item is published elsewhere on the page, and both are
-     admissions the old draft chose to make.
-
-     1. Asset preparation was the underestimated cost. Twenty-six performance
-        clips arriving in twenty-six formats at twenty-six loudness levels is
-        not an interesting problem, and it took more of the schedule than the
-        reveal animations did. The conclusion was that the pipeline gets built
-        first next time, not last.
-
-     2. There is no measurement. The grand final replay has passed 1,100 views,
-        which is more than the forty people competing, but nothing in the
-        system records anything: not where viewers dropped off, not whether the
-        reveal pacing held them, not which voting act kept more of them. For a
-        show designed around pacing that is the gap that matters. Note the
-        earlier caution about the 1,100 figure, which is a view count and not
-        an audience measurement.
--->
+After the season, I published the results to [Barboard’s permanent
+archive](/work/barboard/), connecting the live event with the community’s longer
+history.
