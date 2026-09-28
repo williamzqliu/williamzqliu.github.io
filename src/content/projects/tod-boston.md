@@ -36,7 +36,7 @@ cover:
   heroWhole: true
   tone: light
   alt: A scatter plot of the 246 compared sites, with assessed land value per acre across the bottom and daily boardings and alightings at the nearest station up the side, both on log scales, and marker area for buildable area. Fifteen non-dominated sites are orange; the other 231 are pale. A key gives circle sizes for 1, 5 and 15 acres.
-  caption: Fifteen sites remain non-dominated across assessed land value, buildable area and station activity.
+  caption: Fifteen sites remain non-dominated across assessed land value per acre, buildable area and station activity.
 quickFacts:
   - label: "Role"
     value: "Spatial analysis, decision modeling & data visualization"
@@ -72,8 +72,9 @@ credits:
 
 ## Comparing sites directly
 
-In a 2024 course project I compared places near Boston's rapid transit on land cost,
-room to build and existing station activity. The model worked in stages: it ranked
+In a 2024 course project, I explored which locations near Boston’s rapid transit
+warranted closer study for redevelopment, comparing land value, room to build and
+station activity. The model worked in stages: it ranked
 eight communities, selected Quincy, and then compared the four stations inside it,
 ending at Quincy Center. When I returned to it in 2026, I compared every screened site
 near rapid transit in one pass, under the same rules, and then tested how much the
@@ -90,11 +91,10 @@ ranking depended on its assumptions.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The 2024 model chose a community before looking at sites. The revision compares all 246 sites, then reports the non-dominated set and tests the ranking.</figcaption>
+  <figcaption>The original model ranked communities, then stations within Quincy. The revision compares individual sites across the study area.</figcaption>
 </figure>
 
-Narrowing early decides what can be found. Keeping every score as in the final
-comparison, I restricted the ranking to Quincy's 35 sites. The best of them, Quincy
+Keeping every score as in the final comparison, I restricted the ranking to Quincy's 35 sites. The best of them, Quincy
 Center #1, ranks seventh of 246 under equal weights, behind six sites at Malden
 Center. This is a controlled comparison inside the new framework, not a test of the
 2024 model.
@@ -133,9 +133,9 @@ candidates.
 
 ## Choosing what to score
 
-The comparison unit is a site from MAPC's Rethinking the Retail Strip inventory: a
-redevelopment area that can span several tax parcels. Screening for transit
-proximity, excluded land and flood risk leaves 251 sites. I set aside five records
+I compared sites from MAPC’s Rethinking the Retail Strip inventory across nine
+communities in the study’s rapid-transit scope. A site can span several tax parcels.
+Screening for transit proximity, excluded land and flood risk leaves 251 sites. I set aside five records
 whose parcel assessments could not be reliably attributed to individual sites. The
 remaining 246 form the comparison set.
 
@@ -155,17 +155,18 @@ remaining 246 form the comparison set.
 </table>
 
 These directions are preferences I chose for this comparison, not a measure of what
-makes transit-oriented development succeed. Each score is a site's percentile among
-the 246, with tied values sharing their average position, and equal weights give each
-indicator exactly one third. A site qualifies when its centroid is within 0.805 km of
-the nearest station with available ridership data, measured in a straight line.
+makes transit-oriented development succeed. I converted each indicator to a
+percentile score within the 246 candidates, oriented so that higher scores reflect the
+preferred direction. Equal weights give each indicator one third of the total. The
+proximity filter requires a site’s centroid to fall within 0.805 km of the nearest
+station with available ridership data, measured in a straight line.
 
 Two indicators from earlier versions stay out of the score.
 
 <dl class="issue-response">
   <div>
     <dt>Peak share, the portion of a station's weekday activity in the morning and evening peaks. Neither direction follows from this study's comparison goal.</dt>
-    <dd>I report it for every site and leave it out of the main score. Scoring it would mean adopting a planning position, such as favouring off-peak use or established commuting, that this comparison does not take.</dd>
+    <dd>I kept peak share descriptive because the study did not establish whether peak-heavy or off-peak activity should be preferred.</dd>
   </div>
 
   <div>
@@ -177,10 +178,9 @@ Two indicators from earlier versions stay out of the score.
 <details>
 <summary>Screening steps and the five set-aside records</summary>
 
-- Screening: 3,028 MAPC sites in the region; 581 in a community with rapid transit;
-  285 beside a rapid transit station; 265 within 0.805 km of it in a straight line;
-  257 with land value and buildable area above zero; 251 with less than half their
-  area on excluded land and less than half in the 1% flood zone; 246 compared.
+- The counts at each step are in the chart below. The land step keeps sites with
+  less than half their area on excluded land and less than half in the 1% flood
+  zone, two separate conditions.
 - Each site is assigned to the nearest station with Fall 2025 ridership data, by
   coordinates. MAPC's own station label differs at 39 of the 285 sites.
 - Three of the set-aside records, Assembly #1, Assembly #2 and Quincy Center #6, carry
@@ -191,15 +191,16 @@ Two indicators from earlier versions stay out of the score.
   rules, keeping all five changes no first place and no top-ten member.
 - Weekend ridership correlates at 0.98 with daily ridership, and MAPC's estimated
   mixed-use capacity at 0.94 with buildable area, so neither is scored.
-- Peak hours are 07:00–10:00 and 16:00–19:00 on weekdays, the window that agrees best
-  (0.96) with the MBTA's Fall 2024 period definitions.
+- Peak hours are 07:00–10:00 and 16:00–19:00 on weekdays. Across stations, the peak
+  share this window gives correlates at 0.96 with the MBTA's Fall 2024
+  period-based measure.
 - Data: MAPC inventory published January 2022, assessment year not stated; MBTA rail
   ridership by hour, Fall 2025.
 
 <figure>
   <img
     src="/media/tod-boston/screening-funnel-m3.webp"
-    alt="A horizontal bar chart of candidate counts at each screening step: 3,028 MAPC redevelopment sites in the region, 581 in a community with rapid transit, 285 beside a rapid transit station, 265 within 0.805 km in a straight line, 257 with land value and buildable area above zero, 251 with excluded land and flood zone each under 50%, and 246 after five records are set aside because their valuation attribution is uncertain."
+    alt="A horizontal bar chart of candidate counts at each screening step: 3,028 MAPC redevelopment sites in the region, 581 in a community with rapid transit, 285 associated with a rapid-transit station in MAPC's data, 265 within 0.805 km in a straight line, 257 with land value and buildable area above zero, 251 with excluded land and flood zone each under 50%, and 246 after five records are set aside because their valuation attribution is uncertain."
     width="3091"
     height="1084"
     loading="lazy"
@@ -212,8 +213,8 @@ Two indicators from earlier versions stay out of the score.
 
 ## Testing the ranking
 
-I changed one assumption at a time and compared the top of the list. Two changes
-mattered most.
+I checked how the rankings responded to the reference set, indicator direction and
+weights.
 
 **What each score is measured against.** The earlier four-indicator setting used a
 mixed reference: land value and buildable area were percentiles against the regional
@@ -272,7 +273,7 @@ sampling setup, not anyone's preferences or a chance of success.
 - Weight sampling: 200,000 weight combinations sampled from a Dirichlet(1,1,1)
   distribution, with weights summing to one (seed 7). The share of draws in which each
   site ranks first is in the chart below. Across four other seeds the largest share
-  moves by at most 0.26 points.
+  moves by at most 0.26 percentage points.
 - Ties: tied values take their average position, and final scores are compared
   exactly, so a joint first place is reported as a tie. In the four-indicator
   controlled comparisons tested, switching from the earlier tie rule to this one
