@@ -67,13 +67,10 @@ credits:
 
 Inspired by Eurovision, Barvision is an annual song contest within the Barboard
 community. The 2026 edition brought together 40 participants across 38 competing
-entries. As the previous year’s winner, I took responsibility for organizing, designing,
-hosting, and operating the Chongqing edition.
+entries. As the previous year’s winner, I organized the Chongqing edition.
 
 Earlier editions relied largely on PowerPoint. For 2026, I wanted more control over how
-information appeared, how rankings changed, and how each reveal unfolded. Eurovision
-provided a production reference, while the community’s entries and my role as both host
-and operator shaped the design.
+information appeared, how rankings changed, and how each reveal unfolded.
 
 The semi-final remained in PowerPoint because its more complex running order could not
 be implemented within the available time. I introduced the browser player for the grand
@@ -233,9 +230,8 @@ leaderboard. The 12-point award received a longer pause and a distinct visual tr
 
 ### Making rank changes legible
 
-I designed the reorder as three beats: entries gaining points and changing rank move
-out, displaced rows fall into the gaps, and the promoted entries return at their new
-positions. Entries whose rank stays unchanged remain in place.
+I used a three-beat reorder to distinguish entries gaining rank from those displaced by
+them. Entries whose rank stays unchanged remain in place.
 
 The two columns behave as connected stacks. A row passing the column boundary falls out
 of the left stack and re-enters above the right, preserving the downward direction of
@@ -265,9 +261,7 @@ return from the outer edge of their column, rather than crossing the center gap.
 column begins reinserting entries according to its own timing, overlapping the end of
 the fall so empty spaces do not linger.
 
-Fall duration increases with travel distance, with a cap on longer moves. Entries that
-gain points without changing rank stay in place, avoiding movement that would add no
-information.
+Fall duration increases with travel distance, with a cap on longer moves.
 
 </details>
 
@@ -318,9 +312,8 @@ to win, and expands the scale near the leader so a small difference remains visi
   <figcaption>The final duel shows how many points the challenger needs to take the lead.</figcaption>
 </figure>
 
-After the final duel, the broadcast returned to the complete standings. Staged entrances
-brought the entries back into view, while night footage of Chongqing connected the
-closing results to the host city.
+After the final duel, I returned to the complete standings, using night footage of
+Chongqing to reconnect the results with the host city.
 
 <figure>
   <video
@@ -484,9 +477,8 @@ provides a record for checking the result against the draw procedure.
 
 ## Lessons for the Next Edition
 
-The browser player was used for the live grand final, including the final duel. One
-background-music interruption showed that audio continuity needed more explicit checks
-alongside the visual transitions rehearsed during development.
+One background-music interruption showed that audio continuity needed more explicit
+checks alongside the visual transitions rehearsed during development.
 
 For future editions, I want to retain the core playback logic while refreshing the
 visual package and contest data. The next step is to separate the remaining
