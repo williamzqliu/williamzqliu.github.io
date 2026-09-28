@@ -33,6 +33,7 @@ export const isPublic = (entry: Project): boolean =>
 export interface ProjectLink {
   label: string;
   href: string;
+  note?: string;
 }
 
 // Fixed order, because SPEC §9 wants the demo first. This is presentation
@@ -88,7 +89,7 @@ function build(project: Project, kinds: readonly (typeof LINK_ORDER)[number][]):
     if (!value) return [];
     return typeof value === 'string'
       ? [{ label: LINK_LABELS[key], href: value }]
-      : [{ label: value.label, href: value.href }];
+      : [{ label: value.label, href: value.href, note: value.note }];
   });
 }
 

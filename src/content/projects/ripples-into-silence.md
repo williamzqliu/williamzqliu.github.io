@@ -17,7 +17,11 @@ links:
   # The course remote only the faculty can publish to is replaced by my own.
   # The account's user site carries a custom domain, so a project page is
   # served under that domain rather than under github.io.
-  demo: https://williamzqliu.com/ripples-into-silence/
+  # The piece asks for a desktop window, which the head says beside the link.
+  demo:
+    href: https://williamzqliu.com/ripples-into-silence/
+    label: Live Demo
+    note: Desktop experience
   code: https://github.com/williamzqliu/ripples-into-silence
 cover:
   # The card and the head play the same loop: the record's opening, where
@@ -28,12 +32,12 @@ cover:
   wide: /media/ripples-into-silence/hero-loop.mp4
   tone: dark
   alt: The yellow outline of Lampedusa appears with its name on a deep navy ground and shrinks to a small cross. The record's end fades in around it, ninety-five hollow white circles of different sizes inside dashed rings marked 10, 25 and 50 km, then fades back to the empty frame.
-  caption: The record's opening and its end, each circle one record at its distance from the island. The piece runs in a desktop browser window of at least 1024 by 640 pixels.
+  caption: The opening and final state of The Record.
 quickFacts:
   - label: "Role"
     value: "Data preparation, narrative design & visualization development"
   - label: "Outcome"
-    value: "Published scrollytelling piece covering records from 2014 to 2025"
+    value: "Published interactive data story"
 credits:
   skills:
     - Information design
@@ -63,10 +67,9 @@ credits:
 
 ## The experience
 
-Ripples into Silence follows the deaths and disappearances recorded around
-Lampedusa, a small Italian island between Tunisia and Sicily. People make these
-crossings hoping to start a life somewhere new, and I wanted to look at what that
-journey can cost through the records that remain of it.
+Ripples into Silence follows deaths and disappearances recorded around Lampedusa,
+a small Italian island between Tunisia and Sicily. I wanted to explore the human
+cost of journeys made in the hope of starting a life somewhere new.
 
 I built the piece so a viewer first watches the records appear one after another,
 then compares the years, and finally sees the people inside the total. The current
@@ -98,9 +101,8 @@ recorded as dead or missing.
 ## Choosing the frame
 
 My first version, *Northbound: A Deadly Voyage*, set out to show migration across
-the whole Mediterranean. Twenty countries of origin, six transit countries and five
-European destinations sat in three tiers, with arcs for routes, causes of death and
-the number of people lost.
+the whole Mediterranean. It placed countries of origin, transit and destination in
+three tiers, with arcs for routes, causes of death and the number of people lost.
 
 <div class="media-pair" style="--pair-split: 1.78fr 2fr">
   <figure>
@@ -128,60 +130,55 @@ the number of people lost.
   </figure>
 </div>
 
-With that many regions and relationships on screen at once, a reader had no clear
-place to begin. I kept the same source and narrowed the frame to one island.
-Lampedusa lies on a central Mediterranean route, and a single place gave the piece
-a geographic entry that a viewer can hold on to from the first scene to the last.
+I found the composition lacked a clear entry point. Keeping the same source, I
+narrowed the frame to Lampedusa, an island on a central Mediterranean route, so the
+piece could start from one place.
 
-The 50 km radius is a focus I chose, and I applied it by calculation: I measured
-each record's supplied coordinates against a reference point on the island and
-kept the records inside the radius. A coordinate can mark an incident, a rescue,
-the discovery of remains or an arrival, so where a record sits is not always where
-a person died.
+The 50 km radius is a focus I chose. I applied it by measuring each record's
+coordinates against a reference point on the island and keeping the records inside
+the radius. A coordinate can mark an incident, a rescue, the discovery of remains
+or an arrival, so it may not be where a person died.
 
 <details>
 <summary>Data scope and limitations</summary>
 
 The source is a CSV export of the IOM Missing Migrants Project, supplied in
-September 2026, with dates from 2 January 2014 to 31 December 2025. I make no
-claim that it is the latest release or that the reporting is complete.
+September 2026. The snapshot covers records through December 2025 and should not
+be treated as a complete account of all losses.
 
-I kept unique Main IDs dated 2014 to 2025 whose coordinates fall within 50 km of
-35.5086, 12.5929, using a haversine distance on a 6,371 km Earth radius. The
-distance is to that one reference point, and it says nothing about the nearest
-coastline or about what can be seen from the island.
+I kept unique Main IDs dated 2014 to 2025 within 50 km of a reference point on
+Lampedusa, measured from that single point. The piece's
+[data and method notes](https://github.com/williamzqliu/ripples-into-silence/blob/main/data/METHOD.md)
+give the coordinates, the distance formula, and the script that rebuilds the sample
+and records the source's hash.
 
-A Main ID is a record, not a boat, and two records with the same date and
-coordinates stay separate. The 95 records count 833 people: 199 in the dead field
-and 634 in the missing field. A blank field stays blank, and I do not count it as
-a confirmed zero.
+A Main ID is a record, not a boat, and records with the same date and coordinates
+stay separate. The 95 records count 833 people: 199 in the dead field and 634 in
+the missing field. Blank fields are not counted as confirmed zeros.
 
-The sample differs from the one the 2025 version used. Split rows were merged,
-some historical records changed in the source, other records are new, and 2025 is
-added. Four
-records whose location text disagrees with their coordinates, such as one described
-as 100 km northwest of Lampedusa whose coordinates give 7.65 km, carry a note in
-the sample and stay in it. They are the discrepancies found in review, and I did
-not check every coordinate against its description.
-
-The piece's [data and method notes](https://github.com/williamzqliu/ripples-into-silence/blob/main/data/METHOD.md)
-give the full rules, and `scripts/build_data.py` rebuilds the sample from the
-source and records the source's hash.
+The sample differs from the one the 2025 version used. Split rows were merged, some
+historical records changed in the source, other records are new, and 2025 is
+added. Four records whose location text disagrees with their coordinates, such as
+one described as 100 km northwest of Lampedusa that sits at 7.65 km, carry a note
+and stay in the sample. They are the discrepancies found in review; other
+coordinates were not checked against their descriptions.
 
 </details>
 
 ## Giving the records a rhythm
 
-In the record, each record travels in toward the island and stops at its recorded
-distance, then leaves a ripple sized by the number of people it counts. I fixed the
-distance scale to the frame, so the marks and the 10, 25 and 50 km rings read off
-the same ruler. Only distance is to scale. The directions and the inward paths are
-illustrative, and a line under the time bar says so.
+I used fading ripples as a metaphor for lives lost at sea. A ripple appears,
+spreads and disappears, giving each record a brief presence before the surface
+grows quiet again. What stays behind is a thin ring at the record's distance from
+the island, sized by the number of people it counts. I fixed the distance scale to
+the frame, so each record's ring and the 10, 25 and 50 km guides read off the
+same ruler.
+Radial position encodes distance; direction and movement do not represent actual
+routes.
 
 I slowed the opening so the encoding can be learned from a few records. The first
-five go out one at a time, each waiting until the one before has finished, with its
-distance and its count labelled beside it. After them the pace settles, and the
-other 90 follow in date order.
+five appear one at a time, each labelled with its distance and its count, and the
+rest follow in date order.
 
 <!-- Seconds 6 to 42 of one take of the record, recorded the same way,
      uncut and at real speed. -->
@@ -203,16 +200,13 @@ other 90 follow in date order.
   <figcaption>The opening at real speed: five labelled records, then the steady pace.</figcaption>
 </figure>
 
-The playback is edited, and it does not replay the gaps between events. After the
-opening I gave each record an equal share of the time bar, so a year with more
-records takes longer to play, and a year with only one or two still gets room for
-its label. I kept that pace even so the animation would not suggest that the risk
-was growing.
+Playback follows date order without reproducing the gaps between events. After the
+opening, I used a largely steady pace, allowing more time for years with more
+records.
 
-The animation is built for reading one record at a time, which makes comparing
-years a matter of memory. So after it I drew each year as its own disc, with the
-same rings and the same size scale for all twelve, and a reader can compare where
-the marks fall and how large they are from one year to the next.
+Watching one record at a time makes comparing years a matter of memory. So after
+the animation I drew each year as its own disc, with the same rings and size scale
+for all twelve, and set them side by side.
 
 <figure>
   <img
@@ -223,13 +217,12 @@ the marks fall and how large they are from one year to the next.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>Twelve years on one distance and size scale, from one record in 2014 to 35 in 2023.</figcaption>
+  <figcaption>Twelve annual views with shared distance and size scales.</figcaption>
 </figure>
 
 Any disc opens at full size, and hovering a mark gives its count, date and
-distance. I also kept the source's own description of the location in it: the
-coordinate may mark a rescue or an arrival, and the description is how a reader
-can check.
+distance. I retained the source's location descriptions in the tooltips so viewers
+could read the context behind each coordinate.
 
 <figure data-width="prose">
   <img
@@ -245,17 +238,16 @@ can check.
 
 ## From records to people
 
-In the discs, one mark is one record, and its size says how many people that
-record counts. A record of one person and a record of dozens are still two marks
-of the same kind. For the last step I wanted to move attention from the number of
-records to the people inside them.
+In the discs, one mark is one record, sized by the number of people it counts. For
+the last step I wanted to move attention from the records to the people inside
+them.
 
 As the reader scrolls, I let the marks leave their discs, draw together and split
 into 833 equal circles, each record into as many circles as it counts. The circles
 pass through an outline of Lampedusa and then settle into groups by the cause
-reported for their record. The island outline is a visual device that holds the
-833 together for a moment. It does not show a journey, and it does not mean these
-people reached the island.
+reported for their record. The outline is a visual device that holds the 833
+together for a moment; it does not show a journey or mean these people reached the
+island.
 
 <!-- One take, recorded the same way: 16 seconds of eased scrolling from the
      discs to the groups. Three seconds are trimmed from each end of the
@@ -279,28 +271,27 @@ people reached the island.
   <figcaption>One continuous scroll, from the twelve discs to the cause groups.</figcaption>
 </figure>
 
-I kept the change continuous so the figures on either side stay connected. Every
-circle in the groups comes out of a mark in a disc, and scrolling back up returns
-each one to its mark. Cutting to a new chart would have left the reader to trust
-that the 833 and the twelve years are the same records.
+I kept the transition continuous so viewers could follow the same records into the
+person-level view. Every circle comes from a mark in an annual disc, and scrolling
+back returns it to that mark.
 
-The groups take the cause field of each circle's record, so they are not a
-confirmed cause for every missing person. I put records that report more than one
-cause in a group of their own. That group says less about any one person, but
-splitting it would have given people causes their record does not assign.
+Cause groups reflect the source records, not individually confirmed causes for
+every missing person. I kept multiple causes together rather than assign
+individual people to causes the record does not distinguish.
 
 <details>
 <summary>Playback and implementation</summary>
 
 The record and the discs are SVG, drawn with D3.js. The 833 circles are drawn on a
-canvas, which takes over each white mark at the position the SVG rendered it, and
-the SVG marks are hidden once the canvas has them, so the two are never drawn over
-each other.
+canvas, which takes over each white mark where the SVG drew it; the SVG marks are
+then hidden so the two never overlap.
 
-The transition has no clock of its own. The scroll position inside the pinned stage
-sets every circle's position, so a reader who stops halfway holds halfway, and
-scrolling back runs the same frames in reverse. The record does have a clock, and
-it runs only while the record is on screen.
+The transition has no clock of its own: the scroll position inside the pinned stage
+sets every circle's position, so a reader who stops halfway holds halfway. The
+record runs on its own clock, and only while it is on screen. After the opening,
+the records in most years take equal slots on the time bar, and a year with only a
+few records is given at least enough width for its label. The bar's years are
+therefore not a calendar scale.
 
 Each circle keeps the Main ID of its record, which decides the mark it leaves and
 the group it joins. A test in the repository checks the 833 circles, the count in
@@ -310,8 +301,5 @@ it counts.
 With reduced motion requested, the discs appear filled, the transition changes
 straight from the discs to the groups, and the epilogue's lines appear together.
 The record's paths still animate.
-
-There is no framework and no build step. The page is ES modules and CSS, and the
-repository is what is published.
 
 </details>

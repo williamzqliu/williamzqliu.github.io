@@ -95,6 +95,7 @@ const facts = [
                     <ExtArrow />
                     <span class="vh">(opens in a new tab)</span>
                   </a>
+                  {link.note && <span class="cs__linknote">{link.note}</span>}
                 </li>
               ))}
             </ul>
@@ -346,6 +347,22 @@ const facts = [
     color: var(--text-2);
     padding-block: var(--sp-12);
     transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* A link's note, in the caption's register: the same size as the link,
+     one tone quieter and a weight lighter, so it reads as a remark on the
+     link rather than as a second one. */
+  .cs__links li:has(.cs__linknote) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--sp-8);
+  }
+
+  .cs__linknote {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-3);
   }
 
   /* On the content grid rather than full bleed: the hero is the end of the
