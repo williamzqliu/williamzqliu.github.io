@@ -61,6 +61,9 @@
   // What the markers mean is under the figure, where it stays in a printout
   // and in the fallback. This is the part that only makes sense while the map
   // is live: how to read a code and how to work the thing.
+  // A touch screen, where one finger on the map should still scroll the page.
+  const COARSE = window.matchMedia('(pointer: coarse)').matches;
+
   function resting(_d: MapData) {
     return (
       '<p class="smap__side-head">Reading the map</p>' +
@@ -70,6 +73,10 @@
       '<p>Every marker takes the colour of its nearest station’s line.</p>' +
       '<p>Zoom in to separate the sites that share a station and to read the' +
       ' names in full.</p>' +
+      (COARSE
+        ? '<p>Move the map with two fingers, or open it full screen to drag it' +
+          ' with one.</p>'
+        : '') +
       '<p class="smap__cue">Select any site for its values, and the map' +
       ' itself to put it down again.</p>'
     );
@@ -138,6 +145,12 @@
       // A map that eats the page scroll is a map that traps a reader on a
       // phone. Wheel zoom turns on once the map is deliberately clicked.
       scrollWheelZoom: false,
+      // The same for a finger. With one-finger dragging on, Leaflet sets
+      // `touch-action: none` on the map, and a map half a phone screen tall
+      // stopped the page from scrolling wherever a thumb landed on it. On a
+      // touch screen one finger scrolls the page and two move the map (pinch
+      // zoom pans with the pinch); full screen gives one finger back.
+      dragging: !COARSE,
       zoomControl: false,
       // Quarter steps for fitting the view, so a little more margin round the
       // sites widens it a little instead of dropping a whole zoom level. The
@@ -398,6 +411,10 @@
           // a full-screen map takes the wheel without waiting for the pointer.
           map.invalidateSize();
           wheel(on);
+          if (COARSE) {
+            if (on) map.dragging.enable();
+            else map.dragging.disable();
+          }
         });
       }
       L.DomEvent.disableClickPropagation(bar);
@@ -520,6 +537,10 @@
       grid-template-rows: none;
       grid-template-columns: 1fr 17rem;
       aspect-ratio: 3 / 2;
+      /* A phone on its side is wider than 640px and under 400px tall, where
+         3:2 made the box taller than the screen and the header covered its top
+         edge. The box stops at the screen less the header. */
+      max-height: calc(100svh - var(--header-h, 63px) - 1rem);
     }
   }
 
@@ -682,6 +703,7 @@
   .smap:fullscreen {
     width: 100%;
     height: 100%;
+    max-height: none;
     aspect-ratio: auto;
     border: 0;
     background: var(--bg);
@@ -696,7 +718,10 @@
 
   @media (max-width: 639px) {
     .smap:fullscreen {
-      grid-template-rows: 1fr auto;
+      grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+    }
+
+    .smap:fullscreen .smap__side {
       overflow-y: auto;
     }
   }
