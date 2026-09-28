@@ -3096,6 +3096,11 @@ const facts = [
     );
 
     for (const clip of clips) {
+      // This runs twice on a fresh load, once directly and again on
+      // `astro:page-load`, and a player already in view has been started by
+      // the first run by then. Its pause here is the page's, so it is marked
+      // as one; otherwise it read as the reader's and held the clip still.
+      if (clip.getAttribute('data-player') === 'autoplay' && !clip.paused) clip.dataset.leaving = 'true';
       clip.pause();
       // A pause the page did not make is the reader's, and it sticks.
       if (clip.getAttribute('data-player') === 'autoplay' && !clip.dataset.watched) {

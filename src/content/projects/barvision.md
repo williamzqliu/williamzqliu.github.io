@@ -291,10 +291,10 @@ For the last reveal, I adapted Eurovision’s head-to-head format to focus on th
 leader and the final challenger. The screen shows how many points the challenger needs
 to win, and expands the scale near the leader so a small difference remains visible.
 
-<!-- The whole reveal, played at 1.25x in the file. A reader starts it, and
-     can pause and seek with the browser's own controls; it does not play by
-     itself and does not open in the viewer, whose click would fight the
-     control bar. -->
+<!-- The whole reveal, played at 1.25x in the file. It starts itself, muted,
+     when it comes into view and loops from the start when it ends; the reader
+     can pause and seek with the browser's own controls. It does not open in
+     the viewer, whose click would fight the control bar. -->
 <figure>
   <video
     src="/media/barvision/final-duel.mp4"
@@ -304,8 +304,9 @@ to win, and expands the scale near the leader so a small difference remains visi
     muted
     playsinline
     controls
+    loop
     preload="none"
-    data-player
+    data-player="autoplay"
     data-nozoom
     aria-label="The final duel: the current leader and the last challenger side by side with their totals, a scale between them, and a line above saying how many points the challenger needs to win."
   ></video>

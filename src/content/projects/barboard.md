@@ -236,7 +236,8 @@ expands to its full Top 10.
     playsinline
     controls
     preload="none"
-    data-controls
+    data-player="autoplay"
+    data-nozoom
     aria-label="A member search for williw_ opens their profile. The page scrolls through contest results and ranking history, then expands and collapses the 2023 personal Top 10 before continuing to the bottom."
   ></video>
   <figcaption>A member search connects contest history with personal year-end charts; available lists expand from three songs to ten.</figcaption>
