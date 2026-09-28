@@ -989,6 +989,15 @@ const facts = [
     background: var(--rule-strong);
   }
 
+  /* In a numbered list the items are steps with bold names, and the hairline
+     read as a stray: at one pixel it lands on a fractional row, so one item's
+     mark came out solid and the next one faint. Two pixels in the ink of the
+     names holds its weight wherever the item falls. */
+  .prose ol > li::before {
+    height: 2px;
+    background: var(--text);
+  }
+
   /* Figures are part of the article: same left edge, square corners, no panel,
      no shadow. */
   .prose figure {
