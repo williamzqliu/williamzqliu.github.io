@@ -54,27 +54,24 @@ credits:
     - group: Data preparation & network analysis
       people:
         - Rafael Morris
-  note: Claude Code generated most of the application code. I defined the interactions, contributed code, and debugged and checked the implementation through reviews with Todd Linkner and the London team.
+  note: The London team set the research needs. Todd Linkner coordinated between the two groups and worked out with me what was feasible. I defined the features and interactions, wrote part of the code, and debugged and checked the results in reviews with Todd and the London team. Claude Code generated most of the application code.
   # Few enough rows, the note included, to show them all.
   collapse: false
 ---
 
 ## Exploring the research network
 
-A research team at Northeastern University London had already analysed a JSTOR corpus
-of AI ethics literature as a set of networks. My task was to define and build the
-browser tool that lets them explore it: the neighbourhood of a keyword, the thematic
-communities keywords fall into, and the publication sources that carry each keyword.
-
-The keyword network has 534 keywords joined by 4,474 links. A second network connects
-those keywords to 1,201 publication sources through 9,330 links. The tool is deployed,
-and the team’s manuscript draft includes a section that introduces it.
+A research team at Northeastern University London had analysed a JSTOR corpus of AI
+ethics literature as a set of networks. I designed the views and interactions for
+exploring its 534 keywords in the browser: their neighbourhoods, the thematic
+communities they form, and the publication sources that carry them.
 
 <!-- Recorded from the live tool in headless Chrome at 1920 by 1080, each
      repainted frame kept lossless and held for as long as it was on screen,
      with a pointer drawn on the page because headless Chrome paints none. The
      Barvision final duel's player, but starting itself, muted, when it comes
-     into view; the reader can pause and seek with the browser's controls.
+     into view and looping from the start when it ends; the reader can pause
+     and seek with the browser's controls.
      Master in media-src. -->
 <figure>
   <video
@@ -85,6 +82,7 @@ and the team’s manuscript draft includes a section that introduces it.
     muted
     playsinline
     controls
+    loop
     preload="none"
     data-player="autoplay"
     data-nozoom
@@ -93,36 +91,28 @@ and the team’s manuscript draft includes a section that introduces it.
   <figcaption>Selecting a keyword, tracing a path, and switching views.</figcaption>
 </figure>
 
-The research needs came from the London team. Todd Linkner and I worked out what was
-feasible within the project and he coordinated between the two groups. I defined the
-features and interactions, debugged them, wrote part of the code, and reviewed the
-results with Todd and the London team. Claude Code generated most of the application
-code.
-
 <details>
 <summary>Data scope</summary>
 
 The data is the research team’s own JSTOR corpus and network analysis, downloaded in
 October 2024. It does not represent all AI ethics literature, or the most recent.
 
-The tool loads the team’s keyword and publication-source networks with one measure per
-node, degree, alongside keyword frequency and link weights. The team’s upstream analysis
-also produced other centrality scores; the tool does not load them.
-
-For 385 publication sources, the degree stored in the data differs from the number of
-links in the current edge table. The value was not recomputed from that table and where
-it comes from is still to be confirmed, so the page calls it the degree the data
-provides.
+The tool loads two networks: 534 keywords joined by 4,474 links, and a second network
+joining those keywords to 1,201 publication sources through 9,330 links. Each node
+carries one connection measure alongside keyword frequency and link weights. For a
+keyword it is degree, the number of nodes it links to; for a publication source it is
+total link weight, the sum of the weights on its links, sometimes called weighted
+degree or strength. The team’s upstream analysis
+also produced other centrality scores, which the tool does not load.
 
 </details>
 
 ## Choosing the views
 
-Before building the tool, I made seven working sketches on the real network data, each
-testing a different idea of what researchers should see first. Brian Ball, one of the
-principal investigators, replied in writing on 27 June. He suggested combining Atlas,
-Strata and Orbit, asked to keep Lattice, and wanted the keyword-to-source network
-available on its own.
+I made seven working sketches on the real network data to explore how researchers
+could navigate it. The team’s feedback clarified which capabilities mattered, and I used
+that input to decide what needed a separate view, what belonged within a view, and what
+could become a display option.
 
 <div class="media-pair" data-stack style="--pair-split: repeat(2, minmax(0, 1fr))">
   <figure>
@@ -143,11 +133,12 @@ available on its own.
   </figure>
 </div>
 
-That feedback led to three decisions. Atlas and Orbit use the same keyword network, so I
-kept them as two views of it. **Network** keeps the force-directed arrangement for
-browsing the whole set of relationships, and **Community** separates the six top-level
-communities around a circle while each keeps its internal arrangement. Choosing a
-community in the sidebar fades the others without removing them.
+### Two views of the same network
+
+I kept **Network** and **Community** as two views of the same keyword network. Network
+preserves the overall layout for browsing connections. Community separates the six
+top-level communities, each keeping its internal arrangement, to make their structure
+easier to inspect.
 
 <figure>
   <img
@@ -158,19 +149,20 @@ community in the sidebar fades the others without removing them.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The Community view separates the six top-level communities.</figcaption>
+  <figcaption>Community, developed from Orbit: six clusters around a circle, still linked to one another.</figcaption>
 </figure>
 
-The keyword-to-source network describes a different relationship, so it became its own
-view, the **Journal** view, with two layouts. Rings place keywords on an inner ring and
-publication sources on an outer one, so a selected keyword can be followed out to its
-sources. Columns set the two lists side by side, each ordered by degree.
+### A separate view for publication sources
 
-The Journal view shows the 50 keywords and the 50 publication sources with the highest
-degree the data provides. I chose 50 by trying the layouts: at that size the view stayed
-legible and responsive in use. There is no measured threshold behind the number. It
-leaves out the less connected nodes, so it is not the complete publication-source
-network.
+I gave the keyword-to-source network its own view, **Journal**, because it connects two
+different types of entities. Within Journal, I made **Rings** and **Columns** alternative
+layouts of that relationship.
+
+The view shows a ranked subset of 50 keywords, ordered by how many publication sources
+each links to, and 50 publication sources, ordered by total link weight. I settled on 50
+by trying the layouts and judging legibility, visual density and how the view responded
+in use. It is an empirical choice with no measured threshold behind it, and because the
+lower-ranked nodes are left out, the view is not the complete network.
 
 <div class="media-pair" data-stack>
   <figure>
@@ -187,27 +179,35 @@ network.
   <figure>
     <img
       src="/media/ai-ethics-network/journal-columns.webp"
-      alt="The Journal view in columns: 50 keywords in a purple column on the left and 50 publication sources in an orange column on the right, each ordered by degree, joined by curved links."
+      alt="The Journal view in columns: 50 keywords in a purple column on the left and 50 publication sources in an orange column on the right, each in rank order, joined by curved links."
       width="2400"
       height="1350"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Columns: the two lists side by side.</figcaption>
+    <figcaption>Columns: the two ranked lists side by side.</figcaption>
   </figure>
 </div>
 
-Lattice’s single-colour scheme became a colour mode within the tool, so it did not need
-a view of its own.
+### A colour mode instead of another view
+
+I kept Lattice’s single-colour approach as a colour mode within the existing views. It
+changes how the network looks and introduces no new relationship or exploration task.
 
 <details>
-<summary>All seven sketches and the rest of the feedback</summary>
+<summary>Additional sketches and feedback</summary>
 
-Brian also commented on the three sketches that did not carry forward. Nightfall’s
-marks and type were too small, and zooming in on his screen enlarged the text more than
-the graphics. Territory repeated a static view that Rafael Morris had already made from
-the analysis. Compass struck him as interestingly different, though he was not sure it
-showed anything the other layouts could not.
+Brian Ball, one of the principal investigators, replied in writing on 27 June 2026. He
+suggested combining the capabilities of Atlas, Strata and Orbit, asked to keep Lattice,
+and wanted the keyword-to-source network available on its own. Organising those into two
+views of one network, a separate Journal view with two layouts, and a colour mode was my
+design response.
+
+On the three sketches that did not carry forward, he found Nightfall’s marks and type
+too small, and zooming in on his screen enlarged the text more than the graphics.
+Territory repeated a static view that Rafael Morris had already made from the analysis.
+Compass struck him as interestingly different, though he was not sure it showed anything
+the other layouts could not.
 
 <div class="media-pair" data-stack style="--pair-split: repeat(3, minmax(0, 1fr))">
   <figure>
@@ -228,11 +228,25 @@ showed anything the other layouts could not.
 
 ## Following keywords and connections
 
-Three interaction modes answer different questions about a keyword. In **Explore**,
-selecting a keyword highlights it and its direct neighbours and fades the rest of the
-network, and the sidebar lists its strongest links. **Neighbors** takes two keywords
-and shows both neighbourhoods together, the union of the two. **Path** takes two
-keywords and draws the shortest chain of links between them.
+I organised exploration into three modes: inspecting one keyword’s neighbourhood,
+viewing two neighbourhoods together, and tracing a connecting path.
+
+<table data-width="prose">
+  <thead>
+    <tr>
+      <th>Mode</th>
+      <th>Selection</th>
+      <th>What it reveals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Explore</td><td>One keyword</td><td>Its direct neighbours and the links to them</td></tr>
+    <tr><td>Neighbors</td><td>Two keywords</td><td>The union of both neighbourhoods, including neighbours they do not share</td></tr>
+    <tr><td>Path</td><td>Two keywords</td><td>A chain with the fewest links between them</td></tr>
+  </tbody>
+</table>
+
+Path is available in the Network and Community views only.
 
 <div class="media-pair" data-stack>
   <figure>
@@ -244,7 +258,7 @@ keywords and draws the shortest chain of links between them.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Surveillance and its neighbours.</figcaption>
+    <figcaption>Explore: surveillance and its neighbours.</figcaption>
   </figure>
   <figure>
     <img
@@ -255,18 +269,15 @@ keywords and draws the shortest chain of links between them.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>A path from poetry to missile.</figcaption>
+    <figcaption>Path: poetry to missile. Both examples demonstrate the tool and are not research findings.</figcaption>
   </figure>
 </div>
 
-The examples are demonstrations of the tool, not research findings. Path finds the
-fewest links between the two keywords, and among paths of that length it picks the one
-whose keywords have the highest total degree. I chose degree because it is a familiar
-network measure, and I wanted the path to pass through well-connected keywords a reader
-is more likely to recognise; a high degree does not guarantee that. A path is the
-fewest steps through the network. It does not measure semantic distance, the strongest
-association, or scholarly influence. Path works in the Network and Community views and
-not in the Journal view.
+Among equally short paths, Path picks the one whose keywords have the highest total
+degree. I chose degree because it is a familiar network measure, hoping the path would
+pass through well-connected keywords a reader is more likely to recognise, though a high
+degree does not guarantee that. A path does not measure semantic distance, the strongest
+association, or scholarly influence.
 
 <details>
 <summary>How the path and its numbers are computed</summary>
@@ -281,27 +292,28 @@ also sums those weights along the path. That total is not a count of distinct pa
 because the same paper can be counted on more than one link.
 
 In the Network and Community views, node size follows keyword frequency, which also
-orders the sidebar lists by default. Degree sets which labels are shown first and breaks
-ties between paths of the same length. Link widths in some selected states come from
-the average degree of the two ends, and the resting network draws every link at one
-width, so a thicker line does not mean more shared papers. In the Journal view, the
-degree the data provides sets which nodes are drawn, their size and their order, and
-link weight orders the sidebar and labels the highlighted links. Distance on screen is
-not an exact measure of how strongly two keywords are related.
+orders the sidebar lists by default. Degree in the keyword network sets which labels are
+shown first and breaks ties between paths of the same length. Link widths in some
+selected states come from the average degree of the two ends, and the resting network
+draws every link at one width, so a thicker line does not mean more shared papers. In
+the Journal view, a keyword is drawn, sized and ordered by the number of publication
+sources it links to, and a publication source by its total link weight. Link weight
+orders the sidebar and labels the highlighted links there, and line width mainly marks
+what is selected. Distance on screen is not an exact measure of how strongly two nodes
+are related.
 
 </details>
 
 ## Stable layouts and editable figures
 
-I computed the layout once, ahead of time, and wrote the coordinates into the data file
-the tool loads. The tool opens with every keyword already in place, so a researcher does
-not wait for a layout to settle, and the nodes stay where they are while being read.
+I chose precomputed layouts to keep node positions stable between visits and to reduce
+waiting and movement when the tool opens. The coordinates are saved ahead of time in the
+data file the tool loads, so every keyword is already in place.
 
-The researchers need figures for papers and talks, so the Save control downloads the
-current canvas as an SVG file. It keeps the selection, the highlighting and fading, and
-the label styling, so the figure can be edited further. I tested the export on the
-deployed tool. The file contains the canvas alone, without the sidebar or the rest of
-the page.
+To support further figure editing, I specified SVG export that preserves the current
+selection, highlighting, fading and label styling. The file holds the canvas alone,
+without the sidebar or the rest of the page, and I tested the export on the deployed
+tool.
 
 <details>
 <summary>Implementation notes</summary>
@@ -314,21 +326,18 @@ after the layout is computed. The Community view reuses those coordinates, movin
 community to a point on a circle, and the Journal view computes its own positions from
 the ring or column it is drawing.
 
-Labels are placed in order of degree, and a label that would collide with one already
-placed is dropped. Export clones the live SVG, adds the label styles, serialises it and
-downloads it named after the current view.
+Labels are placed in order of each node’s connection measure, and a label that would
+collide with one already placed is dropped. Export clones the live SVG, adds the label
+styles, serialises it and downloads it named after the current view.
 
 </details>
 
 ## Research use and remaining limits
 
-The tool is deployed, and the team’s manuscript draft introduces it in its own section
-with examples of exploring the network. The manuscript is not yet published, and I do
-not know whether figures exported from the tool will be used in it.
+The tool is deployed, and the team’s manuscript draft, which is not yet published,
+introduces it in its own section with examples of exploring the network.
 
-No one outside the project team has used the tool in a study, so there is no evidence
-yet on whether it makes the research faster or leads to new findings. Two things in Brian’s
-original brief are not built: search, and following a link back to the papers behind
-it, which needs a mapping from papers to keywords that the dataset does not include.
-Watching researchers outside the team answer questions of their own with the tool would
-be the next step.
+Search and tracing connections back to individual papers remain unfinished; the tracing
+needs a mapping from papers to keywords that the dataset does not include. No independent study outside the project team has yet assessed how
+well the tool works in use. The next step would be to watch researchers outside the team
+answer questions of their own with it.
