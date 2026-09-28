@@ -96,19 +96,26 @@ I used a force-directed layout to show coauthorship connections, with color indi
 primary affiliation. Readers can filter by organizational unit and select a scholar to
 inspect their collaborators.
 
+<!-- Recorded from a local copy of the tool at 1920 by 1080 with real input,
+     each repainted frame kept lossless and held for as long as it was on
+     screen; one continuous take, nothing spliced. Masters and the recording
+     script in media-src/inside-the-institution/rerecord. -->
 <figure>
   <video
     src="/media/inside-the-institution/collaboration-map.mp4"
+    poster="/media/inside-the-institution/collaboration-map-poster.webp"
     width="1920"
-    height="950"
-    autoplay
+    height="1080"
     muted
     loop
     playsinline
-    preload="metadata"
-    aria-label="The Collaboration Map: the university-wide coauthorship graph, with a scholar selected to reveal their local network."
+    controls
+    preload="none"
+    data-player="autoplay"
+    data-nozoom
+    aria-label="The Collaboration Map: Casper Harteveld is found by name in the search box and selected, the map centres on him with his profile and collaborators in the side panel, and the 1-Hop and 2-Hop views widen his collaboration neighbourhood."
   ></video>
-  <figcaption>Move from the university network to an individual’s collaboration neighborhood.</figcaption>
+  <figcaption>Find a scholar and explore their collaborators through 1-Hop and 2-Hop views.</figcaption>
 </figure>
 
 ### Research Units
@@ -116,19 +123,26 @@ inspect their collaborators.
 I grouped departments and research centers into a tiled layout so readers could start
 with an organizational unit, then inspect its members and collaboration measures.
 
+<!-- Recorded from a local copy of the tool at 1920 by 1080 with real input,
+     each repainted frame kept lossless and held for as long as it was on
+     screen; one continuous take, nothing spliced. Masters and the recording
+     script in media-src/inside-the-institution/rerecord. -->
 <figure>
   <video
     src="/media/inside-the-institution/research-units.mp4"
-    width="1440"
-    height="694"
-    autoplay
+    poster="/media/inside-the-institution/research-units-poster.webp"
+    width="1920"
+    height="1080"
     muted
     loop
     playsinline
-    preload="metadata"
-    aria-label="The Research Units view with one unit selected, showing collaboration inside it and with other units."
+    controls
+    preload="none"
+    data-player="autoplay"
+    data-nozoom
+    aria-label="The Research Units view: Art + Design is hovered and selected, its details open in the side panel, and a double-click opens its internal co-authorship network, where a few members are hovered."
   ></video>
-  <figcaption>Inspect a unit’s members and its connections with other units.</figcaption>
+  <figcaption>Select a research unit, then open its internal collaboration network.</figcaption>
 </figure>
 
 ### Bridging Scholars
@@ -142,14 +156,17 @@ select a community to inspect its connections and the scholars linking it to oth
 <figure>
   <video
     src="/media/inside-the-institution/bridging-scholars.mp4"
+    poster="/media/inside-the-institution/bridging-scholars-poster.webp"
     width="1920"
-    height="950"
-    autoplay
+    height="1080"
     muted
     loop
     playsinline
-    preload="metadata"
-    aria-label="The Bridging Scholars view in 3D: communities drawn as spheres and the scholars who link them in yellow. Selecting a community highlights its connections and opens its details."
+    controls
+    preload="none"
+    data-player="autoplay"
+    data-nozoom
+    aria-label="The Bridging Scholars view in 3D: a Computer Science community is selected, its links and the yellow bridge scholars connected to it stay lit while the rest fades, one bridge scholar is hovered, and the view turns slightly."
   ></video>
   <figcaption>Select a community to see the scholars who link it to others.</figcaption>
 </figure>
