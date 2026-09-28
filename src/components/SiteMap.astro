@@ -10,7 +10,12 @@
 ---
 
 <script>
+  // One compared site. `oid` is MAPC's stable site_oid and `id` the display
+  // name; `rank` is the equal-weight rank of the main comparison, with `tied`
+  // set where another site holds the same rank. `km` is a straight-line
+  // distance and `daily` counts boardings and alightings, not riders.
   type Site = {
+    oid: number;
     id: string;
     code: string;
     station: string;
@@ -20,12 +25,11 @@
     ppa: number;
     daily: number;
     peak: number;
-    walk: number;
-    type: string;
+    km: number;
     frontier: boolean;
-    named: boolean;
     rank: number;
-    wins: string[];
+    tied: boolean;
+    score: number;
     lat: number;
     lng: number;
   };
@@ -60,11 +64,13 @@
   function resting(_d: MapData) {
     return (
       '<p class="smap__side-head">Reading the map</p>' +
-      '<p>A marker is a short code: three letters for the station, then the' +
-      ' parcel\u2019s number, largest parcel first. MAL-1 is Malden Center #1.</p>' +
-      '<p>Zoom in to separate the parcels that share a station and to read the' +
+      '<p>A labelled marker is a non-dominated site, named by a short code:' +
+      ' three letters for the station, then the site\u2019s number. MAL-1 is' +
+      ' Malden Center #1.</p>' +
+      '<p>Every marker takes the colour of its nearest station’s line.</p>' +
+      '<p>Zoom in to separate the sites that share a station and to read the' +
       ' names in full.</p>' +
-      '<p class="smap__cue">Select any parcel for its figures, and the map' +
+      '<p class="smap__cue">Select any site for its values, and the map' +
       ' itself to put it down again.</p>'
     );
   }
@@ -78,47 +84,31 @@
     // Labels short enough to hold one line in the column, so the figures
     // beside them start on a single left edge instead of stepping in and out
     // around two-line headings.
-    const groups: [string, string][][] = [
-      [['Community', s.muni],
-       ['Line', `${s.line} Line, ${s.walk.toFixed(2)} km walk`]],
-      [['Buildable area', `${s.acres.toFixed(1)} acres`],
-       ['Land price', `${money(s.ppa)} per acre`]],
-      [['Riders at the station', s.daily.toLocaleString()],
-       // `48% of the weekday` left a reader to guess 48% of what. It is the
-       // share of the station's weekday trips that fall in the peak hours,
-       // and a low one is what the model rewards.
-       ['Rush-hour share', `${s.peak}% of all weekday trips`]],
-      [['Kind of site', s.type.toLowerCase()],
-       ['Equal-weight rank', `${s.rank} of ${total}`]],
+    // Label over value, the way the case study's own quick facts read, so each
+    // label can say exactly what the figure is without squeezing the figure
+    // into a narrow column beside it.
+    const rows: [string, string][] = [
+      ['Community', s.muni],
+      ['Line', `${s.line} Line`],
+      ['Straight-line distance to station', `${s.km.toFixed(2)} km`],
+      ['Buildable area', `${s.acres.toFixed(2)} acres`],
+      ['Assessed land value per acre', money(s.ppa)],
+      ['Boardings and alightings', `${s.daily.toLocaleString()} a day`],
+      // Described, not scored: the main comparison gives peak share no
+      // direction, so nothing here rewards a low or a high value.
+      ['Peak share (described only)', `${s.peak}% of weekday activity`],
+      ['Equal-weight rank', `${s.rank}${s.tied ? ' (tied)' : ''} of ${total}`],
     ];
     // The code is on the marker the reader just clicked, so repeating it here
     // spends a line of the heading on something already in view.
     const head = s.id;
-    const body = groups
-      .map(
-        (rows) =>
-          '<tbody>' +
-          rows.map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('') +
-          '</tbody>'
-      )
-      .join('');
-    // Each scenario's parenthetical, not its name. `City, Transit agency, No
-    // prior` named the holders of three opinions without saying what any of
-    // them wanted; `housing first, ridership first, all four equal` is the
-    // same length and says it.
-    const COUNT = ['none', 'one', 'two', 'three', 'four', 'five', 'six'];
-    const wants = s.wins.map((w) => w.match(/\(([^)]*)\)/)?.[1] ?? w);
-    const list =
-      wants.length > 1
-        ? `${wants.slice(0, -1).join(', ')} and ${wants[wants.length - 1]}`
-        : wants[0];
+    const body = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
     const note = s.frontier
-      ? s.wins.length
-        ? `<p class="smap__win">Ranks first under ${COUNT[s.wins.length]} of the` +
-          ` five scenarios: ${list}.</p>`
-        : '<p class="smap__note">On the shortlist, and first under none of the five scenarios.</p>'
-      : '<p class="smap__note">Beaten by another parcel on all four measures at once, so no weighting can put it first.</p>';
-    return `<p class="smap__side-head">${head}</p><table>${body}</table>${note}`;
+      ? '<p class="smap__win">Non-dominated: no other compared site is at least as good' +
+        ' on all three indicators and better on one.</p>'
+      : '<p class="smap__note">Dominated: another compared site is at least as good on' +
+        ' all three indicators and better on at least one.</p>';
+    return `<p class="smap__side-head">${head}</p><dl class="smap__facts">${body}</dl>${note}`;
   }
 
   async function build(host: HTMLElement) {
@@ -148,7 +138,12 @@
       // A map that eats the page scroll is a map that traps a reader on a
       // phone. Wheel zoom turns on once the map is deliberately clicked.
       scrollWheelZoom: false,
-      zoomControl: true,
+      zoomControl: false,
+      // Quarter steps for fitting the view, so a little more margin round the
+      // sites widens it a little instead of dropping a whole zoom level. The
+      // buttons still step by one.
+      zoomSnap: 0.25,
+      zoomDelta: 1,
       attributionControl: true,
     });
 
@@ -158,11 +153,27 @@
       minZoom: 9,
     }).addTo(map);
 
+    // Each line on a white casing. Drawn pale, Orange sank into the basemap's
+    // orange trunk roads and Blue into the harbour; the casing separates the
+    // line from whatever is under it, and the sites stay distinct because
+    // they are ringed dots rather than strokes.
+    for (const ln of data.lines) {
+      L.polyline(ln.pts, {
+        color: '#FFFFFF',
+        weight: 6,
+        opacity: 0.7,
+        lineCap: 'round',
+        lineJoin: 'round',
+        interactive: false,
+      }).addTo(map);
+    }
     for (const ln of data.lines) {
       L.polyline(ln.pts, {
         color: LINE_COLOR[ln.line] ?? '#6E685A',
         weight: 3,
-        opacity: 0.75,
+        opacity: 0.6,
+        lineCap: 'round',
+        lineJoin: 'round',
         interactive: false,
       }).addTo(map);
     }
@@ -204,12 +215,17 @@
     // zoom sixteen, where the basemap has its own grey shapes at that size.
     const dots: ReturnType<typeof L.circleMarker>[] = [];
     for (const s of data.sites) {
-      if (s.frontier || s.named) continue;
+      if (s.frontier) continue;
+      // The line of the site's nearest station, as the labels and the drawn
+      // lines carry it, but quiet: a pale fill and a thin ring in the line's
+      // colour. Full saturation is kept for the fifteen non-dominated sites,
+      // which are the ones the section is about.
       const dot = L.circleMarker([s.lat, s.lng], {
         radius: 4,
-        color: '#FFFFFF',
-        weight: 1,
-        fillColor: '#6E685A',
+        color: LINE_COLOR[s.line] ?? '#6E685A',
+        weight: 1.2,
+        opacity: 0.85,
+        fillColor: '#FFFFFF',
         fillOpacity: 0.9,
         interactive: false,
       }).addTo(map);
@@ -229,24 +245,20 @@
       });
     }
 
-    // The numbered ones last, so they sit above the field they came out of.
-    // `named` is a parcel the page mentions without shortlisting it: it still
-    // needs a number a reader can find, drawn hollow so the circle itself says
-    // the dominance step had already discarded it.
+    // The non-dominated sites last, labelled, so they sit above the field.
+    const pins: { s: Site; marker: ReturnType<typeof L.marker> }[] = [];
     for (const s of data.sites) {
-      if (!s.frontier && !s.named) continue;
+      if (!s.frontier) continue;
       const marker = L.marker([s.lat, s.lng], {
         icon: L.divIcon({
-          className:
-            'smap__pin' +
-            (s.wins.length ? ' smap__pin--win' : '') +
-            (s.named ? ' smap__pin--named' : ''),
+          className: `smap__pin smap__pin--${s.line.toLowerCase()}`,
           // The short code, because a marker has room for five characters
           // and two dozen of them sit side by side at the zoom the map opens
           // at. The name the rest of the page uses replaces it on zooming in,
           // which is also what teaches the reader that MAL-1 is Malden
           // Center #1.
-          html: `<span class="smap__pin-short">${s.code}</span>` +
+          html: '<i class="smap__lead"></i>' +
+            `<span class="smap__pin-short">${s.code}</span>` +
             `<span class="smap__pin-full">${s.id}</span>`,
           // A zero-size anchor. The visible pill is an inner element that
           // centres itself with its own transform, so the label can be any
@@ -256,56 +268,148 @@
         }),
         keyboard: true,
         title: `${s.code}, ${s.id}`,
-        // Leaflet stacks markers by latitude, so a northern parcel goes behind
-        // whatever sits just south of it. Three parcels share Malden Center
-        // and the one that wins four scenarios is the middle one, which left
-        // the only marker the reader is looking for underneath another.
-        zIndexOffset: s.wins.length ? 1000 : 0,
+        // Leaflet stacks markers by latitude, so a northern site goes behind
+        // whatever sits just south of it. The two sites tied first share
+        // Malden Center with a third label, so they are lifted above it.
+        zIndexOffset: s.rank === 1 ? 1000 : 0,
       }).addTo(map);
       marker.on('click keypress', (e) => {
         if (e.originalEvent) L.DomEvent.stopPropagation(e.originalEvent);
         select(s, marker.getElement() as HTMLElement | null);
       });
+      // The element does not exist until the map has a view, so it is looked
+      // up when the labels are placed.
+      pins.push({ s, marker });
+    }
+
+    // Labels at one station sat on top of one another: four at Harvard, three
+    // at Malden Center. Each zoom, the labels are placed in rank order, and a
+    // label that would overlap one already placed moves to the nearest free
+    // spot around its site, with a leader line and a dot in the line's colour
+    // left at the site itself. Placement only depends on distances in pixels,
+    // so panning does not change it; zoom and a change of size do.
+    const GAP = 3;
+    function placeLabels() {
+      const placed: DOMRect[] = [];
+      const hits = (x: number, y: number, w: number, h: number) =>
+        placed.some((r) => x < r.right + GAP && x + w > r.left - GAP &&
+                           y < r.bottom + GAP && y + h > r.top - GAP);
+      const order = [...pins].sort((a, b) => a.s.rank - b.s.rank || a.s.oid - b.s.oid);
+      for (const { s, marker } of order) {
+        const el = marker.getElement() as HTMLElement | undefined;
+        if (!el) continue;
+        el.style.setProperty('--c', LINE_COLOR[s.line] ?? '#6E685A');
+        el.style.setProperty('--dx', '0px');
+        el.style.setProperty('--dy', '0px');
+        el.removeAttribute('data-moved');
+        const label = [...el.querySelectorAll('span')].find((n) => n.offsetWidth > 0);
+        if (!label) continue;
+        const w = label.offsetWidth, h = label.offsetHeight;
+        const p = map.latLngToContainerPoint([s.lat, s.lng]);
+        const tries: [number, number][] = [[0, 0]];
+        for (let k = 1; k <= 4; k++) {
+          const dy = k * (h + GAP), dx = k * (w / 2 + GAP + 4);
+          tries.push([0, -dy], [0, dy], [dx, 0], [-dx, 0], [dx, -dy], [-dx, -dy], [dx, dy], [-dx, dy]);
+        }
+        let best: [number, number] = [0, 0];
+        for (const [dx, dy] of tries) {
+          if (!hits(p.x + dx - w / 2, p.y + dy - h / 2, w, h)) { best = [dx, dy]; break; }
+        }
+        const [dx, dy] = best;
+        placed.push(new DOMRect(p.x + dx - w / 2, p.y + dy - h / 2, w, h));
+        el.style.setProperty('--dx', `${dx}px`);
+        el.style.setProperty('--dy', `${dy}px`);
+        if (dx || dy) {
+          el.dataset.moved = '';
+          el.style.setProperty('--len', `${Math.hypot(dx, dy)}px`);
+          el.style.setProperty('--ang', `${Math.atan2(dy, dx)}rad`);
+        }
+      }
     }
 
     const bounds = L.latLngBounds(data.sites.map((s) => [s.lat, s.lng]));
-    map.fitBounds(bounds, { padding: [24, 24] });
-    map.setMaxBounds(bounds.pad(0.6));
+    // More margin on the right and at the bottom, where the controls and the
+    // credit sit, so no labelled site starts out underneath them.
+    const FIT = { paddingTopLeft: [40, 40] as [number, number], paddingBottomRight: [72, 56] as [number, number] };
+    map.fitBounds(bounds, FIT);
+    map.setMaxBounds(bounds.pad(1.2));
 
     // No legend box. The panel carries the key while nothing is selected, and
     // at any width a legend would cover the map it explains. A scale bar is
     // the one thing the panel cannot supply.
     L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
 
-    // Panned and zoomed four times into Brookline, a reader needs a way back
-    // that is not reloading the page. One control for both halves of the
-    // control: the view returns to the whole region and the panel to its key.
-    const reset = L.control({ position: 'topleft' });
-    reset.onAdd = () => {
+    const wheel = (on: boolean) => {
+      if (on) map.scrollWheelZoom.enable();
+      else map.scrollWheelZoom.disable();
+      // Mirrors `data-state` and `data-zoom`: the component's states are
+      // readable from the DOM, which is what makes them checkable.
+      host.dataset.wheel = on ? 'on' : 'off';
+    };
+
+    // Two buttons under the zoom pair, the same size as they are. Full screen
+    // takes the whole component, map and panel together, so a reader working
+    // through the inner core has room and keeps the figures beside the map.
+    // Reset returns the view to the whole region and the panel to its key.
+    const ICON = {
+      expand: '<path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/>',
+      shrink: '<path d="M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4"/>',
+      target: '<circle cx="8" cy="8" r="5.2"/><circle cx="8" cy="8" r="1.4"/>' +
+        '<path d="M8 0.8v2.4M8 12.8v2.4M0.8 8h2.4M12.8 8h2.4"/>',
+    };
+    const svg = (d: string) =>
+      '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none"' +
+      ' stroke="currentColor" stroke-width="1.6" stroke-linecap="round"' +
+      ' stroke-linejoin="round">' + d + '</svg>';
+    const canFull = !!(host.requestFullscreen && document.fullscreenEnabled);
+
+    const controls = L.control({ position: 'bottomright' });
+    controls.onAdd = () => {
       const bar = L.DomUtil.create('div', 'leaflet-bar smap__reset');
-      const button = L.DomUtil.create('a', '', bar);
-      button.href = '#';
-      button.setAttribute('role', 'button');
-      button.title = 'Show the whole region again and clear the selection';
-      button.setAttribute('aria-label', 'Reset the map');
-      // Four corner brackets: the usual mark for fitting a view back to its
-      // full extent. Drawn rather than typed, because the control sits at the
-      // size of the zoom buttons and no glyph in the page's face is reliable
-      // at 12 pixels.
-      button.innerHTML =
-        '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
-        '<path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"' +
-        ' fill="none" stroke="currentColor" stroke-width="1.6"' +
-        ' stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      L.DomEvent.on(button, 'click', (event: Event) => {
-        L.DomEvent.stop(event);
-        map.fitBounds(bounds, { padding: [24, 24] });
+      const make = (label: string, title: string, icon: string, act: () => void) => {
+        const button = L.DomUtil.create('a', '', bar) as HTMLAnchorElement;
+        button.href = '#';
+        button.setAttribute('role', 'button');
+        button.title = title;
+        button.setAttribute('aria-label', label);
+        button.innerHTML = svg(icon);
+        L.DomEvent.on(button, 'click', (event: Event) => {
+          L.DomEvent.stop(event);
+          act();
+        });
+        return button;
+      };
+      make('Reset the map', 'Show the whole region again and clear the selection', ICON.target, () => {
+        map.fitBounds(bounds, FIT);
         clearSelection();
       });
+      if (canFull) {
+        const full = make('Full screen', 'Show the map full screen', ICON.expand, () => {
+          if (document.fullscreenElement === host) document.exitFullscreen();
+          else host.requestFullscreen().catch(() => {});
+        });
+        document.addEventListener('fullscreenchange', () => {
+          const on = document.fullscreenElement === host;
+          full.innerHTML = svg(on ? ICON.shrink : ICON.expand);
+          full.title = on ? 'Leave full screen' : 'Show the map full screen';
+          full.setAttribute('aria-label', on ? 'Leave full screen' : 'Full screen');
+          host.dataset.full = on ? 'on' : 'off';
+          // The box changed size under Leaflet, which has to measure again, and
+          // a full-screen map takes the wheel without waiting for the pointer.
+          map.invalidateSize();
+          wheel(on);
+        });
+      }
       L.DomEvent.disableClickPropagation(bar);
       return bar;
     };
-    reset.addTo(map);
+    controls.addTo(map);
+    // Added after the buttons: in a bottom corner Leaflet stacks each new
+    // control above the last, so zoom sits on top and reset and full screen
+    // below it, by the credit line.
+    const zoom = L.control.zoom({ position: 'bottomright' });
+    zoom.addTo(map);
+    zoom.getContainer()?.classList.add('smap__zoom');
 
     // Station names appear once there is room for them, and the grey dots grow
     // to stay legible as the basemap fills with detail. The white ring widens
@@ -319,11 +423,14 @@
       const r = dotRadius(z);
       for (const dot of dots) {
         dot.setRadius(r);
-        dot.setStyle({ weight: r >= 7 ? 2 : 1 });
+        dot.setStyle({ weight: r >= 7 ? 1.8 : 1.2 });
       }
     };
     map.on('zoomend', onZoom);
     onZoom();
+    // After onZoom, which switches the labels between code and full name.
+    map.on('zoomend resize', placeLabels);
+    placeLabels();
 
     // The wheel follows the pointer: over the map it zooms, off the map the
     // page scrolls. Requiring a click first meant a reader who hovered and
@@ -332,19 +439,12 @@
     //
     // DOM `mouseenter`/`mouseleave` rather than Leaflet's own `mouseout`,
     // which also fires when the pointer crosses onto a marker inside the map.
-    const wheel = (on: boolean) => {
-      if (on) map.scrollWheelZoom.enable();
-      else map.scrollWheelZoom.disable();
-      // Mirrors `data-state` and `data-zoom`: the component's states are
-      // readable from the DOM, which is what makes them checkable.
-      host.dataset.wheel = on ? 'on' : 'off';
-    };
     // Anywhere on the map that is not a parcel puts the open one down, which
     // is the gesture a reader tries before looking for a control.
     map.on('click', clearSelection);
 
     canvas.addEventListener('mouseenter', () => wheel(true));
-    canvas.addEventListener('mouseleave', () => wheel(false));
+    canvas.addEventListener('mouseleave', () => wheel(document.fullscreenElement === host));
     wheel(false);
 
     host.dataset.state = 'ready';
@@ -448,7 +548,7 @@
     color: var(--text-2);
     /* A caption's size. The panel is chrome around the map, not a column of
        the article, and at the body size it read as the louder of the two. */
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     line-height: 1.5;
   }
 
@@ -505,9 +605,13 @@
     padding: var(--sp-16, 1rem);
   }
 
-  .smap__fallback img {
-    max-width: 100%;
-    max-height: 100%;
+  /* Three classes, because `.prose figure img` sets full width and an auto
+     height, which let a tall picture run out of the box and over the caption.
+     The box has a definite size, so the picture fills it and letterboxes. */
+  .prose .smap .smap__fallback img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
     object-fit: contain;
   }
 
@@ -559,8 +663,42 @@
     background: var(--surface);
   }
 
-  .smap .smap__reset {
-    margin-top: 0.375rem;
+  /* The zoom pair sits on top of the reset and full-screen pair, a small gap
+     between them rather than Leaflet's 10px. */
+  .smap .leaflet-bottom .smap__zoom {
+    margin-bottom: 0.375rem;
+  }
+
+  /* Full screen: the component fills the screen, map beside panel on a wide
+     one and above it on a narrow one, with the page's own ground behind. */
+  /* base.css reserves a scrollbar gutter on the root, and a full-screen
+     element is laid out inside it, which left a black strip down its right
+     edge. The gutter goes while the map is full screen and comes back after. */
+  html:has(.smap:fullscreen) {
+    overflow: hidden;
+    scrollbar-gutter: auto;
+  }
+
+  .smap:fullscreen {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border: 0;
+    background: var(--bg);
+  }
+
+  @media (min-width: 640px) {
+    .smap:fullscreen {
+      grid-template-rows: none;
+      grid-template-columns: 1fr 20rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .smap:fullscreen {
+      grid-template-rows: 1fr auto;
+      overflow-y: auto;
+    }
   }
 
   /* A third square under the zoom pair, the same size as they are, so the
@@ -596,7 +734,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    transform: translate(-50%, -50%);
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px)));
     display: none;
     padding: 0.1875rem 0.375rem;
     border-radius: 999px;
@@ -607,6 +745,36 @@
     line-height: 1;
     white-space: nowrap;
     box-shadow: 0 0 0 2px var(--bg);
+  }
+
+  /* A label moved off its site keeps a thread back to it: a hairline from the
+     site to the label, and a dot in the line's colour where the site is. */
+  .smap .smap__lead {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    width: var(--len, 0px);
+    height: 1px;
+    background: var(--text-2);
+    transform-origin: 0 50%;
+    transform: rotate(var(--ang, 0rad));
+  }
+
+  .smap .smap__pin[data-moved] .smap__lead {
+    display: block;
+  }
+
+  .smap .smap__pin[data-moved]::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 0 1.5px var(--bg);
   }
 
   /* The code at the zoom the map opens at, the full identifier once the
@@ -623,17 +791,13 @@
     display: block;
   }
 
-  .smap .smap__pin--named > span {
-    background: var(--bg);
-    border: 1.5px solid var(--text-3);
-    color: var(--text-2);
-    box-shadow: none;
-  }
-
-  .smap .smap__pin--win > span {
-    background: var(--accent);
-    box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent);
-  }
+  /* Each labelled site in its line's colour, the MBTA's own, fixed across
+     themes like the drawn lines. Orange takes dark text: white on #ED8B00 is
+     too faint to read at this size. */
+  .smap .smap__pin--red > span { background: #DA291C; color: #FFFFFF; }
+  .smap .smap__pin--orange > span { background: #ED8B00; color: #14120C; }
+  .smap .smap__pin--blue > span { background: #003DA5; color: #FFFFFF; }
+  .smap .smap__pin--green > span { background: #00843D; color: #FFFFFF; }
 
   .smap .smap__pin.is-on > span {
     background: var(--rule-strong);
@@ -656,6 +820,27 @@
      page and carries two classes' worth of weight, so the reset needs three
      to win on specificity rather than on which stylesheet happens to load
      second. */
+  /* Each figure under its label. The label is set like a caption, in the
+     panel's own face and the caption's quiet tone, a pixel larger than a
+     caption so it holds its own beside the figure under it. */
+  .prose .smap .smap__facts {
+    display: grid;
+    gap: 0.4375rem;
+    margin: 0;
+  }
+
+  .prose .smap .smap__facts dt {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: var(--lh-small);
+    color: var(--text-3);
+  }
+
+  .prose .smap .smap__facts dd {
+    margin: 0;
+    color: var(--text);
+  }
+
   .prose .smap .smap__side table {
     width: 100%;
     margin-top: 0;
@@ -699,6 +884,7 @@
 
   .prose .smap .smap__side p.smap__win,
   .prose .smap .smap__side p.smap__note {
+    font-size: 0.75rem;
     padding-top: 0.5rem;
     border-top: 1px solid var(--rule);
   }
@@ -709,8 +895,8 @@
     color: var(--text-3);
   }
 
-  /* Coming first under a scenario is the one thing on this panel the rest of
-     the page is about, so it keeps the accent. */
+  /* Being non-dominated is the one thing on this panel the rest of the page
+     is about, so it keeps the accent the labelled markers carry. */
   .prose .smap .smap__side p.smap__win {
     color: var(--accent);
   }

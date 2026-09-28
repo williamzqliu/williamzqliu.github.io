@@ -1,7 +1,7 @@
 ---
 title: Ripples into Silence
 year: 2025
-dates: Jan 2025 – Apr 2025, updated Sep 2026
+dates: Jan 2025 – Apr 2025, revised Sep 2026
 blurb: A scrollytelling visualization using ripples to tell the story of twelve years of recorded migrant deaths and disappearances around Lampedusa.
 tags: [narrative, interactive]
 tracks: [design, engineering]
