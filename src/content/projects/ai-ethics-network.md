@@ -114,7 +114,7 @@ could navigate it. The team’s feedback clarified which capabilities mattered, 
 that input to decide what needed a separate view, what belonged within a view, and what
 could become a display option.
 
-<div class="media-pair" data-stack style="--pair-split: repeat(2, minmax(0, 1fr))">
+<div class="media-pair" style="--pair-split: repeat(2, minmax(0, 1fr))">
   <figure>
     <img src="/media/ai-ethics-network/sketch-atlas.webp" alt="Atlas: the keyword network coloured by community, with faint edges." width="1600" height="900" loading="lazy" decoding="async" />
     <figcaption>Atlas: one network coloured by community.</figcaption>
@@ -209,7 +209,7 @@ Territory repeated a static view that Rafael Morris had already made from the an
 Compass struck him as interestingly different, though he was not sure it showed anything
 the other layouts could not.
 
-<div class="media-pair" data-stack style="--pair-split: repeat(3, minmax(0, 1fr))">
+<div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
   <figure>
     <img src="/media/ai-ethics-network/sketch-nightfall.webp" alt="Nightfall: a dark network in which only the anchor keywords are lit." width="1600" height="900" loading="lazy" decoding="async" />
     <figcaption>Nightfall: a few anchors lit on a dark network.</figcaption>

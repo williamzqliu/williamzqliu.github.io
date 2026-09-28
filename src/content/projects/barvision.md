@@ -199,8 +199,10 @@ and scoring screens.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The jury vote running order in purple: twenty-six entrants in two columns, each row a Chinese character, an artist photo, a song title and a score of zero."
   ></video>
   <figcaption>Compact entry identifiers connect the running-order screen with the scoreboard used during the reveal.</figcaption>
@@ -221,8 +223,10 @@ leaderboard. The 12-point award received a longer pause and a distinct visual tr
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The jury board during voting: twenty-six rows carrying running totals, a juror’s name on the right, and their points landing on the receiving entries while the rows reorder around them."
   ></video>
   <figcaption>Points are revealed on the right before totals and ranks update on the left.</figcaption>
@@ -246,8 +250,10 @@ movement.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The leaderboard reordering as scores arrive: rows sliding out sideways, the rows below falling into the gaps they leave, and the promoted rows sliding back in at their new ranks."
   ></video>
   <figcaption>Promoted entries move out, displaced rows fall, and promoted entries return at their new ranks.</figcaption>
@@ -280,8 +286,10 @@ leaderboard settled.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The televote in cyan: an entrant’s score counting up to a large figure on the right while the board reorders around the row it belongs to."
   ></video>
   <figcaption>The count slows as an entry approaches the leading totals.</figcaption>
@@ -325,8 +333,10 @@ Chongqing to reconnect the results with the host city.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The grand final results over night footage of Chongqing: the final standings entering column by column, then the winning entry marked at the top."
   ></video>
   <figcaption>The final standings enter column by column over night footage of Chongqing.</figcaption>
@@ -344,8 +354,10 @@ Chongqing to reconnect the results with the host city.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="Results boards for the earlier stages building up on a lit stage: the wildcard round, the entries that did not qualify, and the second chance round, each a two-column board of entrants with a Chinese character, an artist photo, a song title and scores."
   ></video>
   <figcaption>Earlier-stage results presented during the grand final.</figcaption>
@@ -360,8 +372,10 @@ Chongqing to reconnect the results with the host city.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The running order for the televote in cyan, the rows carrying the jury totals and reordered by them."
   ></video>
   <figcaption>The running order before the televote, carrying the jury totals.</figcaption>
@@ -442,8 +456,10 @@ and algorithm, the allocation can be reproduced.
     muted
     loop
     playsinline
+    controls
     preload="none"
-    data-loop
+    data-player="autoplay"
+    data-nozoom
     aria-label="The allocation draw in progress over night footage of Chongqing: five pots of entrants across the top, the two semi-finals below, and a card in the middle showing the entrant just drawn and the half they were assigned to."
   ></video>
   <figcaption>The allocation draw reveals each assignment within the event’s visual system.</figcaption>

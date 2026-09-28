@@ -121,7 +121,8 @@ selecting the biggest drop reveals the remaining entries and brings the song int
     playsinline
     controls
     preload="none"
-    data-controls
+    data-player="autoplay"
+    data-nozoom
     aria-label="The weekly chart with its highlight cards beside it. The pointer selects the biggest-drop card, Fire Away at number 95; the chart loads its remaining rows, scrolls down and marks that row."
   ></video>
   <figcaption>Selecting a weekly highlight locates its song within the full ranking.</figcaption>
@@ -159,7 +160,8 @@ desktop readers can scan the same fields in a table.
     playsinline
     controls
     preload="none"
-    data-controls
+    data-player="autoplay"
+    data-nozoom
     aria-label="The query love is typed into the song search on desktop and mobile. Matching entries appear as table rows on desktop and cards on mobile."
   ></video>
   <figcaption>Typing ‘love’ filters the same archive into table rows on desktop and individual cards on mobile.</figcaption>
@@ -184,7 +186,8 @@ keeping each score connected to its entry.
     playsinline
     controls
     preload="none"
-    data-controls
+    data-player="autoplay"
+    data-nozoom
     aria-label="The 2026 Grand Final jury scoreboard on desktop and on a phone. Each table scrolls sideways in turn: the voter score columns move while the entry, member, total and jury columns stay in place."
   ></video>
   <figcaption>Entry identifiers remain visible while the voting columns scroll horizontally.</figcaption>
