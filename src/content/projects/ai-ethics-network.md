@@ -258,7 +258,7 @@ Path is available in the Network and Community views only.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Explore: surveillance and its neighbours.</figcaption>
+    <figcaption>Selecting surveillance highlights its neighbourhood.</figcaption>
   </figure>
   <figure>
     <img
@@ -269,7 +269,7 @@ Path is available in the Network and Community views only.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Path: poetry to missile. Both examples demonstrate the tool and are not research findings.</figcaption>
+    <figcaption>Connecting poetry to missile reveals a shortest path.</figcaption>
   </figure>
 </div>
 
@@ -277,7 +277,8 @@ Among equally short paths, Path picks the one whose keywords have the highest to
 degree. I chose degree because it is a familiar network measure, hoping the path would
 pass through well-connected keywords a reader is more likely to recognise, though a high
 degree does not guarantee that. A path does not measure semantic distance, the strongest
-association, or scholarly influence.
+association, or scholarly influence. Both examples demonstrate the tool and are not
+research findings.
 
 <details>
 <summary>How the path and its numbers are computed</summary>
