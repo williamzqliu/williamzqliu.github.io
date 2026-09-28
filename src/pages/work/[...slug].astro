@@ -3072,12 +3072,20 @@ const facts = [
     // first time and every time it comes into view, until the reader pauses it
     // or it reaches the end; under reduced motion it waits like any player.
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // On a phone the browser lays its control bar over the picture for a few
+    // seconds whenever playback starts, so every time a self-starting player
+    // came into view its first seconds were hidden. There the page starts it
+    // with the controls off, and a tap on the clip brings them back.
+    const touch = window.matchMedia('(hover: none)').matches;
     watching = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const clip = entry.target as HTMLVideoElement;
           if (clip.getAttribute('data-player') === 'autoplay' && !still) {
-            if (entry.isIntersecting && !clip.dataset.held && !clip.ended) void clip.play().catch(() => {});
+            if (entry.isIntersecting && !clip.dataset.held && !clip.ended) {
+              if (touch) clip.controls = false;
+              void clip.play().catch(() => {});
+            }
             else if (!entry.isIntersecting && !clip.paused) {
               clip.dataset.leaving = 'true';
               clip.pause();
@@ -3110,6 +3118,7 @@ const facts = [
           else if (!clip.ended) clip.dataset.held = 'true';
         });
         clip.addEventListener('play', () => delete clip.dataset.held);
+        if (touch) clip.addEventListener('click', () => { clip.controls = true; });
       }
       if (clip.hasAttribute('data-controls')) addClipToggle(clip);
       watching.observe(clip);
