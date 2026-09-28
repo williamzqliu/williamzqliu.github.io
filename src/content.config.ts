@@ -7,13 +7,9 @@ import { glob } from 'astro/loaders';
  * than kinds of thing — a poster shown at one conference, a feature written by
  * one institute — and calling those `Poster` and `Spotlight` throws away the
  * part that matters. Those carry their own label.
- *
- * `note` is a few words beside the link in the case study head, for what a
- * reader should know before following it, such as a piece built for a
- * desktop. The listing rows do not show it.
  */
 const link = (address: z.ZodType<string>) =>
-  z.union([address, z.object({ href: address, label: z.string(), note: z.string().optional() })]);
+  z.union([address, z.object({ href: address, label: z.string() })]);
 
 // SPEC §7. Adding a project is one markdown file in src/content/projects/ —
 // the schema is validated at build time, so bad frontmatter fails the build

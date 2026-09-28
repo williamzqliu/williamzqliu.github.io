@@ -17,18 +17,20 @@ links:
   # The course remote only the faculty can publish to is replaced by my own.
   # The account's user site carries a custom domain, so a project page is
   # served under that domain rather than under github.io.
-  # The piece asks for a desktop window, which the head says beside the link.
+  # The piece asks for a desktop window, so the label says so wherever the
+  # link appears, on the card as well as in the head.
   demo:
     href: https://williamzqliu.com/ripples-into-silence/
-    label: Live Demo
-    note: Desktop experience
+    label: Live Demo (desktop only)
   code: https://github.com/williamzqliu/ripples-into-silence
 cover:
   # The card and the head play the same loop: the record's opening, where
   # the island comes up with its name and shrinks to the cross, then its end
   # fading in, and back to the empty frame the loop starts from. Real frames
-  # from the piece, with the nav, counters and year bar hidden. Made at the
-  # head's 2.1:1, which the card's 16:9 crops at the sides only.
+  # from the piece, with the nav, counters and year bar hidden, and in the
+  # final state the records' rings raised to 1.7 times their opacity (capped
+  # at 0.85) so they read at card size; the dashed distance rings are as drawn.
+  # Made at the head's 2.1:1, which the card's 16:9 crops at the sides only.
   wide: /media/ripples-into-silence/hero-loop.mp4
   tone: dark
   alt: The yellow outline of Lampedusa appears with its name on a deep navy ground and shrinks to a small cross. The record's end fades in around it, ninety-five hollow white circles of different sizes inside dashed rings marked 10, 25 and 50 km, then fades back to the empty frame.
