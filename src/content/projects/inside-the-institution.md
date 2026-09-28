@@ -157,11 +157,15 @@ select a community to inspect its connections and the scholars linking it to oth
 ## Building the dataset
 
 The initial dataset identified scholars but lacked the affiliations needed to compare
-departments and research centers. I manually curated faculty and research-unit records,
-including primary appointments, additional affiliations, employment status, and years at
-Northeastern. I then connected these records to OpenAlex publication data and built a
-pipeline for identity checks, publication reconciliation, coauthorship ties, and
-unit-level summaries.
+departments and research centers. I built the dataset through three steps:
+
+1. **Curate institutional records.** I manually curated faculty and research-unit
+   records, including primary appointments, additional affiliations, employment status,
+   and years at Northeastern.
+2. **Connect publication data.** I connected faculty records to OpenAlex publication data
+   through identity checks and publication reconciliation.
+3. **Build the network dataset.** I generated coauthorship ties and unit-level summaries
+   for the exploratory views.
 
 The organizational records cover 11 colleges, 46 departments, and 64 research centers,
 with a roster of current, retired, and former faculty. I recorded primary and additional
