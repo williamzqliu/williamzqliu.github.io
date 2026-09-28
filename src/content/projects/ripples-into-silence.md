@@ -25,8 +25,9 @@ links:
   code: https://github.com/williamzqliu/ripples-into-silence
 cover:
   # The card and the head play the same loop: the record's opening, where
-  # the island comes up with its name and shrinks to the cross, then its end
-  # fading in, and back to the empty frame the loop starts from. Real frames
+  # the island comes up with its name and shrinks to the cross and the 50 km
+  # circle opens, held on that frame while the record's end fades in, and back
+  # to the empty frame the loop starts from. Real frames
   # from the piece, with the nav, counters and year bar hidden, and in the
   # final state the records' rings raised to 1.7 times their opacity (capped
   # at 0.85) so they read at card size; the dashed distance rings are as drawn.
