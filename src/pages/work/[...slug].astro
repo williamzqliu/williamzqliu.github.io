@@ -3059,11 +3059,22 @@ const facts = [
     // scroll away from it. A `data-loop` clip is a loop with no control of
     // its own: it plays in view like an `autoplay` one, is not fetched until
     // then, and under reduced motion stays on its poster.
+    // `data-player="autoplay"` is a player that also starts itself, muted, the
+    // first time and every time it comes into view, until the reader pauses it
+    // or it reaches the end; under reduced motion it waits like any player.
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     watching = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const clip = entry.target as HTMLVideoElement;
+          if (clip.getAttribute('data-player') === 'autoplay' && !still) {
+            if (entry.isIntersecting && !clip.dataset.held && !clip.ended) void clip.play().catch(() => {});
+            else if (!entry.isIntersecting && !clip.paused) {
+              clip.dataset.leaving = 'true';
+              clip.pause();
+            }
+            continue;
+          }
           if (clip.hasAttribute('data-player') || (still && clip.hasAttribute('data-loop'))) {
             if (!entry.isIntersecting) clip.pause();
             continue;
@@ -3077,6 +3088,15 @@ const facts = [
 
     for (const clip of clips) {
       clip.pause();
+      // A pause the page did not make is the reader's, and it sticks.
+      if (clip.getAttribute('data-player') === 'autoplay' && !clip.dataset.watched) {
+        clip.dataset.watched = 'true';
+        clip.addEventListener('pause', () => {
+          if (clip.dataset.leaving) delete clip.dataset.leaving;
+          else if (!clip.ended) clip.dataset.held = 'true';
+        });
+        clip.addEventListener('play', () => delete clip.dataset.held);
+      }
       if (clip.hasAttribute('data-controls')) addClipToggle(clip);
       watching.observe(clip);
     }
