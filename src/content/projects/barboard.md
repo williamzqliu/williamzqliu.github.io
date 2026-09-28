@@ -70,10 +70,8 @@ in 2013. I joined in 2017. As daily conversation moved to WeChat, years of chart
 contest results remained scattered across posts, spreadsheets, and member-produced
 videos.
 
-Members share music through several activities. BarboardLab combines their personal
-weekly charts into a community ranking. The year-end archive preserves rankings compiled
-from members’ annual lists. Barvision is a song contest in which members submit songs
-and vote through competition rounds.
+Members contribute personal weekly charts to BarboardLab and annual lists to the
+year-end rankings. In Barvision, they submit songs and vote through competition rounds.
 
 I designed and built barboard.space to bring these activities into a shared website. The
 homepage surfaces current updates, while activity pages preserve the charts and results.
@@ -137,11 +135,10 @@ results, and individual voting records together, preserving the context behind i
 rankings. The 2026 event area also links to playlists and replay videos after voting has
 closed.
 
-For readers looking for a particular song, I built a separate search across editions,
-with modes for song, artist, member, and language. Within each edition, repeated round
-records for the same song and submitting member are combined into one search result
-showing the furthest stage reached. Links lead back to the
-relevant edition and the member who submitted it.
+I built cross-edition search by song, artist, member, and language. Within each
+edition, results combine a song’s repeated appearances across rounds under the same
+submitting member, showing the furthest stage reached. Each result links to its edition
+and submitting member.
 
 Search results can be read independently, so I presented them as individual cards on
 mobile. Each card keeps the song, result, edition, and submitting member together, while
