@@ -29,14 +29,13 @@ links:
 cover:
   # Drawn from the research revision's M3 outputs (tod-boston 011bda3) by
   # media-src/tod-boston/m3/make_m3_media.py. The card takes the 16:9 version
-  # and the head the 2.1:1 one, each whole, so neither crop can cut the axis
-  # names or the area key out of the picture.
+  # and the head the 2.1:1 one, each whole, so the network is never cropped.
   wide: /media/tod-boston/cover-wide.webp
   heroWide: /media/tod-boston/hero-wide.webp
   heroWhole: true
-  tone: light
-  alt: A scatter plot of the 246 compared sites, with assessed land value per acre across the bottom and daily boardings and alightings at the nearest station up the side, both on log scales, and marker area for buildable area. Fifteen non-dominated sites are orange; the other 231 are pale. A key gives circle sizes for 1, 5 and 15 acres.
-  caption: Fifteen sites remain non-dominated across assessed land value per acre, buildable area and station activity.
+  tone: dark
+  alt: A schematic diagram of Boston's rapid transit in the style of the MBTA map, with the Red, Orange, Blue and Green lines on a dark ground. Each of the 246 compared sites is a dot beside its nearest station. The fifteen non-dominated sites are orange, at Alewife, Harvard, Central, Malden Center, Wonderland, North Quincy, Wollaston, Quincy Adams and Braintree, which are named; the other 231 are grey.
+  caption: Each dot is a compared site beside its nearest station. The fifteen in orange are non-dominated across assessed land value per acre, buildable area and station activity.
 quickFacts:
   - label: "Role"
     value: "Spatial analysis, decision modeling & data visualization"
