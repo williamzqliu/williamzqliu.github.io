@@ -24,7 +24,7 @@ links:
   # so it is not linked as the result. The repository README opens on M3.
   paper:
     href: https://github.com/williamzqliu/tod-boston/blob/main/RESEARCH_REVISION_REPORT.md
-    label: Research report
+    label: Research Report
   code: https://github.com/williamzqliu/tod-boston
 cover:
   # Drawn from the research revision's M3 outputs (tod-boston 011bda3) by
