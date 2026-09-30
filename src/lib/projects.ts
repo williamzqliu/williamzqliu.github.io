@@ -35,7 +35,7 @@ export interface ProjectLink {
   href: string;
 }
 
-// Fixed order, because SPEC §9 wants the demo first. This is presentation
+// Fixed order, with the demo first. This is presentation
 // order, not a category list — deriving it from the data would be wrong.
 const LINK_ORDER = ['demo', 'thesis', 'paper', 'poster', 'spotlight', 'code'] as const;
 
@@ -114,7 +114,7 @@ export function cardLinks(project: Project): ProjectLink[] {
 }
 
 /**
- * SPEC §7 — body content is optional, and a project without one renders as a
+ * Body content is optional, and a project without one renders as a
  * row with links but no case study page. So the link only exists when the
  * page does.
  *

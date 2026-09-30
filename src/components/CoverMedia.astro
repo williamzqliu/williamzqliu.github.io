@@ -1,5 +1,5 @@
 ---
-// SPEC §6 / §8 — tone-locked cover plate, or the real thing once it exists.
+// A tone-locked cover plate, or the real thing once it exists.
 //
 // Callers decide whether a plate is wanted at all (see lib/media.ts); this
 // component still renders nothing when the switch is off, so no caller can
@@ -17,9 +17,9 @@ interface Props {
   /**
    * `responsive` is the listing card's 16:9. `hero` is the case study head: a
    * portrait-friendly ratio on a phone, 16:9 on a tablet, a wide banner on a
-   * desktop (SPEC §9 asked for full bleed here; the head now sits on the
-   * content grid instead). `natural` imposes no box at all — the picture keeps
-   * its own proportions and the column decides the width.
+   * desktop, on the content grid rather than full bleed. `natural` imposes no
+   * box at all — the picture keeps its own proportions and the column decides
+   * the width.
    */
   ratio?: 'responsive' | 'hero' | 'natural';
   label?: string;
@@ -82,10 +82,9 @@ const loop = /\.(mp4|webm)$/i.test(src ?? '');
     border: var(--rule-hair) solid var(--rule);
   }
 
-  /* 16:9 at every width. SPEC §5 asked for square below 640px, but a 1:1 plate
-     at full column width took most of a phone screen before the title had been
-     read — the row now shows image, title, year and the start of the blurb
-     together. */
+  /* 16:9 at every width, phones included: a 1:1 plate at full column width
+     took most of a phone screen before the title had been read — the row now
+     shows image, title, year and the start of the blurb together. */
   .cover[data-ratio='responsive'] {
     aspect-ratio: 16 / 9;
   }
@@ -114,7 +113,7 @@ const loop = /\.(mp4|webm)$/i.test(src ?? '');
     aspect-ratio: 16 / 9;
   }
 
-  /* Locked to the declared tone — does not follow the theme (SPEC §8). */
+  /* Locked to the declared tone — does not follow the theme. */
   .cover[data-tone='dark'] {
     background: var(--tone-dark);
     color: var(--tone-dark-ink);

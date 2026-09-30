@@ -8,8 +8,8 @@
 // (text touching its edge) or bleed past the rules (escaping the grid), and
 // neither looked right; hover now lives on the title and the cover instead.
 //
-// Cover media is a tone-locked placeholder plate until the loops are recorded
-// (SPEC "Open items"). The plate colour does not follow the theme, and while
+// Cover media is a tone-locked placeholder plate until the loops are recorded.
+// The plate colour does not follow the theme, and while
 // `COVERS_ENABLED` is off the column is not rendered at all.
 
 import CoverMedia from './CoverMedia.astro';
@@ -36,7 +36,7 @@ interface Props {
   coverSrc?: string;
   coverAlt?: string;
   links: ProjectLink[];
-  /** SPEC §9 — the engineering track gives stack lines more prominence. */
+  /** Passed to KeywordTags as `emphasise`: more prominent stack chips. */
   emphasiseStack?: boolean;
 }
 
@@ -229,7 +229,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
-  /* Stretches the link over the whole row (SPEC §4).
+  /* Stretches the link over the whole row.
 
      `z-index` is not decoration here, it is the click target. The cover
      carries a `filter`, and a filter makes its element a stacking context —
@@ -356,7 +356,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     }
   }
 
-  /* ---- states (SPEC §4) ---- */
+  /* ---- states ---- */
 
   /* Two ways in, and only ever one of them at a time.
 
@@ -439,7 +439,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     }
   }
 
-  /* ---- layout tiers (SPEC §5) ---- */
+  /* ---- layout tiers ---- */
 
   @media (max-width: 1023px) {
     /* Cover leads on narrow screens: it is the fastest read. */

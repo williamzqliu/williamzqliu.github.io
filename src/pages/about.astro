@@ -6,7 +6,7 @@ import IdentityLine from '../components/IdentityLine.astro';
 
 // The portrait is a file in public/, so its presence is checked at build time
 // rather than assumed: a missing photo leaves a framed placeholder instead of
-// a broken image (SPEC §7 — missing media must not block publishing).
+// a broken image (missing media must not block publishing).
 const PORTRAIT_CANDIDATES = ['/media/about/portrait.webp', '/media/about/portrait.jpg'];
 const portrait = PORTRAIT_CANDIDATES.find((file) =>
   fs.existsSync(path.join(process.cwd(), 'public', file.replace(/^\//, '')))

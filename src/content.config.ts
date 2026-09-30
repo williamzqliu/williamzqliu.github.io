@@ -11,7 +11,7 @@ import { glob } from 'astro/loaders';
 const link = (address: z.ZodType<string>) =>
   z.union([address, z.object({ href: address, label: z.string() })]);
 
-// SPEC §7. Adding a project is one markdown file in src/content/projects/ —
+// Adding a project is one markdown file in src/content/projects/ —
 // the schema is validated at build time, so bad frontmatter fails the build
 // rather than shipping.
 const projects = defineCollection({

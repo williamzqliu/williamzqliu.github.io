@@ -13,7 +13,7 @@ import SiteMap from '../../components/SiteMap.astro';
 import { projectLinks, hasCaseStudy, nextStep, homeLoop, isSelected, isPublic } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
 
-// SPEC §7 — only projects with body content get a case study page.
+// Only projects with body content get a case study page.
 export async function getStaticPaths() {
   const projects = (await getCollection('projects', isPublic)).filter(
     hasCaseStudy

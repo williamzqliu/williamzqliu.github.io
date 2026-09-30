@@ -1,6 +1,6 @@
 /* ============================================================
-   tokens.css — SPEC §2 (visual system) + §3 (motion)
-   Every component reads these. No hardcoded colors anywhere else.
+   tokens.css — visual system and motion
+   Shared design tokens used across the site.
    ============================================================ */
 
 /* ---------- Color: light ---------- */
@@ -83,7 +83,7 @@
   }
 }
 
-/* ---------- Cover tone plates (SPEC §8) ----------
+/* ---------- Cover tone plates ----------
    Locked constants. These do NOT follow the theme: a dark network graphic
    stays on a dark plate in light mode. */
 
@@ -206,7 +206,7 @@
   --sp-120: 7.5rem;
 }
 
-/* ---------- Layout (SPEC §5) ---------- */
+/* ---------- Layout ---------- */
 
 :root {
   --container: 1200px;
@@ -226,7 +226,7 @@
   }
 }
 
-/* ---------- Motion (SPEC §3) ---------- */
+/* ---------- Motion ---------- */
 
 :root {
   --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -241,8 +241,8 @@
   --dur-hover-out: 280ms;
   /* Entrances that draw themselves: the nav indicator, the filter underline. */
   --dur-draw:      320ms;
-  /* Press. SPEC §4 asks for 0ms here; a short fade was preferred instead, so
-     nothing on the page changes state by jumping. */
+  /* Press. A short fade rather than an instant change, so nothing on the
+     page changes state by jumping. */
   --dur-press:      90ms;
   /* Theme switch, applied only while the class is on <html>. */
   --dur-theme:     150ms;

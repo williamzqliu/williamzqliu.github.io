@@ -349,9 +349,9 @@ The change in scale mattered. On a phone a music form behaved like album art. At
 
      OPEN, and not a blocker:
 
-     1. `tags: [interactive]`. CONTENT-AUDIT.md §C3 has this one unsettled: the
-        project is a brand system and print (`graphic`) as much as a spatial
-        piece (`interactive`). Left as it was found.
+     1. `tags: [interactive]` is unsettled: the project is a brand system and
+        print (`graphic`) as much as a spatial piece (`interactive`). Left as
+        it was found.
      2. Two verbatim interview quotations are in the previous draft and are not
         on the page: a listener on homogeneous recommendations, and an engineer
         on preferences resolving into a fixed preference chain preset. They

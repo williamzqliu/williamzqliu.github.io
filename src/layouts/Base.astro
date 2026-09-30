@@ -112,7 +112,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fontsHref} />
 
-    {/* SPEC §3 — page transitions. Without it every nav click is a full
+    {/* Page transitions. Without it every nav click is a full
         document load, which re-runs the webfont swap: the fallback face paints
         first and every line of text reflows when the real face arrives. With
         it the fonts stay loaded and the layout holds still. */}
