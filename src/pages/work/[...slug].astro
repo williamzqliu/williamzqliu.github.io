@@ -2529,6 +2529,119 @@ const facts = [
     }
   }
 
+  /* A retired section id kept at the top of its renamed heading, so links to
+     the old anchor still land on the section and clear the header as the
+     heading itself would. */
+  .prose h2:has(.anchor-alias) {
+    position: relative;
+  }
+
+  /* At the heading's rule, above its padding and number, where the heading's
+     own id puts it, and out of the flow so the title does not move. */
+  .prose h2 .anchor-alias {
+    position: absolute;
+    top: 0;
+    left: 0;
+    scroll-margin-top: inherit;
+  }
+
+  /* The 2024 weight tables: a short name, what it measures, and the weight
+     on one line, centred in its column, every cell starting at the top of its
+     row so a weight stays level with the name it belongs to. */
+  .prose table.weights-2024 th:nth-child(1) {
+    width: 30%;
+  }
+
+  .prose table.weights-2024 th:nth-child(2) {
+    width: 55%;
+  }
+
+  .prose table.weights-2024 th,
+  .prose table.weights-2024 td {
+    vertical-align: top;
+  }
+
+  /* The name is what a row is found by, so it carries the weight and the
+     full ink; the same in the 2026 measures table below. */
+  .prose table.weights-2024 td:first-child,
+  .prose table.measure-decisions td:first-child {
+    font-weight: var(--fw-strong);
+    color: var(--text);
+  }
+
+  .prose table.weights-2024 th:last-child,
+  .prose table.weights-2024 td:last-child {
+    padding-right: 0;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* The 2026 measures table: the name, the decision in a short phrase, and
+     the reason with its limits taking the width. Every cell starts at the top
+     of its row. */
+  .prose table.measure-decisions th:nth-child(1),
+  .prose table.measure-decisions th:nth-child(2) {
+    width: 25%;
+  }
+
+  .prose table.measure-decisions th,
+  .prose table.measure-decisions td {
+    vertical-align: top;
+  }
+
+  /* Phone: three columns left two or three words a line, so each row stacks,
+     the name, then the decision, then the reason, at the same size as on the
+     desktop. The heads stay for screen readers. */
+  @media (max-width: 639px) {
+    .prose table.measure-decisions thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .prose table.measure-decisions tbody tr {
+      display: block;
+      padding-block: var(--sp-12);
+      border-bottom: var(--rule-hair) solid var(--rule);
+    }
+
+    .prose table.measure-decisions tbody tr:first-child {
+      border-top: var(--rule-hair) solid var(--rule-strong);
+    }
+
+    .prose table.measure-decisions td {
+      display: block;
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .prose table.measure-decisions td + td {
+      margin-top: var(--sp-4);
+    }
+  }
+
+  /* The same list with a short name in the left column rather than a
+     sentence: the name takes a quarter of the row and the decision the rest,
+     at full contrast because the decision is the reading. */
+  .issue-response--terms > div {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    padding-block: var(--sp-20);
+  }
+
+  .issue-response--terms dd {
+    color: var(--text);
+  }
+
+  @media (max-width: 639px) {
+    .issue-response--terms > div {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--sp-8);
+    }
+  }
+
   /* Data keeps the metadata treatment: mono heads, hairline rows, no fills. */
   .prose table {
     width: 100%;
