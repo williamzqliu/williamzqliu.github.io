@@ -26,7 +26,7 @@ cover:
   alt: The keyword network of the tool, 534 AI ethics keywords colored by six thematic communities.
 quickFacts:
   - label: "Role"
-    value: "Visualization design, interaction specification & implementation"
+    value: "Visualization design, interaction specification, and implementation"
   - label: "Outcome"
     value: "Deployed research tool featured in the team’s manuscript draft"
 credits:
@@ -41,7 +41,7 @@ credits:
     - D3
     - SVG
   team:
-    - group: Visualization design & interaction specification
+    - group: Visualization design and interaction specification
       people:
         - Zhuoqi Liu
     - group: Project coordination
@@ -51,7 +51,7 @@ credits:
       people:
         - Brian Ball
         - Ioannis Votsis
-    - group: Data preparation & network analysis
+    - group: Data preparation and network analysis
       people:
         - Rafael Morris
   note: The London team set the research needs. Todd Linkner coordinated between the two groups and worked out with me what was feasible. I defined the features and interactions, wrote part of the code, and debugged and checked the results in reviews with Todd and the London team. Claude Code generated most of the application code.
@@ -160,7 +160,7 @@ layouts of that relationship.
 
 The view shows a ranked subset of 50 keywords, ordered by how many publication sources
 each links to, and 50 publication sources, ordered by total link weight. I settled on 50
-by trying the layouts and judging legibility, visual density and how the view responded
+by trying the layouts and judging legibility, visual density, and how the view responded
 in use. It is an empirical choice with no measured threshold behind it, and because the
 lower-ranked nodes are left out, the view is not the complete network.
 
@@ -198,7 +198,7 @@ changes how the network looks and introduces no new relationship or exploration 
 <summary>Additional sketches and feedback</summary>
 
 Brian Ball, one of the principal investigators, replied in writing on June 27, 2026. He
-suggested combining the capabilities of Atlas, Strata and Orbit, asked to keep Lattice,
+suggested combining the capabilities of Atlas, Strata, and Orbit, asked to keep Lattice,
 and wanted the keyword-to-source network available on its own. Organizing those into two
 views of one network, a separate Journal view with two layouts, and a color mode was my
 design response.
@@ -263,7 +263,7 @@ Path is available in the Network and Community views only.
   <figure>
     <img
       src="/media/ai-ethics-network/shortest-path.webp"
-      alt="Path mode: a line from poetry through philosophy, technology and military to missile, drawn over the faded network, with the path listed in the sidebar."
+      alt="Path mode: a line from poetry through philosophy, technology, and military to missile, drawn over the faded network, with the path listed in the sidebar."
       width="2400"
       height="1350"
       loading="lazy"
@@ -297,7 +297,7 @@ orders the sidebar lists by default. Degree in the keyword network sets which la
 shown first and breaks ties between paths of the same length. Link widths in some
 selected states come from the average degree of the two ends, and the resting network
 draws every link at one width, so a thicker line does not mean more shared papers. In
-the Journal view, a keyword is drawn, sized and ordered by the number of publication
+the Journal view, a keyword is drawn, sized, and ordered by the number of publication
 sources it links to, and a publication source by its total link weight. Link weight
 orders the sidebar and labels the highlighted links there, and line width mainly marks
 what is selected. Distance on screen is not an exact measure of how strongly two nodes
@@ -312,7 +312,7 @@ waiting and movement when the tool opens. The coordinates are saved ahead of tim
 data file the tool loads, so every keyword is already in place.
 
 To support further figure editing, I specified SVG export that preserves the current
-selection, highlighting, fading and label styling. The file holds the canvas alone,
+selection, highlighting, fading, and label styling. The file holds the canvas alone,
 without the sidebar or the rest of the page, and I tested the export on the deployed
 tool.
 
@@ -320,7 +320,7 @@ tool.
 <summary>Implementation notes</summary>
 
 The tool is a single-page Svelte application that renders to SVG and is deployed as a
-static site. Svelte holds the interface state: the view, the mode and the selection. A
+static site. Svelte holds the interface state: the view, the mode, and the selection. A
 Node script lays the network out with d3-force and saves the coordinates; in the
 browser, the tool only nudges overlapping nodes apart, because node size is applied
 after the layout is computed. The Community view reuses those coordinates, moving each
@@ -329,7 +329,7 @@ the ring or column it is drawing.
 
 Labels are placed in order of each node’s connection measure, and a label that would
 collide with one already placed is dropped. Export clones the live SVG, adds the label
-styles, serializes it and downloads it named after the current view.
+styles, serializes it, and downloads it named after the current view.
 
 </details>
 

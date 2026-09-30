@@ -34,15 +34,15 @@ cover:
   caption: "A detail of Northeastern University’s internal coauthorship network, rendered with a standard D3.js force-directed layout."
 quickFacts:
   - label: "Role"
-    value: "Research, data analysis, design & development"
+    value: "Research, data analysis, design, and development"
   - label: "Outcome"
-    value: "Interactive prototype evaluated with 20 participants; MFA thesis and NetSci 2026 poster."
+    value: "Interactive prototype evaluated with 20 participants, an MFA thesis, and a NetSci 2026 poster"
 # Order is the editorial decision here — read down, not sorted. Five is the cap
 # on skills and tools, enforced by the schema.
 credits:
   skills:
     - Data visualization
-    - Data curation & network analysis
+    - Data curation and network analysis
     - Interaction design
     - UX research
     - Front-end development
@@ -58,7 +58,7 @@ credits:
   # for people who guided it instead.
   teamLabel: Roles
   team:
-    - group: Data curation, analysis, design, development & evaluation
+    - group: Data curation, analysis, design, development, and evaluation
       people:
         - Zhuoqi Liu
     - group: Advising
@@ -279,7 +279,7 @@ view.
   <figure>
     <img
       src="/media/inside-the-institution/side-panel-version-revised.webp"
-      alt="A later scholar panel: Direct, 1-Hop and 2-Hop ego-network controls above the research interests."
+      alt="A later scholar panel: Direct, 1-Hop, and 2-Hop ego-network controls above the research interests."
       width="500"
       height="932"
       loading="lazy"
@@ -292,7 +292,7 @@ view.
 <figure>
   <img
     src="/media/inside-the-institution/scholar-selected.webp"
-    alt="The Collaboration Map with one scholar selected in 2-Hop view: their local network on the left, and a panel on the right showing affiliations, h-index, collaborators and research interests."
+    alt="The Collaboration Map with one scholar selected in 2-Hop view: their local network on the left, and a panel on the right showing affiliations, h-index, collaborators, and research interests."
     width="1256"
     height="708"
     loading="lazy"
