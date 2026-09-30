@@ -31,11 +31,11 @@ cover:
   heroWide: /media/barboard/hero-annual.webp
   heroMobile: /media/barboard/cover-annual.webp
   tone: dark
-  alt: "The BARBOARD wordmark above the title Year-End Singles Chart 2023, beside the top of the year’s ranking, each song with its album artwork, points and chart count."
+  alt: "The BARBOARD wordmark above the title Year-End Singles Chart 2023, beside the top of the year’s ranking, each song with its album artwork, points, and chart count."
   caption: "The 2023 year-end chart shows combined points alongside the number of member lists supporting each song."
 quickFacts:
   - label: "Role"
-    value: "Information architecture, interface design & development"
+    value: "Information architecture, interface design, and development"
   - label: "Outcome"
     value: "Published website connecting community charts, contest archives, and member profiles"
 credits:
@@ -54,7 +54,7 @@ credits:
   # existed, and there is no one else to file under it.
   teamLabel: Roles
   team:
-    - group: Visual identity, website design & development
+    - group: Visual identity, website design, and development
       people:
         - Zhuoqi Liu
   note: Selected coding tasks were supported by Claude Code.
@@ -123,7 +123,7 @@ selecting the biggest drop reveals the remaining entries and brings the song int
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The weekly chart with its highlight cards beside it. The pointer selects the biggest-drop card, Fire Away at number 95; the chart loads its remaining rows, scrolls down and marks that row."
+    aria-label="The weekly chart with its highlight cards beside it. The pointer selects the biggest-drop card, Fire Away at number 95; the chart loads its remaining rows, scrolls down, and marks that row."
   ></video>
   <figcaption>Selecting a weekly highlight locates its song within the full ranking.</figcaption>
 </figure>
@@ -164,7 +164,7 @@ desktop readers can scan the same fields in a table.
     data-nozoom
     aria-label="The query love is typed into the song search on desktop and mobile. Matching entries appear as table rows on desktop and cards on mobile."
   ></video>
-  <figcaption>Typing ‘love’ filters the same archive into table rows on desktop and individual cards on mobile.</figcaption>
+  <figcaption>Typing “love” filters the same archive into table rows on desktop and individual cards on mobile.</figcaption>
 </figure>
 
 Voting records require comparison across entries and voters, so I retained the grid on
@@ -188,7 +188,7 @@ keeping each score connected to its entry.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The 2026 Grand Final jury scoreboard on desktop and on a phone. Each table scrolls sideways in turn: the voter score columns move while the entry, member, total and jury columns stay in place."
+    aria-label="The 2026 Grand Final jury scoreboard on desktop and on a phone. Each table scrolls sideways in turn: the voter score columns move while the entry, member, total, and jury columns stay in place."
   ></video>
   <figcaption>Entry identifiers remain visible while the voting columns scroll horizontally.</figcaption>
 </figure>
@@ -243,7 +243,7 @@ expands to its full Top 10.
     data-nozoom
     aria-label="A member search for williw_ opens their profile. The page scrolls through contest results and ranking history, then expands and collapses the 2023 personal Top 10 before continuing to the bottom."
   ></video>
-  <figcaption>A member search connects contest history with personal year-end charts; available lists expand from three songs to ten.</figcaption>
+  <figcaption>A member search connects contest history with personal year-end charts; available lists expand from 3 songs to 10.</figcaption>
 </figure>
 
 Where source material is incomplete, the profile identifies the missing records. Members
@@ -282,7 +282,7 @@ broadcast system are documented in the [Barvision case study](/work/barvision/).
 <figure>
   <img
     src="/media/barboard/edition-theme-system.webp"
-    alt="The tops of four edition pages in a two by two grid, for Qiqihar 2023, Tonghua 2024, Jinzhong 2025 and Chongqing 2026. Each keeps the same navigation bar and hero layout, with the city, the year and the contest logo, while the artwork and colors change."
+    alt="The tops of four edition pages in a two-by-two grid, for Qiqihar 2023, Tonghua 2024, Jinzhong 2025, and Chongqing 2026. Each keeps the same navigation bar and hero layout, with the city, the year, and the contest logo, while the artwork and colors change."
     width="2988"
     height="1404"
     loading="lazy"

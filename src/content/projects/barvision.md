@@ -24,12 +24,12 @@ links:
 cover:
   wide: /media/barvision/cover-wide.webp
   tone: dark
-  alt: The contest title card, showing the Barvision wordmark, its V replaced by a pentagon, over curved streaks of cyan, violet and magenta light, above the lines Song Contest and Chongqing 2026.
+  alt: The contest title card, showing the Barvision wordmark, its V replaced by a pentagon, over curved streaks of cyan, violet, and magenta light, above the lines Song Contest and Chongqing 2026.
 quickFacts:
   - label: "Role"
-    value: "Event organization, visual & motion design, broadcast interaction design, hosting & live operation"
+    value: "Event organization, visual and motion design, broadcast interaction design, hosting, and live operation"
   - label: "Outcome"
-    value: "Delivered three live broadcasts, including a reproducible allocation draw and a three-hour grand final operated through a custom browser player."
+    value: "Three live broadcasts, including a reproducible allocation draw and a three-hour grand final operated through a custom browser player"
 credits:
   skills:
     - Art direction
@@ -49,13 +49,13 @@ credits:
   # collaboration that did not happen. Same shape and same label as Comgrand.
   teamLabel: Roles
   team:
-    - group: Event organization, hosting & live operation
+    - group: Event organization, hosting, and live operation
       people:
         - Zhuoqi Liu
-    - group: Visual identity, posters, cards & motion design
+    - group: Visual identity, posters, cards, and motion design
       people:
         - Zhuoqi Liu
-    - group: Broadcast interaction design & implementation review
+    - group: Broadcast interaction design and implementation review
       people:
         - Zhuoqi Liu
   specialThanks:
@@ -63,7 +63,7 @@ credits:
   note: I led the design decisions and implementation review. Claude Code handled most of the code implementation.
 ---
 
-## From Slides to a Live Show
+## From slides to a live show
 
 Inspired by Eurovision, Barvision is an annual song contest within the Barboard
 community. The 2026 edition brought together 40 participants across 38 competing
@@ -85,7 +85,7 @@ ripples, interference patterns, and refracted light.
 <figure>
   <img
     src="/media/barvision/gf-cover.webp"
-    alt="The Grand Final key visual: the Barvision wordmark, its V a pentagon, over curved streaks of violet, magenta and cyan light, with Song Contest and Chongqing 2026 beneath it and Grand Final in iridescent lettering below."
+    alt="The Grand Final key visual: the Barvision wordmark, its V a pentagon, over curved streaks of violet, magenta, and cyan light, with Song Contest and Chongqing 2026 beneath it and Grand Final in iridescent lettering below."
     width="2560"
     height="1440"
     loading="lazy"
@@ -175,7 +175,7 @@ and looping backgrounds.
   </figure>
 </div>
 
-## Making Results Easy to Follow
+## Making results easy to follow
 
 The grand final needed to move between dense result screens and individual moments of
 anticipation. I designed the sequence around three tasks: recognizing an entry,
@@ -203,7 +203,7 @@ and scoring screens.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The jury vote running order in purple: twenty-six entrants in two columns, each row a Chinese character, an artist photo, a song title and a score of zero."
+    aria-label="The jury vote running order in purple: 26 entrants in two columns, each row a Chinese character, an artist photo, a song title, and a score of zero."
   ></video>
   <figcaption>Compact entry identifiers connect the running-order screen with the scoreboard used during the reveal.</figcaption>
 </figure>
@@ -227,7 +227,7 @@ leaderboard. The 12-point award received a longer pause and a distinct visual tr
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The jury board during voting: twenty-six rows carrying running totals, a juror’s name on the right, and their points landing on the receiving entries while the rows reorder around them."
+    aria-label="The jury board during voting: 26 rows carrying running totals, a juror’s name on the right, and their points landing on the receiving entries while the rows reorder around them."
   ></video>
   <figcaption>Points are revealed on the right before totals and ranks update on the left.</figcaption>
 </figure>
@@ -358,7 +358,7 @@ Chongqing to reconnect the results with the host city.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="Results boards for the earlier stages building up on a lit stage: the wildcard round, the entries that did not qualify, and the second chance round, each a two-column board of entrants with a Chinese character, an artist photo, a song title and scores."
+    aria-label="Results boards for the earlier stages building up on a lit stage: the wildcard round, the entries that did not qualify, and the Second Chance round, each a two-column board of entrants with a Chinese character, an artist photo, a song title, and scores."
   ></video>
   <figcaption>Earlier-stage results presented during the grand final.</figcaption>
 </figure>
@@ -385,7 +385,7 @@ Chongqing to reconnect the results with the host city.
   <div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
     <img
       src="/media/barvision/live-scoreboard-1.webp"
-      alt="A recap screen headed 20 of 40 juries voted: twenty-six rows of running totals in three columns over night footage of a Chongqing temple roof."
+      alt="A recap screen headed 20 of 40 juries voted: 26 rows of running totals in three columns over night footage of a Chongqing temple roof."
       width="2560"
       height="1440"
       loading="lazy"
@@ -393,7 +393,7 @@ Chongqing to reconnect the results with the host city.
     />
     <img
       src="/media/barvision/live-scoreboard-2.webp"
-      alt="A recap screen headed Jury vote results: the completed jury totals for all twenty-six entries in three columns, over a night skyline of Chongqing."
+      alt="A recap screen headed Jury vote results: the completed jury totals for all 26 entries in three columns, over a night skyline of Chongqing."
       width="2560"
       height="1440"
       loading="lazy"
@@ -413,7 +413,7 @@ Chongqing to reconnect the results with the host city.
 
 </details>
 
-## Hosting and Operating the Show
+## Hosting and operating the show
 
 I was both the on-air host and the sole operator, so the player had to support the pace
 of presenting. I organized the grand final into 26 cues, with keyboard controls for
@@ -438,7 +438,7 @@ pauses decorative video layers to reduce load while retaining the main scoring d
 
 </details>
 
-## Making the Draw Reproducible
+## Making the draw reproducible
 
 I introduced a live allocation draw so members could see how entries were assigned to
 the semifinals and to the first or second half of the running order.
@@ -492,7 +492,7 @@ provides a record for checking the result against the draw procedure.
   <figcaption>The seed input and completed allocation provide the inputs and result of the draw.</figcaption>
 </figure>
 
-## Lessons for the Next Edition
+## Lessons for the next edition
 
 One background-music interruption showed that audio continuity needed more explicit
 checks alongside the visual transitions rehearsed during development.
