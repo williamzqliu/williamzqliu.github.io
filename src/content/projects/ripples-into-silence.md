@@ -2,7 +2,7 @@
 title: Ripples into Silence
 year: 2025
 dates: Jan 2025 – Apr 2025, revised Sep 2026
-blurb: A scrollytelling visualization using ripples to tell the story of twelve years of recorded migrant deaths and disappearances around Lampedusa.
+blurb: A scrollytelling visualization using ripples to tell the story of 12 years of recorded migrant deaths and disappearances around Lampedusa.
 tags: [narrative, interactive]
 tracks: [design, engineering]
 category: visual-storytelling
@@ -21,7 +21,7 @@ links:
   # link appears, on the card as well as in the head.
   demo:
     href: https://williamzqliu.com/ripples-into-silence/
-    label: Live Demo (desktop only)
+    label: Live demo (desktop only)
   code: https://github.com/williamzqliu/ripples-into-silence
 cover:
   # The card and the head play the same loop: the record's opening, where
@@ -34,11 +34,11 @@ cover:
   # Made at the head's 2.1:1, which the card's 16:9 crops at the sides only.
   wide: /media/ripples-into-silence/hero-loop.mp4
   tone: dark
-  alt: The yellow outline of Lampedusa appears with its name on a deep navy ground and shrinks to a small cross. The record's end fades in around it, ninety-five hollow white circles of different sizes inside dashed rings marked 10, 25 and 50 km, then fades back to the empty frame.
+  alt: The yellow outline of Lampedusa appears with its name on a deep navy ground and shrinks to a small cross. The record’s end fades in around it, 95 hollow white circles of different sizes inside dashed rings marked 10, 25, and 50 km, then fades back to the empty frame.
   caption: The opening and final state of The Record.
 quickFacts:
   - label: "Role"
-    value: "Data preparation, narrative design & visualization development"
+    value: "Data preparation, narrative design, and visualization development"
   - label: "Outcome"
     value: "Published interactive data story"
 credits:
@@ -70,7 +70,7 @@ credits:
 
 ## The experience
 
-Ripples into Silence follows deaths and disappearances recorded around Lampedusa,
+*Ripples into Silence* follows deaths and disappearances recorded around Lampedusa,
 a small Italian island between Tunisia and Sicily. I wanted to explore the human
 cost of journeys made in the hope of starting a life somewhere new.
 
@@ -96,7 +96,7 @@ recorded as dead or missing.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="Excerpts from the piece in scene order: the title, the opening lines, records traveling in to their distance from Lampedusa, the three Why Lampedusa diagrams, the twelve annual disks, their marks becoming 833 circles grouped by reported cause, and the epilogue beside a relief of the island."
+    aria-label="Excerpts from the piece in scene order: the title, the opening lines, records traveling in to their distance from Lampedusa, the three Why Lampedusa diagrams, the 12 annual disks, their marks becoming 833 circles grouped by reported cause, and the epilogue beside a relief of the island."
   ></video>
   <figcaption>Excerpts in scene order, from the title to the epilogue.</figcaption>
 </figure>
@@ -104,14 +104,14 @@ recorded as dead or missing.
 ## Choosing the frame
 
 My first version, *Northbound: A Deadly Voyage*, set out to show migration across
-the whole Mediterranean. It placed countries of origin, transit and destination in
-three tiers, with arcs for routes, causes of death and the number of people lost.
+the whole Mediterranean. It placed countries of origin, transit, and destination in
+three tiers, with arcs for routes, causes of death, and the number of people lost.
 
 <div class="media-pair" style="--pair-split: 1.78fr 2fr">
   <figure>
     <img
       src="/media/ripples-into-silence/northbound.webp"
-      alt="Northbound: A Deadly Voyage. An arc diagram on a charcoal ground, with country silhouettes in three tiers and colored arcs labeled with death counts running from North Africa and Türkiye toward Spain, Italy and Greece."
+      alt="Northbound: A Deadly Voyage. An arc diagram on a charcoal ground, with country silhouettes in three tiers and colored arcs labeled with death counts running from North Africa and Türkiye toward Spain, Italy, and Greece."
       width="2400"
       height="1349"
       loading="lazy"
@@ -139,7 +139,7 @@ piece could start from one place.
 
 The 50 km radius is a focus I chose. I applied it by measuring each record's
 coordinates against a reference point on the island and keeping the records inside
-the radius. A coordinate can mark an incident, a rescue, the discovery of remains
+the radius. A coordinate can mark an incident, a rescue, the discovery of remains,
 or an arrival, so it may not be where a person died.
 
 <details>
@@ -171,10 +171,10 @@ coordinates were not checked against their descriptions.
 ## Giving the records a rhythm
 
 I used fading ripples as a metaphor for lives lost at sea. A ripple appears,
-spreads and disappears, giving each record a brief presence before the surface
+spreads, and disappears, giving each record a brief presence before the surface
 grows quiet again. What stays behind is a thin ring at the record's distance from
 the island, sized by the number of people it counts. I fixed the distance scale to
-the frame, so each record's ring and the 10, 25 and 50 km guides read off the
+the frame, so each record's ring and the 10, 25, and 50 km guides read off the
 same ruler.
 Radial position encodes distance; direction and movement do not represent actual
 routes.
@@ -198,7 +198,7 @@ rest follow in date order.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The record's opening at real speed. The island shrinks to a cross inside rings marked 10, 25 and 50 km, and five records travel in one at a time, each labeled with its distance and then its number of dead or missing, while the counters and the year bar advance. After the fifth, records begin to arrive at a steadier pace."
+    aria-label="The record’s opening at real speed. The island shrinks to a cross inside rings marked 10, 25, and 50 km, and five records travel in one at a time, each labeled with its distance and then its number of dead or missing, while the counters and the year bar advance. After the fifth, records begin to arrive at a steadier pace."
   ></video>
   <figcaption>The opening at real speed: five labeled records, then the steady pace.</figcaption>
 </figure>
@@ -209,7 +209,7 @@ records.
 
 Watching one record at a time makes comparing years a matter of memory. So after
 the animation I drew each year as its own disk, with the same rings and size scale
-for all twelve, and set them side by side.
+for all 12, and set them side by side.
 
 <figure>
   <img
@@ -223,7 +223,7 @@ for all twelve, and set them side by side.
   <figcaption>Twelve annual views with shared distance and size scales.</figcaption>
 </figure>
 
-Any disk opens at full size, and hovering a mark gives its count, date and
+Any disk opens at full size, and hovering a mark gives its count, date, and
 distance. I retained the source's location descriptions in the tooltips so viewers
 could read the context behind each coordinate.
 
@@ -236,7 +236,7 @@ could read the context behind each coordinate.
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The tooltip keeps the source's location text, which here says the coordinates mark the rescue.</figcaption>
+  <figcaption>The tooltip keeps the source’s location text, which here says the coordinates mark the rescue.</figcaption>
 </figure>
 
 ## From records to people
@@ -245,7 +245,7 @@ In the disks, one mark is one record, sized by the number of people it counts. F
 the last step I wanted to move attention from the records to the people inside
 them.
 
-As the reader scrolls, I let the marks leave their disks, draw together and split
+As the reader scrolls, I let the marks leave their disks, draw together, and split
 into 833 equal circles, each record into as many circles as it counts. The circles
 pass through an outline of Lampedusa and then settle into groups by the cause
 reported for their record. The outline is a visual device that holds the 833
@@ -269,7 +269,7 @@ island.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The twelve annual disks fade to their white marks, which drift together and split into small equal circles. The circles fill an outline of Lampedusa, then flow out of it into blocks under the heading 833 people, each block labeled with a reported cause and its count."
+    aria-label="The 12 annual disks fade to their white marks, which drift together and split into small equal circles. The circles fill an outline of Lampedusa, then flow out of it into blocks under the heading 833 people, each block labeled with a reported cause and its count."
   ></video>
   <figcaption>One continuous scroll, from the twelve disks to the cause groups.</figcaption>
 </figure>
@@ -297,9 +297,9 @@ few records is given at least enough width for its label. The bar's years are
 therefore not a calendar scale.
 
 Each circle keeps the Main ID of its record, which decides the mark it leaves and
-the group it joins. A test in the repository checks the 833 circles, the count in
-each of the seven groups, and that each of the 95 records yields as many circles as
-it counts.
+the group it joins. A repository test checks that all 95 records produce the correct
+number of circles, that the total is 833, and that the seven cause groups have the
+expected counts.
 
 With reduced motion requested, the disks appear filled, the transition changes
 straight from the disks to the groups, and the epilogue's lines appear together.
