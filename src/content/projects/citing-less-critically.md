@@ -28,9 +28,9 @@ cover:
   alt: "A human hand and a robot hand each holding out a reference card toward the same empty citation bracket on a page of text, between stacks of books labeled HUMAN and LLM."
 quickFacts:
   - label: "Role"
-    value: "Scientific figure design, citation matching & annotation review"
+    value: "Scientific figure design, citation matching, and annotation review"
   - label: "Outcome"
-    value: "Accepted to the EMNLP 2026 Main Conference (third author)"
+    value: "Paper accepted to the EMNLP 2026 Main Conference (third author)"
 # Order is the editorial decision here, not an alphabet. Network analysis is
 # deliberately absent from skills: the coauthorship analysis was not mine.
 credits:
@@ -63,11 +63,11 @@ Yixuan Liu and Lin Chen contributed equally; that marker is theirs and not
 mine, and it is kept here rather than on the page. The research question, the
 masked-citation design, the LLM-as-judge procedure and the coauthorship-network
 analysis are other people's work. Yixuan Liu made the submitted Figure 1. My
-contributions are the post-review rebuild of Figure 1, Figure 5a, the
+contributions are the post-review rebuild of Figure 1, Figure 4a, the
 citation-matching pipeline, taking part in the unmatched-title review, and one
 of three human annotation passes.
 
-The cover is a rendered scene, not a redrawn figure. Figures 1 and 5a ship as
+The cover is a rendered scene, not a redrawn figure. Figures 1 and 4a ship as
 their own exports; neither is a screenshot of the PDF.
 -->
 
@@ -151,10 +151,10 @@ requires enlargement at smaller display sizes.
 ## Explaining social distance
 
 The study also compares how closely citing and cited authors are connected through
-coauthorship. I designed Figure 5a to show how the distance measure is calculated.
+coauthorship. I designed Figure 4a to show how the distance measure is calculated.
 
 I arranged each example from left to right: identify the first and last authors, trace
-the four author-pair paths through the network, then average their lengths. Repeating
+the four author-pair paths through the network, and then average their lengths. Repeating
 this structure for an original citation and an LLM-generated replacement lets readers
 compare the calculation step by step.
 
@@ -167,7 +167,7 @@ compare the calculation step by step.
     loading="lazy"
     decoding="async"
   />
-  <figcaption><strong>Social-distance diagram designed by me (Figure 5a).</strong> Four author-pair path lengths produce each average; 2.25 and 3 are illustrative values, not study-wide results.</figcaption>
+  <figcaption><strong>Social-distance diagram designed by me (Figure 4a).</strong> Four author-pair path lengths produce each average; 2.25 and 3 are illustrative values, not study-wide results.</figcaption>
 </figure>
 
 <details>
@@ -175,7 +175,9 @@ compare the calculation step by step.
 
 The first and last authors of the citing paper are paired with the first and last
 authors of the cited paper, giving four author pairs. The measure averages the shortest
-coauthorship-path lengths between those pairs.
+coauthorship-path lengths for reachable author pairs. Pairs in different connected
+components are marked unreachable, and pairs with missing researcher identifiers are
+excluded.
 
 The diagram explains this calculation. The network analysis was conducted by the
 research team; my contribution was its visual explanation. Coauthorship distance
