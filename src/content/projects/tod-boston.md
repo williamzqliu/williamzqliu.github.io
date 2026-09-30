@@ -1,5 +1,5 @@
 ---
-title: Transit-Oriented Development in Greater Boston
+title: Transit-oriented development in Greater Boston
 # The coursework is 2024 and the revision 2026. The year field drives the
 # listing's chronology, and what a reader would be opening is the revision, so
 # it carries the later date with the earlier one stated beside it.
@@ -34,11 +34,11 @@ cover:
   heroWide: /media/tod-boston/hero-wide.webp
   heroWhole: true
   tone: dark
-  alt: A schematic diagram of Boston's rapid transit in the style of the MBTA map, with the Red, Orange, Blue and Green lines on a dark ground. Each of the 246 compared sites is a dot beside its nearest station. The fifteen non-dominated sites are orange, at Alewife, Harvard, Central, Malden Center, Wonderland, North Quincy, Wollaston, Quincy Adams and Braintree, which are named; the other 231 are grey.
-  caption: Each dot is a compared site beside its nearest station. The 15 in orange are non-dominated across assessed land value per acre, buildable area and station activity.
+  alt: A schematic diagram of Boston’s rapid transit in the style of the MBTA map, with the Red, Orange, Blue, and Green lines on a dark ground. Each of the 246 compared sites is a dot beside its nearest station. The 15 non-dominated sites are orange, at Alewife, Harvard, Central, Malden Center, Wonderland, North Quincy, Wollaston, Quincy Adams, and Braintree, which are named; the other 231 are gray.
+  caption: Each dot is a compared site beside its nearest station. The 15 in orange are non-dominated across assessed land value per acre, buildable area, and station activity.
 quickFacts:
   - label: "Role"
-    value: "Spatial analysis, decision modeling & data visualization"
+    value: "Spatial analysis, decision modeling, and data visualization"
   - label: "Outcome"
     value: "246 candidate sites compared, 15 non-dominated on three indicators"
 credits:
@@ -88,7 +88,7 @@ compared directly before narrowing the search.
 <figure>
   <img
     src="/media/tod-boston/workflow.webp"
-    alt="Two workflows side by side. The 2024 column runs from 8 candidate communities through community ranking to Quincy, then through a station subset to 4 stations in Quincy, then through station ranking to Quincy Center. The revision column runs from 251 sites screened near rapid transit, with five records set aside, to 246 sites compared on three indicators, and from those 246 branches into two outputs side by side: 15 non-dominated sites, and ranking sensitivity checks on the comparison group, peak share and weights."
+    alt="Two workflows side by side. The 2024 column runs from 8 candidate communities through community ranking to Quincy, then through a station subset to 4 stations in Quincy, then through station ranking to Quincy Center. The revision column runs from 251 sites screened near rapid transit, with five records set aside, to 246 sites compared on three indicators, and from those 246 branches into two outputs side by side: 15 non-dominated sites, and ranking sensitivity checks on the comparison group, peak share, and weights."
     width="3180"
     height="1350"
     loading="lazy"
@@ -99,7 +99,7 @@ compared directly before narrowing the search.
 
 The revised ranking shows what could be missed by selecting a community first. In the
 2026 main comparison, with the three indicators (assessed land value per acre,
-buildable area and station activity) weighted equally, Quincy Center #1 ranks highest
+buildable area, and station activity) weighted equally, Quincy Center #1 ranks highest
 among Quincy’s 35 sites but seventh among all 246, behind six sites at Malden Center.
 Limiting the search to Quincy would exclude those six higher-ranked candidates. This
 is a comparison within the revised model, rather than a direct test of the 2024
@@ -109,16 +109,15 @@ result.
 <summary>How the Quincy-only comparison works</summary>
 
 For this check, I used the main three-indicator, equal-weight comparison from the 2026
-revision. I scored all 246 sites using the full candidate set as the percentile
-reference, the comparison group each score is calculated against, then restricted the
-ranking to Quincy’s 35 sites without changing the indicators, weights or scores.
-Quincy Center #1 ranks seventh overall and first within Quincy; only the geographic
-scope of the ranking changes.
+revision. I calculated percentile scores for all 246 sites by comparing each site with
+the full candidate set. I then restricted the ranking to Quincy’s 35 sites without
+changing the indicators, weights, or scores. Quincy Center #1 ranks seventh overall
+and first within Quincy; only the geographic scope of the ranking changes.
 
 <figure>
   <img
     src="/media/tod-boston/quincy-only-m3.webp"
-    alt="A two-row strip on a linear rank axis from 1 to 246. The top row holds all 246 compared sites, with Malden Center #1 and #2 marked at rank 1, tied. The bottom row holds Quincy's 35 sites at their overall ranks, with the best of them, Quincy Center #1, marked at rank 7."
+    alt="A two-row strip on a linear rank axis from 1 to 246. The top row holds all 246 compared sites, with Malden Center #1 and #2 marked at rank 1, tied. The bottom row holds Quincy’s 35 sites at their overall ranks, with the best of them, Quincy Center #1, marked at rank 7."
     width="2831"
     height="960"
     loading="lazy"
@@ -199,11 +198,12 @@ in the repository.
 For the site-level comparison, I used the Rethinking the Retail Strip inventory from
 the Metropolitan Area Planning Council (MAPC), Greater Boston’s regional planning
 agency. A site can span several tax parcels. Screening left 251 candidates; I set
-aside five records with unresolved parcel-assessment allocation, leaving 246.
+aside five records because I could not reliably assign their assessed parcel values to
+individual sites, leaving 246.
 
-Transit proximity was measured from each site’s centroid to the nearest station with
-available ridership data, using a straight-line threshold of 0.805 km (approximately
-half a mile).
+Transit proximity was measured from each site’s mapped center point (centroid) to the
+nearest station with available ridership data, using a straight-line threshold of
+0.805 km (approximately half a mile).
 
 During the 2026 rebuild and revision, I considered the following measures. I retained
 three for the main score and kept the others out for the reasons below.
@@ -235,7 +235,7 @@ sites.
 
 I used equal weights for the three retained indicators as a starting point, not as a
 validated statement of stakeholder priorities. I then tested how changes to the
-comparison group, indicator direction and weights affected the rankings.
+comparison group, indicator direction, and weights affected the rankings.
 
 <details>
 <summary>Indicator checks</summary>
@@ -257,7 +257,7 @@ establish a preferred scoring direction.
 <figure>
   <img
     src="/media/tod-boston/screening-funnel-m3.webp"
-    alt="A horizontal bar chart of candidate counts at each screening step: 3,028 MAPC redevelopment sites in the region, 581 in a community with rapid transit, 285 associated with a rapid-transit station in MAPC's data, 265 within 0.805 km in a straight line, 257 with land value and buildable area above zero, 251 with excluded land and flood zone each under 50%, and 246 after five records are set aside because their valuation attribution is uncertain."
+    alt="A horizontal bar chart of candidate counts at each screening step: 3,028 MAPC redevelopment sites in the region, 581 in a community with rapid transit, 285 associated with a rapid-transit station in MAPC’s data, 265 within 0.805 km in a straight line, 257 with land value and buildable area above zero, 251 with excluded land and flood zone each under 50%, and 246 after five records are set aside because their valuation attribution is uncertain."
     width="3091"
     height="1084"
     loading="lazy"
@@ -365,19 +365,19 @@ left peak share out of the main score.
 ### What if different qualities matter more?
 
 Weights determine how much each indicator contributes to the final score. Giving all
-three equal weight is one choice; putting more emphasis on land value, area or station
+three equal weight is one choice; putting more emphasis on land value, area, or station
 activity can produce another ranking.
 
-For the main three-indicator model, I tested 200,000 combinations of weights. Eleven
-sites ranked first at least once, with Malden Center #1 and #2 leading most often.
-There was no single winner across all the combinations tested.
+For the main three-indicator model, I tested 200,000 combinations of weights. Across
+those combinations, 11 sites ranked first at least once, with Malden Center #1 and #2
+leading most often. There was no single winner across all the combinations tested.
 
 These results show how rankings respond to different priorities. They do not tell us
 which priorities a planner or developer would choose, or how likely a development is
 to succeed.
 
 <details>
-<summary>Weight sampling, tie rules and the historical settings</summary>
+<summary>Weight sampling, tie rules, and the historical settings</summary>
 
 - Weight sampling: 200,000 weight combinations sampled from a Dirichlet(1,1,1)
   distribution, with weights summing to one (seed 7). The share of draws in which each
@@ -387,11 +387,12 @@ to succeed.
   exactly, so a joint first place is reported as a tie. In the four-indicator
   controlled comparisons tested, switching from the earlier tie rule to this one
   changed no first place and no top-ten member.
-- The 2026 rebuild before this revision ranked 251 sites on four indicators, with peak
-  share lower preferred, under five weightings I wrote as developer, city, transit
-  agency, place-making and equal positions. None was tested with those groups. Its
-  first places were Braintree #1, Malden Center #1 and Revere Beach #1, and those
-  results stay in the repository as the historical baseline.
+- The 2026 rebuild before this revision ranked 251 sites on four indicators, favoring
+  a lower peak share. I used equal weights and four author-defined weighting scenarios
+  labeled developer, city, transit agency, and place-making. The four scenarios were
+  not tested with stakeholders. Across those five weightings, the first-place sites
+  were Braintree #1, Malden Center #1, and Revere Beach #1. The results remain in the
+  repository as the historical baseline.
 - Adding MAPC’s regional job access to the earlier four-indicator model widens the
   non-dominated set to 54 of 246 and keeps Malden Center #1 and #2 tied first under
   equal weights. It stays outside the main comparison for the reason in section 02.
@@ -399,7 +400,7 @@ to succeed.
 <figure>
   <img
     src="/media/tod-boston/weight-shares-m3.webp"
-    alt="A horizontal bar chart of the 11 sites that rank first in at least one of 200,000 sampled weightings in the main comparison: Malden Center #1 41.6%, Malden Center #2 32.0%, Braintree #1 12.9%, Malden Center #4 9.0%, Alewife #1 2.3%, Harvard #1 0.85%, Harvard #4 0.56%, Central #1 0.30%, Wonderland #1 0.29%, Quincy Adams #1 0.15% and Harvard #3 0.05%."
+    alt="A horizontal bar chart of the 11 sites that rank first in at least one of 200,000 sampled weightings in the main comparison: Malden Center #1 41.6%, Malden Center #2 32.0%, Braintree #1 12.9%, Malden Center #4 9.0%, Alewife #1 2.3%, Harvard #1 0.85%, Harvard #4 0.56%, Central #1 0.30%, Wonderland #1 0.29%, Quincy Adams #1 0.15%, and Harvard #3 0.05%."
     width="2597"
     height="1515"
     loading="lazy"
@@ -428,7 +429,7 @@ qualities matter most.
     <div class="smap__fallback">
       <img
         src="/media/tod-boston/candidate-map-m3.webp"
-        alt="A static map of the rapid transit network from Newton and Brookline in the west to Revere in the north-east and Braintree in the south, with the 246 compared sites as small white dots ringed in the color of their nearest station's line, and the 15 non-dominated sites drawn larger in full color, in Cambridge, Malden, Revere, Quincy and Braintree. Community names, a 5 km scale bar and a key beside the map."
+        alt="A static map of the rapid transit network from Newton and Brookline in the west to Revere in the northeast and Braintree in the south, with the 246 compared sites as small white dots ringed in the color of their nearest station’s line, and the 15 non-dominated sites drawn larger in full color, in Cambridge, Malden, Revere, Quincy, and Braintree. Community names, a 5 km scale bar, and a key beside the map."
         width="3840"
         height="2160"
         loading="lazy"
@@ -440,7 +441,7 @@ qualities matter most.
 </figure>
 
 With the three indicators weighted equally, Malden Center #1 and #2 share first place.
-But they offer different things: #1 has about four more buildable acres, while #2 has
+But they offer different things: #1 has about 4 more buildable acres, while #2 has
 a slightly lower assessed land value per acre. Both use the same station activity
 figure because they share a station.
 
@@ -463,18 +464,18 @@ figure because they share a station.
   <figcaption>The two sites share one station and so one activity value.</figcaption>
 </figure>
 
-The tie comes from how the scoring works. It measures where each site stands among the
-candidates, rather than how large the differences are. Site #1’s lead in the area
-score exactly offsets #2’s lead in the land-value score. The model gives them the same
-score, but it does not tell us whether four additional acres matter more than the
-difference in assessed value.
+The tie comes from how the scoring works. Percentile scoring measures where each site
+stands among the candidates, rather than how large the differences are. Site #1’s lead
+in the area score exactly offsets #2’s lead in the land-value score. The model gives
+them the same score, but it does not tell us whether 4 additional acres matter more
+than the difference in assessed value.
 
 Seven of the top ten sites are near Malden Center. They all receive the same station
 activity score, so their high rankings are not seven independent pieces of evidence
 about transit activity.
 
 The shortlist identifies places worth investigating next. Ownership, actual walking
-routes to transit and development feasibility still need to be checked before
+routes to transit, and development feasibility still need to be checked before
 recommending a site.
 
 <details>
