@@ -125,29 +125,28 @@
 
     // All text stays in place; opacity is the only thing that moves.
     //
-    // Three semantic beats with a breath between them, not five staggered
-    // elements. Each group is one thought and arrives as one. The sequence
-    // waits 380ms before the first of them — a moment of stillness after the
-    // fonts land reads as composure, where starting on the same frame reads as
-    // the page still assembling itself.
+    // Two semantic beats with a breath between them, not five staggered
+    // elements. The greeting and the two statements arrive together as the
+    // opening, and Selected work follows. The sequence waits 380ms before the
+    // first beat — a moment of stillness after the fonts land reads as
+    // composure, where starting on the same frame reads as the page still
+    // assembling itself.
     //
-    //   identity    380 ->  880    Hi, I'm Zhuoqi. with its pronunciation
+    //   opening      380 ->  880    Hi, I'm Zhuoqi. with its pronunciation,
+    //                               and both statements, all at once
     //     breath
-    //   statements  960 -> 1460    both sentences together, never staggered
-    //     breath
-    //   teaser     1580 -> 2180    Selected work, the longest fade of the
-    //                              three: the last beat should settle rather
-    //                              than land
-    //   projects   1700 -> 2300    120ms behind it, so the handover to the
-    //                              list is continuous rather than a fourth
-    //                              beat of its own
+    //   teaser      1000 -> 1600    Selected work, the longest fade: the
+    //                               last beat should settle rather than land
+    //   projects    1120 -> 1720    120ms behind it, so the handover to the
+    //                               list is continuous rather than a beat of
+    //                               its own
     reveal(opening.querySelector('.idl__greet'), 380, 500);
     reveal(opening.querySelector('.idl__name'), 380, 500);
     reveal(opening.querySelector('.idl__say'), 380, 500);
-    reveal(opening.querySelector('.hero__statements > :first-child'), 960, 500);
-    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 960, 500);
-    reveal(opening.querySelector('.opening__teaser'), 1580, 600);
-    reveal(document.querySelector('.opening + .work'), 1700, 600);
+    reveal(opening.querySelector('.hero__statements > :first-child'), 380, 500);
+    reveal(opening.querySelector('.hero__statements > :nth-child(2)'), 380, 500);
+    reveal(opening.querySelector('.opening__teaser'), 1000, 600);
+    reveal(document.querySelector('.opening + .work'), 1120, 600);
 
     await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
     if (!finished) finish();
