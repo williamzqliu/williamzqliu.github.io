@@ -21,3 +21,11 @@ CLAUDE.md
 # travel with the repo — and they are tens of megabytes each. Local only, in
 # every format; the published derivatives are what is versioned.
 media-src/
+
+# Rules and working notes stay on this machine: the repository is public, and
+# the design and editorial rules, the build spec, the content audit, the agent
+# guide, and every internal review, state or strategy file are not for it.
+docs/
+SPEC.md
+CONTENT-AUDIT.md
+AGENTS.md

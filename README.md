@@ -3,9 +3,6 @@
 Portfolio site. Astro, static, deployed to GitHub Pages at
 [williamzqliu.com](https://williamzqliu.com).
 
-Design and build decisions live in [SPEC.md](SPEC.md). It is the authority — the
-colours, type scale, spacing and motion values in it are deliberate.
-
 ## Local development
 
 ```bash
@@ -36,6 +33,9 @@ One markdown file. No code changes.
 4. Commit and push; GitHub Actions deploys
 
 ### Frontmatter template
+
+Not yet checked against the current schema: some fields below may be out of
+date. `src/content.config.ts` is the authority.
 
 ```yaml
 ---
@@ -89,7 +89,7 @@ hatch alongside `draft`.
 
 ### Media
 
-See SPEC §8 for formats and sizes. The short version: MP4 H.264 for cover loops
+MP4 H.264 for cover loops
 (1600×900, under 2MB, no audio), WebP for stills, never GIF. Missing media must
 never block publishing — `cover.wide` is the only required path, and the row
 falls back to a tone-locked placeholder plate until real media exists.
@@ -98,14 +98,14 @@ falls back to a tone-locked placeholder plate until real media exists.
 
 ```
 src/
-  content.config.ts        collection schema (SPEC §7)
+  content.config.ts        collection schema
   content/projects/*.md    one file per project
   lib/projects.ts          shared queries: featured, tag derivation, links
   components/              Nav, Hero, StatRow, FilterRow, ProjectRow, ThemeToggle, Footer
   layouts/Base.astro       head, theme script, skip link
   pages/                   index.astro, 404.astro
   styles/
-    tokens.css             SPEC §2 and §3 — every colour, size and easing
+    tokens.css             every colour, size and easing
     base.css               reset, type roles, container
 ```
 
