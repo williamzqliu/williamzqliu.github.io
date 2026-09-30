@@ -7,13 +7,10 @@ dist/
 .DS_Store
 Thumbs.db
 CLAUDE.md
-# Two of these travel with the repo, because they describe the project rather
-# than the machine: `launch.json` is how the preview server is started and
-# `settings.json` turns off the co-author trailer. `settings.local.json` is a
-# per-machine permission allowlist and stays local.
-.claude/*
-!.claude/launch.json
-!.claude/settings.json
+# Agent settings stay on this machine: the preview server list holds local
+# paths, and the attribution setting belongs to one person's tooling. Nothing
+# in the build, the dev server or the deploy reads this folder.
+.claude/
 
 # media-src/ is the raw archive: whatever came out of the camera, the screen
 # recorder or the export dialog, named after the file it produces in
@@ -29,3 +26,7 @@ docs/
 SPEC.md
 CONTENT-AUDIT.md
 AGENTS.md
+
+# Editor tasks for the dev server and the pre-push check are one person's
+# setup; the npm scripts are what the site needs.
+.vscode/tasks.json

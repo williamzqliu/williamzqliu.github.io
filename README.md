@@ -5,94 +5,121 @@ Portfolio site. Astro, static, deployed to GitHub Pages at
 
 ## Local development
 
+Requires Node 22.12 or later.
+
 ```bash
 npm install
 npm run dev          # http://localhost:4321, hot reload
 ```
 
-Before every push:
+The dev server shows every project, published or not, so a draft can be read
+against its own card and case study. The build shows only published projects.
+Before every push, check the build itself:
 
 ```bash
-npm run build        # dev and build differ on asset resolution
-npm run preview      # serves the real dist/ output
+npm run build        # what deploys
+npm run preview      # serves the built dist/, the published set only
 ```
 
-In VS Code, `Ctrl+Shift+B` starts the dev server. There is a second task,
-`astro: build + preview`, for the pre-push check.
+The repository has no editor configuration. Run these npm scripts from any
+terminal, or wrap them in tasks in your own editor.
 
-Note that there is no `.html` anywhere in the source — `src/pages/*.astro` are
-compiled at build time. Live Server cannot serve this project.
+There is no `.html` anywhere in the source: `src/pages/*.astro` are compiled at
+build time, so Live Server cannot serve this project.
 
 ## Adding a project
 
-One markdown file. No code changes.
+1. Create `src/content/projects/<slug>.md` from the template below.
+2. Put its media in `public/media/<slug>/`.
+3. Run `npm run build`. Frontmatter that breaks the schema fails the build. An
+   unknown key is dropped without an error, so check field names against the
+   schema.
+4. Set `published: true` when the project is ready to be read.
+5. Commit and push; GitHub Actions deploys.
 
-1. Create `src/content/projects/<slug>.md` from the template below
-2. Drop media in `public/media/<slug>/`
-3. `npm run build` locally — bad frontmatter fails the build rather than shipping
-4. Commit and push; GitHub Actions deploys
+A published project appears on `/work` without any code change: under its
+category in All work, or under Archive. Its place in those lists is set in
+`src/lib/projects.ts` by `MAIN_ORDER` and `ARCHIVE_ORDER`; a project missing
+from them follows the listed ones, newest first. The homepage shows only the
+projects in `SELECTED_ORDER`, in that order.
 
 ### Frontmatter template
 
-Not yet checked against the current schema: some fields below may be out of
-date. `src/content.config.ts` is the authority.
+Checked against `src/content.config.ts`, which remains the authority.
 
 ```yaml
 ---
 title: Project Name
-year: 2026
-dates: Jan – Jun 2026          # human-readable, shown as written
-blurb: One sentence, 120 characters maximum. This is the landing-page line.
-tags: [networks, interactive]  # networks | interactive | narrative | print
-tracks: [design, engineering]  # design | engineering — at least one
-featured: 3                    # omit to keep it in the archive only
-draft: false                   # true excludes it from the build entirely
+year: 2026                     # the year shown on cards and rows
+dates: Jan 2026 – Jun 2026     # the Timeline, shown as written
+blurb: One or two sentences for the project card.
+tags: [interactive]            # networks | interactive | narrative | information-design
+tracks: [design]               # design | engineering; see the table below
+category: data-research        # data-research | interfaces-experiences | visual-storytelling
+                               # required unless archive: true
+archive: false                 # true lists it under Archive, with no category
+published: false               # true to deploy it
 stack: [TypeScript, D3.js, Python]
 
 links:                         # every entry optional
   demo: https://example.com
-  code: https://github.com/williamzqliu/repo
-  paper: /papers/name.pdf
-  poster: /posters/name.pdf
+  paper: /papers/name.pdf      # paper, poster, and thesis take a path or a URL
+  poster:                      # any link can carry its own label
+    href: /posters/name.pdf
+    label: NetSci 2026 poster
 
 cover:
-  wide: /media/<slug>/cover-wide.webp   # required
-  square: /media/<slug>/cover-square.webp
-  poster: /media/<slug>/cover-poster.webp
-  tone: dark                   # dark | light | neutral — see below
+  wide: /media/<slug>/cover-wide.webp   # required: the card, and the head by default
+  tone: dark                   # dark | light | neutral
   alt: What the cover shows, for screen readers.
+  caption: What the cover shows, printed under the case study head.
 
-quickFacts:                    # case study page
-  - { label: Scale, value: 2,737 nodes }
-  - { label: Role, value: Design and engineering }
-
-stats:                         # case study outcome section
-  - { value: 2,737, label: nodes rendered at 60fps }
+quickFacts:                    # the head reads Role and Outcome by label
+  - label: Role
+    value: Research, data analysis, and design
+  - label: Outcome
+    value: Interactive research tool and published paper
 ---
 
-Body content is optional. Frontmatter alone renders a row on the landing page.
-Add prose here when there is a case study to write — ship first, deepen later.
+Case study body in markdown. Optional: without it the project is a card only.
 ```
 
-### Fields that change behaviour
+Optional fields not in the template:
+
+- `links`: `thesis`, `spotlight`, and `code`. A `code` link is shown only for
+  projects listed in `CODE_LINKS_ENABLED` in `src/lib/projects.ts`.
+- `cover`: `heroWide` and `heroMobile` (a different picture for the case study
+  head), `heroWhole` (the head keeps the picture's own proportions),
+  `heroInBody` (no picture in the head), and `zoom: false` (the head does not
+  open in the viewer).
+- `archiveLabel`: a more specific description for the Archive row, which
+  otherwise shows the tags.
+- `compact: true`: a short case study without the contents rail.
+- `draft: true`: excluded from the build entirely.
+- `credits`: skills and tools (at most five each), team, special thanks, and a
+  note, rendered after the case study.
+
+### Fields that change behavior
 
 | Field | Effect |
 |---|---|
-| `featured` | Present = appears on the landing page, in that number order. Absent = archive only. |
-| `tracks` | `design` shows it on `/`, `engineering` shows it on `/engineering`. One source, two curations. |
-| `draft: true` | Excluded from the build. Half-written projects can live in the repo. |
-| `tags` | The filter row is derived from whatever tags exist. Adding a tag makes a filter chip appear on its own — never edit a list somewhere else. |
-| `cover.tone` | Locks the media plate's background. A dark graphic stays on a dark plate in light mode instead of becoming a patch of contrast. |
+| `published` | Defaults to false. Only `published: true` reaches the deployed site; the dev server shows every project. |
+| `draft: true` | The file does not build at all, in dev or in the build. |
+| `archive` | `true` lists the project under Archive, never under All work or a category. |
+| `category` | The one public category a main project is filtered under on `/work`. Required unless `archive: true`. |
+| `tracks` | The schema requires at least one value, `design` or `engineering`. No page currently reads the field. |
+| `blurb` | 160 is the build's hard limit. The card is designed for about three lines, roughly 125 characters at its narrowest, so check the rendered card. |
+| `cover.tone` | Locks the media plate's background, so a dark graphic stays on a dark plate in light mode. |
 
 A filename starting with `_` is ignored by the loader, which is a second escape
 hatch alongside `draft`.
 
 ### Media
 
-MP4 H.264 for cover loops
-(1600×900, under 2MB, no audio), WebP for stills, never GIF. Missing media must
-never block publishing — `cover.wide` is the only required path, and the row
-falls back to a tone-locked placeholder plate until real media exists.
+Cover stills are image files (the site uses WebP); MP4 and WebM covers play as
+muted loops. `cover.wide` is the only required path, and a missing file never
+blocks the build: the card and the head fall back to a placeholder plate in the
+project's tone until the file exists in `public/media/`.
 
 ## Project layout
 
@@ -100,19 +127,18 @@ falls back to a tone-locked placeholder plate until real media exists.
 src/
   content.config.ts        collection schema
   content/projects/*.md    one file per project
-  lib/projects.ts          shared queries: featured, tag derivation, links
-  components/              Nav, Hero, StatRow, FilterRow, ProjectRow, ThemeToggle, Footer
+  lib/projects.ts          publication gate, categories, list order, links
+  lib/media.ts             cover files and their fallback plates
+  lib/loop.ts              which list "Next project" follows
+  components/              site components, one .astro file each
   layouts/Base.astro       head, theme script, skip link
-  pages/                   index.astro, 404.astro
+  pages/                   index, about, resume, 404, work/index, work/[...slug]
   styles/
-    tokens.css             every colour, size and easing
-    base.css               reset, type roles, container
+    tokens.css             design tokens: color, type, spacing, motion
+    base.css               reset, document defaults, layout primitives
 ```
-
-Every component reads CSS variables. No hardcoded colours anywhere else.
 
 ## Deploy
 
-Push to `main`. `.github/workflows/pages.yml` runs `npm ci`, `npm run build`, and
-publishes `dist/` to GitHub Pages. Typical time from push to live is under a
-minute.
+Push to `main`. `.github/workflows/pages.yml` runs `npm ci` and `npm run build`
+on Node 22 and publishes `dist/` to GitHub Pages.
