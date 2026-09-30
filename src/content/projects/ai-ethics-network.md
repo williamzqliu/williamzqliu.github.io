@@ -23,7 +23,7 @@ cover:
   wide: /media/ai-ethics-network/cover-wide.webp
   heroWide: /media/ai-ethics-network/hero-wide.webp
   tone: light
-  alt: The keyword network of the tool, 534 AI ethics keywords coloured by six thematic communities.
+  alt: The keyword network of the tool, 534 AI ethics keywords colored by six thematic communities.
 quickFacts:
   - label: "Role"
     value: "Visualization design, interaction specification & implementation"
@@ -61,9 +61,9 @@ credits:
 
 ## Exploring the research network
 
-A research team at Northeastern University London had analysed a JSTOR corpus of AI
+A research team at Northeastern University London had analyzed a JSTOR corpus of AI
 ethics literature as a set of networks. I designed the views and interactions for
-exploring its 534 keywords in the browser: their neighbourhoods, the thematic
+exploring its 534 keywords in the browser: their neighborhoods, the thematic
 communities they form, and the publication sources that carry them.
 
 <!-- Recorded from the live tool in headless Chrome at 1920 by 1080, each
@@ -86,7 +86,7 @@ communities they form, and the publication sources that carry them.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The tool in use: selecting surveillance highlights its neighbours, Path mode traces poetry to missile, the view switches to Community, then to the Journal rings, where selecting privacy highlights its publication sources, and finally to the Journal columns."
+    aria-label="The tool in use: selecting surveillance highlights its neighbors, Path mode traces poetry to missile, the view switches to Community, then to the Journal rings, where selecting privacy highlights its publication sources, and finally to the Journal columns."
   ></video>
   <figcaption>Selecting a keyword, tracing a path, and switching views.</figcaption>
 </figure>
@@ -116,8 +116,8 @@ could become a display option.
 
 <div class="media-pair" style="--pair-split: repeat(2, minmax(0, 1fr))">
   <figure>
-    <img src="/media/ai-ethics-network/sketch-atlas.webp" alt="Atlas: the keyword network coloured by community, with faint edges." width="1600" height="900" loading="lazy" decoding="async" />
-    <figcaption>Atlas: one network coloured by community.</figcaption>
+    <img src="/media/ai-ethics-network/sketch-atlas.webp" alt="Atlas: the keyword network colored by community, with faint edges." width="1600" height="900" loading="lazy" decoding="async" />
+    <figcaption>Atlas: one network colored by community.</figcaption>
   </figure>
   <figure>
     <img src="/media/ai-ethics-network/sketch-orbit.webp" alt="Orbit: the communities pulled apart into separate clusters around a circle." width="1600" height="900" loading="lazy" decoding="async" />
@@ -129,7 +129,7 @@ could become a display option.
   </figure>
   <figure>
     <img src="/media/ai-ethics-network/sketch-lattice.webp" alt="Lattice: a monotone network in which link thickness carries co-occurrence." width="1600" height="900" loading="lazy" decoding="async" />
-    <figcaption>Lattice: a single-colour network.</figcaption>
+    <figcaption>Lattice: a single-color network.</figcaption>
   </figure>
 </div>
 
@@ -143,7 +143,7 @@ easier to inspect.
 <figure>
   <img
     src="/media/ai-ethics-network/community-view.webp"
-    alt="The Community view: the six top-level communities pulled apart around a circle, each a coloured cluster of labelled keywords, with grey links between them."
+    alt="The Community view: the six top-level communities pulled apart around a circle, each a colored cluster of labeled keywords, with gray links between them."
     width="2400"
     height="1350"
     loading="lazy"
@@ -189,18 +189,18 @@ lower-ranked nodes are left out, the view is not the complete network.
   </figure>
 </div>
 
-### A colour mode instead of another view
+### A color mode instead of another view
 
-I kept Lattice’s single-colour approach as a colour mode within the existing views. It
+I kept Lattice’s single-color approach as a color mode within the existing views. It
 changes how the network looks and introduces no new relationship or exploration task.
 
 <details>
 <summary>Additional sketches and feedback</summary>
 
-Brian Ball, one of the principal investigators, replied in writing on 27 June 2026. He
+Brian Ball, one of the principal investigators, replied in writing on June 27, 2026. He
 suggested combining the capabilities of Atlas, Strata and Orbit, asked to keep Lattice,
-and wanted the keyword-to-source network available on its own. Organising those into two
-views of one network, a separate Journal view with two layouts, and a colour mode was my
+and wanted the keyword-to-source network available on its own. Organizing those into two
+views of one network, a separate Journal view with two layouts, and a color mode was my
 design response.
 
 On the three sketches that did not carry forward, he found Nightfall’s marks and type
@@ -215,11 +215,11 @@ the other layouts could not.
     <figcaption>Nightfall: a few anchors lit on a dark network.</figcaption>
   </figure>
   <figure>
-    <img src="/media/ai-ethics-network/sketch-territory.webp" alt="Territory: soft coloured hulls drawn around each community on the network." width="1600" height="900" loading="lazy" decoding="async" />
+    <img src="/media/ai-ethics-network/sketch-territory.webp" alt="Territory: soft colored hulls drawn around each community on the network." width="1600" height="900" loading="lazy" decoding="async" />
     <figcaption>Territory: hulls drawn around communities.</figcaption>
   </figure>
   <figure>
-    <img src="/media/ai-ethics-network/sketch-compass.webp" alt="Compass: each community given its own wedge of arcs around a centre." width="1600" height="900" loading="lazy" decoding="async" />
+    <img src="/media/ai-ethics-network/sketch-compass.webp" alt="Compass: each community given its own wedge of arcs around a center." width="1600" height="900" loading="lazy" decoding="async" />
     <figcaption>Compass: a wedge per community.</figcaption>
   </figure>
 </div>
@@ -228,8 +228,8 @@ the other layouts could not.
 
 ## Following keywords and connections
 
-I organised exploration into three modes: inspecting one keyword’s neighbourhood,
-viewing two neighbourhoods together, and tracing a connecting path.
+I organized exploration into three modes: inspecting one keyword’s neighborhood,
+viewing two neighborhoods together, and tracing a connecting path.
 
 <table data-width="prose">
   <thead>
@@ -240,8 +240,8 @@ viewing two neighbourhoods together, and tracing a connecting path.
     </tr>
   </thead>
   <tbody>
-    <tr><td>Explore</td><td>One keyword</td><td>Its direct neighbours and the links to them</td></tr>
-    <tr><td>Neighbors</td><td>Two keywords</td><td>The union of both neighbourhoods, including neighbours they do not share</td></tr>
+    <tr><td>Explore</td><td>One keyword</td><td>Its direct neighbors and the links to them</td></tr>
+    <tr><td>Neighbors</td><td>Two keywords</td><td>The union of both neighborhoods, including neighbors they do not share</td></tr>
     <tr><td>Path</td><td>Two keywords</td><td>A chain with the fewest links between them</td></tr>
   </tbody>
 </table>
@@ -252,13 +252,13 @@ Path is available in the Network and Community views only.
   <figure>
     <img
       src="/media/ai-ethics-network/neighbors.webp"
-      alt="Surveillance selected: its neighbours stay in colour with their labels, the rest of the network fades, and the sidebar lists its strongest links."
+      alt="Surveillance selected: its neighbors stay in color with their labels, the rest of the network fades, and the sidebar lists its strongest links."
       width="2400"
       height="1350"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Selecting surveillance highlights its neighbourhood.</figcaption>
+    <figcaption>Selecting surveillance highlights its neighborhood.</figcaption>
   </figure>
   <figure>
     <img
@@ -275,7 +275,7 @@ Path is available in the Network and Community views only.
 
 Among equally short paths, Path picks the one whose keywords have the highest total
 degree. I chose degree because it is a familiar network measure, hoping the path would
-pass through well-connected keywords a reader is more likely to recognise, though a high
+pass through well-connected keywords a reader is more likely to recognize, though a high
 degree does not guarantee that. A path does not measure semantic distance, the strongest
 association, or scholarly influence. Both examples demonstrate the tool and are not
 research findings.
@@ -329,7 +329,7 @@ the ring or column it is drawing.
 
 Labels are placed in order of each node’s connection measure, and a label that would
 collide with one already placed is dropped. Export clones the live SVG, adds the label
-styles, serialises it and downloads it named after the current view.
+styles, serializes it and downloads it named after the current view.
 
 </details>
 

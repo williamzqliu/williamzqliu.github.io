@@ -96,7 +96,7 @@ recorded as dead or missing.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="Excerpts from the piece in scene order: the title, the opening lines, records travelling in to their distance from Lampedusa, the three Why Lampedusa diagrams, the twelve annual discs, their marks becoming 833 circles grouped by reported cause, and the epilogue beside a relief of the island."
+    aria-label="Excerpts from the piece in scene order: the title, the opening lines, records traveling in to their distance from Lampedusa, the three Why Lampedusa diagrams, the twelve annual disks, their marks becoming 833 circles grouped by reported cause, and the epilogue beside a relief of the island."
   ></video>
   <figcaption>Excerpts in scene order, from the title to the epilogue.</figcaption>
 </figure>
@@ -111,7 +111,7 @@ three tiers, with arcs for routes, causes of death and the number of people lost
   <figure>
     <img
       src="/media/ripples-into-silence/northbound.webp"
-      alt="Northbound: A Deadly Voyage. An arc diagram on a charcoal ground, with country silhouettes in three tiers and coloured arcs labelled with death counts running from North Africa and Türkiye toward Spain, Italy and Greece."
+      alt="Northbound: A Deadly Voyage. An arc diagram on a charcoal ground, with country silhouettes in three tiers and colored arcs labeled with death counts running from North Africa and Türkiye toward Spain, Italy and Greece."
       width="2400"
       height="1349"
       loading="lazy"
@@ -180,7 +180,7 @@ Radial position encodes distance; direction and movement do not represent actual
 routes.
 
 I slowed the opening so the encoding can be learned from a few records. The first
-five appear one at a time, each labelled with its distance and its count, and the
+five appear one at a time, each labeled with its distance and its count, and the
 rest follow in date order.
 
 <!-- Seconds 6 to 42 of one take of the record, recorded the same way,
@@ -198,9 +198,9 @@ rest follow in date order.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The record's opening at real speed. The island shrinks to a cross inside rings marked 10, 25 and 50 km, and five records travel in one at a time, each labelled with its distance and then its number of dead or missing, while the counters and the year bar advance. After the fifth, records begin to arrive at a steadier pace."
+    aria-label="The record's opening at real speed. The island shrinks to a cross inside rings marked 10, 25 and 50 km, and five records travel in one at a time, each labeled with its distance and then its number of dead or missing, while the counters and the year bar advance. After the fifth, records begin to arrive at a steadier pace."
   ></video>
-  <figcaption>The opening at real speed: five labelled records, then the steady pace.</figcaption>
+  <figcaption>The opening at real speed: five labeled records, then the steady pace.</figcaption>
 </figure>
 
 Playback follows date order without reproducing the gaps between events. After the
@@ -208,13 +208,13 @@ opening, I used a largely steady pace, allowing more time for years with more
 records.
 
 Watching one record at a time makes comparing years a matter of memory. So after
-the animation I drew each year as its own disc, with the same rings and size scale
+the animation I drew each year as its own disk, with the same rings and size scale
 for all twelve, and set them side by side.
 
 <figure>
   <img
     src="/media/ripples-into-silence/twelve-years.webp"
-    alt="Twelve discs in three rows of four, one per year from 2014 to 2025, each with the same dashed rings and white marks of different sizes, and its record and dead or missing counts beneath it. The 2025 disc has a faint ring around it."
+    alt="Twelve disks in three rows of four, one per year from 2014 to 2025, each with the same dashed rings and white marks of different sizes, and its record and dead or missing counts beneath it. The 2025 disk has a faint ring around it."
     width="2400"
     height="1393"
     loading="lazy"
@@ -223,14 +223,14 @@ for all twelve, and set them side by side.
   <figcaption>Twelve annual views with shared distance and size scales.</figcaption>
 </figure>
 
-Any disc opens at full size, and hovering a mark gives its count, date and
+Any disk opens at full size, and hovering a mark gives its count, date and
 distance. I retained the source's location descriptions in the tooltips so viewers
 could read the context behind each coordinate.
 
 <figure data-width="prose">
   <img
     src="/media/ripples-into-silence/disc-2024.webp"
-    alt="The 2024 disc opened large beside its totals of 17 records and 211 dead or missing. The other marks dim while one is hovered, and its tooltip reads 44 dead or missing, 9 Dec 2024, 22.5 km from Lampedusa, and gives the recorded location: off the coast of Lampedusa, Italy, departure from Sfax, Tunisia, see coordinates for location of rescue."
+    alt="The 2024 disk opened large beside its totals of 17 records and 211 dead or missing. The other marks dim while one is hovered, and its tooltip reads 44 dead or missing, 9 Dec 2024, 22.5 km from Lampedusa, and gives the recorded location: off the coast of Lampedusa, Italy, departure from Sfax, Tunisia, see coordinates for location of rescue."
     width="2040"
     height="1360"
     loading="lazy"
@@ -241,11 +241,11 @@ could read the context behind each coordinate.
 
 ## From records to people
 
-In the discs, one mark is one record, sized by the number of people it counts. For
+In the disks, one mark is one record, sized by the number of people it counts. For
 the last step I wanted to move attention from the records to the people inside
 them.
 
-As the reader scrolls, I let the marks leave their discs, draw together and split
+As the reader scrolls, I let the marks leave their disks, draw together and split
 into 833 equal circles, each record into as many circles as it counts. The circles
 pass through an outline of Lampedusa and then settle into groups by the cause
 reported for their record. The outline is a visual device that holds the 833
@@ -269,13 +269,13 @@ island.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The twelve annual discs fade to their white marks, which drift together and split into small equal circles. The circles fill an outline of Lampedusa, then flow out of it into blocks under the heading 833 people, each block labelled with a reported cause and its count."
+    aria-label="The twelve annual disks fade to their white marks, which drift together and split into small equal circles. The circles fill an outline of Lampedusa, then flow out of it into blocks under the heading 833 people, each block labeled with a reported cause and its count."
   ></video>
-  <figcaption>One continuous scroll, from the twelve discs to the cause groups.</figcaption>
+  <figcaption>One continuous scroll, from the twelve disks to the cause groups.</figcaption>
 </figure>
 
 I kept the transition continuous so viewers could follow the same records into the
-person-level view. Every circle comes from a mark in an annual disc, and scrolling
+person-level view. Every circle comes from a mark in an annual disk, and scrolling
 back returns it to that mark.
 
 Cause groups reflect the source records, not individually confirmed causes for
@@ -285,7 +285,7 @@ individual people to causes the record does not distinguish.
 <details>
 <summary>Playback and implementation</summary>
 
-The record and the discs are SVG, drawn with D3.js. The 833 circles are drawn on a
+The record and the disks are SVG, drawn with D3.js. The 833 circles are drawn on a
 canvas, which takes over each white mark where the SVG drew it; the SVG marks are
 then hidden so the two never overlap.
 
@@ -301,8 +301,8 @@ the group it joins. A test in the repository checks the 833 circles, the count i
 each of the seven groups, and that each of the 95 records yields as many circles as
 it counts.
 
-With reduced motion requested, the discs appear filled, the transition changes
-straight from the discs to the groups, and the epilogue's lines appear together.
+With reduced motion requested, the disks appear filled, the transition changes
+straight from the disks to the groups, and the epilogue's lines appear together.
 The record's paths still animate.
 
 </details>

@@ -80,7 +80,7 @@ A member directory provides another way in, through the people who contributed t
 <figure>
   <img
     src="/media/barboard/homepage.webp"
-    alt="The dark homepage, with a large split-colour BARBOARD wordmark and a short founding line on the left, a dated list of recent community updates on the right, and a scrolling news ticker along the bottom edge."
+    alt="The dark homepage, with a large split-color BARBOARD wordmark and a short founding line on the left, a dated list of recent community updates on the right, and a scrolling news ticker along the bottom edge."
     width="2880"
     height="1800"
     loading="lazy"
@@ -282,7 +282,7 @@ broadcast system are documented in the [Barvision case study](/work/barvision/).
 <figure>
   <img
     src="/media/barboard/edition-theme-system.webp"
-    alt="The tops of four edition pages in a two by two grid, for Qiqihar 2023, Tonghua 2024, Jinzhong 2025 and Chongqing 2026. Each keeps the same navigation bar and hero layout, with the city, the year and the contest logo, while the artwork and colours change."
+    alt="The tops of four edition pages in a two by two grid, for Qiqihar 2023, Tonghua 2024, Jinzhong 2025 and Chongqing 2026. Each keeps the same navigation bar and hero layout, with the city, the year and the contest logo, while the artwork and colors change."
     width="2988"
     height="1404"
     loading="lazy"

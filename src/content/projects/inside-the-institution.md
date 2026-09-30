@@ -113,7 +113,7 @@ inspect their collaborators.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The Collaboration Map: Casper Harteveld is found by name in the search box and selected, the map centres on him with his profile and collaborators in the side panel, and the 1-Hop and 2-Hop views widen his collaboration neighbourhood."
+    aria-label="The Collaboration Map: Casper Harteveld is found by name in the search box and selected, the map centers on him with his profile and collaborators in the side panel, and the 1-Hop and 2-Hop views widen his collaboration neighborhood."
   ></video>
   <figcaption>Find a scholar and explore their collaborators through 1-Hop and 2-Hop views.</figcaption>
 </figure>
@@ -140,7 +140,7 @@ with an organizational unit, then inspect its members and collaboration measures
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The Research Units view: Art + Design is hovered and selected, its details open in the side panel, and a double-click opens its internal co-authorship network, where a few members are hovered."
+    aria-label="The Research Units view: Art + Design is hovered and selected, its details open in the side panel, and a double-click opens its internal coauthorship network, where a few members are hovered."
   ></video>
   <figcaption>Select a research unit, then open its internal collaboration network.</figcaption>
 </figure>

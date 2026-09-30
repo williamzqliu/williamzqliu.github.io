@@ -72,7 +72,7 @@ entries. As the previous year’s winner, I organized the Chongqing edition.
 Earlier editions relied largely on PowerPoint. For 2026, I wanted more control over how
 information appeared, how rankings changed, and how each reveal unfolded.
 
-The semi-final remained in PowerPoint because its more complex running order could not
+The semifinal remained in PowerPoint because its more complex running order could not
 be implemented within the available time. I introduced the browser player for the grand
 final.
 
@@ -103,7 +103,7 @@ modular grid, ripple imagery, and a coordinated palette across the three broadca
   <figure>
     <img
       src="/media/barvision/poster-allocation-draw.webp"
-      alt="The poster system in blue and violet: Allocation Draw in white over a ripple field, the wordmark at the centre, and July 24 with a Beijing time of 21:00 on yellow."
+      alt="The poster system in blue and violet: Allocation Draw in white over a ripple field, the wordmark at the center, and July 24 with a Beijing time of 21:00 on yellow."
       width="2560"
       height="1440"
       loading="lazy"
@@ -125,7 +125,7 @@ modular grid, ripple imagery, and a coordinated palette across the three broadca
   <figure>
     <img
       src="/media/barvision/poster-grand-final.webp"
-      alt="The same poster system in colour blocks: the Barvision wordmark on blue, the theme name on purple, Grand Final in white over an orange and magenta ripple field, and August 22 with a Beijing time of 21:00 on yellow."
+      alt="The same poster system in color blocks: the Barvision wordmark on blue, the theme name on purple, Grand Final in white over an orange and magenta ripple field, and August 22 with a Beijing time of 21:00 on yellow."
       width="2560"
       height="1440"
       loading="lazy"
@@ -441,7 +441,7 @@ pauses decorative video layers to reduce load while retaining the main scoring d
 ## Making the Draw Reproducible
 
 I introduced a live allocation draw so members could see how entries were assigned to
-the semi-finals and to the first or second half of the running order.
+the semifinals and to the first or second half of the running order.
 
 Following Eurovision’s pot-based format, the draw used a seed assembled from the date,
 time, and numbers contributed through live chat. With the same seed, ordered pot lists,
@@ -460,7 +460,7 @@ and algorithm, the allocation can be reproduced.
     preload="none"
     data-player="autoplay"
     data-nozoom
-    aria-label="The allocation draw in progress over night footage of Chongqing: five pots of entrants across the top, the two semi-finals below, and a card in the middle showing the entrant just drawn and the half they were assigned to."
+    aria-label="The allocation draw in progress over night footage of Chongqing: five pots of entrants across the top, the two semifinals below, and a card in the middle showing the entrant just drawn and the half they were assigned to."
   ></video>
   <figcaption>The allocation draw reveals each assignment within the event’s visual system.</figcaption>
 </figure>
@@ -474,7 +474,7 @@ provides a record for checking the result against the draw procedure.
   <div class="media-pair">
     <img
       src="/media/barvision/draw-seed.webp"
-      alt="The seed screen over the Chongqing skyline: the five pots across the top, the two empty semi-finals below them, seed input fields between the semi-finals, and the live chat underneath."
+      alt="The seed screen over the Chongqing skyline: the five pots across the top, the two empty semifinals below them, seed input fields between the semifinals, and the live chat underneath."
       width="1920"
       height="1080"
       loading="lazy"

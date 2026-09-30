@@ -25,7 +25,7 @@ cover:
   # Generated opener, not the project's own artwork: nothing to enlarge.
   zoom: false
   tone: "neutral"
-  alt: "A human hand and a robot hand each holding out a reference card toward the same empty citation bracket on a page of text, between stacks of books labelled HUMAN and LLM."
+  alt: "A human hand and a robot hand each holding out a reference card toward the same empty citation bracket on a page of text, between stacks of books labeled HUMAN and LLM."
 quickFacts:
   - label: "Role"
     value: "Scientific figure design, citation matching & annotation review"
