@@ -43,8 +43,12 @@ const { facts } = Astro.props;
     border-top: var(--rule-hair) solid var(--rule);
   }
 
+  /* Top-aligned: on the desktop row every cell takes the height of the longest
+     value, and without `start` that height is shared out between the label and
+     value tracks, which pushes a short value down towards the middle. */
   .qf__cell {
     display: grid;
+    align-content: start;
     gap: var(--sp-4);
   }
 
