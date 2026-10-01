@@ -21,7 +21,7 @@ links:
   # link appears, on the card as well as in the head.
   demo:
     href: https://williamzqliu.com/ripples-into-silence/
-    label: Live demo (desktop only)
+    label: Live Demo (desktop only)
   code: https://github.com/williamzqliu/ripples-into-silence
 cover:
   # The card and the head play the same loop: the record's opening, where
