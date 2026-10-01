@@ -24,8 +24,8 @@ cover:
   #
   # `wide` is the card image, and an archive project has no card: ArchiveList
   # renders title, category and year with no cover, the curated list excludes
-  # archive, and the landing page needs a `featured` rank this project does
-  # not have. It points at the installation still so that the field is not a
+  # archive, and the landing page shows only the projects in SELECTED_ORDER
+  # (src/lib/projects.ts), which skips archive projects. It points at the installation still so that the field is not a
   # path to a file nobody made.
   wide: "/media/emoease/installation.webp"
   heroWide: "/media/emoease/projection-loop.mp4"
