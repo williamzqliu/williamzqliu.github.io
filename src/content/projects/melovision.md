@@ -13,7 +13,7 @@ stack:
 links:
   demo:
     href: https://www.youtube.com/watch?v=Pem2er8I3Mc
-    label: Project video
+    label: Project Video
 cover:
   wide: /media/melovision/cover-wide.webp
   tone: dark
@@ -56,9 +56,8 @@ credits:
 I assigned a base geometry to each of eight genre groups. The genre shapes provide a fixed
 starting point for the audio-driven changes.
 
-Color follows an emotion wheel that I compiled from online sources and my research. I used
-it to connect mood labels with colors, then combined those colors with the genre
-geometries.
+Color follows an emotion wheel that I compiled from reference materials. I used it to
+connect mood labels with colors, then combined those colors with the genre geometries.
 
 <!-- Shape and color side by side at every width, phones included.
      `--pair-split` is the two images' own aspect ratios, 1.737 and 1.811, so
@@ -200,8 +199,7 @@ audience-responsive controls.
   <figcaption>The generated forms are presented as moving images at room scale.</figcaption>
 </figure>
 
-The projection demonstrates a change of scale. Its effect on audience understanding has not
-been established.
+The projection's effect on audience understanding has not been established.
 
 <details>
 <summary>Visual identity extensions</summary>
@@ -210,8 +208,7 @@ I carried the same forms and colors into the identity, promotional website conce
 printed invitations. The logo combines a sound wave, cocoon threads, and the generated music
 form.
 
-The invitations and scanner screen illustrate a proposed entry into the experience. This
-entry flow is shown as a concept.
+The invitations and scanner screen illustrate a proposed entry into the experience.
 
 <figure>
   <img src="/media/melovision/identity.webp"
