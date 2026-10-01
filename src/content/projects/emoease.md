@@ -8,7 +8,6 @@ tracks: ["design"]
 published: true
 archive: true
 archiveLabel: "Interactive installation"
-compact: true
 draft: false
 stack:
   - TouchDesigner
