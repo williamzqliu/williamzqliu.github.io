@@ -297,10 +297,10 @@ Their feedback identified two concerns:
 **Accidental activation.** My grandmother found the interaction straightforward, but worried
 about triggering the emergency function unintentionally.
 
-**Fit.** Mrs. Pan, her neighbor, found the band too narrow.
+**Fit.** Mrs. Pan, her neighbor, found the 3D-printed ring too tight on her finger.
 
-I treated this feedback as a reason to reconsider the emergency gesture and accommodate a
-wider range of hands. A revised prototype would still need to be made and tested.
+I treated this feedback as a reason to reconsider the emergency gesture and explore a wider
+range of ring sizes. A revised prototype would still need to be made and tested.
 
 Concern about losing the ring also came up. Because the concept combined identity,
 payment, and medical alerts, a future version would need to address what happens when a
