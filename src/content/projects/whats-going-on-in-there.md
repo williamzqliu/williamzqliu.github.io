@@ -2,7 +2,7 @@
 title: What’s Going on in There?
 year: 2024
 dates: Nov 2024 – Dec 2024
-blurb: A collaborative exhibit that uses cards, colour-coded rubber bands and a physical brain map to help college students reflect on sleep and caffeine habits.
+blurb: A collaborative exhibit that uses cards, color-coded rubber bands and a physical brain map to help college students reflect on sleep and caffeine habits.
 tags: [interactive]
 tracks: [design]
 category: interfaces-experiences
@@ -58,13 +58,13 @@ credits:
 Our four-person team built an exhibit that helps college students connect everyday
 habits with what happens in the brain. A visitor draws a question about sleep or
 caffeine, picks the response closest to their own habits, and takes the rubber band in
-that answer's colour. The back of the card names two brain regions the topic involves.
+that answer's color. The back of the card names two brain regions the topic involves.
 The visitor loops the band around those two pins on the brain map, then draws another
 card.
 
 Card by card, the relationships accumulate into a network the visitor has built. At the
-end they compare the colour they used most often against a result card, and add a
-sticker in that colour to a shared board, so their result sits beside everyone else's.
+end they compare the color they used most often against a result card, and add a
+sticker in that color to a shared board, so their result sits beside everyone else's.
 
 <!-- The loop, in the three things a visitor handles. Each of these is the
      finished article, and each is given more room than the versions behind it
@@ -72,13 +72,13 @@ sticker in that colour to a shared board, so their result sits beside everyone e
 <figure>
   <img
     src="/media/whats-going-on-in-there/card-final.webp"
-    alt="The question card, front and back. The front asks about physical symptoms when stressed or overtired, with four answers A to D in red, blue, yellow and green; the back is headed BRAINSTEM and PITUITARY GLAND, carries a drawing of the brain with both structures picked out, and ends with a line telling the visitor to take the band in their answer colour and loop it around those two pins."
-    width="2864"
-    height="2000"
+    alt="The question card, front and back. The front asks how consistent your sleep schedule is during the first month of classes, with four answers A to D in red, yellow, green, and blue; the back is headed AMYGDALA and PREFRONTAL CORTEX, explains how sleep deprivation affects the link between them, carries a drawing of the brain with both structures picked out, and ends with a line telling the visitor to take the band in their answer color and loop it around those two pins."
+    width="1968"
+    height="1376"
     loading="lazy"
     decoding="async"
   />
-  <figcaption>Draw a card: the front carries the four answer colours, the back the two regions to connect</figcaption>
+  <figcaption>Draw a card: the front carries the four answer colors, the back the two regions to connect</figcaption>
 </figure>
 
 <!-- `--pair-split` in the pictures' own aspect ratios, so the row is one height. -->
@@ -86,18 +86,18 @@ sticker in that colour to a shared board, so their result sits beside everyone e
   <figure>
     <img
       src="/media/whats-going-on-in-there/brain-board.webp"
-      alt="The brain panel in use. A colour-coded brain diagram with nine labelled regions, pins in each, criss-crossed with blue, green, yellow and red rubber bands. Spare bands in the four colours hang on hooks below."
+      alt="The brain panel in use. A color-coded brain diagram with nine labeled regions, pins in each, crisscrossed with blue, green, yellow and red rubber bands. Spare bands in the four colors hang on hooks below."
       width="1024"
       height="1365"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Loop the band in that colour around those two pins</figcaption>
+    <figcaption>Loop the band in that color around those two pins</figcaption>
   </figure>
   <figure>
     <img
       src="/media/whats-going-on-in-there/visitor.webp"
-      alt="A visitor standing at the board mid-activity, holding a red rubber band and reaching towards the pins, with the card holders and the sticker key beside her."
+      alt="A visitor standing at the board mid-activity, holding a red rubber band and reaching toward the pins, with the card holders and the sticker key beside her."
       width="1080"
       height="810"
       loading="lazy"
@@ -117,7 +117,7 @@ sticker in that colour to a shared board, so their result sits beside everyone e
     loading="lazy"
     decoding="async"
   />
-  <figcaption>At the end, compare the colour you used most with a result card</figcaption>
+  <figcaption>At the end, compare the color you used most with a result card</figcaption>
 </figure>
 
 ## Narrowing the topic
@@ -145,7 +145,7 @@ the two habits reach them.
   <figure>
     <img
       src="/media/whats-going-on-in-there/concept-exploration.webp"
-      alt="A FigJam board headed STEP 3: brainstorming concepts. Clusters of coloured notes branch from a central node into candidate formats, with a written game concept and a service diagram pinned below."
+      alt="A FigJam board headed STEP 3: brainstorming concepts. Clusters of colored notes branch from a central node into candidate formats, with a written game concept and a service diagram pinned below."
       width="1024"
       height="536"
       loading="lazy"
@@ -163,7 +163,7 @@ brain diagram to paper and strung bands between the pins. The second moved it to
 board, with every region named. The third cut the regions out of foam and stood them on
 skewers.
 
-We wrote the questions alongside, each with four answers and a colour for each answer.
+We wrote the questions alongside, each with four answers and a color for each answer.
 
 <!-- `--pair-split` in the pictures' own aspect ratios, and the same split on
      the row below, so what was drawn lines up with what was built. -->
@@ -171,7 +171,7 @@ We wrote the questions alongside, each with four answers and a colour for each a
   <figure>
     <img
       src="/media/whats-going-on-in-there/concept-pinboard.webp"
-      alt="A printed greyscale brain cross-section on paper, its regions gone over in purple and teal marker, with drawing pins pushed through several of them and green, red and blue rubber bands stretched between the pins."
+      alt="A printed grayscale brain cross-section on paper, its regions gone over in purple and teal marker, with pushpins pushed through several of them and green, red and blue rubber bands stretched between the pins."
       width="2760"
       height="2312"
       loading="lazy"
@@ -182,13 +182,13 @@ We wrote the questions alongside, each with four answers and a colour for each a
   <figure>
     <img
       src="/media/whats-going-on-in-there/concept-cards.webp"
-      alt="A FigJam board of candidate questions in six columns. Each question sits in a coloured bubble above its answers, set as red, blue, yellow and green circles in the short versions and as four coloured bars in the longer ones."
+      alt="A FigJam board of candidate questions in six columns. Each question sits in a colored bubble above its answers, set as red, blue, yellow and green circles in the short versions and as four colored bars in the longer ones."
       width="3000"
       height="1740"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Candidate questions, and the four answer colours</figcaption>
+    <figcaption>Candidate questions, and the four answer colors</figcaption>
   </figure>
 </div>
 
@@ -197,7 +197,7 @@ We wrote the questions alongside, each with four answers and a colour for each a
   <figure>
     <img
       src="/media/whats-going-on-in-there/prototype-flat.webp"
-      alt="A printed brain diagram pinned to a cork board, seven regions named in capitals and highlighted in different colours, with coloured map pins in each region and rubber bands looped between them."
+      alt="A printed brain diagram pinned to a cork board, seven regions named in capitals and highlighted in different colors, with colored map pins in each region and rubber bands looped between them."
       width="2760"
       height="2312"
       loading="lazy"
@@ -208,7 +208,7 @@ We wrote the questions alongside, each with four answers and a colour for each a
   <figure>
     <img
       src="/media/whats-going-on-in-there/prototype-standing.webp"
-      alt="A standing prototype: hand-cut white foam pieces on wooden skewers in a foam base, each labelled in gold pen with a brain region, with a push pin in every piece and four skewers marked CORTEX around the edge."
+      alt="A standing prototype: hand-cut white foam pieces on wooden skewers in a foam base, each labeled in gold pen with a brain region, with a push pin in every piece and four skewers marked CORTEX around the edge."
       width="3000"
       height="1740"
       loading="lazy"
@@ -236,7 +236,7 @@ scan while someone was standing at the exhibit.
   <figure>
     <img
       src="/media/whats-going-on-in-there/testing-session.webp"
-      alt="A testing session in a corridor. Two people approach a table holding the prototype brain, bundles of coloured rubber bands and a spread of cards; a printed board with sticky notes hangs on the wall behind."
+      alt="A testing session in a corridor. Two people approach a table holding the prototype brain, bundles of colored rubber bands and a spread of cards; a printed board with sticky notes hangs on the wall behind."
       width="512"
       height="683"
       loading="lazy"
@@ -248,7 +248,7 @@ scan while someone was standing at the exhibit.
   <figure>
     <img
       src="/media/whats-going-on-in-there/testing-cards.webp"
-      alt="A tester standing at the table reading a question card, with the rest of the deck spread out, yellow answer notes, a tangle of coloured rubber bands, the cork-board brain prototype and the standing foam prototype all within reach."
+      alt="A tester standing at the table reading a question card, with the rest of the deck spread out, yellow answer notes, a tangle of colored rubber bands, the cork-board brain prototype and the standing foam prototype all within reach."
       width="512"
       height="683"
       loading="lazy"
@@ -260,7 +260,7 @@ scan while someone was standing at the exhibit.
   <figure>
     <img
       src="/media/whats-going-on-in-there/testing-model.webp"
-      alt="A tester reaching into the standing foam prototype to hook a rubber band between two labelled regions, with the card layout open on a laptop behind."
+      alt="A tester reaching into the standing foam prototype to hook a rubber band between two labeled regions, with the card layout open on a laptop behind."
       width="1024"
       height="768"
       loading="lazy"
@@ -287,7 +287,7 @@ date was close. We returned to the simpler layout and finished that.
   <figure>
     <img
       src="/media/whats-going-on-in-there/panel-v1.webp"
-      alt="Version 1 of the exhibition panel: a title block, three statistics about caffeine and sleep, a four-step column of activity instructions beside card pockets marked DRAW HERE, DISCARD and RESULTS, and two copies of the labelled colour brain diagram along the bottom."
+      alt="Version 1 of the exhibition panel: a title block, three statistics about caffeine and sleep, a four-step column of activity instructions beside card pockets marked DRAW HERE, DISCARD and RESULTS, and two copies of the labeled color brain diagram along the bottom."
       width="2400"
       height="1800"
       loading="lazy"
@@ -298,7 +298,7 @@ date was close. We returned to the simpler layout and finished that.
   <figure>
     <img
       src="/media/whats-going-on-in-there/panel-v2.webp"
-      alt="Version 2 on a blue ground. The same statistics and four instruction steps are set into rounded boxes, and the two brain diagrams below now carry coloured region labels."
+      alt="Version 2 on a blue ground. The same statistics and four instruction steps are set into rounded boxes, and the two brain diagrams below now carry colored region labels."
       width="2400"
       height="1800"
       loading="lazy"
@@ -313,7 +313,7 @@ date was close. We returned to the simpler layout and finished that.
   <figure>
     <img
       src="/media/whats-going-on-in-there/panel-v3.webp"
-      alt="Version 3, now three panels wide: an introduction and statistics on the left, the labelled brain headed THE HUMAN BRAIN in the middle, and five instruction steps on the right beside pockets for cards, results and stickers."
+      alt="Version 3, now three panels wide: an introduction and statistics on the left, the labeled brain headed THE HUMAN BRAIN in the middle, and five instruction steps on the right beside pockets for cards, results and stickers."
       width="3000"
       height="1000"
       loading="lazy"
@@ -337,7 +337,7 @@ date was close. We returned to the simpler layout and finished that.
 <figure>
   <img
     src="/media/whats-going-on-in-there/panel-final.webp"
-    alt="The final three panels: title, five statistics and the project goals on the left; the labelled brain in the middle; and the instructions on the right, set two by two with small drawings of hands and a prompt to place a sticker."
+    alt="The final three panels: title, five statistics and the project goals on the left; the labeled brain in the middle; and the instructions on the right, set two by two with small drawings of hands and a prompt to place a sticker."
     width="3000"
     height="1000"
     loading="lazy"
@@ -362,7 +362,7 @@ date was close. We returned to the simpler layout and finished that.
   <figure>
     <img
       src="/media/whats-going-on-in-there/card-v2.webp"
-      alt="Version 2, front and back. The front asks how many cups of coffee a day over four coloured answers; the back names the prefrontal cortex and the cerebellum and explains how caffeine blocks adenosine."
+      alt="Version 2, front and back. The front asks how many cups of coffee a day over four colored answers; the back names the prefrontal cortex and the cerebellum and explains how caffeine blocks adenosine."
       width="2336"
       height="1376"
       loading="lazy"
@@ -388,7 +388,7 @@ date was close. We returned to the simpler layout and finished that.
   <figure>
     <img
       src="/media/whats-going-on-in-there/card-v4.webp"
-      alt="Version 4, front and back. The front asks about physical symptoms when stressed or overtired; the back is headed BRAINSTEM and PITUITARY GLAND, with pins drawn down one edge and a line telling the visitor to take the band in their answer colour."
+      alt="Version 4, front and back. The front asks about physical symptoms when stressed or overtired; the back is headed BRAINSTEM and PITUITARY GLAND, with pins drawn down one edge and a line telling the visitor to take the band in their answer color."
       width="2288"
       height="1600"
       loading="lazy"
@@ -443,7 +443,7 @@ evidence that the experience changed a habit or improved understanding over time
   <figure>
     <img
       src="/media/whats-going-on-in-there/exhibition-panels.webp"
-      alt="The installed exhibit seen straight on: a title panel of statistics, the brain map, and an activity-instructions panel, with four bundles of coloured rubber bands and the card holders pinned along the bottom."
+      alt="The installed exhibit seen straight on: a title panel of statistics, the brain map, and an activity-instructions panel, with four bundles of colored rubber bands and the card holders pinned along the bottom."
       width="2048"
       height="1449"
       loading="lazy"
