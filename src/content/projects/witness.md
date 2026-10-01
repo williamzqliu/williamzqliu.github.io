@@ -29,7 +29,7 @@ cover:
   # uncropped, and standing beside each other where they belong.
   heroInBody: true
   tone: "light"
-  alt: "Three pages of handwritten reading notes side by side, in blue, red, orange and green ink, with arrows linking terms into flows."
+  alt: "Three pages of handwritten reading notes side by side, in blue, red, orange, and green ink, with arrows linking terms into flows."
 quickFacts:
   - label: "Role"
     value: "Information Designer"
@@ -76,7 +76,7 @@ credits:
   <div class="media-pair" style="--pair-split: 0.9165fr 0.5865fr 1.158fr">
     <img
       src="/media/witness/eye-and-cortex.webp"
-      alt="A panel on how the eye forms images. A labelled eye sends light to a brain, four numbered steps describe the path from photons to iconic memory, and a fan diagram below divides the cortical layers into V1 and V2 slash V4."
+      alt="A panel on how the eye forms images. A labeled eye sends light to a brain, four numbered steps describe the path from photons to iconic memory, and a fan diagram below divides the cortical layers into V1 and V2 slash V4."
       width="1833"
       height="2000"
       loading="lazy"
@@ -92,7 +92,7 @@ credits:
     />
     <img
       src="/media/witness/search-and-recognition.webp"
-      alt="A panel on eye movement. Fixation and saccade are defined at the top, and below them a loop diagram runs from processing the current area of fixation to pattern testing and back, with a small scatter of dots showing a current point of fixation, inhibited targets and next candidates."
+      alt="A panel on eye movement. Fixation and saccade are defined at the top, and below them a loop diagram runs from processing the current area of fixation to pattern testing and back, with a small scatter of dots showing a current point of fixation, inhibited targets, and next candidates."
       width="2316"
       height="2000"
       loading="lazy"
@@ -102,7 +102,7 @@ credits:
   <figcaption>Three sections of the map: light into memory, the what and where pathways, and the search loop. Each pink heading is a line from the song.</figcaption>
 </figure>
 
-This was the final project for Visual Cognition. The class was asked to make a mind map of the course, which covers how people take in visual information, from light entering the eye to the brain recognising the objects in a scene.
+This was the final project for Visual Cognition. The class was asked to make a mind map of the course, which covers how people take in visual information, from light entering the eye to the brain recognizing the objects in a scene.
 
 The three sections above show roughly what the whole poster looks like. It was framed as a Spotify Wrapped page, with the complete lyrics of Katy Perry's *Witness* running down one side.
 
@@ -111,7 +111,7 @@ I used the song's order to structure the map. Its sequence matched the way visua
 <figure data-width="prose">
   <img
     src="/media/witness/notes.webp"
-    alt="Three pages of handwritten reading notes side by side, in blue, red, orange and green ink, with arrows linking terms into flows: a cognitive system branching into who, where and how; a chain from light through the retina to detection, analysis, identification and long-term memory; and structure-mapping between a source and a target domain."
+    alt="Three pages of handwritten reading notes side by side, in blue, red, orange, and green ink, with arrows linking terms into flows: a cognitive system branching into who, where, and how; a chain from light through the retina to detection, analysis, identification, and long-term memory; and structure-mapping between a source and a target domain."
     width="2048"
     height="1097"
     loading="lazy"

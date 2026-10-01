@@ -32,7 +32,7 @@ cover:
   wide: "/media/nightmare-of-moonglade/cover-wide.webp"
   heroWhole: true
   tone: "dark"
-  alt: "The expansion's title art: Nightmare of Moonglade set over a purple, overgrown forest under the Hearthstone logo, with a lone figure on the path below."
+  alt: "The expansion’s title art: Nightmare of Moonglade set over a purple, overgrown forest under the Hearthstone logo, with a lone figure on the path below."
 quickFacts:
   - label: "Role"
     value: "Game Systems Designer"
@@ -61,7 +61,7 @@ credits:
   # appearance here, and the credit line they publish for the marks used —
   # merged into one sentence because their Hearthstone and World of Warcraft
   # lines are the same sentence with different names in it.
-  note: "Hearthstone®, its card frames, its interface and the Warcraft setting are Blizzard Entertainment's. Card artwork is a mix of Blizzard's own and Hearthstone-style pieces sourced from artstation.com. What I made is the mechanics, the card text, the class pairings and the numbers. This is unofficial, non-commercial fan work, not affiliated with, sponsored by or endorsed by Blizzard. Hearthstone, World of Warcraft and Warcraft are trademarks or registered trademarks of Blizzard Entertainment, Inc., in the U.S. and/or other countries."
+  note: "Hearthstone®, its card frames, its interface, and the Warcraft setting are Blizzard Entertainment’s. Card artwork is a mix of Blizzard’s own and Hearthstone-style pieces sourced from artstation.com. What I made is the mechanics, the card text, the class pairings, and the numbers. This is unofficial, non-commercial fan work, not affiliated with, sponsored by, or endorsed by Blizzard. Hearthstone, World of Warcraft, and Warcraft are trademarks or registered trademarks of Blizzard Entertainment, Inc., in the U.S. and/or other countries."
   collapse: false
 ---
 
@@ -85,19 +85,19 @@ The answers were Awaken, the Blessing and Nightmare cards, Dual Class Sidequests
   <figure>
     <img
       src="/media/nightmare-of-moonglade/concept-01.webp"
-      alt="Concept 1, headed Malfurion's Awakening. A scroll asks how to refer to Malfurion's awakening in a desperate situation through a symbolic mechanism, and four notes answer it: running out of operations stands for the crisis the nightmare has caused; give players extra operations; the extra space should let them turn the battle; the trigger should be as obvious as possible. A plate at the foot reads New Keyword, Awaken."
+      alt="Concept 1, headed Malfurion’s Awakening. A scroll asks how to refer to Malfurion’s awakening in a desperate situation through a symbolic mechanism, and four notes answer it: running out of operations stands for the crisis the nightmare has caused; give players extra operations; the extra space should let them turn the battle; the trigger should be as obvious as possible. A plate at the foot reads New Keyword, Awaken."
       width="1000"
       height="1551"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Malfurion's awakening</figcaption>
+    <figcaption>Malfurion’s awakening</figcaption>
   </figure>
 
   <figure>
     <img
       src="/media/nightmare-of-moonglade/concept-02.webp"
-      alt="Concept 2, headed Confrontation Between Justice And Evil. The scroll asks how to let players feel the fight between good and evil, and the notes answer it: divide ten classes into two opposing camps; design special cards with matching effects for each camp; use the game's existing Sidequest mechanic to show how the battle is going; keep sidequests on what the two classes share. Two plates at the foot read New Feature, Blessing and Nightmare Cards, and New Feature, Dual Class Sidequest."
+      alt="Concept 2, headed Confrontation Between Justice And Evil. The scroll asks how to let players feel the fight between good and evil, and the notes answer it: divide ten classes into two opposing camps; design special cards with matching effects for each camp; use the game’s existing Sidequest mechanic to show how the battle is going; keep sidequests on what the two classes share. Two plates at the foot read New Feature, Blessing and Nightmare Cards, and New Feature, Dual Class Sidequest."
       width="1000"
       height="1551"
       loading="lazy"
@@ -109,7 +109,7 @@ The answers were Awaken, the Blessing and Nightmare cards, Dual Class Sidequests
   <figure>
     <img
       src="/media/nightmare-of-moonglade/concept-03.webp"
-      alt="Concept 3, headed Cooperative Combat. The scroll asks how to show the Horde and the Alliance uniting to defeat the Nightmare King, and the notes answer it: design matching cards that echo the Dual Class Sidequests; use one set of imagery for partners in battle; fold the game's one-on-one combat into the idea. Two plates at the foot read New Keyword, Partner, and New Feature, Books of Experience."
+      alt="Concept 3, headed Cooperative Combat. The scroll asks how to show the Horde and the Alliance uniting to defeat the Nightmare King, and the notes answer it: design matching cards that echo the Dual Class Sidequests; use one set of imagery for partners in battle; fold the game’s one-on-one combat into the idea. Two plates at the foot read New Keyword, Partner, and New Feature, Books of Experience."
       width="1000"
       height="1551"
       loading="lazy"
@@ -164,7 +164,7 @@ The other three mechanics work the same material: ten classes split into two cam
   <figure>
     <img
       src="/media/nightmare-of-moonglade/blessing-and-nightmare.webp"
-      alt="Under a banner reading Blessing and Nightmare Cards, two pairs of cards. Blessed Paladin, whose Battlecry shuffles three Blessings of Holiness into your deck, stands beside that Holy spell, which casts when drawn and summons two Silver Hand Recruits with a buff. Demon Hunter's Nightmare, whose Battlecry shuffles three Fallen Nightmares, stands beside that Fel spell, which casts when drawn, damages the lowest-health enemy and gives your hero attack."
+      alt="Under a banner reading Blessing and Nightmare Cards, two pairs of cards. Blessed Paladin, whose Battlecry shuffles three Blessings of Holiness into your deck, stands beside that Holy spell, which casts when drawn and summons two Silver Hand Recruits with a buff. Demon Hunter’s Nightmare, whose Battlecry shuffles three Fallen Nightmares, stands beside that Fel spell, which casts when drawn, damages the lowest-health enemy, and gives your hero attack."
       width="1800"
       height="1125"
       loading="lazy"
@@ -176,7 +176,7 @@ The other three mechanics work the same material: ten classes split into two cam
   <figure>
     <img
       src="/media/nightmare-of-moonglade/sidequest.webp"
-      alt="Under a banner reading Dual Class Sidequest, three cards. Grace of Lake Elune'ara: Discover three cards, then deal 2 damage to all enemies. Into Moonglade: play two Secrets, then equip a 3/2 Eaglehorn Bow. Three's a Crowd: summon three Taunt minions, then resummon them at the start of your next turn."
+      alt="Under a banner reading Dual Class Sidequest, three cards. Grace of Lake Elune’ara: Discover three cards, then deal 2 damage to all enemies. Into Moonglade: play two Secrets, then equip a 3/2 Eaglehorn Bow. Three’s a Crowd: summon three Taunt minions, then resummon them at the start of your next turn."
       width="1800"
       height="1125"
       loading="lazy"
@@ -233,17 +233,17 @@ Every card then had to fit a quota. Nothing was included because it was a good i
 <details>
 <summary>What each pair was built around</summary>
 
-**Warrior and Druid, Justice.** Shared ground: Rush, Taunt, Armor and hero attack. Warrior takes the initiative in minion trades through weapons and Rush; Druid gets Choose One cards that keep a fast deck flexible. The dual-class cards run an old Druid mechanic back through Warrior's armour conversion.
+**Warrior and Druid, Justice.** Shared ground: Rush, Taunt, Armor, and hero attack. Warrior takes the initiative in minion trades through weapons and Rush; Druid gets Choose One cards that keep a fast deck flexible. The dual-class cards run an old Druid mechanic back through Warrior's armor conversion.
 
-**Paladin and Priest, Justice.** Shared ground: Holy spells, ground minions and spells that target minions. Paladin gets cards that pay off Silver Hand Recruits; Priest gets control of the board out of zero-cost cards and cost reduction. The pair's cards complete quests and cut costs through spells that target.
+**Paladin and Priest, Justice.** Shared ground: Holy spells, ground minions, and spells that target minions. Paladin gets cards that pay off Silver Hand Recruits; Priest gets control of the board out of zero-cost cards and cost reduction. The pair's cards complete quests and cut costs through spells that target.
 
-**Mage and Shaman, Justice.** Shared ground: Elementals, spell damage, Discover and mixed spell schools. Mage gets frost cards with a streak of randomness around its Secrets; Shaman gets nature and nerve, in cards deliberately over-statted. The pair's cards pay you for using Discover.
+**Mage and Shaman, Justice.** Shared ground: Elementals, spell damage, Discover, and mixed spell schools. Mage gets frost cards with a streak of randomness around its Secrets; Shaman gets nature and nerve, in cards deliberately over-statted. The pair's cards pay you for using Discover.
 
-**Hunter and Rogue, Evil.** Shared ground: two-cost Secrets, crowd control and a weapon worth equipping. Hunter was the excuse to bring Spell Hunter back after a single expansion; Rogue got cheap cards and the Combo cards that make them worth playing. The pair's cards hand Spell Hunter its Secrets and Rogue its flexibility.
+**Hunter and Rogue, Evil.** Shared ground: two-cost Secrets, crowd control, and a weapon worth equipping. Hunter was the excuse to bring Spell Hunter back after a single expansion; Rogue got cheap cards and the Combo cards that make them worth playing. The pair's cards hand Spell Hunter its Secrets and Rogue its flexibility.
 
-**Warlock and Demon Hunter, Evil.** Shared ground: Lifesteal, card exchanges and disruption on the board. Warlock buys an early advantage by trading cards away and closes with something large; Demon Hunter keeps Outcast cards coming and the pressure on. The pair's cards turn both classes' drawbacks into the payoff.
+**Warlock and Demon Hunter, Evil.** Shared ground: Lifesteal, card exchanges, and disruption on the board. Warlock buys an early advantage by trading cards away and closes with something large; Demon Hunter keeps Outcast cards coming and the pressure on. The pair's cards turn both classes' drawbacks into the payoff.
 
-**Neutral.** Twenty cards for the figures the novel turns on, with effects to match: Ysera, Alexstrasza, Remulos and Teldrassil the World Tree take four of the five legendary slots.
+**Neutral.** Twenty cards for the figures the novel turns on, with effects to match: Ysera, Alexstrasza, Remulos, and Teldrassil the World Tree take four of the five legendary slots.
 
 </details>
 
@@ -269,7 +269,7 @@ I also put the set up as images and text on bilibili and on the NGA Hearthstone 
     />
     <img
       src="/media/nightmare-of-moonglade/playtest-02.webp"
-      alt="A hand of three printed cards held over the paper board, with an opponent's hand of face-down cards behind it."
+      alt="A hand of three printed cards held over the paper board, with an opponent’s hand of face-down cards behind it."
       width="1800"
       height="1351"
       loading="lazy"
@@ -481,8 +481,8 @@ I also put the set up as images and text on bilibili and on the NGA Hearthstone 
     <img src="/media/nightmare-of-moonglade/cards/hunter/hunters-nightmare.webp" data-class="hunter" data-cost="4" alt="Hunter’s Nightmare, a 4-cost Hunter minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/hunter/token-emerald-nightmare.webp" data-class="hunter" data-cost="4" data-token alt="Emerald Nightmare, the spell Hunter’s Nightmare shuffles into your deck." width="560" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/hunter/shadowblade-panther.webp" data-class="hunter" data-cost="4" alt="Shadowblade Panther, a 4-cost Hunter minion." width="534" height="700" loading="lazy" decoding="async" />
-    <img src="/media/nightmare-of-moonglade/cards/rogue/rouges-nightmare.webp" data-class="rogue" data-cost="4" alt="Rouge’s Nightmare, a 4-cost Rogue minion." width="534" height="700" loading="lazy" decoding="async" />
-    <img src="/media/nightmare-of-moonglade/cards/rogue/token-slumbering-nightmare.webp" data-class="rogue" data-cost="4" data-token alt="Slumbering Nightmare, the spell Rouge’s Nightmare shuffles into your deck." width="560" height="700" loading="lazy" decoding="async" />
+    <img src="/media/nightmare-of-moonglade/cards/rogue/rouges-nightmare.webp" data-class="rogue" data-cost="4" alt="Rogue’s Nightmare, a 4-cost Rogue minion." width="534" height="700" loading="lazy" decoding="async" />
+    <img src="/media/nightmare-of-moonglade/cards/rogue/token-slumbering-nightmare.webp" data-class="rogue" data-cost="4" data-token alt="Slumbering Nightmare, the spell Rogue’s Nightmare shuffles into your deck." width="560" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/hunter-rogue/rokhan-the-shadowhunter.webp" data-class="hunter rogue" data-cost="4" alt="Rokhan the Shadowhunter, a 4-cost Hunter and Rogue minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/warlock/rift-berserker.webp" data-class="warlock" data-cost="4" alt="Rift Berserker, a 4-cost Warlock minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/warlock/blood-withered.webp" data-class="warlock" data-cost="4" alt="Blood Withered, a 4-cost Warlock spell." width="560" height="700" loading="lazy" decoding="async" />
@@ -529,8 +529,8 @@ I also put the set up as images and text on bilibili and on the NGA Hearthstone 
     <img src="/media/nightmare-of-moonglade/cards/warlock-demon-hunter/bloodspell-dreadlord.webp" data-class="warlock demon-hunter" data-cost="7" alt="Bloodspell Dreadlord, a 7-cost Warlock and Demon Hunter minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/neutral/ogre-tyrannosaurus.webp" data-class="neutral" data-cost="7" alt="Ogre Tyrannosaurus, a 7-cost neutral minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/neutral/emissarys-hearthstone.webp" data-class="neutral" data-cost="7" alt="Emissary’s Hearthstone, a 7-cost neutral spell." width="560" height="700" loading="lazy" decoding="async" />
-    <img src="/media/nightmare-of-moonglade/cards/hunter/emeriss-corrupted.webp" data-class="hunter" data-cost="8" alt="Emeriss, Corrupted, a 8-cost Hunter minion." width="534" height="700" loading="lazy" decoding="async" />
-    <img src="/media/nightmare-of-moonglade/cards/rogue/ysondre-the-chaosmaker.webp" data-class="rogue" data-cost="8" alt="Ysondre the Chaosmaker, a 8-cost Rogue minion." width="534" height="700" loading="lazy" decoding="async" />
+    <img src="/media/nightmare-of-moonglade/cards/hunter/emeriss-corrupted.webp" data-class="hunter" data-cost="8" alt="Emeriss, Corrupted, an 8-cost Hunter minion." width="534" height="700" loading="lazy" decoding="async" />
+    <img src="/media/nightmare-of-moonglade/cards/rogue/ysondre-the-chaosmaker.webp" data-class="rogue" data-cost="8" alt="Ysondre the Chaosmaker, an 8-cost Rogue minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/hunter/mass-combat.webp" data-class="hunter" data-cost="9" alt="Mass Combat, a 9-cost Hunter spell." width="560" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/neutral/alexstrasza-the-well-wisher.webp" data-class="neutral" data-cost="9" alt="Alexstrasza the Well-Wisher, a 9-cost neutral minion." width="534" height="700" loading="lazy" decoding="async" />
     <img src="/media/nightmare-of-moonglade/cards/neutral/remulos-the-guardian.webp" data-class="neutral" data-cost="9" alt="Remulos the Guardian, a 9-cost neutral minion." width="534" height="700" loading="lazy" decoding="async" />
@@ -604,7 +604,8 @@ I also put the set up as images and text on bilibili and on the NGA Hearthstone 
 
      A card misspells its own name: `Rouge's Nightmare`, the Rogue Nightmare
      card, and the development panels carry the same slip in a heading. The
-     rail's alt text reproduces what the card says.
+     art cannot be redrawn, so the alt text names the card as intended,
+     Rogue's Nightmare, rather than reproducing the slip.
 
      MEDIA NOT USED, deliberately:
 

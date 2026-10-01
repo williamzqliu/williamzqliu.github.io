@@ -58,7 +58,7 @@ Does higher health spending mean longer life? I explored that relationship with 
 
 I chose counting over position. A scatter plot puts both variables on continuous axes and asks the reader to interpret where a dot sits; a unit chart asks them to count. Counting is slower and cannot show a correlation, but it hands the reader a rule they can apply themselves: one icon is a million people, one dollar sign is a hundred dollars a head, and both convert to their own country without anyone explaining the chart.
 
-I sorted by life expectancy rather than by spending, left to right from Mexico at 74.0 years to Japan at 84.1, with colour lightness tracking the same variable. Sorted by spending, the United States lands at one end and the finding collapses into one anomaly a reader can dismiss.
+I sorted by life expectancy rather than by spending, left to right from Mexico at 74.0 years to Japan at 84.1, with color lightness tracking the same variable. Sorted by spending, the United States lands at one end and the finding collapses into one anomaly a reader can dismiss.
 
 Sorted this way, the top half holds no surprise: populations vary. The bottom half is where it lands. The United States column runs to more than a hundred dollar symbols, an order of magnitude past China at nine and Costa Rica at fifteen, and its life expectancy of 78.0 years sits below both of them.
 
@@ -88,7 +88,7 @@ I built four versions, and changed something different in each.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Version 01</figcaption>
+    <figcaption>Version 1</figcaption>
   </figure>
 
   <figure>
@@ -100,7 +100,7 @@ I built four versions, and changed something different in each.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Version 02</figcaption>
+    <figcaption>Version 2</figcaption>
   </figure>
 
   <figure>
@@ -112,7 +112,7 @@ I built four versions, and changed something different in each.
       loading="lazy"
       decoding="async"
     />
-    <figcaption>Version 03</figcaption>
+    <figcaption>Version 3</figcaption>
   </figure>
 </div>
 
@@ -120,9 +120,9 @@ I built four versions, and changed something different in each.
 
 **The second version.** I moved to a small-multiples grid: one symbol size everywhere, population and spending stacked in one column per country. To keep the American block from swallowing the layout I raised the dollar unit to $200.
 
-**The third version.** I changed the argument rather than the encoding. Among high-income OECD countries the only available story is that the United States is an outlier, so I brought in Mexico, China and Costa Rica: countries spending a fraction of the American figure and living longer. I also moved to the shared baseline and took the dollar unit back to $100.
+**The third version.** I changed the argument rather than the encoding. Among high-income OECD countries the only available story is that the United States is an outlier, so I brought in Mexico, China, and Costa Rica: countries spending a fraction of the American figure and living longer. I also moved to the shared baseline and took the dollar unit back to $100.
 
-**The final version.** I took three countries out and brought four in, so the set spans the full range from 74.0 to 84.1 years, and I replaced the three-band scale with a single-hue ramp. Red, yellow and green delivers a verdict on each country, and green for good is a judgement the data does not support.
+**The final version.** I took three countries out and brought four in, so the set spans the full range from 74.0 to 84.1 years, and I replaced the three-band scale with a single-hue ramp. Red, yellow, and green delivers a verdict on each country, and green for good is a judgment the data does not support.
 
 Data from [UN World Population Prospects (2024) and the World Health Organization (2025), via Our World in Data](https://ourworldindata.org/grapher/life-expectancy-vs-health-expenditure).
 

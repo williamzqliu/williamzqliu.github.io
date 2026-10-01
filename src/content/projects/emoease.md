@@ -2,7 +2,7 @@
 title: "EmoEase"
 year: 2023
 dates: "Oct 2023 – Nov 2023"
-blurb: "A projection installation that responds to visitors' presence and interaction using Kinect, particles, and emoji."
+blurb: "A projection installation that responds to visitors’ presence and interaction using Kinect, particles, and emoji."
 tags: ["interactive"]
 tracks: ["design"]
 published: true
@@ -30,11 +30,11 @@ cover:
   heroWide: "/media/emoease/projection-loop.mp4"
   heroWhole: true
   tone: "dark"
-  alt: "The projection running: a field of yellow, green and red emoji drifting over a dark wall, with two bright yellow particle silhouettes of standing figures holding their shape in the middle of it."
+  alt: "The projection running: a field of yellow, green, and red emoji drifting over a dark wall, with two bright yellow particle silhouettes of standing figures holding their shape in the middle of it."
   caption: "Final installation"
 quickFacts:
   - label: "Role"
-    value: "Designer & Creative Technologist"
+    value: "Designer and Creative Technologist"
   - label: "Outcome"
     value: "Interactive projection installation"
 credits:
@@ -67,7 +67,7 @@ credits:
 
 I started EmoEase with a personal question: **why did social media sometimes leave me anxious even when I knew much of what I was seeing was curated or exaggerated?**
 
-A survey of 106 people pointed somewhere more specific: they were often affected before they realised it.
+A survey of 106 people pointed somewhere more specific: they were often affected before they realized it.
 
 <!-- Two percentages, and only percentages. The sample size is a count rather
      than a rate, and a strip that puts `106` beside `72.6%` invites the eye to
@@ -100,7 +100,7 @@ In six interviews, people said they noticed only afterwards, and that saying so 
 
 A fact-checking tool would have required people to already suspect a problem and choose to open it. Instead I built an installation that responded as soon as someone entered the room.
 
-The Kinect tracked how many people were present and whether they were engaging with one another. Being alone produced the baseline mode; **turning towards someone else** changed the projection. That rule is the finding inverted, because noticing is what people keep to themselves.
+The Kinect tracked how many people were present and whether they were engaging with one another. Being alone produced the baseline mode; **turning toward someone else** changed the projection. That rule is the finding inverted, because noticing is what people keep to themselves.
 
 I put the incoming feed and the visitor's own body in the same image rather than in separate spaces.
 
@@ -115,7 +115,7 @@ I put the incoming feed and the visitor's own body in the same image rather than
   <figure>
     <img
       src="/media/emoease/interaction-system.webp"
-      alt="The interaction flowchart. From a start box a visitor stands in front of the sensor, which branches on how many people are present: one goes straight to performance mode 1; two and more than two each ask whether they are interacting, and a no on either branch returns to mode 1 while a yes gives mode 2 and mode 3. All branches meet at a single output. A dashed line across the diagram separates what the visitor sees from the camera, computer and sensor that stay invisible."
+      alt="The interaction flowchart. From a start box a visitor stands in front of the sensor, which branches on how many people are present: one goes straight to performance mode 1; two and more than two each ask whether they are interacting, and a no on either branch returns to mode 1 while a yes gives mode 2 and mode 3. All branches meet at a single output. A dashed line across the diagram separates what the visitor sees from the camera, computer, and sensor that stay invisible."
       width="2000"
       height="1269"
       loading="lazy"
@@ -127,7 +127,7 @@ I put the incoming feed and the visitor's own body in the same image rather than
   <figure>
     <img
       src="/media/emoease/composition.webp"
-      alt="The two layers and their merge, in three columns. Type 1 builds trails of social media imagery from a randomised sequence of layers; type 2 builds the emotion visualisation, generating particle streams, outlining a body from them, and growing emoji from detected facial expressions; the third column shows the two merged into one field of emoji over a particle silhouette."
+      alt="The two layers and their merge, in three columns. Type 1 builds trails of social media imagery from a randomized sequence of layers; type 2 builds the emotion visualization, generating particle streams, outlining a body from them, and growing emoji from detected facial expressions; the third column shows the two merged into one field of emoji over a particle silhouette."
       width="2000"
       height="1277"
       loading="lazy"

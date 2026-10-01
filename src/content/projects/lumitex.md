@@ -136,7 +136,7 @@ I surveyed 27 children with dyslexia and their parents at a primary school in Ha
 
 > **Not the ranking**
 >
-> The children asked for novelty and colour. Their parents asked for something practical they could do with their child.
+> The children asked for novelty and color. Their parents asked for something practical they could do with their child.
 
 Instead of averaging the two answers, I used them to define two kinds of support: immediate help while reading, and longer-term activities that could build confidence and skills.
 
@@ -174,7 +174,7 @@ Instead of averaging the two answers, I used them to define two kinds of support
 
 I chose AR because the difficulty happens on the page itself. Moving the text into a separate app would replace the reading surface; an overlay could assist it while keeping the book in place.
 
-The prototype explored four modes. Reading Mode opened up the spacing and coloured word groups by their function. Focus Mode isolated one line at a time. Training Mode added game-based exercises for literacy and for attention. Interest Mode connected reading to things the child could explore outside the book.
+The prototype explored four modes. Reading Mode opened up the spacing and colored word groups by their function. Focus Mode isolated one line at a time. Training Mode added game-based exercises for literacy and for attention. Interest Mode connected reading to things the child could explore outside the book.
 
 <!-- The four modes as one block rather than one after another: they share an
      aspect exactly, so two columns fall into two rows on their own and the set
@@ -224,7 +224,7 @@ The prototype explored four modes. Reading Mode opened up the spacing and colour
   <figure>
     <img
       src="/media/lumitex/mode-interest.webp"
-      alt="Interest Mode in a library aisle: a label reading Astronomy Experience Area sits ahead of the reader, with a distance of eight metres and an arrow pointing straight on."
+      alt="Interest Mode in a library aisle: a label reading Astronomy Experience Area sits ahead of the reader, with a distance of eight meters and an arrow pointing straight on."
       width="1400"
       height="916"
       loading="lazy"
@@ -244,7 +244,7 @@ In hindsight, I spread the concept too far. Four modes produced twenty features,
   <div class="media-pair" style="--pair-split: 1.0458fr 1.9881fr">
     <img
       src="/media/lumitex/mind-map.webp"
-      alt="A mind map with dyslexia at the centre of a ring divided into three equal arcs: emotional support, assistive reading and ability training, each carrying its own cluster of ideas."
+      alt="A mind map with dyslexia at the center of a ring divided into three equal arcs: emotional support, assistive reading, and ability training, each carrying its own cluster of ideas."
       width="1600"
       height="1530"
       loading="lazy"
@@ -252,7 +252,7 @@ In hindsight, I spread the concept too far. Four modes produced twenty features,
     />
     <img
       src="/media/lumitex/information-architecture.webp"
-      alt="The information architecture: Lumitex branches into Reading, Focus, Training and Interest Mode, and each mode carries four or five features of its own, twenty in total."
+      alt="The information architecture: Lumitex branches into Reading, Focus, Training, and Interest Mode, and each mode carries four or five features of its own, twenty in total."
       width="2000"
       height="1006"
       loading="lazy"

@@ -65,7 +65,7 @@ credits:
   <div class="media-pair" data-align="end" style="--pair-split: 1128fr 190fr 1165fr 190fr 1553fr">
     <img
       src="/media/dui-invisible-bill/original.webp"
-      alt="The original infographic: three income brackets in three columns, each headed by a car and a manufacturer badge, with arrows running down to statistics on commuting, home ownership, marriage, pet ownership and drinking, and a closing panel on the legal blood alcohol limit."
+      alt="The original infographic: three income brackets in three columns, each headed by a car and a manufacturer badge, with arrows running down to statistics on commuting, home ownership, marriage, pet ownership, and drinking, and a closing panel on the legal blood alcohol limit."
       width="2000"
       height="3191"
       loading="lazy"
@@ -87,7 +87,7 @@ credits:
     </div>
     <img
       src="/media/dui-invisible-bill/final-chart.webp"
-      alt="The final poster, which moves from $296 billion on a map of the United States, through a division into $2,354 per household, to bar charts against rent, food, health coverage, an auto loan and tuition, and closes on 283 children."
+      alt="The final poster, which moves from $296 billion on a map of the United States, through a division into $2,354 per household, to bar charts against rent, food, health coverage, an auto loan, and tuition, and closes on 283 children."
       width="2400"
       height="3709"
       loading="lazy"
@@ -127,7 +127,7 @@ The third had public data on both sides. I took the national estimate of DUI-rel
     />
     <img
       src="/media/dui-invisible-bill/concept-2.webp"
-      alt="A second page listing the household expenses as a labelled column with icons and monthly figures, with the division worked out underneath and the 283 note at the foot."
+      alt="A second page listing the household expenses as a labeled column with icons and monthly figures, with the division worked out underneath and the 283 note at the foot."
       width="641"
       height="1084"
       loading="lazy"
