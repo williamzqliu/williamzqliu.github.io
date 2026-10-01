@@ -192,9 +192,9 @@ const MAIN_ORDER = [
   'ai-ethics-network',
   'ripples-into-silence',
   'tod-boston',
-  'comgrand',
   'melovision',
   'whats-going-on-in-there',
+  'comgrand',
 ];
 
 // Newest first, except where two pairs are swapped by hand.
