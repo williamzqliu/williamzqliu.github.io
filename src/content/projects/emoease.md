@@ -51,8 +51,7 @@ credits:
   # `Roles` rather than `Team`, and `Portfolio guidance` rather than `Faculty
   # guidance`, both following comgrand: the same tutor, and the repo already
   # records that he advised on how the work is presented rather than on the
-  # work itself. This project was made for a graduate application portfolio,
-  # which is the presentation he advised on.
+  # work itself.
   teamLabel: Roles
   team:
     - group: Design and development
@@ -142,33 +141,3 @@ The installation ran with visitors interacting with it, as the demo video and th
   />
   <figcaption>Installation in use</figcaption>
 </figure>
-
-<!-- PARKED from the application-portfolio version this rebuild replaces.
-
-     1. Survey detail beyond the three headline figures: respondents mostly 18
-        to 30, averaging four and a half hours a day; 66% naming anxiety and
-        confusion as their reaction; 73.6% naming an effect on their thinking;
-        and 90.1% coping by avoiding controversial topics or believing only
-        parts, which is avoidance rather than verification.
-     2. The interview excerpts. Section 01 now attributes the noticing-afterward
-        account to one interviewee rather than to all six.
-     3. `Key decisions` as a headed list: the subject is awareness rather than
-        accuracy; two layers rather than one composition; presence as the
-        input rather than gesture. All three are now consequences inside
-        Sections 02 and 03 instead of a section of their own.
-     4. `Outcome`: built, ran with people in the room, one public video. Never
-        exhibited publicly, no publication, no evaluation, made for a graduate
-        application portfolio.
-     5. `Reflection`: that the obvious missing step was standing in the room
-        for an afternoon and writing down what people did.
-     6. The three modes are not distinguishable in any footage that exists.
-        The flowchart defines them; the site video does not separate them.
-        Claiming the branching as a decision would be better supported by a cut
-        that shows all three, which has not been made.
-
-     PANEL DEFECTS, if any of the old boards are ever exported as source:
-     - Panel 4-3 repeats the same caption for concept steps 2 through 5.
-     - The YouTube URL printed on panels 4-0 and 4-5 is wrong in two ways.
-       Video IDs are case sensitive; the correct ID is 1XzRk-Fi_zc, which is
-       what the frontmatter link uses.
--->
