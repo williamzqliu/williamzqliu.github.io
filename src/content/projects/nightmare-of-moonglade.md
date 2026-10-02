@@ -2,40 +2,36 @@
 title: "Nightmare of Moonglade"
 year: 2021
 dates: "Sep 2020 – Mar 2021"
-blurb: "A fan-made Hearthstone expansion exploring game systems through 130 cards and four original mechanics."
+blurb: "A 130-card fan-made *Hearthstone* expansion translating a Warcraft story into keywords, class pairings, and card rules."
 tags: ["interactive"]
 tracks: ["design"]
 published: true
 archive: true
 archiveLabel: "Game systems"
-compact: true
 draft: false
 stack:
   - Excel
   - Adobe Photoshop
-# No link in the head. The one that was there went to the demo recording, and
-# Section 06 now holds every card it walks through, at a size they can be read
-# at — sending a reader off the page to see the same 130 cards more slowly is
-# the wrong offer. The recording is still named in Section 05, where the rest
-# of what was published is.
+# No link in the head: the full set is on the page at a size the cards can be
+# read at, and the walkthrough recording is linked from the playtesting
+# section, where the rest of what was published is.
 links: {}
 cover:
   # The head takes the title art. It is Blizzard's logo over a painted forest
-  # and the credits note says so in the open, which is what makes it usable:
-  # the page states the ownership before a reader has to guess at it.
-  # `heroWhole` keeps its own 16:9 rather than cropping it to the head's
-  # 2.1:1 banner.
+  # and the credits note says so in the open. `heroWhole` keeps its own 16:9
+  # rather than cropping it to the head's 2.1:1 banner.
   #
   # No card to feed: ArchiveList renders title, label and year with no cover,
-  # the curated list excludes archive, and the landing page needs a `featured`
-  # rank this project does not have, so `wide` is read by the head alone.
+  # the curated list excludes archive, and the landing page shows only the
+  # projects in SELECTED_ORDER (src/lib/projects.ts), which skips archive
+  # projects, so `wide` is read by the head alone.
   wide: "/media/nightmare-of-moonglade/cover-wide.webp"
   heroWhole: true
   tone: "dark"
-  alt: "The expansion’s title art: Nightmare of Moonglade set over a purple, overgrown forest under the Hearthstone logo, with a lone figure on the path below."
+  alt: "Nightmare of Moonglade title artwork over a purple forest, with the Hearthstone logo and a lone figure on the path."
 quickFacts:
   - label: "Role"
-    value: "Game Systems Designer"
+    value: "Game systems design and rules writing"
   - label: "Outcome"
     value: "130-card fan expansion"
 credits:
@@ -54,261 +50,168 @@ credits:
     - group: Design
       people:
         - Zhuoqi Liu
-  # Without the first three sentences a reader would assume the wrong half is
-  # mine, because the wrong half is what fills every picture. The last two are
-  # what Blizzard's own guidelines ask of fan work: non-commercial, no implied
+  # Ownership first, then the fan-work notice: non-commercial, no implied
   # relationship or endorsement, the trademark symbol on the mark's first
-  # appearance here, and the credit line they publish for the marks used —
-  # merged into one sentence because their Hearthstone and World of Warcraft
-  # lines are the same sentence with different names in it.
-  note: "Hearthstone®, its card frames, its interface, and the Warcraft setting are Blizzard Entertainment’s. Card artwork is a mix of Blizzard’s own and Hearthstone-style pieces sourced from artstation.com. What I made is the mechanics, the card text, the class pairings, and the numbers. This is unofficial, non-commercial fan work, not affiliated with, sponsored by, or endorsed by Blizzard. Hearthstone, World of Warcraft, and Warcraft are trademarks or registered trademarks of Blizzard Entertainment, Inc., in the U.S. and/or other countries."
+  # appearance here, and the credit line for the marks used.
+  note: "Hearthstone®, its card frames, its interface, and the Warcraft setting are Blizzard Entertainment’s. Card artwork is a mix of Blizzard’s own work and Hearthstone-style pieces sourced from ArtStation. My contribution covers the expansion’s rules, card text, class pairings, costs, and stats, including adaptations of existing game mechanics. This is unofficial, non-commercial fan work, not affiliated with, sponsored by, or endorsed by Blizzard. Hearthstone, World of Warcraft, and Warcraft are trademarks or registered trademarks of Blizzard Entertainment, Inc., in the U.S. and/or other countries."
   collapse: false
 ---
 
-A fan-made expansion for Hearthstone, built in my final undergraduate year. The set is adapted from *World of Warcraft: Stormrage*, a 2010 novel in which Malfurion Stormrage falls asleep inside the Emerald Dream while the nightmare he went there to investigate spreads across the world.
+Nightmare of Moonglade is a fan-made expansion based on *World of Warcraft: Stormrage*. I designed the card rules, class pairings, costs, and stats, and built the 130-card set in Excel and Adobe Photoshop.
 
-## Three questions, four mechanics
+The setting, interface, and card frames are Blizzard Entertainment's; the illustrations are sourced artwork. Full attribution appears in the Credits.
 
-I did not start from a mechanic looking for a theme. I wrote three questions about that story and made each one produce rules.
+## Awaken: using the End Turn signal
 
-How do you refer to a sleeper waking at the worst possible moment? How do you make a player feel two camps at war? How do you show two factions that hate each other fighting on the same side?
+In the novel, Malfurion sleeps in the Emerald Dream while the nightmare spreads across the world. I wanted Awaken to connect his awakening to a moment when the player has run out of available actions.
 
-The answers were Awaken, the Blessing and Nightmare cards, Dual Class Sidequests, and Partner. Each mechanic has a plot reason for existing, and none of them was designed first and justified afterwards.
-
-<!-- One panel per question, in a row at every width including a phone. The
-     three share an aspect exactly, so equal columns come out level with
-     nothing cropped, and the argument of this section is that there are three
-     of them: stacked, a reader meets them one screen at a time and the set
-     stops being a set. -->
-
-<div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
-  <figure>
-    <img
-      src="/media/nightmare-of-moonglade/concept-01.webp"
-      alt="Concept 1, headed Malfurion’s Awakening. A scroll asks how to refer to Malfurion’s awakening in a desperate situation through a symbolic mechanism, and four notes answer it: running out of operations stands for the crisis the nightmare has caused; give players extra operations; the extra space should let them turn the battle; the trigger should be as obvious as possible. A plate at the foot reads New Keyword, Awaken."
-      width="1000"
-      height="1551"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>Malfurion’s awakening</figcaption>
-  </figure>
-
-  <figure>
-    <img
-      src="/media/nightmare-of-moonglade/concept-02.webp"
-      alt="Concept 2, headed Confrontation Between Justice And Evil. The scroll asks how to let players feel the fight between good and evil, and the notes answer it: divide ten classes into two opposing camps; design special cards with matching effects for each camp; use the game’s existing Sidequest mechanic to show how the battle is going; keep sidequests on what the two classes share. Two plates at the foot read New Feature, Blessing and Nightmare Cards, and New Feature, Dual Class Sidequest."
-      width="1000"
-      height="1551"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>Justice against evil</figcaption>
-  </figure>
-
-  <figure>
-    <img
-      src="/media/nightmare-of-moonglade/concept-03.webp"
-      alt="Concept 3, headed Cooperative Combat. The scroll asks how to show the Horde and the Alliance uniting to defeat the Nightmare King, and the notes answer it: design matching cards that echo the Dual Class Sidequests; use one set of imagery for partners in battle; fold the game’s one-on-one combat into the idea. Two plates at the foot read New Keyword, Partner, and New Feature, Books of Experience."
-      width="1000"
-      height="1551"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>Fighting on the same side</figcaption>
-  </figure>
-</div>
-
-## A keyword made out of a button
-
-Hearthstone's End Turn button turns green when the game has worked out that you have nothing left worth doing. Every player reads that signal without thinking about it, and no card had ever made it mean anything.
-
-Awaken fires the first time the button turns green in a turn. A minion or weapon carrying the keyword hands something back at the moment you have run out, which is the novel's premise stated as a rule: the sleeper wakes when the situation is worst.
-
-The trigger had to be obvious without a tutorial, and it already was. The interface had been telling players they were out of options for years.
-
-<!-- Prose width: the four states are one diagram read left to right, and at
-     the full article column the button glyphs blow up to a size the interface
-     never shows them at. -->
+Awaken triggers the first time the End Turn button turns green each turn. Cards with the keyword then provide an additional effect, potentially opening up more actions. I chose the existing button state as a visible cue, with the aim of making the trigger easy to recognize.
 
 <figure data-width="prose">
-  <img
-    src="/media/nightmare-of-moonglade/awaken.webp"
-    alt="Under a banner reading Awaken, four states of the End Turn button in a row. Orange while operations remain; green the first time none do; a cyan glow while Awaken cards resolve and hand back further operations; green again once those are spent."
-    width="2000"
-    height="887"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The button already carried the state. Awaken gave it to the rules.</figcaption>
+  <img src="/media/nightmare-of-moonglade/awaken.webp" alt="Awaken concept diagram: available actions, the first green End Turn state, Awaken resolution, and the green state after additional actions are spent." width="2000" height="887" loading="lazy" decoding="async" />
+  <figcaption>Awaken resolves at the first green state each turn, before any additional actions are spent.</figcaption>
 </figure>
 
-## Turning two sides into card text
+<details>
+<summary>Story and mechanic concepts</summary>
 
-The other three mechanics work the same material: ten classes split into two camps, and inside them five partner pairs. Each one puts that structure somewhere a player has to read it.
+I used three story situations to guide the rules: Malfurion's awakening, opposing camps, and temporary cooperation between factions. The concept boards connect those situations to Awaken, Blessing and Nightmare cards, dual-class Sidequests, and Partner.
 
-**Blessing and Nightmare cards.** Every class got one minion whose Battlecry shuffles three copies of a spell into your deck, and that spell casts itself the moment it is drawn. The six Justice classes shuffle a Blessing, the four Evil classes shuffle a Nightmare. Same shape on both sides of the split and opposite effect: Blessed Paladin sends in Silver Hand Recruits, Demon Hunter's Nightmare burns the weakest enemy and hands your hero the attack.
-
-**Dual Class Sidequest.** Sidequest already existed in Hearthstone. What was new was giving it to the pairs and writing each one out of what the two classes have in common. Hunter and Rogue both play cheap Secrets, so Into Moonglade asks for two Secrets and equips a bow. Warrior and Druid both lean on Taunt, so Three's a Crowd asks for three Taunt minions and gives them back at the start of your next turn.
-
-**Partner.** The three Justice pairs each got a Book, and the keyword is what the Books are for: each one Discovers a spell from your partner class and does more when the partner condition is met. The Book of Chaos Discovers one spell and gives Armor equal to its cost, or Discovers two instead with Partner active.
-
-<!-- The three mechanics in one row at every width, in the order the
-     paragraphs above take them. They share an aspect exactly, so equal
-     columns come out level with nothing cropped, and the point of the block
-     is that the three are one answer to the same structure: a column each
-     makes them three separate exhibits. The card text inside them is for the
-     lightbox, not for the row. -->
-
-<div class="media-pair" style="--pair-split: repeat(3, minmax(0, 1fr))">
+<div class="media-pair" data-stack style="--pair-split: repeat(3, minmax(0, 1fr))">
   <figure>
-    <img
-      src="/media/nightmare-of-moonglade/blessing-and-nightmare.webp"
-      alt="Under a banner reading Blessing and Nightmare Cards, two pairs of cards. Blessed Paladin, whose Battlecry shuffles three Blessings of Holiness into your deck, stands beside that Holy spell, which casts when drawn and summons two Silver Hand Recruits with a buff. Demon Hunter’s Nightmare, whose Battlecry shuffles three Fallen Nightmares, stands beside that Fel spell, which casts when drawn, damages the lowest-health enemy, and gives your hero attack."
-      width="1800"
-      height="1125"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>Blessing and Nightmare cards</figcaption>
+    <img src="/media/nightmare-of-moonglade/concept-01.webp" alt="Concept board connecting Malfurion’s awakening to the Awaken keyword and additional player actions." width="1000" height="1551" loading="lazy" decoding="async" />
+    <figcaption>Malfurion’s awakening informed the Awaken trigger.</figcaption>
   </figure>
-
   <figure>
-    <img
-      src="/media/nightmare-of-moonglade/sidequest.webp"
-      alt="Under a banner reading Dual Class Sidequest, three cards. Grace of Lake Elune’ara: Discover three cards, then deal 2 damage to all enemies. Into Moonglade: play two Secrets, then equip a 3/2 Eaglehorn Bow. Three’s a Crowd: summon three Taunt minions, then resummon them at the start of your next turn."
-      width="1800"
-      height="1125"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>Dual Class Sidequest</figcaption>
+    <img src="/media/nightmare-of-moonglade/concept-02.webp" alt="Concept board connecting opposing camps to Blessing and Nightmare cards and dual-class Sidequests." width="1000" height="1551" loading="lazy" decoding="async" />
+    <figcaption>The opposing camps informed Blessing and Nightmare cards and dual-class Sidequests.</figcaption>
   </figure>
-
   <figure>
-    <img
-      src="/media/nightmare-of-moonglade/partner.webp"
-      alt="Under a banner reading Partner, the three Books of Experience. Book of Awakening Discovers a spell that targets minions from your partner class, and costs nothing with Partner active. Book of Chaos Discovers a spell from the partner class and gives Armor equal to its cost, or Discovers two with Partner. Book of Nightmares Discovers a spell from a different spell school, recasting it if it came from the partner class and copying it with Partner."
-      width="1800"
-      height="1125"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>Partner</figcaption>
+    <img src="/media/nightmare-of-moonglade/concept-03.webp" alt="Concept board connecting cooperation between factions to Partner and the Books of Experience." width="1000" height="1551" loading="lazy" decoding="async" />
+    <figcaption>Cooperation between factions informed Partner and the Books of Experience.</figcaption>
   </figure>
 </div>
-
-## Building the set
-
-Ten classes split into a Justice camp and an Evil camp, and inside them into five partner pairs: Druid with Warrior, Paladin with Priest, Mage with Shaman, Hunter with Rogue, Warlock with Demon Hunter.
-
-Each pair got a worksheet before it got cards. One column of what each class is already good at, one column of what the two share, and the dual-class cards designed into the overlap rather than invented separately.
-
-Every card then had to fit a quota. Nothing was included because it was a good idea on its own; a card existed because a slot existed and something had to be right for it.
-
-<table data-width="prose">
-  <thead>
-    <tr>
-      <th>Group</th>
-      <th>Cards</th>
-      <th>Legendary</th>
-      <th>Epic</th>
-      <th>Rare</th>
-      <th>Common</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>Single-class, 8 per class</td><td>80</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
-    <tr><td>Dual-class, 6 per pair</td><td>30</td><td>1</td><td>1</td><td>2</td><td>2</td></tr>
-    <tr><td>Neutral</td><td>20</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
-  </tbody>
-</table>
-
-<!-- The worksheets themselves are not on the page: each panel is mostly card
-     renders, which means mostly other people's artwork, and the part worth
-     having is the header strip at the top of it. It is set here in the page's
-     own type instead, which also lets it be read rather than squinted at.
-     Ends its section, which is where a disclosure belongs. -->
-
-<details>
-<summary>What each pair was built around</summary>
-
-**Warrior and Druid, Justice.** Shared ground: Rush, Taunt, Armor, and hero attack. Warrior takes the initiative in minion trades through weapons and Rush; Druid gets Choose One cards that keep a fast deck flexible. The dual-class cards run an old Druid mechanic back through Warrior's armor conversion.
-
-**Paladin and Priest, Justice.** Shared ground: Holy spells, ground minions, and spells that target minions. Paladin gets cards that pay off Silver Hand Recruits; Priest gets control of the board out of zero-cost cards and cost reduction. The pair's cards complete quests and cut costs through spells that target.
-
-**Mage and Shaman, Justice.** Shared ground: Elementals, spell damage, Discover, and mixed spell schools. Mage gets frost cards with a streak of randomness around its Secrets; Shaman gets nature and nerve, in cards deliberately over-statted. The pair's cards pay you for using Discover.
-
-**Hunter and Rogue, Evil.** Shared ground: two-cost Secrets, crowd control, and a weapon worth equipping. Hunter was the excuse to bring Spell Hunter back after a single expansion; Rogue got cheap cards and the Combo cards that make them worth playing. The pair's cards hand Spell Hunter its Secrets and Rogue its flexibility.
-
-**Warlock and Demon Hunter, Evil.** Shared ground: Lifesteal, card exchanges, and disruption on the board. Warlock buys an early advantage by trading cards away and closes with something large; Demon Hunter keeps Outcast cards coming and the pressure on. The pair's cards turn both classes' drawbacks into the payoff.
-
-**Neutral.** Twenty cards for the figures the novel turns on, with effects to match: Ysera, Alexstrasza, Remulos, and Teldrassil the World Tree take four of the five legendary slots.
 
 </details>
 
-## The table, then the forums
+## Class pairings and card design
 
-Then I printed the set and played it. The balance came out of watching which cards got picked, which never left a hand, and which ended a game too early, and moving the costs and stats until that stopped happening.
+I split the 10 classes into two story-based camps: six resisting the nightmare and four aligned with it. I mapped each class's strengths and shared mechanics in worksheets, then used that overlap and the card allocation to choose cards for five class pairs.
 
-I also put the set up as images and text on bilibili and on the NGA Hearthstone forum, and revised it over several rounds on what people there sent back. The [card-by-card walkthrough](https://www.youtube.com/watch?v=lT1nN2Lxk-s) is still on YouTube.
+**Blessing and Nightmare cards.** Each class has a minion that shuffles three copies of a spell into the player's deck; the spell casts when drawn. The two card families represent the opposing camps. Blessed Paladin generates a Blessing that summons and buffs Silver Hand Recruits, while Demon Hunter's Nightmare generates a spell that damages an enemy and gives the hero additional attack.
 
-<!-- Both photographs, side by side. They share an aspect exactly, so equal
-     columns come out level, and the pair carries what one alone does not: two
-     players and a board in the first, a hand being read in the second. -->
+**Partner.** Partner applies when the opponent is the class paired with the player's class. For example, a Druid activates Partner against a Warrior. I used that matchup condition to represent the story's temporary alliances. The Book of Chaos normally Discovers one spell from the partner class and grants Armor equal to its cost; Partner increases the Discover effect to two spells.
+
+**Dual-class Sidequests.** I adapted *Hearthstone*'s existing Sidequests to the paired classes and based their objectives on shared mechanics. Into Moonglade uses the Hunter and Rogue overlap: play two Secrets to equip an Eaglehorn Bow. Three's a Crowd asks Warrior and Druid to summon three Taunt minions, then resummons them at the start of the next turn.
+
+<figure data-width="prose">
+  <img src="/media/nightmare-of-moonglade/sidequest.webp" alt="Three dual-class Sidequests. Into Moonglade rewards playing two Secrets with an Eaglehorn Bow; Three’s a Crowd resummons three Taunt minions at the start of the next turn." width="1800" height="1125" loading="lazy" decoding="async" />
+  <figcaption>The quests use shared class mechanics: Secrets for Hunter and Rogue, and Taunt for Warrior and Druid.</figcaption>
+</figure>
+
+<details>
+<summary>Class pairings and card allocation</summary>
+
+**Warrior and Druid, Nightmare resistance.** Shared mechanics: Rush, Taunt, Armor, and hero attack. Warrior cards emphasize weapons and Rush; Druid cards use Choose One to support flexible play. Their dual-class cards combine Druid mechanics with Warrior's Armor conversion.
+
+**Paladin and Priest, Nightmare resistance.** Shared mechanics: Holy spells and spells that target minions. Paladin cards support Silver Hand Recruits; Priest cards use zero-cost cards and cost reduction for board control. Their dual-class cards reward minion-targeting spells.
+
+**Mage and Shaman, Nightmare resistance.** Shared mechanics: Elementals, spell damage, Discover, and mixed spell schools. Mage cards emphasize Frost and Secret-related randomness; Shaman cards emphasize Nature spells and higher stats for their cost. Their dual-class cards reward Discover.
+
+**Hunter and Rogue, Nightmare aligned.** Shared mechanics: two-cost Secrets, crowd control, and weapons. Hunter cards support Spell Hunter, while Rogue cards emphasize cheap cards and Combo. Their dual-class cards support Secrets and flexible low-cost play.
+
+**Warlock and Demon Hunter, Nightmare aligned.** Shared mechanics: Lifesteal, card exchanges, and board disruption. Warlock cards trade resources for an early advantage and larger finishers; Demon Hunter cards sustain pressure through Outcast. Their dual-class cards build on both classes' trade-offs.
+
+**Neutral cards.** The 20 neutral cards include characters central to the novel. Ysera, Alexstrasza, Remulos, and Teldrassil the World Tree occupy four of the five Legendary slots.
+
+**Card allocation**
+
+<table>
+  <thead>
+    <tr><th scope="col">Group</th><th scope="col">Cards per unit</th><th scope="col">Total cards</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Single-class</td><td>8 per class</td><td>80</td></tr>
+    <tr><td>Dual-class</td><td>6 per pair</td><td>30</td></tr>
+    <tr><td>Neutral</td><td>20 in total</td><td>20</td></tr>
+  </tbody>
+</table>
+
+- Each class: two Legendary, two Epic, two Rare, and two Common cards.
+- Each pair: one Legendary, one Epic, two Rare, and two Common cards.
+- Neutral group: five Legendary, five Epic, five Rare, and five Common cards.
+
+<figure>
+  <img src="/media/nightmare-of-moonglade/blessing-and-nightmare.webp" alt="Blessing and Nightmare examples: Blessed Paladin and Demon Hunter’s Nightmare, each shown with its generated spell." width="1800" height="1125" loading="lazy" decoding="async" />
+  <figcaption>Both families shuffle spells into the player’s deck and cast them when drawn.</figcaption>
+</figure>
+
+<figure>
+  <img src="/media/nightmare-of-moonglade/partner.webp" alt="The three Books of Experience, showing their standard effects and additional Partner effects." width="1800" height="1125" loading="lazy" decoding="async" />
+  <figcaption>The Books of Experience gain their Partner effects when the opponent is the paired class.</figcaption>
+</figure>
+
+</details>
+
+## Playtesting and revisions
+
+I printed the cards for paper playtests. I watched which cards were played, stayed in hand, or ended games unusually early, then adjusted costs and stats. I also published the set on Bilibili and the NGA *Hearthstone* forum, then revised card effects and wording in response to comments.
 
 <figure>
   <div class="media-pair">
-    <img
-      src="/media/nightmare-of-moonglade/playtest-01.webp"
-      alt="Two players holding fans of printed cards over a paper game board on a pale table, with face-down cards stacked at the near edge."
-      width="1800"
-      height="1351"
-      loading="lazy"
-      decoding="async"
-    />
-    <img
-      src="/media/nightmare-of-moonglade/playtest-02.webp"
-      alt="A hand of three printed cards held over the paper board, with an opponent’s hand of face-down cards behind it."
-      width="1800"
-      height="1351"
-      loading="lazy"
-      decoding="async"
-    />
+    <img src="/media/nightmare-of-moonglade/playtest-01.webp" alt="Two players holding printed cards over a paper game board." width="1800" height="1351" loading="lazy" decoding="async" />
+    <img src="/media/nightmare-of-moonglade/playtest-02.webp" alt="A hand of printed cards being read during a paper playtest." width="1800" height="1351" loading="lazy" decoding="async" />
   </div>
-  <figcaption>Balance came from the table, not from a spreadsheet.</figcaption>
+  <figcaption>Paper playtests used printed cards and a tabletop board.</figcaption>
 </figure>
+
+**Revising Enemy at the Gates**
+
+<div class="media-pair" data-stack style="--pair-split: minmax(0, 2fr) minmax(0, 1fr)">
+  <div>
+    <p>Enemy at the Gates originally set up a weapon replacement for the next time the player’s weapon was destroyed. The effect could be set up before the player equipped a weapon. Feedback pointed out that this situation lacked a clear ability indicator.</p>
+    <p>I attached the effect to the player’s weapon as a Deathrattle instead of keeping the deferred trigger. This gave up the ability to set up the effect before equipping a weapon. The March 31 update records the change, and the current card uses the Deathrattle wording.</p>
+  </div>
+  <figure>
+    <img src="/media/nightmare-of-moonglade/cards/warrior/enemy-at-the-gates.webp" alt="Enemy at the Gates, a Warrior spell that gives a weapon a Deathrattle to equip a random weapon from the deck." width="560" height="700" loading="lazy" decoding="async" />
+    <figcaption>The revised card attaches the replacement effect to the weapon’s Deathrattle.</figcaption>
+  </figure>
+</div>
+
+The update log documents the changes, not a measured improvement in comprehension or balance. The [card-by-card walkthrough](https://www.youtube.com/watch?v=lT1nN2Lxk-s) remains available on YouTube.
+
+<details>
+<summary>Selected revision notes</summary>
+
+The log records updates labeled 3.26, 3.27, and 3.31, covering balance adjustments, card-text changes, and artwork updates.
+
+<table>
+  <thead>
+    <tr><th scope="col">Update</th><th scope="col">Recorded changes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>3.26</td><td>Balance adjustments to Emeriss, Corrupted and Sharp Razor; card-text and keyword-formatting edits.</td></tr>
+    <tr><td>3.27</td><td>A balance adjustment to Axe of Broxigar and artwork updates.</td></tr>
+    <tr><td>3.31</td><td>A balance adjustment to Remulos the Guardian; revisions to Enemy at the Gates, Nightmare cards, and Holysword Arcanist; an artwork update.</td></tr>
+  </tbody>
+</table>
+
+**Responding to a lore suggestion**
+
+A commenter questioned how several characters and weapons fit Warcraft lore and class assignments. In my reply, I explained that I prioritized the novel's characters and relaxed some class assignments where those choices strained the available Legendary slots.
+
+I also explained why I had kept the Axe of Broxigar design: I considered the proposed chain of Deathrattles difficult to describe and too close to an existing card effect, and Saurfang's Legendary design was already established.
+
+</details>
 
 ## The full set
 
-<!-- Two filters, the two the game's own collection is filtered by: a class and
-     a mana cost. A dual-class card answers to both of its classes, which is
-     how the game treats it, so picking Druid brings the six Druid and Warrior
-     cards with it. Neutral is a class in the list because it is a column in
-     the quota above.
+Browse the 130-card set by class and mana cost. The gallery also includes 12 generated spells and two Hero Powers, shown beside their source cards and grouped under those cards' filters.
 
-     Reset clears both at once, and only exists while there is something to
-     clear. It is the phone's control: a wide screen can drop a cost by
-     pressing the lit chip again and a class by picking `All classes`, both of
-     which are on screen already, while on a phone the way back is two menus
-     deep.
-
-     Cost is here twice, and one of the two is always hidden: eleven chips in a
-     row are a scale you can read at a glance on a wide screen, and on a phone
-     they are the widest thing in the article. Below 640px the chips give way to
-     a second menu whose closed state says `Any cost`. Same state either way —
-     the script writes to both.
-
-     Buttons rather than links: these filter a block on the page and are not a
-     place anyone should be able to arrive at, so they stay out of the URL. The
-     script is in the page that renders the article, next to the table of
-     contents, and with it off every card stays visible, the menu stays shut
-     and the controls do nothing. -->
-
-<!-- The class control is a menu rather than a `select`, because a native
-     dropdown's panel is drawn by the operating system and cannot be animated.
-     The trigger names itself from the label and from its own value, so a
-     screen reader reads `Class, All classes` rather than one half of it.
+<!-- Filters by class and by mana cost. A dual-class card answers to both of
+     its classes; generated spells and Hero Powers carry their source card's
+     class and cost, not their own printed cost. Cost is a row of chips on a
+     wide screen and a menu below 640px, both driven by the same script.
      No blank line anywhere inside the block below: a blank line closes a
      markdown HTML block, and the indented lines after it come out as a code
      listing. -->
@@ -372,25 +275,10 @@ I also put the set up as images and text on bilibili and on the NGA Hearthstone 
   <button type="button" class="card-picker__reset" data-cards-reset hidden>Reset</button>
 </div>
 
-<!-- A section of its own, and the last one, because it is the only block on
-     the page a reader spends time in rather than passes: a section that ended
-     in it would put the credits immediately after a hundred and thirty cards.
-
-     A rail rather than the overlapping wall the poster used. On the poster the
-     cards cover each other and only the front of each stack can be read,
-     which is the one thing a card wants.
-
-     Cost first, then the class order Section 04 pairs them in, then hero card
-     before minion before spell before weapon. Fixed height and natural
-     widths: a spell frame is wider than a minion frame, and letterboxing one
-     to match the other would crop a card to make a grid.
-
-     The line under it is the rail's position, drawn in the same 2px accent
-     line the header uses for reading progress. It replaces the browser's
-     scrollbar rather than sitting next to it: one indicator, and one that
-     belongs to this page. Draggable, because a mouse with no wheel had the
-     scrollbar to pull; `aria-hidden` because the rail itself is a focus stop
-     and arrow keys already move it. -->
+<!-- One rail of every card, cost first, then class, then hero card, minion,
+     spell and weapon. Fixed height and natural widths. The bar under it is
+     the rail position and replaces the browser scrollbar; it is `aria-hidden`
+     because the rail itself is a focus stop and arrow keys already move it. -->
 
 <figure>
   <div class="card-rail" tabindex="0" role="group" aria-label="The cards of the expansion, by mana cost">
@@ -543,80 +431,3 @@ I also put the set up as images and text on bilibili and on the NGA Hearthstone 
     <span class="card-rail__thumb"></span>
   </div>
 </figure>
-
-<!-- CLOSED:
-
-     The fan-work notice. Blizzard has no single fan content policy page; the
-     requirements are split between the Logo and Trademark Guidelines and the
-     Legal FAQ, and there are four of them: personal, non-commercial use only;
-     include the copyright and trademark notices as appropriate; never use a
-     Blizzard Mark in a way that implies a relationship with, sponsorship by or
-     endorsement from Blizzard; and use the trademark symbol on a mark's first
-     appearance. The credits note now carries all four. The guidelines publish
-     a credit line per mark, and the two this page uses read identically apart
-     from the names, so they are one sentence here.
-
-     Strictly, `first appearance` is the first in the whole page, which is the
-     intro's `a fan-made expansion for Hearthstone`. The symbol sits in the
-     notice instead: the site has no other symbols in running prose, and the
-     notice is the part of the page that is a notice.
-
-     https://www.blizzard.com/en-us/legal/8bcb0794-6641-4ce3-a573-8eb243bab342/blizzard-entertainment-logo-and-trademark-guidelines
-     https://www.blizzard.com/en-us/legal/c1ae32ac-7ff9-4ac3-a03b-fc04b8697010/blizzard-legal-faq
-
-     `tools` is in the order the work happened: the mechanics, the class
-     pairings, the quota and every cost and stat were worked out in Excel, and
-     Photoshop composited the cards and laid out the panels. The spreadsheet
-     first, because on a systems project it is the one that did the designing.
-
-     THE RAIL, and where its facts come from:
-
-     All 130 cards, exported one per file from the card renders themselves, so
-     the rail is the set rather than a recording of it. Cost and card type
-     were read off each card; the counts check out against the quota in
-     Section 04 — 80 single-class, 30 dual-class, 20 neutral — and against the
-     export sizes, since minion, weapon and hero frames come out 454x595 and
-     spell frames 536x670: 80 minions plus 6 weapons plus 1 hero card is the
-     87 files at the first size, and 43 spells plus 12 generated tokens is the
-     55 at the second.
-
-     Zaldimar the Trainer is the set's only hero card, and its Hero Power is
-     `hero-power-breaking-dreams`. Shandris Feathermoon is a minion that
-     replaces the Hero Power with `hero-power-psychic-protection`.
-
-     THE 12 TOKENS AND THE 2 HERO POWERS are in the rail too, each one beside
-     the card that makes it, four fifths its height. They are made during a
-     game rather than collected, so they are not part of the 130: they carry
-     their parent's class and cost rather than their own, which keeps the cost
-     buckets matching the quota and keeps a pair from being split three
-     buckets apart. Two of them are also in the Blessing and Nightmare figure
-     in Section 03.
-
-     Their own printed costs, which the page does not use: Blessings of Courage
-     1, Blessing of Ancient 3, The Power of Truth 0, Emerald Nightmare 3,
-     Slumbering Nightmare 3, Blessing of Moonrune 2, Blessing of Demigod 1,
-     Stable Evolution 1, Blessing of Holiness 2, Blessing of Dragon 2,
-     Spiritual Nightmare 0, Fallen Nightmare 2, and 2 for both Hero Powers.
-
-     One of them is named inconsistently on its own art: the Warrior token is
-     `Blessings of Courage`, plural, where the other eleven are singular. The
-     alt text reproduces what each card says.
-
-     A card misspells its own name: `Rouge's Nightmare`, the Rogue Nightmare
-     card, and the development panels carry the same slip in a heading. The
-     art cannot be redrawn, so the alt text names the card as intended,
-     Rogue's Nightmare, rather than reproducing the slip.
-
-     MEDIA NOT USED, deliberately:
-
-     The class-card development panels (`panel-5*`) are mostly card renders,
-     which means mostly other people's artwork. The worksheet header at the
-     top of each is now the disclosure in Section 04.
-
-     The quota scroll and the card wall from `panel-7-final-outcome` are both
-     out: the numbers are a table in the page's own type, and the wall is the
-     rail. The wall was on the page until the rail replaced it.
-
-     The preview video is not embedded: Section 05 links the same footage on
-     YouTube, and a local copy would ship seventy-odd megabytes of Blizzard
-     interface. -->
