@@ -12,6 +12,7 @@ import Lightbox from '../../components/Lightbox.astro';
 import SiteMap from '../../components/SiteMap.astro';
 import { projectLinks, hasCaseStudy, nextStep, homeLoop, isSelected, isPublic } from '../../lib/projects';
 import { COVERS_ENABLED, shippedMedia } from '../../lib/media';
+import { emphasisParts, plainText } from '../../lib/emphasis';
 
 // Only projects with body content get a case study page.
 export async function getStaticPaths() {
@@ -66,7 +67,7 @@ const facts = [
 
 <Base
   title={`${project.data.title} — Zhuoqi Liu`}
-  description={project.data.blurb}
+  description={plainText(project.data.blurb)}
   current="/work"
 >
   <article class="cs">
@@ -77,7 +78,7 @@ const facts = [
           below it rather than a label in front of it. */}
       <header class="cs__head">
         <h1 class="cs__title">{project.data.title}</h1>
-        <p class="cs__summary">{project.data.blurb}</p>
+        <p class="cs__summary">{emphasisParts(project.data.blurb).map((part) => (part.em ? <em>{part.text}</em> : part.text))}</p>
 
         {/* The card's chips, unabridged: the detail page is where the full
             stack belongs. */}

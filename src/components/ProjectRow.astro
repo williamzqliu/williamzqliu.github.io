@@ -14,6 +14,7 @@
 
 import CoverMedia from './CoverMedia.astro';
 import { COVERS_ENABLED } from '../lib/media';
+import { emphasisParts } from '../lib/emphasis';
 import ExtArrow from './ExtArrow.astro';
 import KeywordTags from './KeywordTags.astro';
 
@@ -82,7 +83,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
         </h3>
       </div>
 
-      <p class="prow__blurb">{blurb}</p>
+      <p class="prow__blurb">{emphasisParts(blurb).map((part) => (part.em ? <em>{part.text}</em> : part.text))}</p>
 
       <div class="prow__kws">
         <KeywordTags items={stack} limit={3} emphasise={emphasiseStack} />
