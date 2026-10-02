@@ -50,37 +50,40 @@ credits:
         - Sheila Pontis
 ---
 
-For Information Design Studio Principles, I redesigned an existing infographic about driving under the influence.
+<!-- The original and the redesign side by side, in their own aspect ratios
+     (0.627 and 0.647) so the two posters come out the same height. -->
+<div class="media-pair" style="--pair-split: 0.627fr 0.647fr">
+  <figure>
+    <img
+      src="/media/dui-invisible-bill/original.webp"
+      alt="The original INCOME/OUTCOME infographic groups lifestyle statistics by income, emphasizes cars and brand logos, and closes with a DUI warning."
+      width="2000"
+      height="3191"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption><strong>Original:</strong> cars and brand logos dominate the <em>INCOME/OUTCOME</em> infographic, published by Marketplace Wealth &amp; Poverty and reproduced here for critique.</figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/media/dui-invisible-bill/final-chart.webp"
+      alt="My redesigned poster, titled “DUI’s Invisible Bill,” showing a U.S. map with a $296 billion estimate, an illustrative $2,354 household comparison, expense charts, and a child-fatalities panel."
+      width="2400"
+      height="3709"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption><strong>My redesign:</strong> the completed 2024 poster moves from a national estimate to household comparisons and child fatalities.</figcaption>
+  </figure>
+</div>
 
-The poster uses a $296 billion estimate to derive an illustrative figure of $2,354 per household. This comparison was intended to call attention to the scale of the losses, not to estimate what individual families actually pay.
+For Information Design Studio Principles, I redesigned an existing infographic about driving under the influence. The original is on the left, and my redesign is on the right.
 
-<figure data-width="prose">
-  <img
-    src="/media/dui-invisible-bill/final-chart.webp"
-    alt="Poster titled “DUI’s Invisible Bill,” showing a U.S. map with a $296 billion estimate, an illustrative $2,354 household comparison, expense charts, and a child-fatalities panel."
-    width="2400"
-    height="3709"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The completed 2024 poster moves from a national estimate to household comparisons and child fatalities.</figcaption>
-</figure>
+My redesign uses a $296 billion estimate to derive an illustrative figure of $2,354 per household. This comparison was intended to call attention to the scale of the losses, not to estimate what individual families actually pay.
 
 ## Reframing the argument
 
 The original *INCOME/OUTCOME* infographic compares income groups through car ownership, commuting, housing, marriage, and drinking habits, then ends with a DUI warning. I found no clear link between most of those comparisons and the closing message, while cars and brand logos dominated the visual hierarchy.
-
-<figure data-width="prose">
-  <img
-    src="/media/dui-invisible-bill/original.webp"
-    alt="The original INCOME/OUTCOME infographic groups lifestyle statistics by income, emphasizes cars and brand logos, and closes with a DUI warning."
-    width="2000"
-    height="3191"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Cars and brand logos dominate the original <em>INCOME/OUTCOME</em> infographic, published by Marketplace Wealth &amp; Poverty and reproduced here for critique.</figcaption>
-</figure>
 
 I considered three possible arguments: DUI risk across income groups, the effects on families involved in DUI incidents, and losses compared with household expenses. I could not find comparable public data for the first two, so I developed the household comparison.
 
@@ -93,31 +96,34 @@ I structured the poster as a sequence of scales, from the national estimate to a
 Studio critique then changed the visual hierarchy. I reduced competing color and opened up the spacing for print. Red carries loss figures, yellow marks household comparisons, and dark blue carries demographic information.
 
 <!-- `--pair-split` in the two crops' own aspect ratios, so they come out the
-     same height with nothing cropped further. -->
-<div class="media-pair" style="--pair-split: 1.492fr 1.362fr">
-  <figure>
-    <img
-      src="/media/dui-invisible-bill/rent-comparison-first.webp"
-      alt="Rental-cost panel from the first version, with a filled gradient label for the months-of-rent comparison."
-      width="1253"
-      height="840"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>The first version places the expense conversion in a filled panel.</figcaption>
-  </figure>
-  <figure>
-    <img
-      src="/media/dui-invisible-bill/rent-comparison-final.webp"
-      alt="Rental-cost panel from the final version, with an outlined label around the months-of-rent comparison."
-      width="1169"
-      height="858"
-      loading="lazy"
-      decoding="async"
-    />
-    <figcaption>The final version uses an outlined label for the same comparison.</figcaption>
-  </figure>
-</div>
+     same height with nothing cropped further. The outer figure only carries
+     the prose width; each crop keeps its own caption. -->
+<figure data-width="prose">
+  <div class="media-pair" style="--pair-split: 1.492fr 1.362fr">
+    <figure>
+      <img
+        src="/media/dui-invisible-bill/rent-comparison-first.webp"
+        alt="Rental-cost panel from the first version, with a filled gradient label for the months-of-rent comparison."
+        width="1253"
+        height="840"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>The first version places the expense conversion in a filled panel.</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="/media/dui-invisible-bill/rent-comparison-final.webp"
+        alt="Rental-cost panel from the final version, with an outlined label around the months-of-rent comparison."
+        width="1169"
+        height="858"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>The final version uses an outlined label for the same comparison.</figcaption>
+    </figure>
+  </div>
+</figure>
 
 <details>
 <summary>Layout sketches</summary>
