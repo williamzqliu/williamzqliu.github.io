@@ -81,24 +81,21 @@ Colors recorded the answers visitors chose. Result cards provided related scienc
 and prompts for reflecting on sleep and caffeine habits. Visitors could also read two result
 cards when colors were tied.
 
-<figure>
-  <img src="/media/whats-going-on-in-there/card-final.webp"
-    alt="Front and back of a sleep-schedule question card, with four color-coded answers and instructions to connect the amygdala and prefrontal cortex."
-    width="1968" height="1376" loading="lazy" decoding="async" />
-  <figcaption>A sleep-schedule question and the two brain regions named on its reverse</figcaption>
-</figure>
-
-<details>
-<summary>Example result card</summary>
-
-<figure>
-  <img src="/media/whats-going-on-in-there/result-back.webp"
-    alt="Back of the red result card, with sleep and caffeine facts and three reflection questions."
-    width="1256" height="1764" loading="lazy" decoding="async" />
-  <figcaption>A red result card with science information and reflection prompts</figcaption>
-</figure>
-
-</details>
+<!-- `--pair-split` in the pictures' own aspect ratios, so the row is one height. -->
+<div class="media-pair" style="--pair-split: 1.430fr 1.424fr">
+  <figure>
+    <img src="/media/whats-going-on-in-there/card-final.webp"
+      alt="Front and back of a sleep-schedule question card, with four color-coded answers and instructions to connect the amygdala and prefrontal cortex."
+      width="1968" height="1376" loading="lazy" decoding="async" />
+    <figcaption>A sleep-schedule question and the two brain regions named on its reverse</figcaption>
+  </figure>
+  <figure>
+    <img src="/media/whats-going-on-in-there/result-final.webp"
+      alt="Front and back of the red result card, with sleep and caffeine facts and three reflection questions."
+      width="2512" height="1764" loading="lazy" decoding="async" />
+    <figcaption>A red result card with science information and reflection prompts</figcaption>
+  </figure>
+</div>
 
 <!-- `--pair-split` in the pictures' own aspect ratios, so the row is one height. -->
 <div class="media-pair" data-stack style="--pair-split: 0.750fr 1.333fr">
