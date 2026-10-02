@@ -9,6 +9,8 @@
 // value the same supporting size the project cards use, so this reads as the
 // card's metadata expanded rather than as a second system.
 
+import { emphasisParts } from '../lib/emphasis';
+
 interface Fact {
   label: string;
   value: string;
@@ -26,7 +28,7 @@ const { facts } = Astro.props;
     facts.map((fact) => (
       <div class="qf__cell">
         <dt class="qf__label">{fact.label}</dt>
-        <dd class="qf__value">{fact.value}</dd>
+        <dd class="qf__value">{emphasisParts(fact.value).map((part) => (part.em ? <em>{part.text}</em> : part.text))}</dd>
       </div>
     ))
   }

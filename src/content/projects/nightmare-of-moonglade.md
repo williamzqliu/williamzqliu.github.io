@@ -33,7 +33,7 @@ quickFacts:
   - label: "Role"
     value: "Game systems design and rules writing"
   - label: "Outcome"
-    value: "130-card fan expansion"
+    value: "130-card *Hearthstone* fan expansion"
 credits:
   skills:
     - Game systems design
