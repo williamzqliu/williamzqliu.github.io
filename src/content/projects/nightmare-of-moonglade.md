@@ -167,18 +167,20 @@ I printed the cards for paper playtests. I watched which cards were played, stay
 
 **Revising Enemy at the Gates**
 
-<div class="media-pair" data-stack style="--pair-split: minmax(0, 2fr) minmax(0, 1fr)">
+<!-- Text beside the card at the paragraphs' width. The card is the gallery file
+     with its transparent margin trimmed, so its top and its caption line up
+     with the text; the gallery keeps the original. Stacked on a phone. -->
+<div class="media-pair" data-stack style="--pair-split: minmax(0, 2.2fr) minmax(0, 1fr); max-width: var(--measure); font-size: var(--fs-copy); margin-top: var(--sp-16)">
   <div>
-    <p>Enemy at the Gates originally set up a weapon replacement for the next time the player’s weapon was destroyed. The effect could be set up before the player equipped a weapon. Feedback pointed out that this situation lacked a clear ability indicator.</p>
+    <p style="margin-top: 0">Enemy at the Gates originally set up a weapon replacement for the next time the player’s weapon was destroyed. The effect could be set up before the player equipped a weapon. Feedback pointed out that this situation lacked a clear ability indicator.</p>
     <p>I attached the effect to the player’s weapon as a Deathrattle instead of keeping the deferred trigger. This gave up the ability to set up the effect before equipping a weapon. The March 31 update records the change, and the current card uses the Deathrattle wording.</p>
+    <p>The update log documents the changes, not a measured improvement in comprehension or balance. The <a href="https://www.youtube.com/watch?v=lT1nN2Lxk-s">card-by-card walkthrough</a> remains available on YouTube.</p>
   </div>
   <figure>
-    <img src="/media/nightmare-of-moonglade/cards/warrior/enemy-at-the-gates.webp" alt="Enemy at the Gates, a Warrior spell that gives a weapon a Deathrattle to equip a random weapon from the deck." width="560" height="700" loading="lazy" decoding="async" />
+    <img src="/media/nightmare-of-moonglade/enemy-at-the-gates-card.webp" alt="Enemy at the Gates, a Warrior spell that gives a weapon a Deathrattle to equip a random weapon from the deck." width="420" height="590" loading="lazy" decoding="async" />
     <figcaption>The revised card attaches the replacement effect to the weapon’s Deathrattle.</figcaption>
   </figure>
 </div>
-
-The update log documents the changes, not a measured improvement in comprehension or balance. The [card-by-card walkthrough](https://www.youtube.com/watch?v=lT1nN2Lxk-s) remains available on YouTube.
 
 <details>
 <summary>Selected revision notes</summary>
