@@ -88,6 +88,18 @@ cards when colors were tied.
   <figcaption>A sleep-schedule question and the two brain regions named on its reverse</figcaption>
 </figure>
 
+<details>
+<summary>Example result card</summary>
+
+<figure>
+  <img src="/media/whats-going-on-in-there/result-back.webp"
+    alt="Back of the red result card, with sleep and caffeine facts and three reflection questions."
+    width="1256" height="1764" loading="lazy" decoding="async" />
+  <figcaption>A red result card with science information and reflection prompts</figcaption>
+</figure>
+
+</details>
+
 <!-- `--pair-split` in the pictures' own aspect ratios, so the row is one height. -->
 <div class="media-pair" data-stack style="--pair-split: 0.750fr 1.333fr">
   <figure>
