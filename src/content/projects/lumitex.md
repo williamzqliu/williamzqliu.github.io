@@ -2,7 +2,7 @@
 title: "Lumitex"
 year: 2023
 dates: "Sep 2023 – Nov 2023"
-blurb: "An untested AR reading-support concept for children with dyslexia, informed by interviews and a school questionnaire in Hangzhou."
+blurb: "An untested AR reading-support concept for children with dyslexia, informed by interviews and an oral survey at a school in Hangzhou."
 tags: ["interactive"]
 tracks: ["design"]
 published: true
@@ -66,7 +66,7 @@ credits:
 
 ## Three perspectives changed the brief
 
-I interviewed an adult with dyslexia, a child with dyslexia, and the child's mother. I also conducted a questionnaire at a primary school in Hangzhou, where children and parents answered together.
+I interviewed an adult with dyslexia, a child with dyslexia, and the child's mother. I also conducted an oral survey at a primary school in Hangzhou, where children and parents answered together.
 
 <!-- `data-stack` on a phone, which is the one opt-out the row has. A picture
      at a third of a phone screen is a small picture; a paragraph at a third of
@@ -94,17 +94,28 @@ I interviewed an adult with dyslexia, a child with dyslexia, and the child's mot
 
 I chose these perspectives to explore reading difficulty, confidence, and the support surrounding a child. I used them to frame two directions: immediate help during reading and activities for practice and confidence building.
 
-<figure data-width="prose">
-  <img
-    src="/media/lumitex/school-room.webp"
-    data-nozoom
-    alt="A classroom viewed from the back, with pupils facing a teacher at an interactive board."
-    width="1600"
-    height="900"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The questionnaire took place at a primary school in Hangzhou.</figcaption>
+<figure>
+  <div class="media-pair">
+    <img
+      src="/media/lumitex/school-reading.webp"
+      data-nozoom
+      alt="A pupil reading a Chinese language textbook aloud, face blurred, with classmates working at their desks behind."
+      width="1600"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/lumitex/school-child.webp"
+      data-nozoom
+      alt="A seated pupil in a red scarf, face blurred, with another person’s hand raised in front of the camera."
+      width="1600"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption>The oral survey took place at a primary school in Hangzhou.</figcaption>
 </figure>
 
 ## Assisting the page, not replacing it
