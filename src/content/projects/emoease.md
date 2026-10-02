@@ -86,7 +86,7 @@ I also set a simple rule for how the projection changes with the number of peopl
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The footage layer, the particle body layer, and the two merged.</figcaption>
+  <figcaption>The footage layer, the particle body layer, and the two merged</figcaption>
 </figure>
 
 <details>
@@ -109,7 +109,7 @@ I also set a simple rule for how the projection changes with the number of peopl
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The interaction specification, with the modes as planned.</figcaption>
+  <figcaption>The interaction specification, with the modes as planned</figcaption>
 </figure>
 
 </details>

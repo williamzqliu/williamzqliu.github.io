@@ -196,7 +196,7 @@ connecting regions and reading the results.
     </tr>
     <tr>
       <td>Result card: caffeine dose, timing, and sensitivity</td>
-      <td><a href="https://pubmed.ncbi.nlm.nih.gov/24235903/">Drake et al. (2013)</a>; <a href="https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much">FDA caffeine guidance</a><br />400 mg at bedtime and three or six hours before bedtime; individual sensitivity</td>
+      <td><a href="https://pubmed.ncbi.nlm.nih.gov/24235903/">Drake et al. (2013)</a>; <a href="https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much">FDA caffeine guidance</a><br />400 mg at bedtime and 3 or 6 hours before bedtime; individual sensitivity</td>
     </tr>
     <tr>
       <td>Panel: 93% caffeine consumption and 29% unsure of a safe daily amount</td>
