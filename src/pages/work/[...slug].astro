@@ -2454,6 +2454,15 @@ const facts = [
     font-size: var(--fs-copy);
   }
 
+  /* Stacked on a phone, the pair's own gap already separates the quotes; their
+     block margins on top of it left 88px between one attribution and the next
+     sentence, which read as three unrelated blocks rather than one set. */
+  @media (max-width: 639px) {
+    .prose .media-pair[data-stack] > .participant-quote {
+      margin-block: 0;
+    }
+  }
+
   /* One size up from the body, tight enough that two lines read as one
      utterance. Medium, not bold: this is someone talking, not a headline. */
   .prose .participant-quote p {
