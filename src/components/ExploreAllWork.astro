@@ -9,16 +9,20 @@
 // The line and the space belong to the wrapper, and the link is only as wide
 // as its words: a link the width of the page lit up from anywhere along the
 // row, and took a click from the empty right half of it.
+//
+// `href` and `label` let the About page close the same way, on the resume.
 
 interface Props {
   bare?: boolean;
+  href?: string;
+  label?: string;
 }
 
-const { bare = false } = Astro.props;
+const { bare = false, href = '/work', label = 'Explore all work' } = Astro.props;
 ---
 
 <div class:list={['more', { 'more--bare': bare }]}>
-  <a class="more__link section-label" href="/work" data-astro-prefetch>Explore all work</a>
+  <a class="more__link section-label" href={href} data-astro-prefetch>{label}</a>
 </div>
 
 <style>

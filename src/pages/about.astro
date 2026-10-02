@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Base from '../layouts/Base.astro';
 import IdentityLine from '../components/IdentityLine.astro';
+import ExploreAllWork from '../components/ExploreAllWork.astro';
 
 // The portrait is a file in public/, so its presence is checked at build time
 // rather than assumed: a missing photo leaves a framed placeholder instead of
@@ -18,7 +19,7 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
 
 <Base
   title="About — Zhuoqi Liu"
-  description="Designer and developer building interactive tools for network and relational data."
+  description="Data visualization and information designer combining research communication, visual design, and front-end development."
   current="/about"
 >
   <section class="about">
@@ -36,30 +37,31 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
           {/* <strong> carries the emphasis semantically; the styling is weight
               and ink only — no size change, no italics, no colour accent. */}
           <p>
-            I am a <strong>designer and developer</strong> working on interactive tools for complex
-            data, especially <strong>networks and relational systems</strong>. I am finishing an{' '}
-            <strong>MFA in Information Design and Data Visualization</strong> at Northeastern
-            University in December 2026.
+            I’m a <strong>data visualization and information designer</strong> based in Boston,
+            building visual explanations and interactive tools for complex data. I’m completing an
+            MFA in Information Design and Data Visualization at Northeastern University in
+            December&nbsp;2026.
           </p>
           <p>
-            Before that, I studied <strong>computer science</strong> at Tongji University, wrote{' '}
-            <strong>embedded C++</strong> at Axis Communications, and worked in visual design at
-            Shanghai Media Group. That mix of <strong>design and engineering</strong> still shapes
-            how I work. I like building things myself because important design decisions often
-            become clear only when something is actually running.
+            I’m currently a research assistant with Northeastern’s{' '}
+            <strong><a class="link" href="https://gamesforlife.sites.northeastern.edu/" target="_blank" rel="noopener noreferrer">Games for Life</a></strong>{' '}
+            initiative, developing visuals for an industry-facing report and helping update its
+            website. The NSF-funded project focuses on age-friendly gaming and responsible AI.
           </p>
           <p>
-            Recent work includes a poster I presented at <strong>NetSci 2026</strong> and a
-            paper accepted to <strong>EMNLP 2026</strong>. Much of it involves data that is too large or complex for a
-            simple chart. With a network of <strong>2,000 nodes</strong>, for example, the harder
-            question is often not how to lay it out, but what someone should be able to understand
-            and do with it.
+            For a research team at Northeastern University London, I designed and developed{' '}
+            <a class="link" href="/work/ai-ethics-network/">AI Ethics Network</a>. I also presented a
+            poster at NetSci 2026 and co-authored a paper accepted to the{' '}
+            <a class="link" href="/work/citing-less-critically/">EMNLP 2026 Main Conference</a>.
           </p>
           <p>
-            I am currently seeking roles in{' '}
-            <strong>data visualization and design engineering</strong>, where I can build tools
-            that help people navigate complex information systems from research to production.
+            I bring a computer science background to my design work and like testing ideas in a
+            running prototype. I’m seeking roles in <strong>data visualization and information
+            design</strong>, alongside design engineering work focused on data interfaces.
           </p>
+          {/* Explore all work's label and rule, at the text column's width and
+              pointed at the resume. */}
+          <ExploreAllWork href="/resume" label="View resume" />
         </div>
 
         <figure class="about__photo">
@@ -183,15 +185,27 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
 
   /* Body copy sits a step back from full ink so the emphasised phrases can
      come forward without changing size, style or colour. */
+  /* `pretty` so no paragraph ends on a single word, the way the hero and the
+     quick facts already wrap. Where it is not supported, the date is held
+     together in the markup instead. */
   .about__prose p {
     font-size: var(--fs-copy);
     line-height: var(--lh-body-lg);
     color: var(--text-2);
+    text-wrap: pretty;
   }
 
   .about__prose strong {
     font-weight: var(--fw-strong);
     color: var(--text);
+  }
+
+  /* The resume link's rule belongs to the link, not to the paragraph above
+     it: more room over the rule than under it, so the two read as one closing
+     line rather than an underline on the last sentence. */
+  .about__prose :global(.more) {
+    margin-top: var(--sp-16);
+    padding-top: var(--sp-24);
   }
 
   /* The rule under the label matches the column it heads, not the container.
@@ -245,19 +259,20 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
       max-width: none;
     }
 
-    /* The whole block — image plus caption — is 505px, so its bottom lands on
-       the prose's (507). The image takes whatever the caption leaves, which
-       keeps this true if the caption ever wraps. The extra width comes off the
-       top and bottom, biased upward so the crop takes ceiling and floor rather
+    /* The block — image plus caption — stretches to the prose column, so the
+       caption's last line ends where the last paragraph does at any length of
+       copy. The image takes whatever the caption leaves (a zero basis keeps
+       its own height out of the row), and the difference from 4:5 comes off
+       the edges, biased upward so the crop takes ceiling and floor rather
        than the face. */
     .about__photo {
       display: flex;
       flex-direction: column;
-      height: 505px;
+      align-self: stretch;
     }
 
     .about__photo img {
-      flex: 1;
+      flex: 1 1 0;
       min-height: 0;
       aspect-ratio: auto;
       height: auto;
