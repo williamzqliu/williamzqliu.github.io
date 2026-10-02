@@ -59,7 +59,7 @@ question cards, and exhibit panels.
 The deck contains 12 questions, and visitors could answer as many as they wanted. Across
 the cards, A was red, B yellow, C green, and D blue.
 
-<ol class="process-steps">
+<ol class="process-steps" data-stack>
   <li>
     <p class="process-steps__num">01</p>
     <p class="process-steps__name">Answer a question</p>
@@ -72,10 +72,14 @@ the cards, A was red, B yellow, C green, and D blue.
   </li>
   <li>
     <p class="process-steps__num">03</p>
-    <p class="process-steps__name">Read the results</p>
-    <p class="process-steps__note">Read the result card for the color you used most and leave a matching sticker on the shared board. For a tie, you could read both result cards and consider which description felt more relevant to your habits.</p>
+    <p class="process-steps__name">Read and reflect</p>
+    <p class="process-steps__note">Read the result card for the color you used most, consider its reflection prompts, and leave a matching sticker on the shared board.</p>
   </li>
 </ol>
+
+Colors recorded the answers visitors chose. Result cards provided related science information
+and prompts for reflecting on sleep and caffeine habits. Visitors could also read two result
+cards when colors were tied.
 
 <figure>
   <img src="/media/whats-going-on-in-there/card-final.webp"
@@ -85,7 +89,7 @@ the cards, A was red, B yellow, C green, and D blue.
 </figure>
 
 <!-- `--pair-split` in the pictures' own aspect ratios, so the row is one height. -->
-<div class="media-pair" style="--pair-split: 0.750fr 1.333fr">
+<div class="media-pair" data-stack style="--pair-split: 0.750fr 1.333fr">
   <figure>
     <img src="/media/whats-going-on-in-there/brain-board.webp"
       alt="A brain diagram with labeled regions, pins linked by colored rubber bands, and spare bands hanging below."
@@ -99,9 +103,6 @@ the cards, A was red, B yellow, C green, and D blue.
     <figcaption>A visitor connecting regions on the brain map</figcaption>
   </figure>
 </div>
-
-This was a science-communication activity, not a validated assessment of brain function
-or health. The bands recorded answers to the activity's questions.
 
 ## Choosing a flat brain map
 
@@ -131,9 +132,9 @@ the time and cost of fabrication.
 
 ## Coordinating cards and panels
 
-We narrowed a broad topic about food and health to sleep and caffeine. I designed the
-brain diagram, question cards, and panels together so visitors could move from a question
-to its explanation and the matching labels on the board.
+We narrowed a broad topic about food and health to sleep and caffeine. I used the same
+brain-region names in the card explanations and on the board so visitors could locate the
+regions to connect.
 
 We tested the prototypes in multiple rounds. Testers included neuroscience students,
 first-year college students, and our design cohort. Their feedback informed changes to the
@@ -157,8 +158,57 @@ materials.
 </div>
 
 I revised the cards and panels as the team adjusted the flow from answering a question to
-connecting regions and reading the results. The three-panel layout placed the
-introduction, brain map, and activity instructions side by side.
+connecting regions and reading the results.
+
+<figure>
+  <img src="/media/whats-going-on-in-there/panel-final.webp"
+    alt="Three exhibit panels with an introduction on the left, a labeled brain map in the center, and illustrated activity instructions and a sticker area on the right."
+    width="3000" height="1000" loading="lazy" decoding="async" />
+  <figcaption>Introduction on the left, brain map in the center, and activity instructions on the right</figcaption>
+</figure>
+
+<details>
+<summary>Research sources</summary>
+
+<p>These references support the science information in the displayed cards and panels.</p>
+
+<table>
+  <thead>
+    <tr><th scope="col">Displayed content</th><th scope="col">Supporting source</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Question card: sleep loss and emotional responses</td>
+      <td><a href="https://www.ocf.berkeley.edu/~ahsleep/sleepteam/wp-content/uploads/2022/12/The-human-emotional-brain-without-sleep-a-prefrontal-amygdala-disconnect.pdf">Yoo et al. (2007)</a><br />Laboratory study of responses to negative images</td>
+    </tr>
+    <tr>
+      <td>Result card: sleep restriction and attention</td>
+      <td><a href="https://pubmed.ncbi.nlm.nih.gov/12683469/">Van Dongen et al. (2003)</a><br />Repeated sleep restriction and cognitive performance</td>
+    </tr>
+    <tr>
+      <td>Result card: caffeine dose, timing, and sensitivity</td>
+      <td><a href="https://pubmed.ncbi.nlm.nih.gov/24235903/">Drake et al. (2013)</a>; <a href="https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much">FDA caffeine guidance</a><br />400 mg at bedtime and three or six hours before bedtime; individual sensitivity</td>
+    </tr>
+    <tr>
+      <td>Panel: 93% caffeine consumption and 29% unsure of a safe daily amount</td>
+      <td><a href="https://ific.org/wp-content/uploads/2025/04/IFIC-Caffeine-Survey.March-2022.pdf">IFIC survey (2022)</a><br />U.S. adults aged 18 and older; n = 1,000; report pages 3 and 10</td>
+    </tr>
+    <tr>
+      <td>Panel: 35% staying up until 3 a.m. at least once a week</td>
+      <td><a href="https://en.smrc-sa.com/wp-content/uploads/2014/12/Sleep-Patterns-and-Predictors-of-College-Students.pdf">Lund et al. (2010)</a><br />Students at one university; n = 1,125</td>
+    </tr>
+    <tr>
+      <td>Panel: 27% at risk for at least one sleep disorder</td>
+      <td><a href="https://pubmed.ncbi.nlm.nih.gov/20864434/">Gaultney (2010)</a><br />Students at one university; n = 1,845; questionnaire screening</td>
+    </tr>
+    <tr>
+      <td>Brain map: cerebellum function</td>
+      <td><a href="https://www.nimh.nih.gov/news/media/2023/get-to-know-your-brain">NIMH brain overview (2023)</a><br />Movement coordination and balance</td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
 
 I also explored a comic direction for the panels. With the exhibition approaching, our
 team discussed the time and production costs and chose to finish the simpler layout.
@@ -181,7 +231,7 @@ At the exhibition, we saw visitors work through the activity on their own: answe
 cards, connecting regions, reading results, and leaving stickers on the shared board.
 
 <!-- `--pair-split` in the pictures' own aspect ratios, so the row is one height. -->
-<div class="media-pair" style="--pair-split: 1.413fr 1.395fr">
+<div class="media-pair" data-stack style="--pair-split: 1.413fr 1.395fr">
   <figure>
     <img src="/media/whats-going-on-in-there/exhibition-panels.webp"
       alt="The installed exhibit with three panels, a brain map, question-card holders, rubber bands, and the sticker board."
@@ -197,6 +247,4 @@ cards, connecting regions, reading results, and leaving stickers on the shared b
 </div>
 
 Visitors also left handwritten comments beside the exhibit. I read these as informal
-reactions to the activity. We did not track visitor counts, completion times, or what
-participants remembered afterward, so the exhibition provides no measure of learning gains
-or habit change.
+reactions to the activity.
