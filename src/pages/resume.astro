@@ -78,8 +78,6 @@ const initial = versions[0];
       {
         initial ? (
           <div data-resume>
-            {versions.length > 1 && <p class="resume__intro">Choose a focus to view and download my resume.</p>}
-
             {/* The filter row's chips, in title case: the two labels are names
                 of the focuses, not categories in the work index's register. */}
             {versions.length > 1 && (
@@ -314,14 +312,6 @@ const initial = versions[0];
     color: var(--text);
   }
 
-  .resume__intro {
-    margin-top: var(--sp-16);
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--text-2);
-    text-wrap: pretty;
-  }
-
   /* The focus switch, set as the work index's filter row: nav-size labels,
      the accent and its underline on the chosen one. Two entries fit on one
      line at most widths, and where they do not, they wrap rather than
@@ -330,7 +320,7 @@ const initial = versions[0];
     display: flex;
     flex-wrap: wrap;
     gap: 0 var(--sp-24);
-    margin-top: var(--sp-8);
+    margin-top: var(--sp-16);
   }
 
   .resume__chip {
