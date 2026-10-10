@@ -1,7 +1,7 @@
 ---
 title: barboard.space
 year: 2026
-dates: May 2026 – Aug 2026
+dates: Apr 2026 – Present
 blurb: A community music website for exploring shared charts, following song contests, and revisiting members’ records.
 tags: [interactive]
 tracks: [engineering]
@@ -315,3 +315,6 @@ The published site brings historical records and ongoing community activity into
 place. Weekly charts are retrieved on a schedule, while contest and year-end archives
 follow separate import processes. I have not yet evaluated how members use the search
 and archive features over time.
+
+I am continuing to expand the community features and migrating the site to a separate
+front-end and back-end architecture.
