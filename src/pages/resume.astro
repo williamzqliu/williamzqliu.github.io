@@ -4,26 +4,54 @@ import path from 'node:path';
 import Base from '../layouts/Base.astro';
 import ExtArrow from '../components/ExtArrow.astro';
 
-// The PDF and its preview are files in public/, not build inputs, so their
-// presence is checked at build time rather than assumed. Missing asset =
-// visible placeholder, never a dead link (missing media must not block
-// publishing).
-const PDF_PATH = '/resume/Zhuoqi_Liu_Resume.pdf';
-const PREVIEW_PATH = '/resume/preview.webp';
+// Two versions of the resume, one shown at a time. Each PDF and its preview
+// are files in public/, not build inputs, so their presence is checked at
+// build time rather than assumed: a version whose PDF is missing is left out,
+// and with none left the page shows a placeholder instead of a dead link
+// (missing media must not block publishing). `updated` is stated per version
+// rather than read from the file's mtime, which a copy or checkout resets.
+//
+// /resume/Zhuoqi_Liu_Resume.pdf is the address older links point at. It is a
+// copy of the Data Visualization PDF, kept so those links still open a resume.
+const VERSIONS = [
+  {
+    key: 'data-visualization',
+    label: 'Data Visualization',
+    note: 'Information design, scientific figures, and research visualization.',
+    pdf: '/resume/Zhuoqi_Liu_Resume_Data_Visualization.pdf',
+    preview: '/resume/preview-data-visualization.webp',
+    updated: 'Oct 2026',
+  },
+  {
+    key: 'design-engineering',
+    label: 'Design Engineering',
+    note: 'Interactive data interfaces, front-end development, and workflow automation.',
+    pdf: '/resume/Zhuoqi_Liu_Resume_Design_Engineering.pdf',
+    preview: '/resume/preview-design-engineering.webp',
+    updated: 'Oct 2026',
+  },
+];
 
 const publicFile = (file: string) => path.join(process.cwd(), 'public', file.replace(/^\//, ''));
-const stat = fs.existsSync(publicFile(PDF_PATH)) ? fs.statSync(publicFile(PDF_PATH)) : null;
-const published = stat !== null;
-const hasPreview = fs.existsSync(publicFile(PREVIEW_PATH));
 
-const updated = stat
-  ? stat.mtime.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-  : null;
+const versions = VERSIONS.filter((version) => fs.existsSync(publicFile(version.pdf))).map(
+  (version) => ({
+    ...version,
+    file: path.basename(version.pdf),
+    alt: `First page of the ${version.label} resume`,
+    open: `Open the ${version.label} resume PDF in a new tab`,
+    hasPreview: fs.existsSync(publicFile(version.preview)),
+  })
+);
+
+// The first version is the default: what the page shows with no `focus`
+// parameter, or with one it does not recognise.
+const initial = versions[0];
 ---
 
 <Base
   title="Resume — Zhuoqi Liu"
-  description="Resume of Zhuoqi Liu, a data visualization and information designer with experience in research, interactive visualization, and front-end development."
+  description="Zhuoqi Liu’s resumes for data visualization, information design, and design engineering roles."
   current="/resume"
 >
   <section class="resume">
@@ -31,16 +59,43 @@ const updated = stat
       <h1 class="resume__title">Resume</h1>
 
       {
-        published ? (
-          <>
+        initial ? (
+          <div data-resume>
+            {/* The filter row's chips, in title case: the two labels are names
+                of the versions, not categories in the work index's register. */}
+            {versions.length > 1 && (
+              <div class="resume__switch" role="group" aria-label="Resume version">
+                {versions.map((version) => (
+                  <button
+                    type="button"
+                    class="resume__chip"
+                    data-version={version.key}
+                    aria-pressed={version === initial ? 'true' : 'false'}
+                  >
+                    {version.label}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <p class="resume__note" data-resume-note aria-live="polite">
+              {initial.note}
+            </p>
+
             <p class="resume__actions">
-              <a class="resume__action" href={PDF_PATH} target="_blank" rel="noopener">
-                Full Screen
+              <a
+                class="resume__action"
+                data-resume-view
+                href={initial.pdf}
+                target="_blank"
+                rel="noopener"
+              >
+                View PDF
                 <ExtArrow />
               </a>
 
-              <a class="resume__action" href={PDF_PATH} download>
-                Download
+              <a class="resume__action" data-resume-download href={initial.pdf} download={initial.file}>
+                Download PDF
                 <svg
                   class="resume__down"
                   viewBox="0 0 10 10"
@@ -63,30 +118,40 @@ const updated = stat
               {/* Last in the row and pushed to the far edge: the two things you
                   can do with the file come first, and the date is what the row
                   ends on. It is about the file's state, not its format. */}
-              <span class="resume__updated">Updated {updated}</span>
+              <span class="resume__updated" data-resume-updated>
+                Updated {initial.updated}
+              </span>
             </p>
 
             {/* A rendered first page, not the browser's PDF viewer: no toolbar,
-                no scrollbars, and it keeps the page's own proportions. */}
-            {hasPreview && (
-              <a
-                class="resume__preview"
-                data-totop-from
-                href={PDF_PATH}
-                target="_blank"
-                rel="noopener"
-                aria-label="Open resume PDF in a new tab"
-              >
-                <img src={PREVIEW_PATH} alt="First page of the resume" width="1240" height="1755" />
-              </a>
-            )}
-          </>
+                no scrollbars, and it keeps the page's own proportions. Lazy so
+                that a link to the other version, which the script below swaps
+                in before layout, does not fetch this one first. */}
+            <a
+              class="resume__preview"
+              data-totop-from
+              data-resume-preview
+              href={initial.pdf}
+              target="_blank"
+              rel="noopener"
+              aria-label={initial.open}
+              hidden={!initial.hasPreview}
+            >
+              <img
+                src={initial.hasPreview ? initial.preview : undefined}
+                alt={initial.alt}
+                width="1520"
+                height="2151"
+                loading="lazy"
+              />
+            </a>
+          </div>
         ) : (
           <div class="resume__pending">
             <p class="t-body-lg">The PDF is not published yet.</p>
             <p class="resume__hint">
               {/* Instruction for the repo owner, not a claim about the resume. */}
-              Drop the export at <code>public{PDF_PATH}</code> and this page picks
+              Drop the exports in <code>public/resume/</code> and this page picks
               it up on the next build. Until then, nothing here links anywhere
               dead.
             </p>
@@ -100,12 +165,70 @@ const updated = stat
       }
     </div>
   </section>
+
+  {/* Inline and right after the markup, so the version a link asks for is in
+      place before the first paint, on a full load and after a client-side
+      navigation alike. `data-astro-rerun` because the router otherwise skips
+      an inline script it has already run, which a move from one version's
+      link to the other's, both this page, would be. The version lives in
+      `?focus=`; a switch replaces the current history entry rather than
+      adding one, keeping the router's own state, so Back and Forward move
+      between pages and each entry reopens the version it was left on. */}
+  <script is:inline data-astro-rerun define:vars={{ versions }}>
+  (() => {
+    const root = document.querySelector('[data-resume]');
+    if (!root || !versions.length) return;
+
+    const byKey = (key) => versions.find((version) => version.key === key);
+
+    const apply = (version) => {
+      for (const chip of root.querySelectorAll('.resume__chip')) {
+        chip.setAttribute('aria-pressed', String(chip.dataset.version === version.key));
+      }
+
+      root.querySelector('[data-resume-note]').textContent = version.note;
+      root.querySelector('[data-resume-updated]').textContent = `Updated ${version.updated}`;
+
+      const view = root.querySelector('[data-resume-view]');
+      view.href = version.pdf;
+
+      const download = root.querySelector('[data-resume-download]');
+      download.href = version.pdf;
+      download.setAttribute('download', version.file);
+
+      const preview = root.querySelector('[data-resume-preview]');
+      preview.href = version.pdf;
+      preview.setAttribute('aria-label', version.open);
+      preview.hidden = !version.hasPreview;
+      const img = preview.querySelector('img');
+      if (version.hasPreview && img.getAttribute('src') !== version.preview) {
+        img.src = version.preview;
+      }
+      img.alt = version.alt;
+    };
+
+    const requested = byKey(new URLSearchParams(location.search).get('focus')) ?? versions[0];
+    apply(requested);
+
+    for (const chip of root.querySelectorAll('.resume__chip')) {
+      chip.addEventListener('click', () => {
+        const version = byKey(chip.dataset.version);
+        if (!version) return;
+        apply(version);
+
+        const url = new URL(location.href);
+        url.searchParams.set('focus', version.key);
+        history.replaceState(history.state, '', url);
+      });
+    }
+  })();
+  </script>
 </Base>
 
 <style>
   .resume {
     /* The width of the page itself once there is room for it, shared by the
-       preview and the row of controls above it. */
+       preview and the rows of controls above it. */
     --resume-w: 760px;
     padding-block: var(--sp-48) var(--sp-96);
   }
@@ -120,6 +243,75 @@ const updated = stat
     color: var(--text);
   }
 
+  /* The version switch, set as the work index's filter row: nav-size labels,
+     the accent and its underline on the chosen one. Two entries fit on one
+     line at most widths, and where they do not, they wrap rather than
+     scroll. */
+  .resume__switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--sp-24);
+    margin-top: var(--sp-16);
+  }
+
+  .resume__chip {
+    position: relative;
+    display: block;
+    font-size: var(--fs-nav);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-small);
+    color: var(--text-2);
+    /* Reaches the 44px minimum tap target even though the type is small. */
+    padding-block: var(--sp-12);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .resume__chip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--sp-8);
+    height: var(--rule-heavy);
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--dur-draw) var(--ease-out);
+  }
+
+  .resume__chip[aria-pressed='true'] {
+    color: var(--accent);
+  }
+
+  .resume__chip[aria-pressed='true']::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .resume__chip:hover {
+      color: var(--text);
+      transition-duration: var(--dur-hover-in);
+    }
+
+    .resume__chip[aria-pressed='true']:hover {
+      color: var(--accent);
+    }
+
+    .resume__chip:active,
+    .resume__chip:active::after {
+      transition-duration: var(--dur-press);
+    }
+  }
+
+  /* What the chosen version is for, one line under the switch. */
+  .resume__note {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-2);
+    text-wrap: pretty;
+  }
+
   /* Baseline, not centre. The date is mono at 14px with a tight line box and
      the actions are sans at 15px with 8px of tap padding — centring those
      boxes puts their text on two different lines. */
@@ -128,7 +320,7 @@ const updated = stat
     flex-wrap: wrap;
     align-items: baseline;
     gap: var(--sp-24);
-    margin-top: var(--sp-24);
+    margin-top: var(--sp-16);
   }
 
   /* A chip, the same one the project cards use for their stack: mono caps on
@@ -200,6 +392,10 @@ const updated = stat
     margin-top: var(--sp-32);
   }
 
+  .resume__preview[hidden] {
+    display: none;
+  }
+
   .resume__preview img {
     display: block;
     width: 100%;
@@ -229,9 +425,9 @@ const updated = stat
 
   @media (min-width: 1024px) {
     /* Wide enough to read the layout, narrow enough that the page does not
-       turn into a scroll of one image. The row above it is capped to the same
-       width, so the date chip ends on the page's right edge rather than out
-       at the container's — one column, not two. */
+       turn into a scroll of one image. The rows above it are capped to the
+       same width, so the date chip ends on the page's right edge rather than
+       out at the container's — one column, not two. */
     .resume__preview img,
     .resume__actions {
       max-width: var(--resume-w);
