@@ -4,44 +4,61 @@ import path from 'node:path';
 import Base from '../layouts/Base.astro';
 import ExtArrow from '../components/ExtArrow.astro';
 
-// Two versions of the resume, one shown at a time. Each PDF and its preview
-// are files in public/, not build inputs, so their presence is checked at
-// build time rather than assumed: a version whose PDF is missing is left out,
-// and with none left the page shows a placeholder instead of a dead link
-// (missing media must not block publishing). `updated` is stated per version
-// rather than read from the file's mtime, which a copy or checkout resets.
+// Two focuses, one shown at a time. Each has a two-column PDF, which the
+// preview, View PDF and Download PDF all use, and a single-column PDF offered
+// as a second download. Every address on the page comes from this one table,
+// so no control can point at the other focus or the other layout. The files
+// are in public/, not build inputs, so their presence is checked at build
+// time rather than assumed: a focus whose two-column PDF is missing is left
+// out, one whose single-column PDF is missing loses only that link, and with
+// none left the page shows a placeholder instead of a dead link (missing
+// media must not block publishing). `updated` is stated per focus rather than
+// read from the file's mtime, which a copy or checkout resets.
 //
 // /resume/Zhuoqi_Liu_Resume.pdf is the address older links point at. It is a
-// copy of the Data Visualization PDF, kept so those links still open a resume.
+// copy of the Data Visualization two-column PDF, kept so those links still
+// open a resume.
 const VERSIONS = [
   {
     key: 'data-visualization',
     label: 'Data Visualization',
     note: 'Information design, scientific figures, and research visualization.',
     pdf: '/resume/Zhuoqi_Liu_Resume_Data_Visualization.pdf',
+    single: '/resume/Zhuoqi_Liu_Resume_Data_Visualization_Single_Column.pdf',
     preview: '/resume/preview-data-visualization.webp',
-    updated: 'Oct 2026',
+    updated: 'October 2026',
   },
   {
     key: 'design-engineering',
     label: 'Design Engineering',
     note: 'Interactive data interfaces, front-end development, and workflow automation.',
     pdf: '/resume/Zhuoqi_Liu_Resume_Design_Engineering.pdf',
+    single: '/resume/Zhuoqi_Liu_Resume_Design_Engineering_Single_Column.pdf',
     preview: '/resume/preview-design-engineering.webp',
-    updated: 'Oct 2026',
+    updated: 'October 2026',
   },
 ];
 
 const publicFile = (file: string) => path.join(process.cwd(), 'public', file.replace(/^\//, ''));
 
+// The accessible names start with the visible label and add the focus, so a
+// screen reader hears which resume a link opens without the label changing.
 const versions = VERSIONS.filter((version) => fs.existsSync(publicFile(version.pdf))).map(
-  (version) => ({
-    ...version,
-    file: path.basename(version.pdf),
-    alt: `First page of the ${version.label} resume`,
-    open: `Open the ${version.label} resume PDF in a new tab`,
-    hasPreview: fs.existsSync(publicFile(version.preview)),
-  })
+  (version) => {
+    const hasSingle = fs.existsSync(publicFile(version.single));
+    return {
+      ...version,
+      file: path.basename(version.pdf),
+      single: hasSingle ? version.single : null,
+      singleFile: hasSingle ? path.basename(version.single) : null,
+      alt: `First page of the ${version.label} resume`,
+      open: `Open the ${version.label} resume PDF in a new tab`,
+      viewName: `View PDF, ${version.label} resume`,
+      downloadName: `Download PDF, ${version.label} resume`,
+      singleName: `Download Single-Column PDF, ${version.label} resume`,
+      hasPreview: fs.existsSync(publicFile(version.preview)),
+    };
+  }
 );
 
 // The first version is the default: what the page shows with no `focus`
@@ -51,7 +68,7 @@ const initial = versions[0];
 
 <Base
   title="Resume — Zhuoqi Liu"
-  description="Zhuoqi Liu’s resumes for data visualization, information design, and design engineering roles."
+  description="Resumes for data visualization and design engineering roles."
   current="/resume"
 >
   <section class="resume">
@@ -61,10 +78,12 @@ const initial = versions[0];
       {
         initial ? (
           <div data-resume>
+            {versions.length > 1 && <p class="resume__intro">Choose a focus to view and download my resume.</p>}
+
             {/* The filter row's chips, in title case: the two labels are names
-                of the versions, not categories in the work index's register. */}
+                of the focuses, not categories in the work index's register. */}
             {versions.length > 1 && (
-              <div class="resume__switch" role="group" aria-label="Resume version">
+              <div class="resume__switch" role="group" aria-label="Resume focus">
                 {versions.map((version) => (
                   <button
                     type="button"
@@ -89,12 +108,19 @@ const initial = versions[0];
                 href={initial.pdf}
                 target="_blank"
                 rel="noopener"
+                aria-label={initial.viewName}
               >
                 View PDF
                 <ExtArrow />
               </a>
 
-              <a class="resume__action" data-resume-download href={initial.pdf} download={initial.file}>
+              <a
+                class="resume__action"
+                data-resume-download
+                href={initial.pdf}
+                download={initial.file}
+                aria-label={initial.downloadName}
+              >
                 Download PDF
                 <svg
                   class="resume__down"
@@ -115,8 +141,39 @@ const initial = versions[0];
                 </svg>
               </a>
 
-              {/* Last in the row and pushed to the far edge: the two things you
-                  can do with the file come first, and the date is what the row
+              {/* The same file in one column, for forms that read a resume
+                  top to bottom. Second in rank, so second in ink and weight:
+                  the same link, a step back. */}
+              <a
+                class="resume__action resume__action--secondary"
+                data-resume-single
+                href={initial.single ?? undefined}
+                download={initial.singleFile ?? undefined}
+                aria-label={initial.singleName}
+                hidden={!initial.single}
+              >
+                Download Single-Column PDF
+                <svg
+                  class="resume__down"
+                  viewBox="0 0 10 10"
+                  width="10"
+                  height="10"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M5 1.6v6.8M2 5.4l3 3 3-3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+
+              {/* Last in the row and pushed to the far edge: the things you can
+                  do with the file come first, and the date is what the row
                   ends on. It is about the file's state, not its format. */}
               <span class="resume__updated" data-resume-updated>
                 Updated {initial.updated}
@@ -124,9 +181,12 @@ const initial = versions[0];
             </p>
 
             {/* A rendered first page, not the browser's PDF viewer: no toolbar,
-                no scrollbars, and it keeps the page's own proportions. Lazy so
-                that a link to the other version, which the script below swaps
-                in before layout, does not fetch this one first. */}
+                no scrollbars, and it keeps the page's own proportions. The
+                image has no `src` in the markup: the script below gives it the
+                requested focus's preview before the first paint, so a link to
+                Design Engineering never fetches the Data Visualization page
+                first. Without JS, the default focus's preview comes from the
+                noscript copy instead. */}
             <a
               class="resume__preview"
               data-totop-from
@@ -137,13 +197,10 @@ const initial = versions[0];
               aria-label={initial.open}
               hidden={!initial.hasPreview}
             >
-              <img
-                src={initial.hasPreview ? initial.preview : undefined}
-                alt={initial.alt}
-                width="1520"
-                height="2151"
-                loading="lazy"
-              />
+              <img data-resume-img alt={initial.alt} width="1520" height="2151" hidden />
+              <noscript>
+                <img src={initial.preview} alt={initial.alt} width="1520" height="2151" />
+              </noscript>
             </a>
           </div>
         ) : (
@@ -191,20 +248,34 @@ const initial = versions[0];
 
       const view = root.querySelector('[data-resume-view]');
       view.href = version.pdf;
+      view.setAttribute('aria-label', version.viewName);
 
       const download = root.querySelector('[data-resume-download]');
       download.href = version.pdf;
       download.setAttribute('download', version.file);
+      download.setAttribute('aria-label', version.downloadName);
+
+      const single = root.querySelector('[data-resume-single]');
+      single.hidden = !version.single;
+      if (version.single) {
+        single.href = version.single;
+        single.setAttribute('download', version.singleFile);
+      } else {
+        single.removeAttribute('href');
+        single.removeAttribute('download');
+      }
+      single.setAttribute('aria-label', version.singleName);
 
       const preview = root.querySelector('[data-resume-preview]');
       preview.href = version.pdf;
       preview.setAttribute('aria-label', version.open);
       preview.hidden = !version.hasPreview;
-      const img = preview.querySelector('img');
+      const img = preview.querySelector('[data-resume-img]');
       if (version.hasPreview && img.getAttribute('src') !== version.preview) {
         img.src = version.preview;
       }
       img.alt = version.alt;
+      img.hidden = false;
     };
 
     const requested = byKey(new URLSearchParams(location.search).get('focus')) ?? versions[0];
@@ -243,7 +314,15 @@ const initial = versions[0];
     color: var(--text);
   }
 
-  /* The version switch, set as the work index's filter row: nav-size labels,
+  .resume__intro {
+    margin-top: var(--sp-16);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--text-2);
+    text-wrap: pretty;
+  }
+
+  /* The focus switch, set as the work index's filter row: nav-size labels,
      the accent and its underline on the chosen one. Two entries fit on one
      line at most widths, and where they do not, they wrap rather than
      scroll. */
@@ -251,7 +330,7 @@ const initial = versions[0];
     display: flex;
     flex-wrap: wrap;
     gap: 0 var(--sp-24);
-    margin-top: var(--sp-16);
+    margin-top: var(--sp-8);
   }
 
   .resume__chip {
@@ -319,7 +398,9 @@ const initial = versions[0];
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--sp-24);
+    /* No row gap: where the links wrap on a phone, their own tap padding is
+       already the space between the lines. */
+    gap: 0 var(--sp-24);
     margin-top: var(--sp-16);
   }
 
@@ -367,6 +448,16 @@ const initial = versions[0];
     transition: color var(--dur-hover-out) var(--ease-out);
   }
 
+  .resume__action--secondary {
+    font-weight: var(--fw-regular);
+    color: var(--text-2);
+  }
+
+  /* `display: inline-flex` above would otherwise outrank the attribute. */
+  .resume__action[hidden] {
+    display: none;
+  }
+
   .resume__down {
     flex: none;
   }
@@ -392,7 +483,8 @@ const initial = versions[0];
     margin-top: var(--sp-32);
   }
 
-  .resume__preview[hidden] {
+  .resume__preview[hidden],
+  .resume__preview img[hidden] {
     display: none;
   }
 
