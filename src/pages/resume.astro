@@ -370,6 +370,24 @@ const initial = versions[0];
     }
   }
 
+  /* On a phone the date always takes a line of its own, under the links and
+     on their left edge: it no longer fits beside them, and wrapped to the far
+     right it read as a stray tag. The zero-height item ahead of it is the
+     line break. */
+  @media (max-width: 639px) {
+    .resume__actions::after {
+      content: '';
+      order: 1;
+      flex-basis: 100%;
+    }
+
+    .resume__updated {
+      order: 2;
+      margin-left: 0;
+      margin-top: var(--sp-4);
+    }
+  }
+
   /* Text links. The arrow and the caret inherit the text colour and never move
      on their own. */
   .resume__action {
