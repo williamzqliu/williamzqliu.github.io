@@ -503,5 +503,5 @@ edition-specific layouts, timing, and cue behavior, then test that approach in a
 production.
 
 After the season, I published the [full results on
-Barboard](https://barboard.space/barvision/2026/), connecting the live event with the
+Barboard](https://barboard-space.github.io/barboard/), connecting the live event with the
 community’s longer history.
