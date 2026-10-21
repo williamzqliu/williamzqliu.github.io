@@ -4,61 +4,35 @@ import path from 'node:path';
 import Base from '../layouts/Base.astro';
 import ExtArrow from '../components/ExtArrow.astro';
 
-// Two focuses, one shown at a time, each with one public PDF that the
-// preview, View PDF and Download PDF all use. Every address on the page comes
-// from this one table, so no control can point at the other focus. The files
-// are in public/, not build inputs, so their presence is checked at build
-// time rather than assumed: a focus whose PDF is missing is left out, and with
-// none left the page shows a placeholder instead of a dead link (missing
-// media must not block publishing). `updated` is stated per focus rather than
+// One resume, shown page by page. The PDF and the rendered pages are files in
+// public/, not build inputs, so their presence is checked at build time rather
+// than assumed: pages are picked up in order for as long as their previews
+// exist, and a missing PDF leaves a placeholder instead of a dead link
+// (missing media must not block publishing). `updated` is stated rather than
 // read from the file's mtime, which a copy or checkout resets.
 //
-// /resume/Zhuoqi_Liu_Resume.pdf is the address older links point at. It is a
-// copy of the Data Visualization PDF, kept so those links still open a
-// resume.
-const VERSIONS = [
-  {
-    key: 'data-visualization',
-    label: 'Data Visualization',
-    note: 'Information design, scientific figures, and research visualization.',
-    pdf: '/resume/Zhuoqi_Liu_Resume_Data_Viz.pdf',
-    preview: '/resume/preview-data-visualization.webp',
-    updated: 'October 2026',
-  },
-  {
-    key: 'design-engineering',
-    label: 'Design Engineering',
-    note: 'Interactive data interfaces, front-end development, and workflow automation.',
-    pdf: '/resume/Zhuoqi_Liu_Resume_Design_Eng.pdf',
-    preview: '/resume/preview-design-engineering.webp',
-    updated: 'October 2026',
-  },
-];
+// /resume/Zhuoqi_Liu_Resume.pdf is also the address older links point at, so
+// they open the current resume.
+const RESUME = {
+  pdf: '/resume/Zhuoqi_Liu_Resume.pdf',
+  pagePreview: (n: number) => `/resume/preview-page-${n}.webp`,
+  file: 'Zhuoqi_Liu_Resume.pdf',
+  updated: 'October 2026',
+};
 
 const publicFile = (file: string) => path.join(process.cwd(), 'public', file.replace(/^\//, ''));
 
-// The link names start with the visible label and add the focus, so a screen
-// reader hears which resume a link opens without the label changing. The
-// preview's name is the resume's own.
-const versions = VERSIONS.filter((version) => fs.existsSync(publicFile(version.pdf))).map(
-  (version) => ({
-    ...version,
-    file: path.basename(version.pdf),
-    name: `${version.label} resume`,
-    viewName: `View PDF, ${version.label} resume`,
-    downloadName: `Download PDF, ${version.label} resume`,
-    hasPreview: fs.existsSync(publicFile(version.preview)),
-  })
-);
+const published = fs.existsSync(publicFile(RESUME.pdf));
 
-// The first version is the default: what the page shows with no `focus`
-// parameter, or with one it does not recognise.
-const initial = versions[0];
+const pages: string[] = [];
+for (let n = 1; fs.existsSync(publicFile(RESUME.pagePreview(n))); n++) {
+  pages.push(RESUME.pagePreview(n));
+}
 ---
 
 <Base
   title="Resume — Zhuoqi Liu"
-  description="View and download Zhuoqi Liu’s resumes for data visualization and design engineering roles."
+  description="View and download Zhuoqi Liu’s resume for data visualization and design engineering roles."
   current="/resume"
 >
   <section class="resume">
@@ -66,49 +40,15 @@ const initial = versions[0];
       <h1 class="resume__title">Resume</h1>
 
       {
-        initial ? (
-          <div data-resume>
-            {/* The filter row's chips, in title case: the two labels are names
-                of the focuses, not categories in the work index's register. */}
-            {versions.length > 1 && (
-              <div class="resume__switch" role="group" aria-label="Resume focus">
-                {versions.map((version) => (
-                  <button
-                    type="button"
-                    class="resume__chip"
-                    data-version={version.key}
-                    aria-pressed={version === initial ? 'true' : 'false'}
-                  >
-                    {version.label}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <p class="resume__note" data-resume-note aria-live="polite">
-              {initial.note}
-            </p>
-
+        published ? (
+          <>
             <p class="resume__actions">
-              <a
-                class="resume__action"
-                data-resume-view
-                href={initial.pdf}
-                target="_blank"
-                rel="noopener"
-                aria-label={initial.viewName}
-              >
+              <a class="resume__action" href={RESUME.pdf} target="_blank" rel="noopener">
                 View PDF
                 <ExtArrow />
               </a>
 
-              <a
-                class="resume__action"
-                data-resume-download
-                href={initial.pdf}
-                download={initial.file}
-                aria-label={initial.downloadName}
-              >
+              <a class="resume__action" href={RESUME.pdf} download={RESUME.file}>
                 Download PDF
                 <svg
                   class="resume__down"
@@ -132,40 +72,43 @@ const initial = versions[0];
               {/* Last in the row and pushed to the far edge: the two things you
                   can do with the file come first, and the date is what the row
                   ends on. It is about the file's state, not its format. */}
-              <span class="resume__updated" data-resume-updated>
-                Updated {initial.updated}
-              </span>
+              <span class="resume__updated">Updated {RESUME.updated}</span>
             </p>
 
-            {/* A rendered first page, not the browser's PDF viewer: no toolbar,
-                no scrollbars, and it keeps the page's own proportions. The
-                image has no `src` in the markup: the script below gives it the
-                requested focus's preview before the first paint, so a link to
-                Design Engineering never fetches the Data Visualization page
-                first. Without JS, the default focus's preview comes from the
-                noscript copy instead. */}
-            <a
-              class="resume__preview"
-              data-totop-from
-              data-resume-preview
-              href={initial.pdf}
-              target="_blank"
-              rel="noopener"
-              aria-label={initial.name}
-              hidden={!initial.hasPreview}
-            >
-              <img data-resume-img alt={initial.name} width="1520" height="2151" hidden />
-              <noscript>
-                <img src={initial.preview} alt={initial.name} width="1520" height="2151" />
-              </noscript>
-            </a>
-          </div>
+            {/* Rendered pages, not the browser's PDF viewer: no toolbar, no
+                scrollbars, and each keeps the page's own proportions. Each page
+                opens the PDF at that page; the first loads with the page, the
+                rest when they come near. */}
+            {pages.length > 0 && (
+              <ol class="resume__pages" data-totop-from>
+                {pages.map((src, i) => (
+                  <li>
+                    <a
+                      class="resume__page"
+                      href={i === 0 ? RESUME.pdf : `${RESUME.pdf}#page=${i + 1}`}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <img
+                        src={src}
+                        alt={`Resume, page ${i + 1} of ${pages.length}`}
+                        width="1520"
+                        height="2151"
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        decoding="async"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </>
         ) : (
           <div class="resume__pending">
             <p class="t-body-lg">The PDF is not published yet.</p>
             <p class="resume__hint">
               {/* Instruction for the repo owner, not a claim about the resume. */}
-              Drop the exports in <code>public/resume/</code> and this page picks
+              Drop the export in <code>public/resume/</code> and this page picks
               it up on the next build. Until then, nothing here links anywhere
               dead.
             </p>
@@ -179,73 +122,12 @@ const initial = versions[0];
       }
     </div>
   </section>
-
-  {/* Inline and right after the markup, so the version a link asks for is in
-      place before the first paint, on a full load and after a client-side
-      navigation alike. `data-astro-rerun` because the router otherwise skips
-      an inline script it has already run, which a move from one version's
-      link to the other's, both this page, would be. The version lives in
-      `?focus=`; a switch replaces the current history entry rather than
-      adding one, keeping the router's own state, so Back and Forward move
-      between pages and each entry reopens the version it was left on. */}
-  <script is:inline data-astro-rerun define:vars={{ versions }}>
-  (() => {
-    const root = document.querySelector('[data-resume]');
-    if (!root || !versions.length) return;
-
-    const byKey = (key) => versions.find((version) => version.key === key);
-
-    const apply = (version) => {
-      for (const chip of root.querySelectorAll('.resume__chip')) {
-        chip.setAttribute('aria-pressed', String(chip.dataset.version === version.key));
-      }
-
-      root.querySelector('[data-resume-note]').textContent = version.note;
-      root.querySelector('[data-resume-updated]').textContent = `Updated ${version.updated}`;
-
-      const view = root.querySelector('[data-resume-view]');
-      view.href = version.pdf;
-      view.setAttribute('aria-label', version.viewName);
-
-      const download = root.querySelector('[data-resume-download]');
-      download.href = version.pdf;
-      download.setAttribute('download', version.file);
-      download.setAttribute('aria-label', version.downloadName);
-
-      const preview = root.querySelector('[data-resume-preview]');
-      preview.href = version.pdf;
-      preview.setAttribute('aria-label', version.name);
-      preview.hidden = !version.hasPreview;
-      const img = preview.querySelector('[data-resume-img]');
-      if (version.hasPreview && img.getAttribute('src') !== version.preview) {
-        img.src = version.preview;
-      }
-      img.alt = version.name;
-      img.hidden = false;
-    };
-
-    const requested = byKey(new URLSearchParams(location.search).get('focus')) ?? versions[0];
-    apply(requested);
-
-    for (const chip of root.querySelectorAll('.resume__chip')) {
-      chip.addEventListener('click', () => {
-        const version = byKey(chip.dataset.version);
-        if (!version) return;
-        apply(version);
-
-        const url = new URL(location.href);
-        url.searchParams.set('focus', version.key);
-        history.replaceState(history.state, '', url);
-      });
-    }
-  })();
-  </script>
 </Base>
 
 <style>
   .resume {
-    /* The width of the page itself once there is room for it, shared by the
-       preview and the rows of controls above it. */
+    /* The width of one page once there is room for it, shared by the pages
+       and the row of controls above them. */
     --resume-w: 760px;
     padding-block: var(--sp-48) var(--sp-96);
   }
@@ -258,75 +140,6 @@ const initial = versions[0];
     font-weight: var(--fw-display);
     letter-spacing: -0.015em;
     color: var(--text);
-  }
-
-  /* The focus switch, set as the work index's filter row: nav-size labels,
-     the accent and its underline on the chosen one. Two entries fit on one
-     line at most widths, and where they do not, they wrap rather than
-     scroll. */
-  .resume__switch {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 var(--sp-24);
-    margin-top: var(--sp-16);
-  }
-
-  .resume__chip {
-    position: relative;
-    display: block;
-    font-size: var(--fs-nav);
-    font-weight: var(--fw-medium);
-    line-height: var(--lh-small);
-    color: var(--text-2);
-    /* Reaches the 44px minimum tap target even though the type is small. */
-    padding-block: var(--sp-12);
-    transition: color var(--dur-hover-out) var(--ease-out);
-  }
-
-  .resume__chip::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: var(--sp-8);
-    height: var(--rule-heavy);
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform var(--dur-draw) var(--ease-out);
-  }
-
-  .resume__chip[aria-pressed='true'] {
-    color: var(--accent);
-  }
-
-  .resume__chip[aria-pressed='true']::after {
-    transform: scaleX(1);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .resume__chip:hover {
-      color: var(--text);
-      transition-duration: var(--dur-hover-in);
-    }
-
-    .resume__chip[aria-pressed='true']:hover {
-      color: var(--accent);
-    }
-
-    .resume__chip:active,
-    .resume__chip:active::after {
-      transition-duration: var(--dur-press);
-    }
-  }
-
-  /* What the chosen version is for, one line under the switch. */
-  .resume__note {
-    margin-top: var(--sp-4);
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--text-2);
-    text-wrap: pretty;
   }
 
   /* Baseline, not centre. The date is mono at 14px with a tight line box and
@@ -422,19 +235,20 @@ const initial = versions[0];
     }
   }
 
-  /* The resume is the content of this page, so the frame around it is one
-     hairline on the image and nothing else — no divider above it. */
-  .resume__preview {
-    display: block;
+  /* The resume is the content of this page, so the frame around each page is
+     one hairline on the image and nothing else — no divider above it. The
+     gap between pages is the paper's own edge, not a section break. */
+  .resume__pages {
+    display: grid;
+    gap: var(--sp-24);
     margin-top: var(--sp-32);
   }
 
-  .resume__preview[hidden],
-  .resume__preview img[hidden] {
-    display: none;
+  .resume__page {
+    display: block;
   }
 
-  .resume__preview img {
+  .resume__page img {
     display: block;
     width: 100%;
     height: auto;
@@ -462,13 +276,18 @@ const initial = versions[0];
   }
 
   @media (min-width: 1024px) {
-    /* Wide enough to read the layout, narrow enough that the page does not
-       turn into a scroll of one image. The rows above it are capped to the
-       same width, so the date chip ends on the page's right edge rather than
-       out at the container's — one column, not two. */
-    .resume__preview img,
+    /* One page under the other, each wide enough to read, rather than side
+       by side: two pages across the content width set the type too small to
+       read without opening the PDF. The row above is capped to the same
+       width, so the date chip ends on the page's right edge rather than out
+       at the container's — one column, not two. */
+    .resume__pages,
     .resume__actions {
       max-width: var(--resume-w);
+    }
+
+    .resume__pages {
+      gap: var(--sp-32);
     }
   }
 </style>
