@@ -20,7 +20,32 @@ const { label, title, href, year } = Astro.props;
 
 <nav class="next" aria-label={label ?? 'More work'}>
   <a class="next__link" href={href}>
-    {label && <span class="next__label">{label}</span>}
+    {/* The arrow is the one Explore all work carries, for the same reason:
+        a label link that goes somewhere. */}
+    {
+      label && (
+        <span class="next__label">
+          {label}
+          <svg
+            class="next__arrow"
+            viewBox="0 0 10 10"
+            width="12.6"
+            height="12.6"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M1.6 5h6.8M5.4 2l3 3-3 3"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.17"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      )
+    }
 
     <span class="next__row">
       <span class="next__title">{title}</span>
@@ -47,9 +72,12 @@ const { label, title, href, year } = Astro.props;
   /* Set like Explore all work under it and Selected work on the homepage:
      the section label's type, weight, ink and wider tracking. */
   .next__label {
-    /* As wide as its words, so it lights only when pointed at. A block
-       still, so the line box around it does not move the title. */
-    display: block;
+    /* As wide as its words, so it lights only when pointed at. A flex box
+       still on a line of its own, so the line box around it does not move the
+       title. */
+    display: flex;
+    align-items: center;
+    gap: 5px;
     width: fit-content;
     /* Nudged up out of the flow rather than by a margin: the title below it
        stays exactly where it is, and only the label moves. */
@@ -100,6 +128,43 @@ const { label, title, href, year } = Astro.props;
     color: color-mix(in srgb, var(--text-3) 85%, var(--bg));
     font-variant-numeric: tabular-nums;
     transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* `translate` rather than `transform`, so the 1px lift onto the capitals'
+     optical middle holds while the breath animates `transform`. */
+  .next__arrow {
+    display: block;
+    flex: none;
+    translate: 0 -1px;
+    will-change: transform;
+  }
+
+  /* Explore all work's breath: the same cycle and curve, while the label or
+     the title's row is pointed at, or the link has keyboard focus. */
+  @keyframes next-breathe {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(4px);
+    }
+  }
+
+  .next__link:focus-visible .next__arrow {
+    animation: next-breathe 1600ms cubic-bezier(0.37, 0, 0.63, 1) infinite both;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .next__link:has(.next__label:hover, .next__row:hover) .next__arrow {
+      animation: next-breathe 1600ms cubic-bezier(0.37, 0, 0.63, 1) infinite both;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .next__arrow {
+      animation: none !important;
+    }
   }
 
   /* Keyboard focus reads the same as hover — focus lands on the link, which

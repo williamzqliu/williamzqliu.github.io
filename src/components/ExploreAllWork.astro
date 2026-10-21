@@ -11,6 +11,11 @@
 // row, and took a click from the empty right half of it.
 //
 // `href` and `label` let the About page close the same way, on the resume.
+//
+// The arrow is Selected work's turned to point right — same 12.6px drawing,
+// same 1.17 stroke, same gap — because this is the same kind of label link
+// and it goes somewhere rather than down the page. It rests still and breathes
+// toward its destination while the link is pointed at or focused.
 
 interface Props {
   bare?: boolean;
@@ -22,7 +27,26 @@ const { bare = false, href = '/work', label = 'Explore all work' } = Astro.props
 ---
 
 <div class:list={['more', { 'more--bare': bare }]}>
-  <a class="more__link section-label" href={href} data-astro-prefetch>{label}</a>
+  <a class="more__link section-label" href={href} data-astro-prefetch>
+    {label}
+    <svg
+      class="more__arrow"
+      viewBox="0 0 10 10"
+      width="12.6"
+      height="12.6"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M1.6 5h6.8M5.4 2l3 3-3 3"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.17"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </a>
 </div>
 
 <style>
@@ -40,11 +64,54 @@ const { bare = false, href = '/work', label = 'Explore all work' } = Astro.props
 
   .more__link {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    /* Selected work's spacing: an 8px gap less the 3px its arrow is pulled
+       back by. */
+    gap: 5px;
     padding-bottom: 0;
     border-bottom: 0;
     letter-spacing: var(--ls-label-wide);
     transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  /* Promoted for the same reason as Selected work's arrow: a sub-pixel glide
+     on an un-promoted SVG is re-rasterised each frame and moves in steps. */
+  /* `translate` rather than `transform`, so the 1px lift onto the capitals'
+     optical middle holds while the breath animates `transform`. */
+  .more__arrow {
+    display: block;
+    flex: none;
+    translate: 0 -1px;
+    will-change: transform;
+  }
+
+  /* Selected work's breath, turned sideways: the same cycle and curve, out
+     and back from where it rests. */
+  @keyframes more-breathe {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(4px);
+    }
+  }
+
+  .more__link:focus-visible .more__arrow {
+    animation: more-breathe 1600ms cubic-bezier(0.37, 0, 0.63, 1) infinite both;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .more__link:hover .more__arrow {
+      animation: more-breathe 1600ms cubic-bezier(0.37, 0, 0.63, 1) infinite both;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .more__arrow {
+      animation: none !important;
+    }
   }
 
   /* A full tap height over the words and no wider than them. */
