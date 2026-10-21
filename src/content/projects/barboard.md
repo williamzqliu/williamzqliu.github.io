@@ -17,7 +17,7 @@ links:
   # Not `Live Demo`: this is the site itself, running, not a demonstration of
   # it. The label override is what the schema's named-link form is for.
   demo:
-    href: https://barboard-space.github.io/barboard/
+    href: https://barboard.space/
     label: View Website
 cover:
   # A presentation layout built in the barboard.space repository from the
