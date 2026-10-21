@@ -1,17 +1,19 @@
 ---
 // The site's single contact point. Not a second navigation and not a résumé
-// summary: a greeting, one sentence, three destinations, a quiet copyright.
+// summary: a greeting, the destinations, a quiet copyright. No sentence
+// between them: with the address written out, one would only repeat it.
 // Resume is in the nav, so it is deliberately absent here.
 import ExtArrow from './ExtArrow.astro';
 
-const links = [
-  // Email is not another site, so it gets no arrow.
-  { label: 'Email', href: 'mailto:williamzq115@gmail.com' },
-  // GitHub parked for now. Restore by uncommenting — the case studies still
-  // link to their own repositories, so the profile is not the only way in.
-  // { label: 'GitHub', href: 'https://github.com/williamzqliu' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/william-zqliu' },
-];
+// The address is written out rather than hidden behind a word: someone may be
+// writing from a mail client the mailto link does not open, and the address is
+// what they need to copy.
+const EMAIL = 'williamzq115@gmail.com';
+
+// GitHub parked for now. Restore by adding it here — the case studies still
+// link to their own repositories, so the profile is not the only way in.
+// { label: 'GitHub', href: 'https://github.com/williamzqliu' },
+const links = [{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/william-zqliu' }];
 
 const year = new Date().getFullYear();
 ---
@@ -20,40 +22,88 @@ const year = new Date().getFullYear();
     stays put without needing a group of its own. */}
 <footer class="footer">
   <div class="container">
-    {/* Four children, no wrappers: on a desktop the two sides have to share
-        rows, and a row cannot be shared by items that live in different
-        stacks. The order here is the order a phone reads them in; the desktop
-        grid places them explicitly. */}
+    {/* One column at every width, read top to bottom: the destinations sit
+        directly under the greeting, rather than out at the far edge of the
+        page where they could be missed. */}
     <div class="footer__row">
       <h2 class="footer__heading">Get in touch</h2>
 
-      <p class="footer__line">
-        Send me an email or message and I&#8217;ll get back to you soon.
-      </p>
-
       <ul class="footer__links">
+        <li class="footer__email">
+          {/* Email is not another site, so it gets no arrow. */}
+          <a class="footer__link" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+
+          {/* A link's text is awkward to select by hand — dragging it drags the
+              link, and a double click stops at the @ and the dots — so the
+              address can be copied in one step. Hidden until the script
+              binds it, so without JS there is no button that does nothing. */}
+          <button
+            type="button"
+            class="footer__copy"
+            data-copy-email={EMAIL}
+            aria-label="Copy email address"
+            title="Copy email address"
+            hidden
+          >
+            {/* Set against the external arrow beside LinkedIn, in the same
+                ink: its outline begins as far from the address as the arrow's
+                does from its word, and is centred on the same line. It is a
+                step larger than the arrow, because two squares need the room
+                to stay legible, and lighter in stroke, since straight lines
+                at 1.3 read heavier than a diagonal does. The drawing is the
+                familiar one — two rounded sheets, the back one breaking off
+                short of the front — because at this size the convention is
+                what makes it read as copy rather than as two squares. */}
+            <span class="footer__copy-icon footer__copy-icon--copy" aria-hidden="true">
+              <svg viewBox="0 0 12 12" width="12" height="12" focusable="false">
+                <rect
+                  x="5.3"
+                  y="4.4"
+                  width="6"
+                  height="6"
+                  rx="1.1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                />
+                <path
+                  d="M3.45 7.6h-.1a1 1 0 0 1-1-1V2.6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v.1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+            <span class="footer__copy-icon footer__copy-icon--done" aria-hidden="true">
+              <svg viewBox="0 0 12 12" width="12" height="12" focusable="false">
+                <path
+                  d="M2.6 6.3l2.5 2.5 4.9-5.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </button>
+
+          {/* What a screen reader hears after a copy; the check mark is what
+              everyone else sees. */}
+          <span class="vh" data-copy-status aria-live="polite"></span>
+        </li>
+
         {
-          links.map((link) => {
-            const external = link.href.startsWith('http');
-            return (
-              <li>
-                <a
-                  class="footer__link"
-                  href={link.href}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
-                >
-                  {link.label}
-                  {external && (
-                    <>
-                      <ExtArrow />
-                      <span class="vh">(opens in a new tab)</span>
-                    </>
-                  )}
-                </a>
-              </li>
-            );
-          })
+          links.map((link) => (
+            <li>
+              <a class="footer__link" href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+                <ExtArrow />
+                <span class="vh">(opens in a new tab)</span>
+              </a>
+            </li>
+          ))
         }
       </ul>
 
@@ -70,14 +120,23 @@ const year = new Date().getFullYear();
     margin-top: var(--sp-40);
   }
 
-  /* Phone: one column, and the spacing rides on the items rather than on a
-     single gap — the four steps are 8 / 24 / 16, not one number. The links
-     carry 8px of tap padding at each end, so their margins are set 8px short
-     of the space they are meant to read as. */
+  /* One column, and the spacing rides on the items rather than on a single
+     gap. The steps widen as the content changes kind — 16 from the greeting
+     to the addresses it offers, 32 to the copyright, which belongs to the
+     page rather than to the contact — so the last line does not read as a
+     third link. The links carry 8px of tap padding at each end, so their
+     margins are set 8px short of the space they are meant to read as. */
   .footer__row {
     display: grid;
+    justify-items: start;
     gap: 0;
     padding-block: var(--sp-48) var(--sp-40);
+  }
+
+  @media (min-width: 1024px) {
+    .footer__row {
+      padding-block: var(--sp-48);
+    }
   }
 
   /* Display face, but at a size where it reads as a greeting rather than a
@@ -92,25 +151,22 @@ const year = new Date().getFullYear();
     color: var(--text);
   }
 
-  .footer__line {
-    margin-top: var(--sp-8);
-    max-width: var(--measure-meta);
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--text-2);
-  }
-
-  /* `baseline`, not the default `stretch`. It lines the two links up with each
-     other, and — the reason it matters — it is what gives this list a baseline
-     of its own to hand the footer's grid. Stretched, each item's baseline came
-     from its own strut instead of from the words, and the row above read 4.6px
-     high against the greeting beside it. */
+  /* `baseline`, not the default `stretch`: it lines the links up with each
+     other by their words rather than by their boxes. */
   .footer__links {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--sp-24);
-    margin-top: var(--sp-16);
+    gap: 0 var(--sp-32);
+    margin-top: var(--sp-8);
+  }
+
+  /* The address and its copy mark read as one item, 4px apart — the gap the
+     external arrow keeps from LinkedIn. */
+  .footer__email {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   /* Text links, colour only on hover — no underline, no fill, and the arrow
@@ -143,55 +199,135 @@ const year = new Date().getFullYear();
     }
   }
 
+  /* A mark, not a box, in the ink of the address beside it — the same colour
+     the external arrow takes from its link — and the same hover. */
+  .footer__copy {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 12px;
+    height: 12px;
+    /* The arrow's nudge onto the text's optical line. */
+    margin-top: 0.05em;
+    background: transparent;
+    color: var(--text);
+    transition: color var(--dur-hover-out) var(--ease-out);
+  }
+
+  .footer__copy[hidden] {
+    display: none;
+  }
+
+  /* Keeps the real tap target at 44 x 44 without a 44px mark in the row. It
+     starts at the gap and runs right, into the space before LinkedIn, so it
+     never covers the address it sits beside. */
+  .footer__copy::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    width: var(--tap);
+    height: var(--tap);
+    transform: translateY(-50%);
+  }
+
+  /* Both marks are in the DOM and cross-fade, so the button never jumps. */
+  .footer__copy-icon {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  .footer__copy-icon--done {
+    opacity: 0;
+  }
+
+  .footer__copy[data-copied] {
+    color: var(--accent);
+  }
+
+  .footer__copy[data-copied] .footer__copy-icon--copy {
+    opacity: 0;
+  }
+
+  .footer__copy[data-copied] .footer__copy-icon--done {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer__copy:hover {
+      color: var(--accent);
+      transition-duration: var(--dur-hover-in);
+    }
+  }
+
   /* Last line of the page: separated by space, not by another rule, and it
      belongs to the links above it rather than to the width of the page. */
   .footer__colophon {
-    margin-top: var(--sp-8);
+    margin-top: var(--sp-24);
     font-size: var(--fs-small);
     line-height: var(--lh-small);
     color: var(--text-3);
   }
+</style>
 
-  @media (min-width: 1024px) {
-    /* Two columns and two rows that both sides sit in, rather than two stacks
-       standing next to each other. Stacks drift: each side spaces itself, and
-       the greeting ended up level with nothing in particular.
-
-       `align-items: baseline` is what actually lines the pairs up — the
-       greeting and the links are different faces at different sizes, and the
-       links carry tap padding, so matching their boxes would not match their
-       type. One `row-gap` for both columns, and no margins of their own. */
-    .footer__row {
-      grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-rows: auto auto;
-      column-gap: var(--sp-64);
-      row-gap: var(--sp-8);
-      align-items: baseline;
-      padding-block: var(--sp-48);
-    }
-
-    .footer__heading {
-      grid-area: 1 / 1;
-    }
-
-    .footer__links {
-      grid-area: 1 / 2;
-      justify-self: end;
-      justify-content: flex-end;
-      gap: var(--sp-32);
-      margin-top: 0;
-    }
-
-    .footer__line {
-      grid-area: 2 / 1;
-      margin-top: 0;
-    }
-
-    .footer__colophon {
-      grid-area: 2 / 2;
-      justify-self: end;
-      text-align: right;
-      margin-top: 0;
+<script>
+  // The clipboard API needs a secure context and permission; where it is
+  // missing or refused, a hidden field and the old copy command stand in.
+  async function copy(text: string): Promise<boolean> {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const field = document.createElement('textarea');
+      field.value = text;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.opacity = '0';
+      document.body.append(field);
+      field.select();
+      let ok = false;
+      try {
+        ok = document.execCommand('copy');
+      } catch {
+        ok = false;
+      }
+      field.remove();
+      return ok;
     }
   }
-</style>
+
+  // This module runs once, but the footer is new after every client-side
+  // navigation, so binding happens per page load.
+  function bind() {
+    const button = document.querySelector<HTMLButtonElement>('[data-copy-email]');
+    if (!button || button.dataset.bound) return;
+    button.dataset.bound = 'true';
+    button.hidden = false;
+
+    const status = document.querySelector<HTMLElement>('[data-copy-status]');
+    let reset: number | undefined;
+
+    button.addEventListener('click', async () => {
+      const ok = await copy(button.dataset.copyEmail ?? '');
+      window.clearTimeout(reset);
+      if (ok) {
+        button.dataset.copied = '';
+        button.setAttribute('aria-label', 'Email address copied');
+        if (status) status.textContent = 'Email address copied';
+      } else if (status) {
+        status.textContent = 'Could not copy the email address';
+      }
+      reset = window.setTimeout(() => {
+        delete button.dataset.copied;
+        button.setAttribute('aria-label', 'Copy email address');
+        if (status) status.textContent = '';
+      }, 2000);
+    });
+  }
+
+  document.addEventListener('astro:page-load', bind);
+  bind();
+</script>
