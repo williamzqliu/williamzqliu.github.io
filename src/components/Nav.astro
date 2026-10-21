@@ -96,9 +96,10 @@ const showNav = navLinks.length > 1;
     padding-block: var(--sp-12);
   }
 
-  /* Body face. The display face is reserved for the hero identity line,
-     project titles and section headings; a wordmark in it competes with the
-     hero for the same job. */
+  /* The display face, a step up from the links beside it, so the name reads
+     as the site's own mark rather than as a fifth navigation item — the face
+     the footer's greeting already uses. Ink rather than orange keeps it from
+     competing with the hero's name. */
   .nav__name {
     position: relative;
     grid-area: name;
@@ -108,8 +109,14 @@ const showNav = navLinks.length > 1;
        link is now as wide as the words are. No effect above 640px, where the
        column is already `auto`. */
     justify-self: start;
-    font-size: var(--fs-body);
-    font-weight: var(--fw-strong);
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: 1.125rem;
+    font-weight: var(--fw-display);
+    /* The line box the 15px name had (15 x 1.65), so the larger type does not
+       make the header taller: on a phone the header's height is the fixed
+       --header-h that the case study's section bar parks under. */
+    line-height: calc(var(--fs-body) * var(--lh-body));
     letter-spacing: -0.015em;
     /* Ink at rest, not orange: the accent belongs to the name in the hero,
        and two oranges in one viewport spend it twice. It is still a link, so
