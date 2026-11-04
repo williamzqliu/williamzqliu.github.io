@@ -149,6 +149,10 @@ const showNav = navLinks.length > 1;
     scrollbar-width: none;
     margin-inline: calc(var(--pad) * -1);
     padding-inline: var(--pad);
+    /* Room above and below for the focus ring, which this scroller would
+       otherwise clip; the negative margin gives the room back. */
+    padding-block: var(--sp-4);
+    margin-block: calc(var(--sp-4) * -1);
   }
 
   .nav__links::-webkit-scrollbar {

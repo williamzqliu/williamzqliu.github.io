@@ -1810,6 +1810,10 @@ const facts = [
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
+    /* Room above and below for the focus ring, which this scroller would
+       otherwise clip; the negative margin gives the room back. */
+    padding-block: var(--sp-4);
+    margin-block: calc(var(--sp-4) * -1);
   }
 
   .card-picker__group--cost::-webkit-scrollbar {

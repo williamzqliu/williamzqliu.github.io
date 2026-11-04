@@ -51,6 +51,12 @@ const { options, active = 'all' } = Astro.props;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
+    /* A scroller clips everything outside its padding box, and the focus
+       ring (base.css: 2px outline, 2px offset) reaches 4px outside each chip.
+       The padding is that room and the negative margin gives it back, so the
+       ring is drawn whole and nothing on the page moves. */
+    padding: var(--sp-4);
+    margin: calc(var(--sp-4) * -1);
   }
 
   .filterrow::-webkit-scrollbar {
