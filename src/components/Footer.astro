@@ -97,9 +97,10 @@ const year = new Date().getFullYear();
         {
           links.map((link) => (
             <li>
-              <a class="footer__link" href={link.href} rel="noopener noreferrer">
+              <a class="footer__link" href={link.href} target="_blank" rel="noopener noreferrer">
                 {link.label}
                 <ExtArrow />
+                <span class="vh">(opens in a new tab)</span>
               </a>
             </li>
           ))

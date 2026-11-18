@@ -89,28 +89,15 @@ const facts = [
         {
           links.length > 0 && (
             <ul class="cs__links" data-count={links.length}>
-              {links.map((link) => {
-                // A PDF opens in a new tab, so the case study stays open. Every
-                // other link opens in this one, so Back returns here; the
-                // reload flag keeps the router from fetching a page it cannot
-                // swap in.
-                const pdf = link.href.endsWith('.pdf');
-                return (
-                  <li>
-                    <a
-                      class="cs__link"
-                      href={link.href}
-                      target={pdf ? '_blank' : undefined}
-                      rel="noopener noreferrer"
-                      data-astro-reload={pdf ? undefined : ''}
-                    >
-                      {link.label}
-                      <ExtArrow />
-                      {pdf && <span class="vh">(opens in a new tab)</span>}
-                    </a>
-                  </li>
-                );
-              })}
+              {links.map((link) => (
+                <li>
+                  <a class="cs__link" href={link.href} target="_blank" rel="noopener noreferrer">
+                    {link.label}
+                    <ExtArrow />
+                    <span class="vh">(opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
             </ul>
           )
         }
@@ -3664,14 +3651,48 @@ const facts = [
     apply();
   }
 
+  /* A link in the prose that leaves the portfolio opens in a new tab, like the
+     links at the head of the page: a flip-book, a demo or a long document adds
+     history of its own, and Back would have to undo every page of it. A link
+     to another page of the portfolio stays in this tab. The apps served under
+     the same domain are sites of their own, so they count as leaving, and a
+     PDF opens in a new tab wherever it is. This runs in the browser rather
+     than at build time because links written as HTML inside the Markdown
+     reach the page as raw strings no Markdown plugin can see. Without the
+     script every link still works, in this tab. */
+  const SITE_HOSTS = new Set(['williamzqliu.com', 'www.williamzqliu.com', location.hostname]);
+  const SEPARATE_APPS = ['/neu-network-viz/', '/ripples-into-silence/'];
+
+  function leavesPortfolio(link: HTMLAnchorElement) {
+    const href = link.getAttribute('href') ?? '';
+    if (link.pathname.toLowerCase().endsWith('.pdf')) return true;
+    if (!/^https?:\/\//i.test(href)) return false;
+    if (!SITE_HOSTS.has(link.hostname)) return true;
+    return SEPARATE_APPS.some((path) => link.pathname.startsWith(path));
+  }
+
+  function openOutboundInNewTab() {
+    document.querySelectorAll<HTMLAnchorElement>('.prose a[href]').forEach((link) => {
+      if (link.target === '_blank' || !leavesPortfolio(link)) return;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      const note = document.createElement('span');
+      note.className = 'vh';
+      note.textContent = ' (opens in a new tab)';
+      link.append(note);
+    });
+  }
+
   document.addEventListener('astro:page-load', () => {
     initToc();
     smoothDisclosures();
     playVisibleClips();
     initCardPicker();
+    openOutboundInNewTab();
   });
   initToc();
   smoothDisclosures();
   playVisibleClips();
   initCardPicker();
+  openOutboundInNewTab();
 </script>
