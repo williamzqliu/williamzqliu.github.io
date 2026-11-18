@@ -217,7 +217,7 @@ three for the main score and kept the others out for the reasons below.
     </tr>
   </thead>
   <tbody>
-    <tr><td>Assessed land value per acre</td><td>Retained (lower preferred)</td><td>Compares assessed land value per unit of area, not acquisition or development costs.</td></tr>
+    <tr><td>Assessed land value per acre</td><td>Retained (lower preferred)</td><td>Compares assessed land value per unit of area, not acquisition or development costs. Preferring lower values follows the 2024 model and is a comparison choice for this study, not an objective measure of TOD value.</td></tr>
     <tr><td>Buildable area</td><td>Retained (larger preferred)</td><td>Measures available area, not permitted building capacity or a tested design.</td></tr>
     <tr><td>Daily station activity</td><td>Retained (higher preferred)</td><td>Daily boardings and alightings at the assigned station describe existing activity, not future demand for the site.</td></tr>
     <tr><td>Weekend ridership</td><td>Not scored separately</td><td>Closely tracks daily station activity.</td></tr>
