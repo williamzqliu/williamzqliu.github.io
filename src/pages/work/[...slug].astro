@@ -89,15 +89,28 @@ const facts = [
         {
           links.length > 0 && (
             <ul class="cs__links" data-count={links.length}>
-              {links.map((link) => (
-                <li>
-                  <a class="cs__link" href={link.href} target="_blank" rel="noopener noreferrer">
-                    {link.label}
-                    <ExtArrow />
-                    <span class="vh">(opens in a new tab)</span>
-                  </a>
-                </li>
-              ))}
+              {links.map((link) => {
+                // A PDF opens in a new tab, so the case study stays open. Every
+                // other link opens in this one, so Back returns here; the
+                // reload flag keeps the router from fetching a page it cannot
+                // swap in.
+                const pdf = link.href.endsWith('.pdf');
+                return (
+                  <li>
+                    <a
+                      class="cs__link"
+                      href={link.href}
+                      target={pdf ? '_blank' : undefined}
+                      rel="noopener noreferrer"
+                      data-astro-reload={pdf ? undefined : ''}
+                    >
+                      {link.label}
+                      <ExtArrow />
+                      {pdf && <span class="vh">(opens in a new tab)</span>}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           )
         }

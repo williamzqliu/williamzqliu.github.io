@@ -94,21 +94,22 @@ const liveLinks = links.filter((link) => link.href !== '#');
         {
           liveLinks.map((link) => {
             const external = link.href.startsWith('http');
+            // A PDF opens in a new tab, so the list stays where it was. Every
+            // other link opens in this one, so Back returns here; the reload
+            // flag keeps the router from fetching a page it cannot swap in.
+            const pdf = link.href.endsWith('.pdf');
             return (
               <li>
                 <a
                   class="prow__linkout"
                   href={link.href}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
+                  target={pdf ? '_blank' : undefined}
+                  rel={external || pdf ? 'noopener noreferrer' : undefined}
+                  data-astro-reload={external && !pdf ? '' : undefined}
                 >
                   {link.label}
-                  {external && (
-                    <>
-                      <ExtArrow />
-                      <span class="vh">(opens in a new tab)</span>
-                    </>
-                  )}
+                  {external && <ExtArrow />}
+                  {pdf && <span class="vh">(opens in a new tab)</span>}
                 </a>
               </li>
             );
