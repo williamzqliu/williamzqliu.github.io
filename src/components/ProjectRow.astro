@@ -72,6 +72,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
   <div
     class="prow__card"
     data-linked={href ? 'true' : undefined}
+    data-hoverable={href || comingSoon ? 'true' : undefined}
     data-nomedia={COVERS_ENABLED ? undefined : 'true'}
   >
     <div class="prow__body">
@@ -159,7 +160,9 @@ const liveLinks = links.filter((link) => link.href !== '#');
     gap: var(--sp-24);
   }
 
-  /* Only a card that leads somewhere behaves like one. */
+  /* Only a card that leads somewhere behaves like one. A coming-soon card
+     takes the hover (`data-hoverable`) so the list answers the same way all
+     the way down, but not the pointer: there is nothing to open yet. */
   .prow__card[data-linked] {
     cursor: pointer;
   }
@@ -399,7 +402,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
      different numbers: `--ease-out` decelerates, so the zoom reads as
      settling while the colour, a plain value change, arrives flat. Never
      `all`. */
-  .prow__card[data-linked] .prow__mediacol :global(.cover) {
+  .prow__card[data-hoverable] .prow__mediacol :global(.cover) {
     /* Not all the way. At full grayscale a cover reads as switched off; a
        fifth of its colour left in keeps it a picture that has not been
        arrived at yet, and the hover still has somewhere to travel. */
@@ -411,7 +414,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
 
   /* Touch has no hover to restore the colour, so there is nothing to mute. */
   @media (hover: none) {
-    .prow__card[data-linked] .prow__mediacol :global(.cover) {
+    .prow__card[data-hoverable] .prow__mediacol :global(.cover) {
       filter: none;
     }
   }
@@ -439,8 +442,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
      one place. Only colour, filter and transform move — nothing is added,
      resized or re-weighted. */
   @media (hover: hover) and (pointer: fine) {
-    .prow__card[data-linked][data-hovered] .prow__titletext,
-    :root:not([data-rowhover]) .prow__card[data-linked]:hover .prow__titletext {
+    .prow__card[data-hoverable][data-hovered] .prow__titletext,
+    :root:not([data-rowhover]) .prow__card[data-hoverable]:hover .prow__titletext {
       color: var(--accent);
       transition-duration: calc(var(--dur-hover-in) + 200ms);
     }
@@ -454,8 +457,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
        The asset never changes. A looping cover keeps looping — hover scales
        the same frame it was already showing and does not restart, swap or
        reveal anything. */
-    .prow__card[data-linked][data-hovered] .prow__mediacol :global(.cover),
-    :root:not([data-rowhover]) .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
+    .prow__card[data-hoverable][data-hovered] .prow__mediacol :global(.cover),
+    :root:not([data-rowhover]) .prow__card[data-hoverable]:hover .prow__mediacol :global(.cover) {
       filter: grayscale(0);
       transform: scale(1.1);
       transition-duration: calc(var(--dur-hover-in) + 200ms);
@@ -472,8 +475,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
   /* The colour change is the point and it stays; the 1.5% of movement does
      not. */
   @media (prefers-reduced-motion: reduce) {
-    .prow__card[data-linked][data-hovered] .prow__mediacol :global(.cover),
-    :root:not([data-rowhover]) .prow__card[data-linked]:hover .prow__mediacol :global(.cover) {
+    .prow__card[data-hoverable][data-hovered] .prow__mediacol :global(.cover),
+    :root:not([data-rowhover]) .prow__card[data-hoverable]:hover .prow__mediacol :global(.cover) {
       transform: none;
     }
   }
@@ -577,7 +580,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
       queued = false;
       if (x < 0) return;
       const el = document.elementFromPoint(x, y) as HTMLElement | null;
-      settle(el?.closest<HTMLElement>('.prow__card[data-linked]') ?? null);
+      settle(el?.closest<HTMLElement>('.prow__card[data-hoverable]') ?? null);
     };
 
     const schedule = () => {
