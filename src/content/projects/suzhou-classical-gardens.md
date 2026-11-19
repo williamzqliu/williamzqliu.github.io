@@ -249,7 +249,9 @@ For the vehicle, I chose a wooden tour boat and kept its bare wood. The name is 
   <figcaption>The home page on a laptop and a phone, and the boat livery as a photo mockup.</figcaption>
 </figure>
 
-The site sign is a row of eight freestanding, double-sided panels, each under a tiled roof above a band of lattice openwork. The first carries the title. The next six give the same text in Chinese, English, French, Spanish, Russian, and Arabic, each with its own lattice. The last is an empty round frame, planned for the bank of the pond in the Humble Administrator's Garden, where it frames the North Temple Pagoda.
+The site sign is a row of eight freestanding, double-sided panels, each under a tiled roof above a band of lattice openwork. The first carries the title. The next six give the same text in Chinese, English, French, Spanish, Russian, and Arabic, each with its own lattice.
+
+The last panel is an empty moon gate, with only the logo and the words "A garden within" below it. Where the other panels describe the gardens, this one frames part of them, the way the gardens' own moon gates and lattice windows frame a view. In the mockup at the top of this page, it stands nearest the viewer, and its circle takes in a weathered stone pillar against the gallery behind, so the scenery beyond the panel becomes part of the sign.
 
 <figure>
   <img
