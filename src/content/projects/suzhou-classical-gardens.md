@@ -64,7 +64,7 @@ For the wordmark, I redrew the H, O, U, A, and R, and set the letters and their 
     src="/media/suzhou-classical-gardens/lockup-bilingual.webp"
     alt="The bilingual lockup on a construction grid: the doorway mark under its eaves, SUZHOU CLASSICAL GARDENS in wide capitals, and the Chinese name below, with measurement lines and annotations."
     width="2400"
-    height="1553"
+    height="965"
     loading="lazy"
     decoding="async"
   />
@@ -106,7 +106,7 @@ Cinnabar appears once on each piece, as a single square or an L of three squares
 <figure>
   <img
     src="/media/suzhou-classical-gardens/patterns-3.webp"
-    alt="Five lattice patterns repeated as all-over fills, first as celadon line on rice white and then in pine and celadon color, two of them with a small cinnabar square."
+    alt="Five lattice patterns repeated as all-over fills, first as celadon line on rice white and then in pine, celadon, and rice color."
     width="2400"
     height="1553"
     loading="lazy"
@@ -144,24 +144,28 @@ The letterhead and the info sheet share one structure: a tiled roof across the t
 The envelope and the business card carry the same roof and lattice at smaller sizes.
 
 <figure>
-  <img
-    src="/media/suzhou-classical-gardens/envelope.webp"
-    alt="The front of a long envelope with a pine-green tiled roof along the top, the lockup and return address at the upper left, a celadon lattice strip down the left edge, a stamp at the upper right, and the recipient's address in capitals."
-    width="2400"
-    height="1042"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The front of the envelope.</figcaption>
-</figure>
-
-<figure>
-  <div class="media-pair">
+  <div class="media-pair" style="--pair-split: 2.303fr 1.749fr">
+    <img
+      src="/media/suzhou-classical-gardens/envelope.webp"
+      alt="The front of a long envelope with a pine-green tiled roof along the top, the lockup and return address at the upper left, a celadon lattice strip down the left edge, a stamp at the upper right, and the recipient’s address in capitals."
+      width="2400"
+      height="1042"
+      loading="lazy"
+      decoding="async"
+    />
     <img
       src="/media/suzhou-classical-gardens/card-front.webp"
       alt="The front of a business card: the bilingual lockup in rice white on pine green over a faint lattice."
       width="1240"
       height="709"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/suzhou-classical-gardens/envelope-back.webp"
+      alt="The back of the envelope: a pine-green tiled roof forms the flap above a row of lattice doors drawn in pine line, with two small cinnabar squares where the middle doors meet and a stone-gray base along the bottom."
+      width="2400"
+      height="1042"
       loading="lazy"
       decoding="async"
     />
@@ -174,7 +178,7 @@ The envelope and the business card carry the same roof and lattice at smaller si
       decoding="async"
     />
   </div>
-  <figcaption>The business card, front and back, at 105 × 60 mm.</figcaption>
+  <figcaption>The envelope on the left and the business card, at 105 × 60 mm, on the right, each with its front above its back.</figcaption>
 </figure>
 
 Four ads for *The New Yorker* promote a proposed exhibition of photographs and artifacts at the Museum of Fine Arts, Boston. Each one fills the page with a single lattice pattern and sets a photograph inside one of the pattern's own openings: an octagon, a plum blossom, a begonia, and a rectangle.
@@ -221,30 +225,28 @@ Four ads for *The New Yorker* promote a proposed exhibition of photographs and a
 
 The website's home page sets the title beside a begonia window on a celadon ground of begonia lattice. The window frames the North Temple Pagoda as seen from the Humble Administrator's Garden.
 
-<figure>
-  <img
-    src="/media/suzhou-classical-gardens/website.webp"
-    alt="The home page on a laptop and a phone: a celadon page with a faint begonia lattice, the title Classical Gardens of Suzhou on the left, and a begonia-shaped window on the right showing a pagoda beyond a garden pond."
-    width="2400"
-    height="1574"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The home page on a laptop and a phone.</figcaption>
-</figure>
-
 For the vehicle, I chose a wooden tour boat and kept its bare wood. The name is painted in rice white near one end of the hull, and a pine-green begonia plaque hangs at the other.
 
 <figure>
-  <img
-    src="/media/suzhou-classical-gardens/vehicle.webp"
-    alt="A weathered wooden tour boat moored on a canal in front of old houses, with the name painted on its hull and a small green plaque hanging from it."
-    width="2400"
-    height="1200"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>The boat livery, as a photo mockup.</figcaption>
+  <div class="media-pair" style="--pair-split: 1.525fr 2fr">
+    <img
+      src="/media/suzhou-classical-gardens/website.webp"
+      alt="The home page on a laptop and a phone: a celadon page with a faint begonia lattice, the title Classical Gardens of Suzhou on the left, and a begonia-shaped window on the right showing a pagoda beyond a garden pond."
+      width="2400"
+      height="1574"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/media/suzhou-classical-gardens/vehicle.webp"
+      alt="A weathered wooden tour boat moored on a canal in front of old houses, with the name painted on its hull and a small green plaque hanging from it."
+      width="2400"
+      height="1200"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption>The home page on a laptop and a phone, and the boat livery as a photo mockup.</figcaption>
 </figure>
 
 The site sign is a row of eight freestanding, double-sided panels, each under a tiled roof above a band of lattice openwork. The first carries the title. The next six give the same text in Chinese, English, French, Spanish, Russian, and Arabic, each with its own lattice. The last is an empty round frame, planned for the bank of the pond in the Humble Administrator's Garden, where it frames the North Temple Pagoda.
