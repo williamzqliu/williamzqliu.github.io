@@ -98,14 +98,6 @@
   --tone-dark-ink:    #6A6A62;
   --tone-light-ink:   #9A9A90;
   --tone-neutral-ink: #F2F0EA;
-
-  /* Text a reader is meant to read on a plate, such as a card's Coming soon.
-     The inks above are for working labels and sit at about 3:1; these clear
-     4.5:1 on their plate in both themes (the light plate dims to #DAD4C5 in
-     the dark one). */
-  --tone-dark-label:    #DCD4C3;
-  --tone-light-label:   #4B463C;
-  --tone-neutral-label: #14120C;
 }
 
 /* ---------- Type ---------- */

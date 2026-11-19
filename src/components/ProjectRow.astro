@@ -83,6 +83,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
         <p class="prow__meta">
           {figure && <span class="prow__index">{figure}</span>}
           <span class="prow__year">{year}</span>
+          {comingSoon && <span class="prow__status">Coming soon</span>}
         </p>
 
         <h3 class="prow__title">
@@ -137,7 +138,6 @@ const liveLinks = links.filter((link) => link.href !== '#');
     {COVERS_ENABLED && (
       <div class="prow__mediacol">
         <CoverMedia tone={tone} src={coverSrc} alt={coverAlt} quiet={comingSoon} />
-        {comingSoon && <p class="prow__status" data-tone={tone}>Coming soon</p>}
       </div>
     )}
   </div>
@@ -215,6 +215,16 @@ const liveLinks = links.filter((link) => link.href !== '#');
       flex: 0 0 auto;
       white-space: nowrap;
     }
+
+    /* A status label beside the year took the room the title needed and
+       broke it over two lines. Stacked under the year instead, right-aligned,
+       the column is only as wide as the label. A column's baseline is its
+       first item's, so the year still lines up with the title. */
+    .prow__head .prow__meta:has(.prow__status) {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--sp-8);
+    }
   }
 
   .prow__index {
@@ -232,6 +242,23 @@ const liveLinks = links.filter((link) => link.href !== '#');
     font-weight: var(--fw-medium);
     line-height: var(--lh-small);
     color: var(--text-3);
+  }
+
+  /* Work under way, said beside the year: it is the project's status, the
+     same kind of fact as when it was made, so it belongs in the line about
+     the project rather than on its picture. The mono register of the stack
+     chips, outlined rather than filled so it does not read as a fourth tool. */
+  .prow__status {
+    padding: 2px 6px;
+    border: var(--rule-hair) solid currentColor;
+    font-family: var(--font-mono);
+    font-weight: var(--fw-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--text-2);
   }
 
   /* Display face: project titles are one of the few places the character of
@@ -338,52 +365,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
      chips take, so the empty part reads as the space the image is about to
      grow into. */
   .prow__mediacol {
-    position: relative;
     overflow: hidden;
     background: var(--surface);
-  }
-
-  /* Work under way. The label sits in the frame's top-right corner in the
-     mono register the plate's working labels used. It carries the plate's own
-     colour as a ground, so it stays legible when a photograph sits behind it
-     rather than a flat plate, and a label ink that clears 4.5:1 on that
-     ground. The plate is locked to its tone, so the label follows the plate,
-     not the theme. Tucked closer into the corner on a phone, where the frame
-     is a third the width and the same label covers more of the picture. */
-  .prow__status {
-    position: absolute;
-    top: var(--sp-8);
-    right: var(--sp-8);
-    padding: 4px var(--sp-8);
-    border: var(--rule-hair) solid currentColor;
-    font-family: var(--font-mono);
-    font-weight: var(--fw-mono);
-    font-size: var(--fs-micro);
-    line-height: var(--lh-micro);
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-  }
-
-  @media (min-width: 640px) {
-    .prow__status {
-      top: var(--sp-16);
-      right: var(--sp-16);
-    }
-  }
-
-  .prow__status[data-tone='light'] {
-    color: var(--tone-light-label);
-    background: var(--tone-light);
-  }
-
-  .prow__status[data-tone='dark'] {
-    color: var(--tone-dark-label);
-    background: var(--tone-dark);
-  }
-
-  .prow__status[data-tone='neutral'] {
-    color: var(--tone-neutral-label);
-    background: var(--tone-neutral);
   }
 
   /* Grey at rest, the project's own colour on hover. Saturation at 0.82 was
