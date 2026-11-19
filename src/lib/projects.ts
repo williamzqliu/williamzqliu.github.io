@@ -199,6 +199,7 @@ const MAIN_ORDER = [
 
 // Newest first, except where two pairs are swapped by hand.
 const ARCHIVE_ORDER = [
+  'suzhou-classical-gardens',
   'not-always-more-for-more',
   'dont-skip-this-major',
   'dui-invisible-bill',
