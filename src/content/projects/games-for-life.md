@@ -14,11 +14,12 @@ stack:
   - WordPress
 links: {}
 cover:
-  # No artwork until the team has said what can be shown. The card draws a
-  # plain plate with Coming soon in its corner (see `comingSoon`).
+  # A stock photograph from the report's picture set (Adobe Stock 2209601997),
+  # cropped to 16:9 around the two players and their controllers. Coming soon
+  # stays in its corner, in the light plate's label ink: the corner is pale wall.
   wide: "/media/games-for-life/cover-wide.webp"
   tone: "light"
-  alt: ""
+  alt: "Two older adults on a sofa laughing as they play a video game, each holding a white controller, with a bookshelf behind them."
 ---
 <!-- No case study yet. The body stays empty so the card has no page to
      link to; see `comingSoon` in src/content.config.ts. -->
