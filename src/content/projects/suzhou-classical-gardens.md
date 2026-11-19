@@ -93,26 +93,14 @@ Cinnabar appears once on each piece, as a single square or an L of three squares
 
 <figure>
   <img
-    src="/media/suzhou-classical-gardens/patterns-1.webp"
-    alt="Seven tall lattice borders drawn in celadon line on rice white, labeled Qingxiang, Haitang, Bajiao, Shutiao, Bengzi, Chunzai, and Yiliang."
+    src="/media/suzhou-classical-gardens/patterns.webp"
+    alt="Seven tall lattice borders drawn in celadon line on rice white, labeled Qingxiang, Haitang, Bajiao, Shutiao, Bengzi, Chunzai, and Yiliang, above five of the same patterns repeated as all-over fills in pine, celadon, and rice."
     width="2400"
-    height="1553"
+    height="2173"
     loading="lazy"
     decoding="async"
   />
-  <figcaption>The seven patterns as borders.</figcaption>
-</figure>
-
-<figure>
-  <img
-    src="/media/suzhou-classical-gardens/patterns-3.webp"
-    alt="Five lattice patterns repeated as all-over fills, first as celadon line on rice white and then in pine, celadon, and rice color."
-    width="2400"
-    height="1553"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>Five of the patterns as all-over fills, in line and in color.</figcaption>
+  <figcaption>The seven patterns as borders, and five of them as all-over fills in color.</figcaption>
 </figure>
 
 ## Print
