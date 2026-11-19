@@ -82,8 +82,13 @@ const liveLinks = links.filter((link) => link.href !== '#');
       <div class="prow__head">
         <p class="prow__meta">
           {figure && <span class="prow__index">{figure}</span>}
-          <span class="prow__year">{year}</span>
-          {comingSoon && <span class="prow__status">Coming soon</span>}
+          {/* Work under way says so where the year would be: a year on a
+              project that is not finished reads as when it was done. */}
+          {comingSoon ? (
+            <span class="prow__status">Coming soon</span>
+          ) : (
+            <span class="prow__year">{year}</span>
+          )}
         </p>
 
         <h3 class="prow__title">
@@ -215,16 +220,6 @@ const liveLinks = links.filter((link) => link.href !== '#');
       flex: 0 0 auto;
       white-space: nowrap;
     }
-
-    /* A status label beside the year took the room the title needed and
-       broke it over two lines. Stacked under the year instead, right-aligned,
-       the column is only as wide as the label. A column's baseline is its
-       first item's, so the year still lines up with the title. */
-    .prow__head .prow__meta:has(.prow__status) {
-      flex-direction: column;
-      align-items: flex-end;
-      gap: var(--sp-8);
-    }
   }
 
   .prow__index {
@@ -244,7 +239,7 @@ const liveLinks = links.filter((link) => link.href !== '#');
     color: var(--text-3);
   }
 
-  /* Work under way, said beside the year: it is the project's status, the
+  /* Work under way, said in the year's place: it is the project's status, the
      same kind of fact as when it was made, so it belongs in the line about
      the project rather than on its picture. The mono register of the stack
      chips, outlined rather than filled so it does not read as a fourth tool. */

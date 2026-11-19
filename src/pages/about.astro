@@ -68,12 +68,19 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
           {
             portrait ? (
               <>
+                {/* A personal photograph, so the easy ways to keep a copy are
+                    switched off: no drag, no Save image in the context menu
+                    (script below), no long-press menu on iOS. A deterrent,
+                    not a lock: the browser still downloads the file to show
+                    it, and a screenshot still works. */}
                 <img
                   src={portrait}
                   alt="Zhuoqi Liu on the opening day of the MFA thesis exhibition, standing beside the project panels"
                   width="640"
                   height="800"
                   loading="lazy"
+                  draggable="false"
+                  data-protect
                 />
                 <figcaption>Opening day of my MFA thesis exhibition</figcaption>
               </>
@@ -156,6 +163,13 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
        later replacement at another ratio cannot break the column. */
     aspect-ratio: 4 / 5;
     object-fit: cover;
+  }
+
+  /* No long-press menu on iOS, no drag ghost, no selection highlight. */
+  .about__photo img[data-protect] {
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    user-select: none;
   }
 
   .about__photo figcaption {
@@ -280,3 +294,15 @@ const portrait = PORTRAIT_CANDIDATES.find((file) =>
     }
   }
 </style>
+
+<script>
+  // The portrait's context menu, the one place Save image as lives. Delegated
+  // to the document so it survives a client-side navigation back to this page,
+  // and scoped to marked images, so every other right-click on the site behaves
+  // as normal.
+  document.addEventListener('contextmenu', (event) => {
+    if ((event.target as HTMLElement | null)?.closest?.('img[data-protect]')) {
+      event.preventDefault();
+    }
+  });
+</script>
