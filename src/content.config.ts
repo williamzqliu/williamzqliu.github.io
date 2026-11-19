@@ -65,6 +65,12 @@ const projects = defineCollection({
        all. This is the narrower case: a file that builds, is edited locally,
        and is simply not ready to be read yet. */
     published: z.boolean().default(false),
+    /* A card for work that is under way and has no case study yet. The row
+       shows on the homepage and /work like any other, with a plain plate in
+       place of the cover and `Coming soon` in its top-right corner. Leave the
+       body empty: with no prose there is no page and no link, so the card
+       cannot lead to a page that is not there. */
+    comingSoon: z.boolean().default(false),
     /* The long-form case study is the default: a numbered narrative with a
        contents rail beside it. A small visual project is the other shape —
        show the artifact, say how to read it, show enough iteration to prove

@@ -89,6 +89,7 @@ const projects = await selectedProjects();
               coverSrc={shippedMedia(project.data.cover.wide)}
               coverAlt={project.data.cover.alt}
               links={cardLinks(project)}
+              comingSoon={project.data.comingSoon}
             />
           ))
         }

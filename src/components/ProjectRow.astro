@@ -39,10 +39,24 @@ interface Props {
   links: ProjectLink[];
   /** Passed to KeywordTags as `emphasise`: more prominent stack chips. */
   emphasiseStack?: boolean;
+  /** Work under way with no case study yet: a quiet plate and a corner label. */
+  comingSoon?: boolean;
 }
 
-const { index, title, year, blurb, stack, href, tone, coverSrc, coverAlt, links, emphasiseStack } =
-  Astro.props;
+const {
+  index,
+  title,
+  year,
+  blurb,
+  stack,
+  href,
+  tone,
+  coverSrc,
+  coverAlt,
+  links,
+  emphasiseStack,
+  comingSoon = false,
+} = Astro.props;
 const figure = index === undefined ? undefined : String(index).padStart(2, '0');
 
 // `#` is a placeholder, not a destination — do not ship it as a link.
@@ -121,7 +135,8 @@ const liveLinks = links.filter((link) => link.href !== '#');
     {/* Clips the cover so its hover scale stays inside the frame. */}
     {COVERS_ENABLED && (
       <div class="prow__mediacol">
-        <CoverMedia tone={tone} src={coverSrc} alt={coverAlt} />
+        <CoverMedia tone={tone} src={coverSrc} alt={coverAlt} quiet={comingSoon} />
+        {comingSoon && <p class="prow__status" data-tone={tone}>Coming soon</p>}
       </div>
     )}
   </div>
@@ -320,8 +335,40 @@ const liveLinks = links.filter((link) => link.href !== '#');
      chips take, so the empty part reads as the space the image is about to
      grow into. */
   .prow__mediacol {
+    position: relative;
     overflow: hidden;
     background: var(--surface);
+  }
+
+  /* Work under way. The label sits in the frame's top-right corner, in the
+     plate's own ink and the mono register the plate's working labels used, so
+     it reads as a note on the frame rather than a badge laid over it. The
+     plate is locked to its tone, so the label follows the plate, not the
+     theme. */
+  .prow__status {
+    position: absolute;
+    top: var(--sp-16);
+    right: var(--sp-16);
+    padding: 4px var(--sp-8);
+    border: var(--rule-hair) solid currentColor;
+    font-family: var(--font-mono);
+    font-weight: var(--fw-mono);
+    font-size: var(--fs-micro);
+    line-height: var(--lh-micro);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .prow__status[data-tone='light'] {
+    color: var(--tone-light-label);
+  }
+
+  .prow__status[data-tone='dark'] {
+    color: var(--tone-dark-label);
+  }
+
+  .prow__status[data-tone='neutral'] {
+    color: var(--tone-neutral-label);
   }
 
   /* Grey at rest, the project's own colour on hover. Saturation at 0.82 was

@@ -182,6 +182,8 @@ const SELECTED_ORDER = [
   'barboard',
   'barvision',
   'citing-less-critically',
+  // Under way, no case study yet: a coming-soon card at the end of the list.
+  'games-for-life',
 ];
 
 const MAIN_ORDER = [
@@ -192,6 +194,8 @@ const MAIN_ORDER = [
   'ai-ethics-network',
   'ripples-into-silence',
   'tod-boston',
+  // Coming soon, after the last of the 2026 projects.
+  'games-for-life',
   'whats-going-on-in-there',
   'comgrand',
   'melovision',

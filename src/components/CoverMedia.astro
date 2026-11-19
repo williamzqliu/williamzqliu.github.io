@@ -28,9 +28,13 @@ interface Props {
   /** Used below 640px when the wide composition would crop badly. */
   mobileSrc?: string;
   alt?: string;
+  /** Draw the plate without its working labels, for a card that is public
+      before its artwork exists. */
+  quiet?: boolean;
 }
 
-const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = '' } = Astro.props;
+const { tone, ratio = 'responsive', label = 'cover loop', src, mobileSrc, alt = '', quiet = false } =
+  Astro.props;
 
 /* A loop is a cover that happens to move, not a different kind of thing, so
    it is the same `src` field and the extension decides the element. It plays
@@ -56,6 +60,8 @@ const loop = /\.(mp4|webm)$/i.test(src ?? '');
           {mobileSrc && <source media="(max-width: 639px)" srcset={mobileSrc} />}
           <img src={src} alt={alt} loading="lazy" decoding="async" />
         </picture>
+      ) : quiet ? (
+        <div class="cover__placeholder" />
       ) : (
         <div class="cover__placeholder">
           <span>{label}</span>
